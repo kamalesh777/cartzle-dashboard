@@ -12,7 +12,12 @@ const Header = () => {
   const x = {
     name: 'kamalesh',
   }
-  return <><div>Header</div><App open={true} /></>
+  return (
+    <>
+      <div>Header</div>
+      <App open={true} />
+    </>
+  )
 }
 
 export default Header
