@@ -1,7 +1,7 @@
-import React from "react";
-import { Layout } from "antd";
+import React from 'react'
+import { Layout } from 'antd'
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Sider, Content } = Layout
 
 const App = () => (
   <Layout>
@@ -12,5 +12,5 @@ const App = () => (
       <Footer>Footer</Footer>
     </Layout>
   </Layout>
-);
-export default App;
+)
+export default App
