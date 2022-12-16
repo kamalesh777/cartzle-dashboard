@@ -41,6 +41,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/explicit-function-return-type': 2,
     'import/no-duplicates': 2,
     'import/no-unresolved': 2,
     'import/named': 2,
@@ -149,6 +150,21 @@ module.exports = {
     'keyword-spacing': [2, { before: true, after: true }],
     'new-cap': [2, { newIsCap: true, capIsNew: false }],
     'new-parens': 2,
-    'no-array-constructor': 2
-  }
+    'no-array-constructor': 2,
+    "@typescript-eslint/explicit-function-return-type": "error",
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true
+          }
+        ]
+      }
+    }
+  ]
 }

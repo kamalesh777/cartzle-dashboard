@@ -3,7 +3,7 @@ import { Layout } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const App: React.FC = () => (
+const App = () => (
   <Layout>
     <Sider>Sider</Sider>
     <Layout>
