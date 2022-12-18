@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 
 const { Header, Footer, Sider, Content } = Layout
 
-const App = () => (
+const App = (): JSX.Element => (
   <Layout>
     <Sider>Sider</Sider>
     <Layout>
