@@ -26,7 +26,6 @@
     "plugins": [
       "react",
       "jsx-a11y",
-      "simple-import-sort",
       "prettier",
       "autofix",
       "@typescript-eslint",
@@ -47,8 +46,6 @@
           "prettier"
         ],
         "rules": {
-          "simple-import-sort/imports": "error",
-          "simple-import-sort/exports": "error",
           "react/prop-types": "off",
           "@typescript-eslint/no-unused-vars": "error",
           "no-console": "error",
