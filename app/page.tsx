@@ -15,7 +15,7 @@ import { store } from 'src/store'
 export const metadata = {
   title: metaTitle('Home'),
   generator: 'A Ecommerce platform for daily shopping',
-  applicationName: process.env.NEXT_PUBLIC_API_BRAND_NAME,
+  applicationName: process.env.NEXT_PUBLIC_BRAND_NAME,
   keywords: ['Next.js', 'React', 'JavaScript'],
   authors: [{ name: 'Kamalesh Maity' }, { name: 'Kamalesh' }],
   // creator: 'Kamalesh Maity',

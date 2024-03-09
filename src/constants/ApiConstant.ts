@@ -27,5 +27,4 @@ export const API_STAGES_CREATE = '/web-service-srv/stages/create'
 export const API_STAGES_UPDATE = '/web-service-srv/stages/update'
 export const API_STAGES_DELETE = '/web-service-srv/stages/delete'
 
-
 export const API_BASE_URL = 'http://localhost:3000'

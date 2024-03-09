@@ -73,6 +73,7 @@ export const hexToRGBA = (hexOrName: string, alpha = 1): string | null => {
 
   // Validate alpha value
   if (alpha < 0 || alpha > 1) {
+    // eslint-disable-next-line no-console
     console.error('Alpha value must be between 0 and 1')
     return null
   }
@@ -89,6 +90,7 @@ interface errTypes {
     }
   }
 }
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const errorMsg = (err: errTypes) => err.response.data
 
-export const metaTitle = (title: string): string => `${title} | ${process.env.NEXT_PUBLIC_API_BRAND_NAME}`
+export const metaTitle = (title: string): string => `${title} | ${process.env.NEXT_PUBLIC_BRAND_NAME}`
