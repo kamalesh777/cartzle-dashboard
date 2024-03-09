@@ -1,10 +1,50 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/layout/*": ["src/layout/*"],
-      "@/view/*": ["src/view/*"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@scss/*": [
+        "src/assets/scss/*"
+      ],
+      "@js/*": [
+        "src/assets/js/*"
+      ],
+      "@configs/*": [
+        "src/configs/*"
+      ],
+      "@api/*": [
+        "src/pages/api/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@components/common/*": [
+        "src/components/Common/*"
+      ],
+      "@node_modules/*": [
+        "node_modules/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@hook/*": [
+        "src/hook/*"
+      ]
     },
     "target": "es5",
     "lib": [
@@ -14,7 +54,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -23,12 +63,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "src",
+    "__tests__",
+    "next.config.js",
+    "app",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
