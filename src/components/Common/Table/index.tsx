@@ -1,6 +1,6 @@
-import { type AnyObject } from 'antd/es/_util/type'
-
 import React from 'react'
+
+import { type AnyObject } from 'antd/es/_util/type'
 
 import TableWrapper, { type CustomTableProps } from '@components/Wrapper/TableWrapper'
 import EmptyContent, { type EmptyContentPropsTypes } from '@components/common/Empty/EmptyContent'

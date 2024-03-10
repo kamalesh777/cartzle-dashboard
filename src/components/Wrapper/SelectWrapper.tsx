@@ -1,7 +1,6 @@
-import { Select } from 'antd'
 import React from 'react'
 
-import type { SelectProps } from 'antd'
+import { Select, type SelectProps } from 'antd'
 
 interface customSelectProps extends SelectProps {
   dummy?: string

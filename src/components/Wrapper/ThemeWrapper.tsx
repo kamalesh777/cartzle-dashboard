@@ -1,13 +1,14 @@
 'use client'
+import React, { type PropsWithChildren } from 'react'
+
 import { ConfigProvider } from 'antd'
-import React from 'react'
 import { useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
 import { hexToRGBA } from '@utils/commonFunctions'
 
 // eslint-disable-next-line no-duplicate-imports
-import type { PropsWithChildren } from 'react'
+
 import type { RootState } from 'src/store'
 
 const ThemeWrapper = (props: PropsWithChildren): JSX.Element => {

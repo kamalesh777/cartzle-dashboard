@@ -1,4 +1,5 @@
 import React from 'react'
+
 import ContentLoader from 'react-content-loader'
 
 interface PropTypes {
@@ -12,7 +13,7 @@ interface PropTypes {
 export function TableContentLoaderWithProps(
   { columnWidth, rowCounts, rowHeight, className, radius = 15 }: PropTypes,
   props: React.PropsWithChildren,
-) {
+): JSX.Element {
   const rows = rowCounts || 5
   const height = rowHeight || 50
   let spaceValue = 0

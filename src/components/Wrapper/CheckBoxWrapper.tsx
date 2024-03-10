@@ -1,7 +1,6 @@
-import { Checkbox } from 'antd'
 import React from 'react'
 
-import type { CheckboxProps } from 'antd'
+import { Checkbox, type CheckboxProps } from 'antd'
 
 interface customCheckboxProps extends CheckboxProps {
   label?: string

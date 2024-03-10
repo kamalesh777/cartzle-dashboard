@@ -1,6 +1,6 @@
-import { Table, type TableProps } from 'antd'
-
 import React from 'react'
+
+import { Table, type TableProps } from 'antd'
 
 import type { AnyObject } from 'antd/es/_util/type'
 

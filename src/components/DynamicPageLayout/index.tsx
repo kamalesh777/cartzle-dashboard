@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from 'react'
+
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Anchor, Button, Col, Menu, Row, Tag } from 'antd'
 
-import { useRouter } from 'next/navigation'
-
-import React, { useEffect, useState } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@components/Common/NavLink'
 import sidenavData from '@constants/menuData.json'
@@ -29,7 +29,7 @@ interface menuItems {
   title?: string
   breadcrumb?: boolean
   notification?: number
-  pagemenu?: pageMenuItems[]
+  submenu?: pageMenuItems[]
 }
 
 interface propTypes {
@@ -53,10 +53,12 @@ const DynamicPageLayout = ({
   customTitle,
   goBackUrl,
 }: propTypes): JSX.Element => {
+  const pathname = usePathname()
   const router = useRouter()
-  const firstIndexValue = router.asPath.split('/')[1]
+
+  const firstIndexValue = pathname.split('/')[1]
   // eslint-disable-next-line no-unused-vars
-  const currentPath = router.asPath.split('/').at(-1)
+  const currentPath = pathname.split('/').at(-1)
 
   const [pageMenu, setPageMenu] = useState<menuItems[]>([])
   const [title, setTitle] = useState<string>('')
@@ -68,8 +70,8 @@ const DynamicPageLayout = ({
   const getRouteSpecificMenu = (routeName: string): void => {
     const menuObj = sidenavData.find(obj => obj.key === routeName)
     // eslint-disable-next-line no-prototype-builtins
-    if (menuObj?.pagemenu != null) {
-      setPageMenu([...menuObj.pagemenu, ...hasStaticPageMenuItem])
+    if (menuObj?.submenu != null) {
+      setPageMenu([...menuObj.submenu, ...hasStaticPageMenuItem])
     }
     // set the title of found object
     menuObj != null && setTitle(menuObj.title)

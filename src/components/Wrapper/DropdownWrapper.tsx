@@ -1,7 +1,6 @@
-import { Dropdown } from 'antd'
 import React from 'react'
 
-import type { DropdownProps } from 'antd'
+import { Dropdown, type DropdownProps } from 'antd'
 
 interface CustomDropdownProps extends DropdownProps {
   label?: string

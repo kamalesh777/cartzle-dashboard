@@ -1,5 +1,7 @@
+import swr from 'swr'
+
+// eslint-disable-next-line import/order
 import API from '@services/API'
-import useSWR from 'swr'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function useFetch(apiUrl: string) {
@@ -13,7 +15,7 @@ function useFetch(apiUrl: string) {
       return err
     }
   }
-  const { data, error, isLoading = true } = useSWR(apiUrl, fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading = true } = swr(apiUrl, fetcher, { revalidateOnFocus: false })
 
   return {
     results: data?.results,

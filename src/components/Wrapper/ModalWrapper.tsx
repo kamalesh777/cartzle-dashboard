@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/named
-import { Modal, type ModalProps } from 'antd'
 import React from 'react'
+
+import { Modal, type ModalProps } from 'antd'
 
 // interface heightRef {
 //   clientHeight: number

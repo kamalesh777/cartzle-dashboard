@@ -1,7 +1,8 @@
+import React, { useEffect } from 'react'
+
 import Icon, * as IconObj from '@ant-design/icons'
 import { Layout, Menu, Tag } from 'antd'
 import { usePathname } from 'next/navigation'
-import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink } from '@components/Common/NavLink'

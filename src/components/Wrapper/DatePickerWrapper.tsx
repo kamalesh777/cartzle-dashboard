@@ -1,9 +1,8 @@
-import { DatePicker } from 'antd'
-
 import React from 'react'
 
-import type { DatePickerProps } from 'antd'
+import { DatePicker, type DatePickerProps } from 'antd'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CustomDatePickerProps {
   // Add any additional props you want to define here
 }

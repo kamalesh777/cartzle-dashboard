@@ -1,5 +1,6 @@
-import { Tag, type TagProps } from 'antd'
 import React from 'react'
+
+import { Tag, type TagProps } from 'antd'
 
 interface customTagProps extends TagProps {
   label?: string

@@ -1,7 +1,6 @@
-import { Space } from 'antd'
 import React from 'react'
 
-import type { SpaceProps } from 'antd'
+import { Space, type SpaceProps } from 'antd'
 
 interface customRadioProps extends SpaceProps {
   label?: string

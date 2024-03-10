@@ -90,7 +90,7 @@
               "error",
               {
                 "groups": [
-                  ["builtin", "external"],
+                  ["external", "builtin"],
                   "internal",
                   ["parent", "sibling", "index"],
                   "object",
@@ -100,10 +100,12 @@
                 "alphabetize": { "order": "asc" },
                 "pathGroups": [
                   {
-                    "pattern": "@/**",
-                    "group": "internal"
+                    "pattern": "react",
+                    "group": "builtin",
+                    "position": "before"
                   }
-                ]
+                ],
+                "pathGroupsExcludedImportTypes": ["react"]
               }
             ],
             "no-restricted-imports": [

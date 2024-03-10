@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React from 'react'
+
 import { FrownOutlined } from '@ant-design/icons'
 import { Col, Row } from 'antd'
-import React from 'react'
 
 import NextImage from '@components/NextImage'
 

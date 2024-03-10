@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { Skeleton } from 'antd'
 import React, { type JSXElementConstructor, type ReactElement } from 'react'
+
+import { Skeleton } from 'antd'
 import ContentLoader from 'react-content-loader'
 
 interface Props {

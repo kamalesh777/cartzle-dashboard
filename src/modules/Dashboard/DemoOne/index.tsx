@@ -1,6 +1,7 @@
 'use client'
-import { Row, Card, Col } from 'antd'
 import React from 'react'
+
+import { Row, Card, Col } from 'antd'
 import { useDispatch } from 'react-redux'
 
 import { ButtonWrapper } from '@components/Wrapper'
