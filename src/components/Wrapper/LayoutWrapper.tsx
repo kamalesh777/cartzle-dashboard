@@ -1,12 +1,10 @@
 'use client'
-import useDevice from '@hook/useDevice'
 import { Drawer } from 'antd'
-import React, { useState } from 'react'
-// eslint-disable-next-line no-duplicate-imports
-import type { ReactNode } from 'react'
+import React, { useState, type ReactNode } from 'react'
 
 import HeaderNav from '@components/Header/HeaderNav'
 import SideNav from '@components/Sidenav/SideNav'
+import useDevice from '@hook/useDevice'
 
 interface LayoutProps {
   children: ReactNode

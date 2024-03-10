@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 interface NavLinkProps {
   href: string
@@ -9,19 +9,11 @@ interface NavLinkProps {
   activeClassName?: string
 }
 
-export function NavLink ({
-  href,
-  exact = false,
-  children,
-  className = '',
-  activeClassName = ''
-}: NavLinkProps): JSX.Element {
-  const { pathname } = useRouter()
+export function NavLink({ href, exact = false, children, className = '', activeClassName = '' }: NavLinkProps): JSX.Element {
+  const pathname = usePathname()
   const isActive = exact ? pathname === href : pathname.startsWith(href)
-
-  const combinedClassName = isActive
-    ? `${className} ${activeClassName}`
-    : className
+  console.log('==pathname', pathname)
+  const combinedClassName = isActive ? `${className} ${activeClassName}` : className
 
   return (
     <Link href={href} passHref legacyBehavior>

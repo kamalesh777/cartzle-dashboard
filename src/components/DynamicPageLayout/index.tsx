@@ -1,7 +1,7 @@
 import { NavLink } from '@components/Common/NavLink'
 import sidenavData from '@constants/menuData.json'
 import { Anchor, Button, Col, Menu, Row, Tag } from 'antd'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.css'

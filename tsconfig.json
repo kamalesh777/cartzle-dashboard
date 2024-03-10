@@ -44,6 +44,9 @@
       ],
       "@hook/*": [
         "src/hook/*"
+      ],
+      "@app/*": [
+        "app/*"
       ]
     },
     "target": "es5",

@@ -3,14 +3,13 @@ import '@styles/utility-class.scss'
 import '@styles/color.scss'
 import '@styles/reset.scss'
 import '@styles/globals.scss'
+import StoreProvider from '@app/StoreProvider'
 import React from 'react'
-import { Provider } from 'react-redux'
-import { RootStyleRegistry } from './RootStyle'
-import type { AppProps } from 'next/app'
+
 import { LayoutWrapper } from '@components/Wrapper'
 import ThemeWrapper from '@components/Wrapper/ThemeWrapper'
+import DashboardComponent from '@modules/Dashboard'
 import { metaTitle } from '@utils/commonFunctions'
-import { store } from 'src/store'
 
 export const metadata = {
   title: metaTitle('Home'),
@@ -27,27 +26,21 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ Component, pageProps }: AppProps): JSX.Element {
-  const authURL = false
+export default function RootLayout({}): JSX.Element {
+  const isAuth = true
   return (
-    <html lang="en">
-      <RootStyleRegistry>
-        <body>
-          <Provider store={store}>
-            {authURL ? (
-              <ThemeWrapper>
-                <LayoutWrapper>
-                  <Component {...pageProps} />
-                </LayoutWrapper>
-              </ThemeWrapper>
-            ) : (
-              <ThemeWrapper>
-                <Component {...pageProps} />
-              </ThemeWrapper>
-            )}
-          </Provider>
-        </body>
-      </RootStyleRegistry>
-    </html>
+    <StoreProvider>
+      {isAuth ? (
+        <ThemeWrapper>
+          <LayoutWrapper>
+            <DashboardComponent />
+          </LayoutWrapper>
+        </ThemeWrapper>
+      ) : (
+        <ThemeWrapper>
+          <DashboardComponent />
+        </ThemeWrapper>
+      )}
+    </StoreProvider>
   )
 }

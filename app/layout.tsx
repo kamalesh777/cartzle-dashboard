@@ -1,6 +1,13 @@
-import React from 'react'
-import DashboardComponent from '@modules/Dashboard'
+import React, { PropsWithChildren } from 'react'
 
-const IndexLayout = (): JSX.Element => <DashboardComponent />
+import { RootStyleRegistry } from './RootStyle'
+
+const IndexLayout = ({ children }: PropsWithChildren): JSX.Element => (
+  <html lang="en">
+    <RootStyleRegistry>
+      <body>{children}</body>
+    </RootStyleRegistry>
+  </html>
+)
 
 export default IndexLayout

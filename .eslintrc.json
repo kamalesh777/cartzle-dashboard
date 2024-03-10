@@ -89,24 +89,22 @@
             ],
             "import/order": [
               "error",
-              {        
+              {
                 "groups": [
-                  "builtin",
-                  "external",
-                  "parent",
-                  "sibling",
-                  "index",
-                  "object",   
+                  ["builtin", "external"],
+                  "internal",
+                  ["parent", "sibling", "index"],
+                  "object",
                   "type"
                 ],
+                "newlines-between": "always-and-inside-groups",
+                "alphabetize": { "order": "asc" },
                 "pathGroups": [
                   {
-                    "pattern": "@/**/**",
-                    "group": "parent",
-                    "position": "before"
+                    "pattern": "@/**",
+                    "group": "internal"
                   }
-                ],
-                "alphabetize": { "order": "asc" }
+                ]
               }
             ],
             "no-restricted-imports": [
