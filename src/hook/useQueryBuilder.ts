@@ -16,7 +16,8 @@ const useQueryBuilder = ({ page, search, where_clause, sort, sort_order, show }:
   // function will take where_clause as params will return with where_fields and where_values
   const whereClauseString = (obj: Record<string, unknown>): string => {
     // below line will return array after filtering undefinde, empty string and null value
-    const query = obj != null ? Object.entries(obj).filter(item => item[1] !== undefined && item[1] !== '' && item[1] !== null) : []
+    const query =
+      obj != null ? Object.entries(obj).filter(item => item[1] !== undefined && item[1] !== '' && item[1] !== null) : []
     const queryConvertToObj = query.length > 0 && Object.fromEntries(query)
     const keysArr = Object.keys(queryConvertToObj)
     const valueArr = Object.values(queryConvertToObj)
@@ -24,10 +25,10 @@ const useQueryBuilder = ({ page, search, where_clause, sort, sort_order, show }:
   }
 
   useEffect(() => {
-    const formattedSearch = (search != null && search !== '') ? `search="${search}"` : ''
+    const formattedSearch = search != null && search !== '' ? `search="${search}"` : ''
     const formattedWhereClause = where_clause != null ? whereClauseString(where_clause) : ''
-    const formattedSort = (sort != null && sort !== '') ? `sort="${sort}"` : ''
-    const formattedSortOrder = (sort_order != null && sort_order !== '') ? `sort_order="${sort_order}"` : ''
+    const formattedSort = sort != null && sort !== '' ? `sort="${sort}"` : ''
+    const formattedSortOrder = sort_order != null && sort_order !== '' ? `sort_order="${sort_order}"` : ''
 
     const queryParams = []
     if (page !== 0) queryParams.push(`page=${page}`)

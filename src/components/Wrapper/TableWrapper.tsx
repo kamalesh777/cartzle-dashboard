@@ -1,6 +1,8 @@
 import { Table, type TableProps } from 'antd'
-import type { AnyObject } from 'antd/es/_util/type'
+
 import React from 'react'
+
+import type { AnyObject } from 'antd/es/_util/type'
 
 // type AnyObject = Record<string, unknown>
 
@@ -10,13 +12,19 @@ export interface CustomTableProps<T> extends TableProps<T> {
 
 const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Element => {
   const { columns, ...resProps } = props
-  const tableColumns = columns?.map((item) => {
-    return ({
+  const tableColumns = columns?.map(item => {
+    return {
       ...item,
-      ellipsis: item.ellipsis ?? true
-    })
+      ellipsis: item.ellipsis ?? true,
+    }
   })
-  return <Table<T> {...resProps} columns={tableColumns} className={`common-table-height table-pagination-position ${props.className}`} />
+  return (
+    <Table<T>
+      {...resProps}
+      columns={tableColumns}
+      className={`common-table-height table-pagination-position ${props.className}`}
+    />
+  )
 }
 
 export default TableWrapper

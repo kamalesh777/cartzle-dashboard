@@ -14,8 +14,8 @@ import SelectWrapper from './SelectWrapper'
 import TableWrapper from './TableWrapper'
 import TagWrapper from './TagWrapper'
 import TooltipWrapper from './TooltipWrapper'
-import UploadWrapper from './UploadWrapper'
 import URLWrapper from './URLWrapper'
+import UploadWrapper from './UploadWrapper'
 
 export {
   ButtonWrapper,
@@ -35,5 +35,5 @@ export {
   TagWrapper,
   TooltipWrapper,
   UploadWrapper,
-  URLWrapper
+  URLWrapper,
 }

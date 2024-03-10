@@ -1,14 +1,16 @@
 import { BellOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from '@ant-design/icons'
-import type { MenuProps } from 'antd'
-import { Avatar, Badge, Button, Col, Divider, Dropdown, Layout, Row, Typography } from 'antd'
+
+import { Avatar, Badge, Button, Col, Divider, Dropdown, Layout, Row, Typography, type MenuProps } from 'antd'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
+
 import useDevice from 'src/hook/useDevice'
+
 const { Header } = Layout
 
-const {Text} = Typography
+const { Text } = Typography
 
-// const items: MenuProps['items'] = [
+// const items: MenuProps['items'] = [0000000
 //   {
 //     key: '1',
 //     label: (
@@ -45,70 +47,60 @@ const {Text} = Typography
 //   }
 // ]
 
-
-
 interface PropTypes {
-  collapsed: boolean;
-  setCollapsed: (param: boolean) => void;
-  marginWidth: number;
-  setOpenDrawer: (param: boolean) => void;
+  collapsed: boolean
+  setCollapsed: (param: boolean) => void
+  marginWidth: number
+  setOpenDrawer: (param: boolean) => void
 }
-const HeaderNav = ({
-  collapsed,
-  setCollapsed,
-  marginWidth,
-  setOpenDrawer,
-}: PropTypes): JSX.Element => {
+const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: PropTypes): JSX.Element => {
+  const { isMobileDevice } = useDevice()
 
-  const { isMobileDevice } = useDevice();
-
-  const showDrawer = () => {
-    setOpenDrawer(true);
-  };
+  const showDrawer = (): void => {
+    setOpenDrawer(true)
+  }
 
   const responsiveMenu = [
-  {
-    key: "analytics",
-    label: (
-      <Link target="new" href={`/analytics`}>
-        <Text>Analytics</Text>
-      </Link>
-    ),
-  },
-  {
-    key: "assign",
-    label: (
-      <Link target="new" href={`/assign`}>
-        <Text>Assign</Text>
-      </Link>
-    ),
-  },
-  {
-    key: "request",
-    label: (
-      <Link target="new" href={`/request`}>
-        <Text>Request</Text>
-      </Link>
-    ),
-  },
-];
-const menuItems: MenuProps['items'] = [
-  {
-    key: 'profile',
-    label: <Link target='new' href={`/profile`}>
-      <p className="font-weight-normal pl-2">My Account</p>
-    </Link>
-  },
-  ...(isMobileDevice ? responsiveMenu : []),
-  {
-    key: 'sign-out',
-    label: (
-      <p className='pl-2'>
-        Sign Out
-      </p>
-    ),
-  }
-]
+    {
+      key: 'analytics',
+      label: (
+        <Link target="new" href={`/analytics`}>
+          <Text>Analytics</Text>
+        </Link>
+      ),
+    },
+    {
+      key: 'assign',
+      label: (
+        <Link target="new" href={`/assign`}>
+          <Text>Assign</Text>
+        </Link>
+      ),
+    },
+    {
+      key: 'request',
+      label: (
+        <Link target="new" href={`/request`}>
+          <Text>Request</Text>
+        </Link>
+      ),
+    },
+  ]
+  const menuItems: MenuProps['items'] = [
+    {
+      key: 'profile',
+      label: (
+        <Link target="new" href={`/profile`}>
+          <p className="font-weight-normal pl-2">My Account</p>
+        </Link>
+      ),
+    },
+    ...(isMobileDevice ? responsiveMenu : []),
+    {
+      key: 'sign-out',
+      label: <p className="pl-2">Sign Out</p>,
+    },
+  ]
 
   return (
     <Header
@@ -117,21 +109,19 @@ const menuItems: MenuProps['items'] = [
       }}
       className="bg-white fix-header"
     >
-      <Row align="middle" className='w-100'>
+      <Row align="middle" className="w-100">
         <Col span={12} md={12}>
           <div className="header-left-panel">
             <Button
               className="text-default"
               type="link"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() =>
-                isMobileDevice ? showDrawer() : setCollapsed(!collapsed)
-              }
+              onClick={() => (isMobileDevice ? showDrawer() : setCollapsed(!collapsed))}
             />
             <Button type="text" icon={<SearchOutlined />} />
             {!isMobileDevice && (
               <div className="header-menu-list ms-2">
-                {responsiveMenu.map((item) => (
+                {responsiveMenu.map(item => (
                   <span key={item.key}>{item.label}</span>
                 ))}
               </div>
@@ -141,22 +131,14 @@ const menuItems: MenuProps['items'] = [
         <Col span={12} md={12}>
           <div className="header-right-panel d-flex justify-content-end align-items-center">
             <div className="d-flex align-items-center">
-              <Dropdown
-                menu={{ items: menuItems }}
-                trigger={["click"]}
-                placement="bottomRight"
-              >
+              <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
                 <Badge count={1} size="small">
                   <BellOutlined className="font-19 header-nav-icon ms-2 icon-color cursor-pointer" />
                 </Badge>
               </Dropdown>
             </div>
             <Divider type="vertical" className="mx-4 h-36" />
-            <Dropdown
-              menu={{ items: menuItems }}
-              trigger={["click", "hover"]}
-              placement="bottomRight"
-            >
+            <Dropdown menu={{ items: menuItems }} trigger={['click', 'hover']} placement="bottomRight">
               <div className="d-flex align-items-center cursor-pointer">
                 <div className="profile-nav d-flex align-items-center">
                   <Avatar
@@ -170,7 +152,7 @@ const menuItems: MenuProps['items'] = [
         </Col>
       </Row>
     </Header>
-  );
-};
+  )
+}
 
 export default HeaderNav

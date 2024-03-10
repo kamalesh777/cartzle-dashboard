@@ -36,14 +36,17 @@
       "@node_modules/*": [
         "node_modules/*"
       ],
-      "@redux/*": [
-        "src/redux/*"
+      "@store/*": [
+        "src/store/*"
       ],
       "@styles/*": [
         "styles/*"
       ],
       "@hook/*": [
         "src/hook/*"
+      ],
+      "@services/*": [
+        "src/services/*"
       ],
       "@app/*": [
         "app/*"

@@ -1,42 +1,45 @@
-import { NavLink } from '@components/Common/NavLink'
-import sidenavData from '@constants/menuData.json'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Anchor, Button, Col, Menu, Row, Tag } from 'antd'
+
 import { useRouter } from 'next/navigation'
+
 import React, { useEffect, useState } from 'react'
 
+import { NavLink } from '@components/Common/NavLink'
+import sidenavData from '@constants/menuData.json'
+
 import styles from './style.module.css'
-import { ArrowLeftOutlined, LeftOutlined } from "@ant-design/icons";
 
 interface pageMenuItems {
   // label: string
-  key: string;
-  path?: string;
-  breadcrumb?: boolean;
-  title?: string;
-  herf?: string;
-  hasDivider?: boolean;
-  notification?: number;
+  key: string
+  path?: string
+  breadcrumb?: boolean
+  title?: string
+  herf?: string
+  hasDivider?: boolean
+  notification?: number
 }
 interface menuItems {
-  label?: string;
-  key: string;
-  icon?: React.ReactNode;
-  path?: string;
-  href?: string;
-  title?: string;
-  breadcrumb?: boolean;
-  notification?: number;
-  pagemenu?: pageMenuItems[];
+  label?: string
+  key: string
+  icon?: React.ReactNode
+  path?: string
+  href?: string
+  title?: string
+  breadcrumb?: boolean
+  notification?: number
+  pagemenu?: pageMenuItems[]
 }
 
 interface propTypes {
-  isScrollable?: boolean;
-  MainComp: JSX.Element | null;
-  ActionComp?: JSX.Element | null;
-  menuCounter?: number;
-  hasStaticPageMenuItem?: menuItems[];
-  hideTitle?: boolean;
-  customTitle?: string;
+  isScrollable?: boolean
+  MainComp: JSX.Element | null
+  ActionComp?: JSX.Element | null
+  menuCounter?: number
+  hasStaticPageMenuItem?: menuItems[]
+  hideTitle?: boolean
+  customTitle?: string
   goBackUrl?: string
 }
 
@@ -50,27 +53,27 @@ const DynamicPageLayout = ({
   customTitle,
   goBackUrl,
 }: propTypes): JSX.Element => {
-  const router = useRouter();
-  const firstIndexValue = router.asPath.split("/")[1];
+  const router = useRouter()
+  const firstIndexValue = router.asPath.split('/')[1]
   // eslint-disable-next-line no-unused-vars
-  const currentPath = router.asPath.split("/").at(-1);
+  const currentPath = router.asPath.split('/').at(-1)
 
-  const [pageMenu, setPageMenu] = useState<menuItems[]>([]);
-  const [title, setTitle] = useState<string>("");
+  const [pageMenu, setPageMenu] = useState<menuItems[]>([])
+  const [title, setTitle] = useState<string>('')
 
   useEffect(() => {
-    getRouteSpecificMenu(firstIndexValue);
-  }, [firstIndexValue]);
+    getRouteSpecificMenu(firstIndexValue)
+  }, [firstIndexValue])
 
   const getRouteSpecificMenu = (routeName: string): void => {
-    const menuObj = sidenavData.find((obj) => obj.key === routeName);
+    const menuObj = sidenavData.find(obj => obj.key === routeName)
     // eslint-disable-next-line no-prototype-builtins
     if (menuObj?.pagemenu != null) {
-      setPageMenu([...menuObj.pagemenu, ...hasStaticPageMenuItem]);
+      setPageMenu([...menuObj.pagemenu, ...hasStaticPageMenuItem])
     }
     // set the title of found object
-    menuObj != null && setTitle(menuObj.title);
-  };
+    menuObj != null && setTitle(menuObj.title)
+  }
 
   const goBackButton =
     goBackUrl != null ? (
@@ -78,31 +81,28 @@ const DynamicPageLayout = ({
         title="Go Back"
         onClick={() => router.push(goBackUrl)}
         className="me-2"
-        style={{ width: "40px" }}
-        icon={<ArrowLeftOutlined style={{fontSize: '14px'}} />}
+        style={{ width: '40px' }}
+        icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
       />
-    ) : null;
+    ) : null
 
   // anchor menu for scrollable card
-  const anchorMenus = pageMenu?.map((obj) => ({
+  const anchorMenus = pageMenu?.map(obj => ({
     title: obj.title,
     key: obj.key,
     href: `#${obj.key}`,
-  }));
+  }))
   // linked menu for redirect to specfic page
-  const linkedMenus = pageMenu?.map((obj) => ({
+  const linkedMenus = pageMenu?.map(obj => ({
     ...obj,
     label: obj.title,
-  }));
+  }))
 
   // left side component of main page layout
   const leftSideComponent = (
     <>
       {isScrollable ? (
-        <div
-          style={{ position: "fixed" }}
-          className="settings-stepper title-row"
-        >
+        <div style={{ position: 'fixed' }} className="settings-stepper title-row">
           {!hideTitle ? (
             <h1 className="page-title">
               {goBackButton}
@@ -120,15 +120,8 @@ const DynamicPageLayout = ({
             </h1>
           ) : null}
           <Menu className="affix-menu">
-            {linkedMenus?.map((obj) => (
-              <Menu.Item
-                key={obj.key}
-                className={
-                  obj.path?.split("/").at(-1) === currentPath
-                    ? "ant-menu-item-selected"
-                    : ""
-                }
-              >
+            {linkedMenus?.map(obj => (
+              <Menu.Item key={obj.key} className={obj.path?.split('/').at(-1) === currentPath ? 'ant-menu-item-selected' : ''}>
                 <NavLink href={obj.path as string}>
                   <div className="d-flex justify-content-between align-items-center">
                     {obj.label}
@@ -145,12 +138,10 @@ const DynamicPageLayout = ({
         </div>
       )}
     </>
-  );
+  )
 
   // right side component of main page layout
-  const rightSideComponent = (
-    <div className={styles["anchor-component"]}>{MainComp}</div>
-  );
+  const rightSideComponent = <div className={styles['anchor-component']}>{MainComp}</div>
 
   const renderComponent = (hasMenu: boolean): JSX.Element => {
     return (
@@ -167,7 +158,7 @@ const DynamicPageLayout = ({
           ) : (
             // eslint-disable-next-line indent
             <Col span={24}>
-              {!hideTitle ?
+              {!hideTitle ? (
                 <div className="title-row mb-24 d-flex justify-content-between">
                   <span className="page-title">
                     {goBackButton}
@@ -175,21 +166,21 @@ const DynamicPageLayout = ({
                   </span>
                   {ActionComp}
                 </div>
-              : null}
+              ) : null}
               {rightSideComponent}
             </Col>
             // eslint-disable-next-line indent
           )}
         </Row>
       </div>
-    );
-  };
+    )
+  }
 
   // will return true or false behalf on menu item array
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const menuPresent = pageMenu.length > 0;
+  const menuPresent = pageMenu.length > 0
 
-  return renderComponent(menuPresent);
-};
+  return renderComponent(menuPresent)
+}
 
-export default DynamicPageLayout;
+export default DynamicPageLayout

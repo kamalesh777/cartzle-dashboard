@@ -9,11 +9,13 @@ const MobileInputWrapper = (props: InputProps): JSX.Element => {
   return (
     <InputWrapper
       maxLength={15}
-      onKeyPress={(event) => {
+      onKeyPress={event => {
         if (!event.code.startsWith('Digit')) {
           event.preventDefault()
         }
-      }} {...restProps} />
+      }}
+      {...restProps}
+    />
   )
 }
 

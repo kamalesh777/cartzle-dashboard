@@ -4,12 +4,14 @@ import { PaperClipOutlined } from '@ant-design/icons'
 import { Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import React, { useMemo, useState } from 'react'
-import type { RcFile } from 'antd/es/upload'
-import type { UploadFile, UploadProps } from 'antd/lib/upload/interface'
+
 import Toast from '@components/Common/Toast'
 import { MAX_FILE_UPLOAD_COUNT, MAX_FILE_UPLOAD_SIZE } from '@constants/AppConstant'
 import { type fileType } from '@utils/allTypes'
 import { getBase64 } from '@utils/commonFunctions'
+
+import type { RcFile } from 'antd/es/upload'
+import type { UploadFile, UploadProps } from 'antd/lib/upload/interface'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 interface uploadPropsType extends UploadProps {

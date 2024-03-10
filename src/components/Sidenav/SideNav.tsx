@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink } from '@components/Common/NavLink'
 import { CircleRect } from '@components/Common/SkeletonLoader'
+import { getCurrentPath } from '@utils/commonFunctions'
 import { type AppThunkDispatch, type RootState } from 'src/store'
 import { fetchSideNav } from 'src/store/slice/navMenuSlice'
+
 const { Sider } = Layout
 
 interface PropTypes {
@@ -18,7 +20,8 @@ interface PropTypes {
 }
 
 const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Element => {
-  const currentPath = usePathname()
+  const path = usePathname()
+  const currentPath = getCurrentPath(path)
 
   const dispatch = useDispatch<AppThunkDispatch>()
   const menuState = useSelector((state: RootState) => state.menu)

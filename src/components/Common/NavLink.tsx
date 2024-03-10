@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { getCurrentPath } from '@utils/commonFunctions'
+
 interface NavLinkProps {
   href: string
   exact?: boolean
@@ -10,9 +12,10 @@ interface NavLinkProps {
 }
 
 export function NavLink({ href, exact = false, children, className = '', activeClassName = '' }: NavLinkProps): JSX.Element {
-  const pathname = usePathname()
-  const isActive = exact ? pathname === href : pathname.startsWith(href)
-  console.log('==pathname', pathname)
+  const path = usePathname()
+  const pathname = getCurrentPath(path, true)
+  const isActive = exact ? pathname === href : pathname?.startsWith(href)
+
   const combinedClassName = isActive ? `${className} ${activeClassName}` : className
 
   return (

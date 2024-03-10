@@ -1,6 +1,4 @@
-import type { ThemeConfig } from 'antd';
-
-const defaultColor = '#000000e0'
+import type { ThemeConfig } from 'antd'
 
 const theme: ThemeConfig = {
   token: {
@@ -12,9 +10,9 @@ const theme: ThemeConfig = {
   },
   components: {
     Button: {
-      colorLink: 'defaultColor'
-    }
-  }
-};
+      colorLink: 'defaultColor',
+    },
+  },
+}
 
-export default theme;
+export default theme

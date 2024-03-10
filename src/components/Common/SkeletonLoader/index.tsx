@@ -18,7 +18,15 @@ interface propsNew {
   length: number
 }
 
-export const SkeletonParagraph = ({ length, size, block, noStyle, type, shape, active }: Props): ReactElement<unknown, string | JSXElementConstructor<unknown>> => {
+export const SkeletonParagraph = ({
+  length,
+  size,
+  block,
+  noStyle,
+  type,
+  shape,
+  active,
+}: Props): ReactElement<unknown, string | JSXElementConstructor<unknown>> => {
   switch (type) {
     case 'IMAGE':
       return <Skeleton.Image />
@@ -34,7 +42,7 @@ export const SkeletonParagraph = ({ length, size, block, noStyle, type, shape, a
         <div className={noStyle ?? 'my-3'}>
           {Array.from(Array(length).keys()).map((item, index) => (
             <div className={noStyle ?? 'my-3'} key={index}>
-              <Skeleton.Input active={active ?? true} size={size} block={block}/>
+              <Skeleton.Input active={active ?? true} size={size} block={block} />
             </div>
           ))}
         </div>
@@ -45,20 +53,19 @@ export const SkeletonParagraph = ({ length, size, block, noStyle, type, shape, a
     <div className={noStyle ?? 'my-3'}>
       {Array.from(Array(length).keys()).map((item, index) => (
         <div className={noStyle ?? 'my-3'} key={index}>
-          <Skeleton.Input active={true} size={size} block={block}/>
+          <Skeleton.Input active={true} size={size} block={block} />
         </div>
       ))}
     </div>
-
   )
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const SkeletonDefault = ({ length, ...props }: propsNew) => {
   return (
-    <div className='my-3'>
+    <div className="my-3">
       {Array.from(Array(length).keys()).map((item, index) => (
-        <Skeleton active {...props} key={index}/>
+        <Skeleton active {...props} key={index} />
       ))}
     </div>
   )
@@ -82,7 +89,17 @@ interface tableProps {
   rowCounts?: number
 }
 
-export const CircleRect = ({ rowCounts, viewBox, circleCx, circleCy, circleR, rectX, rectY, rectHeight, rectWidth }: circleRectProps): JSX.Element => {
+export const CircleRect = ({
+  rowCounts,
+  viewBox,
+  circleCx,
+  circleCy,
+  circleR,
+  rectX,
+  rectY,
+  rectHeight,
+  rectWidth,
+}: circleRectProps): JSX.Element => {
   const rows = rowCounts ?? 5
   const CirCx = circleCx ?? 150
   const CirCy = circleCy ?? 150
@@ -96,12 +113,12 @@ export const CircleRect = ({ rowCounts, viewBox, circleCx, circleCy, circleR, re
   return (
     <div className="mb-2">
       {Array.from(Array(rows).keys()).map((_, i) => (
-        <ContentLoader viewBox={newViewBox} key={i} >
+        <ContentLoader viewBox={newViewBox} key={i}>
           {Array.from(Array(rows).keys())?.map((_, index) => {
             return (
               <React.Fragment key={index}>
                 <circle cx={CirCx} cy={CirCy} r={CirR} />
-                <rect x={RecX} y={RecY} rx="0" ry="0" width={RectWidth} height={Rectheight}/>
+                <rect x={RecX} y={RecY} rx="0" ry="0" width={RectWidth} height={Rectheight} />
               </React.Fragment>
             )
           })}
@@ -115,7 +132,7 @@ export const TableContentLoaderWithProps = ({ columnWidth, rowCounts, rowHeight 
   const rows = rowCounts ?? 5
   const height = rowHeight ?? 50
   let spaceValue = 0
-  const spaceArray = columnWidth?.map((item) => {
+  const spaceArray = columnWidth?.map(item => {
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     spaceValue += item - 0.3
     return spaceValue - item
@@ -124,11 +141,18 @@ export const TableContentLoaderWithProps = ({ columnWidth, rowCounts, rowHeight 
   return (
     <div className="mb-2" {...props}>
       {Array.from(Array(rows).keys()).map((_, i) => (
-        <ContentLoader viewBox={`0 0 1500 ${height}`} key={i} >
+        <ContentLoader viewBox={`0 0 1500 ${height}`} key={i}>
           {columnWidth?.map((column, index) => {
             return (
               <React.Fragment key={index}>
-                <rect x={`${(spaceArray[index]) + index}%`} y={height > 80 ? 30 : 20} rx="4" ry="4" width={`${column - 1}%`} height={height}/>
+                <rect
+                  x={`${spaceArray[index] + index}%`}
+                  y={height > 80 ? 30 : 20}
+                  rx="4"
+                  ry="4"
+                  width={`${column - 1}%`}
+                  height={height}
+                />
               </React.Fragment>
             )
           })}
@@ -149,7 +173,16 @@ interface RectShapeProps {
   height: string | number
 }
 
-export const RectShape = ({ rowCounts, rectX, rectY, canvasWidth, canvasHeight, viewBox, width, height }: RectShapeProps): JSX.Element => {
+export const RectShape = ({
+  rowCounts,
+  rectX,
+  rectY,
+  canvasWidth,
+  canvasHeight,
+  viewBox,
+  width,
+  height,
+}: RectShapeProps): JSX.Element => {
   const rows = rowCounts ?? 1
   const x = rectX ?? 10
   const y = rectY ?? 10

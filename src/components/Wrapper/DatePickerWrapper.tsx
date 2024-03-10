@@ -1,15 +1,15 @@
-import { DatePicker } from "antd";
-import { DatePickerProps } from "antd";
-import React from "react";
+import { DatePicker } from 'antd'
+
+import React from 'react'
+
+import type { DatePickerProps } from 'antd'
 
 interface CustomDatePickerProps {
   // Add any additional props you want to define here
 }
 
-const DatePickerWrapper: React.FC<CustomDatePickerProps & DatePickerProps> = (
-  props
-) => {
-  return <DatePicker {...props} />;
-};
+const DatePickerWrapper: React.FC<CustomDatePickerProps & DatePickerProps> = props => {
+  return <DatePicker {...props} />
+}
 
-export default DatePickerWrapper;
+export default DatePickerWrapper

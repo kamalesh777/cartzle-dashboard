@@ -1,9 +1,12 @@
+import { type AnyObject } from 'antd/es/_util/type'
+
+import React from 'react'
+
+import TableWrapper, { type CustomTableProps } from '@components/Wrapper/TableWrapper'
 import EmptyContent, { type EmptyContentPropsTypes } from '@components/common/Empty/EmptyContent'
 import { TableContentLoaderWithProps } from '@components/common/SkeletonLoader'
-import TableWrapper, { type CustomTableProps } from '@components/Wrapper/TableWrapper'
-import { type AnyObject } from 'antd/es/_util/type'
+
 import type { TablePaginationConfig } from 'antd/es/table'
-import React from 'react'
 
 interface propTypes<RecordType> extends CustomTableProps<RecordType>, EmptyContentPropsTypes {
   loading: boolean
@@ -17,17 +20,30 @@ interface propTypes<RecordType> extends CustomTableProps<RecordType>, EmptyConte
   }
 }
 
-function CommonTable<T extends AnyObject> ({ loading, dataSource, commonPagination, columnWidth, rowCounts, rowHeight, entity, search, onlyMessage, imageUrl, onClickEmpty, ...props }: propTypes<T>): JSX.Element {
+function CommonTable<T extends AnyObject>({
+  loading,
+  dataSource,
+  commonPagination,
+  columnWidth,
+  rowCounts,
+  rowHeight,
+  entity,
+  search,
+  onlyMessage,
+  imageUrl,
+  onClickEmpty,
+  ...props
+}: propTypes<T>): JSX.Element {
   // console.log(pagination)
 
   const notFoundContent = {
-    emptyText: (
-      (loading)
-        ? <TableContentLoaderWithProps {...{ columnWidth, rowCounts, rowHeight }} />
-        : <div className="mt-3 mb-4 m-auto">
-          <EmptyContent {...{ onClickEmpty, entity, search, onlyMessage, imageUrl }} />
-        </div>
-    )
+    emptyText: loading ? (
+      <TableContentLoaderWithProps {...{ columnWidth, rowCounts, rowHeight }} />
+    ) : (
+      <div className="mt-3 mb-4 m-auto">
+        <EmptyContent {...{ onClickEmpty, entity, search, onlyMessage, imageUrl }} />
+      </div>
+    ),
   }
 
   // const pageSizerMenu = (
@@ -60,7 +76,10 @@ function CommonTable<T extends AnyObject> ({ loading, dataSource, commonPaginati
   const pageSizer = (total: number, range: [number, number]): React.ReactNode => {
     return (
       <div>
-        <span> Showing {range[0]} - {range[1]} </span>
+        <span>
+          {' '}
+          Showing {range[0]} - {range[1]}{' '}
+        </span>
         of {total} results {Boolean(search) && `with ${search}`}
       </div>
     )
@@ -72,17 +91,10 @@ function CommonTable<T extends AnyObject> ({ loading, dataSource, commonPaginati
     total: commonPagination?.total,
     pageSize: commonPagination?.pageSize,
     showTotal: pageSizer,
-    showSizeChanger: false
+    showSizeChanger: false,
   }
 
-  return (
-    <TableWrapper
-      dataSource={loading ? [] : dataSource}
-      locale={notFoundContent}
-      pagination={paginationProps}
-      {...props}
-    />
-  )
+  return <TableWrapper dataSource={loading ? [] : dataSource} locale={notFoundContent} pagination={paginationProps} {...props} />
 }
 
 export default CommonTable

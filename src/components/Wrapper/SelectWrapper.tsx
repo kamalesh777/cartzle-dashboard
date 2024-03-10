@@ -1,6 +1,7 @@
-import type { SelectProps } from 'antd'
 import { Select } from 'antd'
 import React from 'react'
+
+import type { SelectProps } from 'antd'
 
 interface customSelectProps extends SelectProps {
   dummy?: string
@@ -13,18 +14,16 @@ interface CustomOptionProps {
   children?: React.ReactNode
 }
 
-function SelectWrapper (props: customSelectProps): JSX.Element {
+function SelectWrapper(props: customSelectProps): JSX.Element {
   return (
-    <Select placement='bottomRight' {...props}>{props.children}</Select>
+    <Select placement="bottomRight" {...props}>
+      {props.children}
+    </Select>
   )
 }
 
-function Option (props: CustomOptionProps): JSX.Element {
-  return (
-    <Select.Option {...props}>
-      {props.children}
-    </Select.Option>
-  )
+function Option(props: CustomOptionProps): JSX.Element {
+  return <Select.Option {...props}>{props.children}</Select.Option>
 }
 
 SelectWrapper.Option = Option

@@ -6,7 +6,6 @@ export interface responseType {
   message: string
   results: Record<string, unknown>
   success: boolean
-
 }
 
 export interface dataResponse extends AxiosResponse {

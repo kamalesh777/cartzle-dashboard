@@ -1,15 +1,15 @@
+import API from '@services/API'
 import useSWR from 'swr'
-import Axios from '@api/Axios'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function useFetch(apiUrl: string) {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const fetcher = async () => {
     try {
-      const response = await Axios.get(apiUrl)
+      const response = await API.get(apiUrl)
       const data = await response.data
       return data
-    } catch (err ) {
+    } catch (err) {
       return err
     }
   }

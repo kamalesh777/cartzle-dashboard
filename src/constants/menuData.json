@@ -1,73 +1,39 @@
 [
   {
-    "key": "admin-user",
-    "path": "/admin-user",
-    "title": "Admin User",
+    "key": "demo",
+    "path": "/demo",
+    "title": "Demo",
     "icon": "UserAddOutlined",
     "breadcrumb": false
   },
   {
-    "key": "center-management",
-    "path": "/center-management",
-    "title": "Center Management",
-    "icon": "ReconciliationOutlined",
+    "key": "demo-1",
+    "path": "/demo-1",
+    "title": "Demo 1",
+    "icon": "UserAddOutlined",
     "breadcrumb": false
   },
   {
-    "key": "role-permission",
-    "path": "/role-permission",
-    "title": "User Role and Permission",
-    "icon": "UserSwitchOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "center-user",
-    "path": "/center-user",
-    "title": "Center User",
-    "icon": "ContactsOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "cet-master",
-    "path": "/cet-master",
-    "title": "CET Master",
-    "icon": "InboxOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "test-master",
-    "path": "/test-master",
-    "title": "Test Master",
-    "icon": "CarryOutOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "package-management",
-    "path": "/package-management",
-    "title": "Package Management",
-    "icon": "DollarOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "center-wise-package",
-    "path": "/center-wise-package",
-    "title": "Center Wise Package",
-    "icon": "BlockOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "user-log-history",
-    "path": "/user-log-history",
-    "title": "User Log History",
-    "icon": "HistoryOutlined",
-    "breadcrumb": false
-  },
-  {
-    "key": "download-data-in-csv",
-    "path": "/download-data-in-csv",
-    "title": "Download Data In CSV",
-    "icon": "DownloadOutlined",
+    "key": "demo-submenu",
+    "path": "/demo-submenu",
+    "title": "Demo Submenu",
+    "icon": "UserAddOutlined",
     "breadcrumb": false,
-    "pagemenu": []
+    "submenu": [
+      {
+        "key": "demo-submenu-1",
+        "path": "/demo-submenu-1",
+        "title": "Demo Submenu 1",
+        "icon": "UserAddOutlined",
+        "breadcrumb": false
+      },
+      {
+        "key": "demo-submenu-2",
+        "path": "/demo-submenu-2",
+        "title": "Demo Submenu 2",
+        "icon": "UserAddOutlined",
+        "breadcrumb": false
+      }
+    ]
   }
 ]

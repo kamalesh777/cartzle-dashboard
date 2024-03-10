@@ -1,24 +1,22 @@
-import { postRequest } from '@api/preference/RequestService'
-import { ButtonWrapper, ModalWrapper } from '@components/Wrapper'
 import { type Dispatch, type ReactNode, type SetStateAction, useState } from 'react'
 
-const DeleteModal = ({ children, toggleDeleteModal, setToggleDeleteModal, title, nextEndpoint, callBack, payload }: DeleteModalPropTypes): JSX.Element => {
+import { ButtonWrapper, ModalWrapper } from '@components/Wrapper'
 
+const DeleteModal = ({
+  children,
+  toggleDeleteModal,
+  setToggleDeleteModal,
+  title,
+  nextEndpoint,
+  callBack,
+  payload,
+}: DeleteModalPropTypes): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false)
 
-  async function deleteStageApiCall (): Promise<void> {
-    await postRequest(nextEndpoint, payload ?? null).then((resp) => {
-      if ((resp as unknown as { data: { success: boolean } })?.data?.success) {
-        setToggleDeleteModal(false)
-        setIsLoading(false)
-        void callBack()
-      }
-    })
-  }
+  
 
   const handleDeleteClick = (): void => {
     setIsLoading(true)
-    void deleteStageApiCall()
   }
 
   return (
@@ -26,29 +24,33 @@ const DeleteModal = ({ children, toggleDeleteModal, setToggleDeleteModal, title,
       centered
       open={toggleDeleteModal}
       title={title}
-      onCancel={() => { setToggleDeleteModal(false) }}
-      footer={(
+      onCancel={() => {
+        setToggleDeleteModal(false)
+      }}
+      footer={
         <div>
           <ButtonWrapper
             html-type="submit"
-            type='primary'
-            onClick={() => { handleDeleteClick() }}
+            type="primary"
+            onClick={() => {
+              handleDeleteClick()
+            }}
             loading={isLoading}
           >
             {'Delete'}
           </ButtonWrapper>
           <ButtonWrapper
             className="modal-close-btn"
-            onClick={() => { setToggleDeleteModal(false) }}
+            onClick={() => {
+              setToggleDeleteModal(false)
+            }}
           >
             {'Cancel'}
           </ButtonWrapper>
         </div>
-      )}
+      }
     >
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </ModalWrapper>
   )
 }

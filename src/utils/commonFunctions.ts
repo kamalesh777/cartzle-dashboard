@@ -82,6 +82,14 @@ export const hexToRGBA = (hexOrName: string, alpha = 1): string | null => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
+export const isLightColor = (rgbaColor: string): boolean => {
+  const colorString = rgbaColor.replace('rgba', '')
+  const onlyRCode = colorString
+    .substring(1, colorString.length - 1)
+    .split(',')
+    .at(0)
+  return Number(onlyRCode) >= 128 ? true : false
+}
 interface errTypes {
   response: {
     data: {
@@ -94,3 +102,10 @@ interface errTypes {
 export const errorMsg = (err: errTypes) => err.response.data
 
 export const metaTitle = (title: string): string => `${title} | ${process.env.NEXT_PUBLIC_BRAND_NAME}`
+
+// get current path name without slash or include slash based on second param passed
+export const getCurrentPath = (path: string, slash = false): string => {
+  const currentPathname = path.split('/').at(-1)
+  const pathname = currentPathname ? (slash ? `/${currentPathname}` : currentPathname) : ''
+  return pathname
+}

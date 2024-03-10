@@ -16,9 +16,7 @@ const ModalWrapper = (props: ModalProps): JSX.Element => {
 
   return (
     <Modal {...props}>
-      <div className={'modal-scrollbar-adjust'}>
-        {props.children}
-      </div>
+      <div className={'modal-scrollbar-adjust'}>{props.children}</div>
     </Modal>
   )
 }

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 interface PropTypes {
   isMobileDevice: boolean
-  tableScroll: {[key: string]: string | number}
-  componentSize: "large" | "middle" | "small"
+  tableScroll: { [key: string]: string | number }
+  componentSize: 'large' | 'middle' | 'small'
 }
 const useDevice = (): PropTypes => {
   const [isMobile, setIsMobile] = useState<boolean>(true)
@@ -19,8 +19,8 @@ const useDevice = (): PropTypes => {
 
   return {
     isMobileDevice: isMobile,
-    tableScroll: { x: isMobile ? 700 : 'auto'},
-    componentSize: isMobile ? "middle" : "large"
+    tableScroll: { x: isMobile ? 700 : 'auto' },
+    componentSize: isMobile ? 'middle' : 'large',
   }
 }
 
