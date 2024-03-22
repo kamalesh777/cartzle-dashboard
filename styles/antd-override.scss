@@ -13,7 +13,17 @@
 .ant-menu-light.ant-menu-root.ant-menu-vertical {
     border-inline-end: 0;
 }
-
+.ant-notification .ant-notification-notice-wrapper .ant-notification-notice {
+    padding: 16px !important;
+}
+.ant-notification-notice-wrapper .ant-notification-notice-with-icon .ant-notification-notice-description {
+    margin-inline-start: 32px !important;
+    margin-inline-end: 32px !important;
+}
+.ant-notification .ant-notification-notice-wrapper .ant-notification-notice-close {
+    top: 22px !important;
+    inset-inline-end: 20px !important;
+}
 
 @media (max-width: 768px) {
     .ant-menu {
