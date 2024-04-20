@@ -109,3 +109,15 @@ export const getCurrentPath = (path: string, slash = false): string => {
   const pathname = currentPathname ? (slash ? `/${currentPathname}` : currentPathname) : ''
   return pathname
 }
+
+export const errorMsg = (err: errTypes) => err.response.data
+
+export const goBack = (url: string) => Router.push(url)
+
+export const addEditTitle = (id: string|null) => `${id ? 'Edit' : 'Add'}`
+export const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
