@@ -24,7 +24,24 @@
     top: 22px !important;
     inset-inline-end: 20px !important;
 }
-
+.file-uploader .ant-upload.ant-upload-select {
+	width: 100%;
+	cursor: pointer;
+}
+.file-uploader .ant-upload.ant-upload-select .ant-upload {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: 2px dashed #C2C5D3 !important;
+    border-radius: 5px;
+}
+.file-uploader .input-size .ant-upload {
+	min-height: 30px !important;
+	font-size: 0.8rem;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;
