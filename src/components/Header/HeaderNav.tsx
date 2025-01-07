@@ -1,53 +1,17 @@
 import React from 'react'
 
-import { BellOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from '@ant-design/icons'
-
-import { Avatar, Badge, Button, Col, Divider, Dropdown, Layout, Row, Typography, type MenuProps } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined } from '@ant-design/icons'
+import { Avatar, Button, Col, Dropdown, Layout, type MenuProps, Row, Space, Typography } from 'antd'
+import { capitalize } from 'lodash'
 import Link from 'next/link'
+
+// import { useLogoutHandler } from 'src/hook/useAuth'
 
 import useDevice from 'src/hook/useDevice'
 
 const { Header } = Layout
 
 const { Text } = Typography
-
-// const items: MenuProps['items'] = [0000000
-//   {
-//     key: '1',
-//     label: (
-//       <div className='header-nav'>
-//         <div className="d-flex justify-content-between align-items-center pt-15 pb-15 pl-20 fw-medium font-16">
-//           <h4 className="mb-0 list-details-color font-16 sub-header"><span>Notification</span> <span className="number-cell font-14">11</span></h4>
-//         </div>
-//         <div className="height-397 overflow-y-scroll">
-//           <List
-//             bordered
-//             dataSource={data}
-//             renderItem={() => (
-//               <List.Item>
-//                 <Row className="w-100 align-items-center">
-//                   <Col span="3">
-//                     <Avatar src="https://api.dicebear.com/7.x/initials/svg?seed=John Smith" size={36} />
-//                   </Col>
-//                   <Col span="21" className="d-flex align-items-start justify-content-between">
-//                     <div className="avatar-details-left">
-//                       <div className="list-details-color font-14"><strong>John Smith</strong> has added as a follower you a ticket (#182)</div>
-//                     </div>
-//                     <div className="font-12 icon-color pt-2">3:17 PM</div>
-//                   </Col>
-//                 </Row>
-//               </List.Item>
-//             )}
-//           />
-//         </div>
-//         <div className="text-center pt-16 pb-16">
-//           <p className="d-block font-14 theme-text-color">Clear All</p>
-//         </div>
-//       </div>
-//     )
-//   }
-// ]
-
 interface PropTypes {
   collapsed: boolean
   setCollapsed: (param: boolean) => void
@@ -55,7 +19,10 @@ interface PropTypes {
   setOpenDrawer: (param: boolean) => void
 }
 const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: PropTypes): JSX.Element => {
+  // const userInfo = useSelector((state: RootState) => state.userState.userInfo)
+
   const { isMobileDevice } = useDevice()
+  // const { logout } = useLogoutHandler()
 
   const showDrawer = (): void => {
     setOpenDrawer(true)
@@ -88,18 +55,25 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
     },
   ]
   const menuItems: MenuProps['items'] = [
-    {
-      key: 'profile',
-      label: (
-        <Link target="new" href={`/profile`}>
-          <p className="font-weight-normal pl-2">My Account</p>
-        </Link>
-      ),
-    },
-    ...(isMobileDevice ? responsiveMenu : []),
+    // {
+    //   key: "profile",
+    //   label: (
+    //     <Link target="new" href={`/profile`}>
+    //       <p className="font-weight-normal pl-2">My Account</p>
+    //     </Link>
+    //   ),
+    // },
+    // ...(isMobileDevice ? responsiveMenu : []),
+    ...(isMobileDevice ? [] : []),
     {
       key: 'sign-out',
-      label: <p className="pl-2">Sign Out</p>,
+      // onClick: () => logout(),
+      label: (
+        <Space className="w-100 text-danger justify-content-between">
+          Sign Out
+          <PoweroffOutlined />
+        </Space>
+      ),
     },
   ]
 
@@ -119,7 +93,6 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               onClick={() => (isMobileDevice ? showDrawer() : setCollapsed(!collapsed))}
             />
-            <Button type="text" icon={<SearchOutlined />} />
             {!isMobileDevice && (
               <div className="header-menu-list ms-2">
                 {responsiveMenu.map(item => (
@@ -131,22 +104,24 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
         </Col>
         <Col span={12} md={12}>
           <div className="header-right-panel d-flex justify-content-end align-items-center">
-            <div className="d-flex align-items-center">
-              <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
+            {/* <div className="d-flex align-items-center">
+              <Dropdown
+                menu={{ items: [] }}
+                trigger={["click"]}
+                placement="bottomRight"
+              >
                 <Badge count={1} size="small">
                   <BellOutlined className="font-19 header-nav-icon ms-2 icon-color cursor-pointer" />
                 </Badge>
               </Dropdown>
             </div>
-            <Divider type="vertical" className="mx-4 h-36" />
-            <Dropdown menu={{ items: menuItems }} trigger={['click', 'hover']} placement="bottomRight">
+            <Divider type="vertical" className="mx-4 h-36" /> */}
+            <Dropdown menu={{ items: menuItems }} trigger={['click', 'hover']} placement="bottomRight" className="profile-box">
               <div className="d-flex align-items-center cursor-pointer">
-                <div className="profile-nav d-flex align-items-center">
-                  <Avatar
-                    src="https://api.dicebear.com/7.x/initials/svg?seed=Kamalesh%20Maity                                                                      "
-                    size={32}
-                  />
-                </div>
+                <Space className="profile-nav" align="center">
+                  <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${'Kamalesh'}`} size={32} />
+                  {capitalize('Kamalesh Maity')}
+                </Space>
               </div>
             </Dropdown>
           </div>

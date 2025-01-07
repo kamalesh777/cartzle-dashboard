@@ -1,26 +1,20 @@
-import { useEffect, useState } from 'react'
+import { Grid } from 'antd'
 
 interface PropTypes {
   isMobileDevice: boolean
   tableScroll: { [key: string]: string | number }
   componentSize: 'large' | 'middle' | 'small'
 }
+
+const { useBreakpoint } = Grid
+
 const useDevice = (): PropTypes => {
-  const [isMobile, setIsMobile] = useState<boolean>(true)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth <= 767) {
-        setIsMobile(true)
-      } else {
-        setIsMobile(false)
-      }
-    }
-  }, [])
+  const screens = useBreakpoint()
 
   return {
-    isMobileDevice: isMobile,
-    tableScroll: { x: isMobile ? 700 : 'auto' },
-    componentSize: isMobile ? 'middle' : 'large',
+    isMobileDevice: !screens.md,
+    tableScroll: { x: !screens.md ? 700 : '' },
+    componentSize: !screens.md ? 'middle' : 'large',
   }
 }
 

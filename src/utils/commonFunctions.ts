@@ -91,6 +91,7 @@ export const isLightColor = (rgbaColor: string): boolean => {
   return Number(onlyRCode) >= 128 ? true : false
 }
 interface errTypes {
+  err: any
   response: {
     data: {
       message: string
@@ -110,14 +111,4 @@ export const getCurrentPath = (path: string, slash = false): string => {
   return pathname
 }
 
-export const errorMsg = (err: errTypes) => err.response.data
-
-export const goBack = (url: string) => Router.push(url)
-
-export const addEditTitle = (id: string|null) => `${id ? 'Edit' : 'Add'}`
-export const normFile = (e: any) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
+// export const goBack = (url: string): void => Router.push(url)
