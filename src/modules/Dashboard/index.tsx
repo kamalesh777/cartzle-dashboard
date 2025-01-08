@@ -1,10 +1,22 @@
 import React from 'react'
 
-const DashboardComponent = (): JSX.Element => (
-  <>
-    <h2>Hurray!</h2>
-    <div>You entered in dashboard page</div>
-  </>
-)
+import { CardWrapper } from '@components/Wrapper'
+import IconWrapper from '@components/Wrapper/IconWrapper'
+
+const DashboardComponent = (): JSX.Element => {
+  return (
+    <div>
+      <CardWrapper>
+        <IconWrapper icon="CodeSandboxOutlined" />
+        <h2>Hello World</h2>
+      </CardWrapper>
+      <CardWrapper>
+        <IconWrapper icon="HomeOutlined" />
+        {/* {renderDynamicIcon('HomeOutlined')} */}
+        <h2>Hello Kamalesh</h2>
+      </CardWrapper>
+    </div>
+  )
+}
 
 export default DashboardComponent

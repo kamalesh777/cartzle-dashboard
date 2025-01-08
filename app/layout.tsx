@@ -31,7 +31,7 @@ export const metadata = {
 const IndexLayout = ({ children }: PropsWithChildren): JSX.Element => {
   const isAuth = true
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <RootStyleRegistry>
         <body>
           <StoreProvider>

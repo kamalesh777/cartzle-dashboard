@@ -33,9 +33,6 @@
       "@components/common/*": [
         "src/components/Common/*"
       ],
-      "@node_modules/*": [
-        "node_modules/*"
-      ],
       "@store/*": [
         "src/store/*"
       ],
