@@ -1,4 +1,6 @@
-export const MAX_FILE_UPLOAD_COUNT = 5
-export const MAX_FILE_UPLOAD_SIZE = 20
+export const PRIMARY_DOMAIN = process.env.NEXT_PUBLIC_PRIMARY_DOMAIN
+export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT
 
-export const TEST_MASTER = '/test-master'
+export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
+export const EMPTY_PLACEHOLDER = '--'
+export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME

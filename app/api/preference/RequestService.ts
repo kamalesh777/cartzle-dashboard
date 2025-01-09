@@ -1,7 +1,7 @@
-import API from './API'
-
-import type { dataResponse } from '@utils/allTypes'
+import type { dataResponse } from '@/utils/allTypes'
 import type { AxiosError } from 'axios'
+
+import API from './API'
 // import landerAPI from '@pages/api/landerAPI';
 
 /**

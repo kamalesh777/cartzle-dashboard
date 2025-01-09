@@ -3,9 +3,9 @@ import React, { useState, type ReactNode } from 'react'
 
 import { Drawer } from 'antd'
 
-import HeaderNav from '@components/Header/HeaderNav'
-import SideNav from '@components/Sidenav/SideNav'
-import useDevice from '@hook/useDevice'
+import HeaderNav from '@/components/Header/HeaderNav'
+import SideNav from '@/components/Sidenav/SideNav'
+import useDevice from '@/hook/useDevice'
 
 interface LayoutProps {
   children: ReactNode

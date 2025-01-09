@@ -1,6 +1,6 @@
 import { type Dispatch, type ReactNode, type SetStateAction, useState } from 'react'
 
-import { ButtonWrapper, ModalWrapper } from '@components/Wrapper'
+import { ButtonWrapper, ModalWrapper } from '@/components/Wrapper'
 
 const DeleteModal = ({ children, toggleDeleteModal, setToggleDeleteModal, title }: DeleteModalPropTypes): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false)

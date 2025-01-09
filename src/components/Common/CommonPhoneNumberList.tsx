@@ -47,7 +47,7 @@ const CommonPhoneNumberList = ({ name, width }: propTypes): JSX.Element => {
 
   useEffect(() => {
     setNumberArr(staticNumberArr)
-  })
+  }, [])
 
   return (
     <Form.Item name={name ?? 'prefix'} noStyle>

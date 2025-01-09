@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { getCurrentPath } from '@utils/commonFunctions'
+import { getCurrentPath } from '@/utils/commonFunctions'
 
 interface NavLinkProps {
   href: string

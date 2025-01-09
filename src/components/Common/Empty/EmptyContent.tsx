@@ -2,9 +2,10 @@
 import React from 'react'
 
 import { FrownOutlined } from '@ant-design/icons'
+
 import { Col, Row } from 'antd'
 
-import NextImage from '@components/NextImage'
+import NextImage from '@/components/NextImage'
 
 import styles from './style.module.css'
 

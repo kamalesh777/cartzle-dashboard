@@ -2,11 +2,11 @@ import React from 'react'
 
 import { type AnyObject } from 'antd/es/_util/type'
 
-import TableWrapper, { type CustomTableProps } from '@components/Wrapper/TableWrapper'
-import EmptyContent, { type EmptyContentPropsTypes } from '@components/common/Empty/EmptyContent'
-import { TableContentLoaderWithProps } from '@components/common/SkeletonLoader'
-
 import type { TablePaginationConfig } from 'antd/es/table'
+
+import TableWrapper, { type CustomTableProps } from '@/components/Wrapper/TableWrapper'
+import EmptyContent, { type EmptyContentPropsTypes } from '@/components/common/Empty/EmptyContent'
+import { TableContentLoaderWithProps } from '@/components/common/SkeletonLoader'
 
 interface propTypes<RecordType> extends CustomTableProps<RecordType>, EmptyContentPropsTypes {
   loading: boolean

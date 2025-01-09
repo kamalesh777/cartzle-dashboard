@@ -4,8 +4,8 @@ import { SearchOutlined } from '@ant-design/icons'
 
 import { debounce } from 'lodash'
 
-import { FormItemWrapper, InputWrapper } from '@components/Wrapper'
-import useDevice from 'src/hook/useDevice'
+import { FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import useDevice from '@/hook/useDevice'
 
 interface PropTypes {
   setSearch?: (param: string) => void
@@ -15,6 +15,7 @@ interface PropTypes {
 const SearchComponent = ({ setSearch, placeholder }: PropTypes): JSX.Element => {
   const { componentSize } = useDevice()
   // debounce setState value for search api call
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearch = useCallback(
     debounce((e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target?.value?.trim()

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
 
-import Icon, * as IconObj from '@ant-design/icons'
 import { Layout, Menu, Tag } from 'antd'
 import { usePathname } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { NavLink } from '@components/Common/NavLink'
-import { CircleRect } from '@components/Common/SkeletonLoader'
-import { getCurrentPath } from '@utils/commonFunctions'
-import { type AppThunkDispatch, type RootState } from 'src/store'
-import { fetchSideNav } from 'src/store/slice/navMenuSlice'
+import { NavLink } from '@/components/Common/NavLink'
+import { CircleRect } from '@/components/Common/SkeletonLoader'
+import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
+import { type AppThunkDispatch, type RootState } from '@/store/index'
+
+import { fetchSideNav } from '@/store/slice/navMenuSlice'
+import { getCurrentPath } from '@/utils/commonFunctions'
 
 const { Sider } = Layout
 
@@ -32,12 +33,6 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Ele
   }, [dispatch])
 
   // console.log("menu==", menuState)
-
-  const renderDynamicIcon = (icon: any): JSX.Element => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const iconComp = (IconObj as any)[icon]
-    return icon != null ? <Icon component={iconComp as React.ForwardRefExoticComponent<any>} /> : <></>
-  }
 
   const logoObj = {
     url: collapsed ? '/LMC_icon.png' : '/LMC_logo.png',

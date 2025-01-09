@@ -1,17 +1,17 @@
-import '@styles/antd-override.scss'
-import '@styles/utility-class.scss'
-import '@styles/color.scss'
-import '@styles/reset.scss'
-import '@styles/globals.scss'
+import '@/styles/antd-override.scss'
+import '@/styles/utility-class.scss'
+import '@/styles/color.scss'
+import '@/styles/reset.scss'
+import '@/styles/globals.scss'
 
 import React, { type PropsWithChildren } from 'react'
 
-import { RootStyleRegistry } from '@components/RootStyle'
-import StoreProvider from '@components/StoreProvider'
-import { LayoutWrapper } from '@components/Wrapper'
-import ThemeWrapper from '@components/Wrapper/ThemeWrapper'
+import { RootStyleRegistry } from '@/components/RootStyle'
+import StoreProvider from '@/components/StoreProvider'
+import { LayoutWrapper } from '@/components/Wrapper'
+import ThemeWrapper from '@/components/Wrapper/ThemeWrapper'
 
-import { metaTitle } from '@utils/commonFunctions'
+import { metaTitle } from '@/utils/commonFunctions'
 
 export const metadata = {
   title: metaTitle('Home'),

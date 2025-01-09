@@ -3,49 +3,46 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@components/*": [
+      "@/components/*": [
         "src/components/*"
       ],
-      "@modules/*": [
+      "@/modules/*": [
         "src/modules/*"
       ],
-      "@scss/*": [
+      "@/scss/*": [
         "src/assets/scss/*"
       ],
-      "@js/*": [
+      "@/js/*": [
         "src/assets/js/*"
       ],
-      "@configs/*": [
+      "@/configs/*": [
         "src/configs/*"
       ],
-      "@api/*": [
-        "src/pages/api/*"
+      "@/api/*": [
+        "app/api/*"
       ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@utils/*": [
+      "@/utils/*": [
         "src/utils/*"
       ],
-      "@constants/*": [
+      "@/constants/*": [
         "src/constants/*"
       ],
-      "@components/common/*": [
+      "@/components/common/*": [
         "src/components/Common/*"
       ],
-      "@store/*": [
+      "@/store/*": [
         "src/store/*"
       ],
-      "@styles/*": [
+      "@/styles/*": [
         "styles/*"
       ],
-      "@hook/*": [
+      "@/hook/*": [
         "src/hook/*"
       ],
-      "@services/*": [
+      "@/services/*": [
         "src/services/*"
       ],
-      "@app/*": [
+      "@/app/*": [
         "app/*"
       ]
     },

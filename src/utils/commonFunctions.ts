@@ -91,7 +91,7 @@ export const isLightColor = (rgbaColor: string): boolean => {
   return Number(onlyRCode) >= 128 ? true : false
 }
 interface errTypes {
-  err: any
+  err: unknown
   response: {
     data: {
       message: string

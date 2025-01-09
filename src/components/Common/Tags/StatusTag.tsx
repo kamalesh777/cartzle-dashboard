@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 
-import TagWrapper from '@components/Wrapper/TagWrapper'
+import TagWrapper from '@/components/Wrapper/TagWrapper'
 
 export const StatusTagWrapper = (status: string, name = '', bgColor = '', color = ''): JSX.Element => {
   const renderTagWrapperForStatus = (statusType: string): JSX.Element | null => {
@@ -54,6 +54,6 @@ export const StatusTagWrapper = (status: string, name = '', bgColor = '', color 
 }
 
 // use case is like below
-// import { StatusTagWrapper } from '@components/Common/TagWrappers/StatusTagWrapper'
+// import { StatusTagWrapper } from '@/components/Common/TagWrappers/StatusTagWrapper'
 // {StatusTagWrapper('draft', 'Draft', '', '')}
 // {StatusTagWrapper('active', '', 'red', 'black')}

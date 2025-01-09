@@ -4,9 +4,9 @@ import React from 'react'
 import { Row, Card, Col } from 'antd'
 import { useDispatch } from 'react-redux'
 
-import { ButtonWrapper } from '@components/Wrapper'
-import { applyColor } from '@store/slice/themeSlice'
-import { hexToRGBA } from '@utils/commonFunctions'
+import { ButtonWrapper } from '@/components/Wrapper'
+import { applyColor } from '@/store/slice/themeSlice'
+import { hexToRGBA } from '@/utils/commonFunctions'
 
 const DemoOne = (): JSX.Element => {
   const dispatch = useDispatch()

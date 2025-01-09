@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DemoOne from '@modules/DemoOne'
+import DemoOne from '@/modules/DemoOne'
 
 const DemoPage = (): JSX.Element => {
   return <DemoOne />

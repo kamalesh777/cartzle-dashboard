@@ -91,10 +91,10 @@
               {
                 "groups": [
                   ["external", "builtin"],
+                  "type",
                   "internal",
                   ["parent", "sibling", "index"],
-                  "object",
-                  "type"
+                  "object"
                 ],
                 "newlines-between": "always-and-inside-groups",
                 "alphabetize": { "order": "asc" },

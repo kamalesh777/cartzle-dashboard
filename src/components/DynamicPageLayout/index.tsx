@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 import { ArrowLeftOutlined } from '@ant-design/icons'
+
 import { Anchor, Button, Col, Menu, Row, Tag } from 'antd'
 
 import { useRouter, usePathname } from 'next/navigation'
 
-import { NavLink } from '@components/Common/NavLink'
-import sidenavData from '@constants/menuData.json'
+import { NavLink } from '@/components/Common/NavLink'
+import sidenavData from '@/constants/menuData.json'
 
 import styles from './style.module.css'
-
 interface pageMenuItems {
   // label: string
   key: string

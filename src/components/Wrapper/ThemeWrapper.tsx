@@ -5,11 +5,12 @@ import { ConfigProvider } from 'antd'
 import { useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
-import { hexToRGBA } from '@utils/commonFunctions'
 
 // eslint-disable-next-line no-duplicate-imports
 
 import type { RootState } from 'src/store'
+
+import { hexToRGBA } from '@/utils/commonFunctions'
 
 const ThemeWrapper = (props: PropsWithChildren): JSX.Element => {
   const theme = useSelector((state: RootState) => state.theme)
