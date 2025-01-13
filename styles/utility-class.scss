@@ -4301,3 +4301,6 @@ border-radius: 100%;
 .dashed-border {
   border: 1px dashed;
 }
+.min-height-100-vh {
+  height: calc(100vh - 50px);
+}

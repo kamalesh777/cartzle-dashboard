@@ -1,4 +1,4 @@
-export default data = [
+export const data = [
   {
     title: 'Goods',
     href: '/goods',
