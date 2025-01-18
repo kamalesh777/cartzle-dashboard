@@ -13,7 +13,7 @@ const DashboardComponent = (): JSX.Element => {
       {data?.map(item => (
         <Col span={12} md={6} key={item?.title} className="mb-3">
           <CardWrapper>
-            <IconWrapper icon="CodeSandboxOutlined" />
+            <IconWrapper icon={item.icon} style={{ fontSize: '32px' }} />
             <h2>{item?.title}</h2>
           </CardWrapper>
         </Col>

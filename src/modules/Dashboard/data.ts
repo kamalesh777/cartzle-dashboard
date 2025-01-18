@@ -6,9 +6,9 @@ export const data = [
     background: '',
   },
   {
-    title: 'Goods',
-    href: '/goods',
-    icon: 'DropboxOutlined',
+    title: 'Documents',
+    href: '/documents',
+    icon: 'FileOutlined',
     background: '',
   },
   {
