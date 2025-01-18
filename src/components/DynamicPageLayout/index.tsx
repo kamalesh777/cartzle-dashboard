@@ -61,14 +61,14 @@ const DynamicPageLayout = ({
   const currentPath = pathname.split('/').at(-1)
 
   const [pageMenu, setPageMenu] = useState<menuItems[]>([])
-  const [title, setTitle] = useState<string>('')
+  const [title, setTitle] = useState<string | undefined>('')
 
   useEffect(() => {
     getRouteSpecificMenu(firstIndexValue)
   }, [firstIndexValue])
 
   const getRouteSpecificMenu = (routeName: string): void => {
-    const menuObj = sidenavData.find(obj => obj.key === routeName)
+    const menuObj = sidenavData.find(obj => obj.key === routeName) as menuItems
     // eslint-disable-next-line no-prototype-builtins
     if (menuObj?.submenu != null) {
       setPageMenu([...menuObj.submenu, ...hasStaticPageMenuItem])

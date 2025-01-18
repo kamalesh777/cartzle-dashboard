@@ -14,26 +14,15 @@
     "breadcrumb": false
   },
   {
-    "key": "demo-submenu",
-    "path": "/demo-submenu",
-    "title": "Demo Submenu",
-    "icon": "UserAddOutlined",
-    "breadcrumb": false,
-    "submenu": [
-      {
-        "key": "demo-submenu-1",
-        "path": "/demo-submenu-1",
-        "title": "Demo Submenu 1",
-        "icon": "UserAddOutlined",
-        "breadcrumb": false
-      },
-      {
-        "key": "demo-submenu-2",
-        "path": "/demo-submenu-2",
-        "title": "Demo Submenu 2",
-        "icon": "UserAddOutlined",
-        "breadcrumb": false
-      }
-    ]
+    "key": "dashboard",
+    "path": "/dashboard",
+    "title": "Dashboard",
+    "icon": "DashboardOutlined"
+  },
+  {
+    "key": "control-pannel",
+    "path": "/control-panel",
+    "title": "Control Panel",
+    "icon": "SettingOutlined"
   }
 ]
