@@ -56,21 +56,29 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Ele
       </div>
       {menuState.loading ? (
         <div className="mx-3">
-          <CircleRect rowCounts={10} rectHeight={110} circleR={130} viewBox="-50 0 1400 350" />
+          <CircleRect
+            rowCounts={10}
+            rectHeight={70}
+            circleCx={70}
+            circleCy={70}
+            circleR={70}
+            viewBox="-50 0 1000 200"
+            rectY={30}
+          />
         </div>
       ) : (
         <Menu className="menu-height" defaultSelectedKeys={['dashboard']} selectedKeys={[currentPath]}>
           {menuState.data.map(obj => (
             <Menu.Item key={obj.key} icon={renderDynamicIcon(obj.icon)}>
               <NavLink href={obj.path}>
-                <div className="d-flex justify-content-between align-items-center">
+                <span>
                   {obj.title}
                   {obj?.notification != null ? (
                     <Tag color="#B06AB3" className="m-0">
                       {obj?.notification}
                     </Tag>
                   ) : null}
-                </div>
+                </span>
               </NavLink>
             </Menu.Item>
           ))}
