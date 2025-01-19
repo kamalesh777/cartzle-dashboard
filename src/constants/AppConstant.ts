@@ -6,3 +6,18 @@ export const EMPTY_PLACEHOLDER = '--'
 export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 
 export const CONTROL_PANEL_ROUTE = '/control-panel'
+
+export const MeasurementOptions = [
+  {
+    label: 'IN',
+    value: 'in',
+  },
+  {
+    label: 'FT',
+    value: 'ft',
+  },
+  {
+    label: 'CFT',
+    value: 'cft',
+  },
+]
