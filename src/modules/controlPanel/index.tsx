@@ -1,7 +1,14 @@
 import React from 'react'
 
+import { CardWrapper } from '@/components/Wrapper'
+
 const ControlPanelComp = (): JSX.Element => {
-  return <div>ControlPanelComp</div>
+  return (
+    <>
+      <CardWrapper>Users</CardWrapper>
+      <CardWrapper>Create Wood</CardWrapper>
+    </>
+  )
 }
 
 export default ControlPanelComp
