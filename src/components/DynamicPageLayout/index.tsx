@@ -1,12 +1,15 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
-import { Anchor, Button, Col, Menu, Row, Tag } from 'antd'
+import { Anchor, Col, Menu, Row, Tag } from 'antd'
 
 import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/Common/NavLink'
+import { ButtonWrapper } from '@/components/Wrapper'
 import sidenavData from '@/constants/menuData.json'
 
 import styles from './style.module.css'
@@ -79,7 +82,7 @@ const DynamicPageLayout = ({
 
   const goBackButton =
     goBackUrl != null ? (
-      <Button
+      <ButtonWrapper
         title="Go Back"
         onClick={() => router.push(goBackUrl)}
         className="me-2"
@@ -106,20 +109,20 @@ const DynamicPageLayout = ({
       {isScrollable ? (
         <div style={{ position: 'fixed' }} className="settings-stepper title-row">
           {!hideTitle ? (
-            <h1 className="page-title">
+            <p className="page-title">
               {goBackButton}
               {customTitle || title}
-            </h1>
+            </p>
           ) : null}
           <Anchor affix={false} className="affix-menu" items={anchorMenus} />
         </div>
       ) : (
         <div className="settings-stepper title-row">
           {!hideTitle ? (
-            <h1 className="page-title">
+            <p className="page-title">
               {goBackButton}
               {customTitle || title}
-            </h1>
+            </p>
           ) : null}
           <Menu className="affix-menu">
             {linkedMenus?.map(obj => (
