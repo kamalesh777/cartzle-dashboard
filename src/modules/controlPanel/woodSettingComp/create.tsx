@@ -11,6 +11,25 @@ interface PropTypes {
   setOpen: (param: boolean) => void
 }
 
+interface FormValues {
+  name: string
+  image: string
+  price: string
+  price_method: string
+  width: {
+    value: string
+    unit: string
+  }
+  thickness: {
+    value: string
+    unit: string
+  }
+  length: {
+    value: string
+    unit: string
+  }
+}
+
 const CreateWoodModalComp = ({ open, setOpen }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
   // check price method is equal to cft or not
@@ -27,7 +46,7 @@ const CreateWoodModalComp = ({ open, setOpen }: PropTypes): JSX.Element => {
     { label: 'Individual', value: 'individual' },
   ]
 
-  const formSubmitHandler = (values): void => {
+  const formSubmitHandler = (values: FormValues): void => {
     // eslint-disable-next-line no-console
     console.log('===values', values)
   }
