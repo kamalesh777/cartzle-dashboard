@@ -19,7 +19,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
     setOpenDrawer(false)
   }
 
-  const sidenavWidth = 300
+  const sidenavWidth = 260
   const collapseWidth = 80
   // if it is mobile device then margin width will be 0 otherwise it will check for collapsed value and return respective value
   const marginWidth = isMobileDevice ? 0 : collapsed ? collapseWidth : sidenavWidth
@@ -30,11 +30,10 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
       <main className="main-cont-wrap min-height-100-vh" style={{ marginLeft: marginWidth }}>
         {children}
       </main>
-
       {/* Side Nav according to the mobile device responsive */}
       {isMobileDevice ? (
-        <Drawer width={260} onClose={onClose} placement="left" open={openDrwaer}>
-          <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth }} />
+        <Drawer width={collapsed ? collapseWidth : sidenavWidth} onClose={onClose} placement="left" open={openDrwaer}>
+          <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth, setOpenDrawer }} />
         </Drawer>
       ) : (
         <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth }} />

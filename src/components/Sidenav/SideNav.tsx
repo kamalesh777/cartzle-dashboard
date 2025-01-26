@@ -19,9 +19,10 @@ interface PropTypes {
   collapsed: boolean
   sidenavWidth?: number
   collapseWidth?: number
+  setOpenDrawer?: (p: boolean) => void
 }
 
-const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Element => {
+const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: PropTypes): JSX.Element => {
   const path = usePathname()
   const currentPath = getCurrentPath(path)
 
@@ -41,6 +42,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Ele
     alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
   }
 
+  
   return (
     <Sider
       trigger={null}
@@ -69,7 +71,10 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth }: PropTypes): JSX.Ele
       ) : (
         <Menu className="menu-height" defaultSelectedKeys={['dashboard']} selectedKeys={[currentPath]}>
           {menuState.data.map(obj => (
-            <Menu.Item key={obj.key} icon={renderDynamicIcon(obj.icon)}>
+            <Menu.Item 
+              key={obj.key} 
+              icon={renderDynamicIcon(obj.icon)}
+              onClick={() => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600)}>
               <NavLink href={obj.path}>
                 <span>
                   {obj.title}
