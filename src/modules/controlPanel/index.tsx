@@ -11,17 +11,25 @@ const ControlPanelComp = (): JSX.Element => {
   const controlOptions = [
     {
       label: 'Users',
-      value: '/control-panel/users',
+      value: '/users',
     },
     {
       label: 'Woods',
       value: '/woods',
     },
+    {
+      label: 'Roles',
+      value: '/roles',
+    },
+    {
+      label: 'Permissions',
+      value: '/permissions',
+    },
   ]
   return (
     <Row gutter={16}>
       {controlOptions?.map(obj => (
-        <Col span={12} md={6} key={obj.value}>
+        <Col span={12} md={6} key={obj.value} className="mb-3">
           <Link href={CONTROL_PANEL_ROUTE + obj?.value}>
             <CardWrapper>{obj?.label}</CardWrapper>
           </Link>

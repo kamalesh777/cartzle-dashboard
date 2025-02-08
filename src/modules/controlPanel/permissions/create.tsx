@@ -30,7 +30,7 @@ interface FormValues {
   }
 }
 
-const CreateWoodModalComp = ({ open, setOpen }: PropTypes): JSX.Element => {
+const CreatePermissionsModalComp = ({ open, setOpen }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
   // check price method is equal to cft or not
   const isCFTPrice = Form.useWatch('price_method', form) === 'cft'
@@ -111,4 +111,4 @@ const CreateWoodModalComp = ({ open, setOpen }: PropTypes): JSX.Element => {
   )
 }
 
-export default CreateWoodModalComp
+export default CreatePermissionsModalComp
