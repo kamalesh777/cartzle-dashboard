@@ -1,89 +1,108 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, type TableProps, Table } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Space } from 'antd'
 
 interface DataType {
   key: React.ReactNode
   name: string
-  age: number
-  address: string
+  // add: boolean
+  // list: boolean
+  // view: boolean
+  // edit: boolean
+  // delete: boolean
   children?: DataType[]
 }
 
-type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection']
-
 const RoleManageComp = (): JSX.Element => {
-  const rowSelection: TableRowSelection<DataType> = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`==selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-    },
-    onSelect: (record, selected, selectedRows) => {
-      console.log(record, selected, selectedRows)
-    },
-    onSelectAll: (selected, selectedRows, changeRows) => {
-      console.log(selected, selectedRows, changeRows)
-    },
-  }
-
   const columns: TableColumnsType<DataType> = [
     {
-      title: 'Name',
+      title: 'Page Name',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      width: '12%',
+      title: (
+        <Space direction="vertical" size={0}>
+          Add <Checkbox />
+        </Space>
+      ),
+      className: 'text-center',
+      dataIndex: 'add',
+      width: '10%',
+      key: 'add',
+      render: () => <Checkbox />,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      width: '30%',
-      key: 'address',
+      title: (
+        <Space direction="vertical" size={0}>
+          List <Checkbox />
+        </Space>
+      ),
+      className: 'text-center',
+      dataIndex: 'list',
+      width: '10%',
+      key: 'list',
+      render: () => <Checkbox />,
+    },
+    {
+      title: (
+        <Space direction="vertical" size={0}>
+          View <Checkbox />
+        </Space>
+      ),
+      className: 'text-center',
+      dataIndex: 'view',
+      key: 'view',
+      width: '10%',
+      render: () => <Checkbox />,
+    },
+    {
+      title: (
+        <Space direction="vertical" size={0}>
+          Modify <Checkbox />
+        </Space>
+      ),
+      className: 'text-center',
+      dataIndex: 'modify',
+      width: '10%',
+      key: 'modify',
+      render: () => <Checkbox />,
+    },
+    {
+      title: (
+        <Space direction="vertical" size={0}>
+          Delete <Checkbox />
+        </Space>
+      ),
+      className: 'text-center',
+      dataIndex: 'delete',
+      width: '10%',
+      key: 'delete',
+      render: () => <Checkbox />,
     },
   ]
 
   const data: DataType[] = [
     {
       key: 1,
-      name: 'John Brown sr.',
-      age: 60,
-      address: 'New York No. 1 Lake Park',
+      name: 'Home',
       children: [
         {
           key: 11,
-          name: 'John Brown',
-          age: 42,
-          address: 'New York No. 2 Lake Park',
+          name: 'Location',
         },
         {
           key: 12,
-          name: 'John Brown jr.',
-          age: 30,
-          address: 'New York No. 3 Lake Park',
-          children: [
-            {
-              key: 121,
-              name: 'Jimmy Brown',
-              age: 16,
-              address: 'New York No. 3 Lake Park',
-            },
-          ],
+          name: 'Financial',
         },
         {
           key: 13,
-          name: 'Jim Green sr.',
-          age: 72,
-          address: 'London No. 1 Lake Park',
+          name: 'Skill',
           children: [
             {
               key: 131,
-              name: 'Jim Green',
-              age: 42,
-              address: 'London No. 2 Lake Park',
+              name: 'Award',
             },
           ],
         },
@@ -91,13 +110,11 @@ const RoleManageComp = (): JSX.Element => {
     },
     {
       key: 2,
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
+      name: 'Profile',
     },
   ]
 
-  return <Table<DataType> columns={columns} rowSelection={{ ...rowSelection }} dataSource={data} />
+  return <Table<DataType> columns={columns} dataSource={data} />
 }
 
 export default RoleManageComp
