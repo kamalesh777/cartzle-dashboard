@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Space } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Space, Form } from 'antd'
 
 interface DataType {
   key: React.ReactNode
   name: string
   // add: boolean
-  // list: boolean
+  list?: boolean
   // view: boolean
   // edit: boolean
   // delete: boolean
@@ -15,6 +15,8 @@ interface DataType {
 }
 
 const RoleManageComp = (): JSX.Element => {
+  const [form] = Form.useForm()
+
   const columns: TableColumnsType<DataType> = [
     {
       title: 'Page Name',
@@ -43,7 +45,13 @@ const RoleManageComp = (): JSX.Element => {
       dataIndex: 'list',
       width: '10%',
       key: 'list',
-      render: () => <Checkbox />,
+      render: (_, record) => {
+        return (
+          <Form.Item name={[record.name, 'list']} valuePropName="checked" noStyle>
+            <Checkbox />
+          </Form.Item>
+        )
+      },
     },
     {
       title: (
@@ -91,10 +99,12 @@ const RoleManageComp = (): JSX.Element => {
         {
           key: 11,
           name: 'Location',
+          list: true,
         },
         {
           key: 12,
           name: 'Financial',
+          list: true,
         },
         {
           key: 13,
@@ -114,7 +124,14 @@ const RoleManageComp = (): JSX.Element => {
     },
   ]
 
-  return <Table<DataType> columns={columns} dataSource={data} />
+  const formData = Form.useWatch([], form)
+  console.log('==formData', formData)
+
+  return (
+    <Form form={form}>
+      <Table<DataType> columns={columns} dataSource={data} />
+    </Form>
+  )
 }
 
 export default RoleManageComp
