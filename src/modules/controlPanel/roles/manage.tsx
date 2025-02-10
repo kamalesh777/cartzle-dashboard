@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col, type CheckboxProps } from 'antd'
 
 import { startCase } from 'lodash'
 
@@ -40,6 +40,25 @@ const RoleManageComp = (): JSX.Element => {
     },
   ]
 
+  const permissionsData = Form.useWatch('permissions', form)
+  console.log('==formData', permissionsData)
+
+  const checkAllColHandler: CheckboxProps['onChange'] = (e): void => {
+    const isChecked = e.target.checked
+    const checkedVal = e.target.value
+
+    for (const key in permissionsData) {
+      const arr = key === checkedVal ? permissionsData[key] : []
+      if (isChecked) {
+        form.setFieldValue(['permissions', key], [...arr, checkedVal])
+      } else {
+        form.setFieldValue(['permissions', key], arr)
+      }
+    }
+
+    // form.setFieldValue('permissions', )
+  }
+
   const columns: TableColumnsType<DataType> = [
     {
       title: 'Page Name',
@@ -50,9 +69,9 @@ const RoleManageComp = (): JSX.Element => {
       title: (
         <Row>
           {permissionsArr.map(obj => (
-            <Col sm={4} key={obj.name}>
-              <Space direction="vertical" className={'text-center'} size={0}>
-                {startCase(obj.name)} <Checkbox />
+            <Col sm={4} key={obj.name} className="text-center">
+              <Space direction="vertical" size={0}>
+                {startCase(obj.name)} <Checkbox value={obj.name} onChange={checkAllColHandler} />
               </Space>
             </Col>
           ))}
@@ -101,9 +120,6 @@ const RoleManageComp = (): JSX.Element => {
       ],
     },
   ]
-
-  const formData = Form.useWatch([], form)
-  console.log('==formData', formData)
 
   return (
     <Form form={form}>
