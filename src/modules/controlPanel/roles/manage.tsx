@@ -1,21 +1,44 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Space, Form } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col } from 'antd'
+
+import { startCase } from 'lodash'
+
+import { FormItemWrapper } from '@/components/Wrapper'
 
 interface DataType {
   key: React.ReactNode
   name: string
-  // add: boolean
-  list?: boolean
-  // view: boolean
-  // edit: boolean
-  // delete: boolean
+  permissions?: string[]
   children?: DataType[]
 }
 
 const RoleManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
+
+  const permissionsArr = [
+    {
+      name: 'view',
+      _id: 'view_01',
+    },
+    {
+      name: 'edit',
+      _id: 'edit_01',
+    },
+    {
+      name: 'delete',
+      _id: 'delete_01',
+    },
+    {
+      name: 'setting',
+      _id: 'setting_01',
+    },
+    {
+      name: 'modify',
+      _id: 'modify_01',
+    },
+  ]
 
   const columns: TableColumnsType<DataType> = [
     {
@@ -25,102 +48,57 @@ const RoleManageComp = (): JSX.Element => {
     },
     {
       title: (
-        <Space direction="vertical" size={0}>
-          Add <Checkbox />
-        </Space>
+        <Row>
+          {permissionsArr.map(obj => (
+            <Col sm={4} key={obj.name}>
+              <Space direction="vertical" className={'text-center'} size={0}>
+                {startCase(obj.name)} <Checkbox />
+              </Space>
+            </Col>
+          ))}
+        </Row>
       ),
-      className: 'text-center',
-      dataIndex: 'add',
-      width: '10%',
-      key: 'add',
-      render: () => <Checkbox />,
-    },
-    {
-      title: (
-        <Space direction="vertical" size={0}>
-          List <Checkbox />
-        </Space>
-      ),
-      className: 'text-center',
-      dataIndex: 'list',
-      width: '10%',
-      key: 'list',
+      dataIndex: 'permissions',
       render: (_, record) => {
         return (
-          <Form.Item name={[record.name, 'list']} valuePropName="checked" noStyle>
-            <Checkbox />
-          </Form.Item>
+          <FormItemWrapper name={['permissions', record.name]}>
+            <Checkbox.Group className="w-100">
+              <Row>
+                {permissionsArr.map(obj => (
+                  <Col sm={4} key={obj.name} className="text-center">
+                    <Checkbox value={obj.name} />
+                  </Col>
+                ))}
+              </Row>
+            </Checkbox.Group>
+          </FormItemWrapper>
         )
       },
-    },
-    {
-      title: (
-        <Space direction="vertical" size={0}>
-          View <Checkbox />
-        </Space>
-      ),
-      className: 'text-center',
-      dataIndex: 'view',
-      key: 'view',
-      width: '10%',
-      render: () => <Checkbox />,
-    },
-    {
-      title: (
-        <Space direction="vertical" size={0}>
-          Modify <Checkbox />
-        </Space>
-      ),
-      className: 'text-center',
-      dataIndex: 'modify',
-      width: '10%',
-      key: 'modify',
-      render: () => <Checkbox />,
-    },
-    {
-      title: (
-        <Space direction="vertical" size={0}>
-          Delete <Checkbox />
-        </Space>
-      ),
-      className: 'text-center',
-      dataIndex: 'delete',
-      width: '10%',
-      key: 'delete',
-      render: () => <Checkbox />,
     },
   ]
 
   const data: DataType[] = [
     {
-      key: 1,
-      name: 'Home',
-      children: [
-        {
-          key: 11,
-          name: 'Location',
-          list: true,
-        },
-        {
-          key: 12,
-          name: 'Financial',
-          list: true,
-        },
-        {
-          key: 13,
-          name: 'Skill',
-          children: [
-            {
-              key: 131,
-              name: 'Award',
-            },
-          ],
-        },
-      ],
+      name: 'home',
+      permissions: ['view', 'edit', 'delete', 'modify'],
+      key: 'home',
     },
     {
-      key: 2,
-      name: 'Profile',
+      name: 'profile',
+      permissions: ['view', 'edit', 'delete', 'modify'],
+      key: 'profile',
+      children: [
+        {
+          name: 'skill',
+          permissions: ['view', 'settings'],
+          key: 'skill',
+        },
+        {
+          name: 'experience',
+          permissions: ['edit', 'delete', 'list'],
+          key: 'experience',
+        },
+      ],
     },
   ]
 
@@ -129,7 +107,7 @@ const RoleManageComp = (): JSX.Element => {
 
   return (
     <Form form={form}>
-      <Table<DataType> columns={columns} dataSource={data} />
+      <Table<DataType> columns={columns} dataSource={data} rowKey="name" />
     </Form>
   )
 }
