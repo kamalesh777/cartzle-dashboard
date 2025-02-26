@@ -4,8 +4,12 @@ import { Layout, Menu, Tag } from 'antd'
 import { usePathname } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
+// eslint-disable-next-line no-duplicate-imports
+import type { MenuProps } from 'antd'
+
 import { NavLink } from '@/components/Common/NavLink'
 import { CircleRect } from '@/components/Common/SkeletonLoader'
+
 import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
 import { type AppThunkDispatch, type RootState } from '@/store/index'
 
@@ -19,8 +23,10 @@ interface PropTypes {
   collapsed: boolean
   sidenavWidth?: number
   collapseWidth?: number
-  setOpenDrawer?: (p: boolean) => void
+  setOpenDrawer?: (param: boolean) => void
 }
+
+type MenuItem = Required<MenuProps>['items'][number]
 
 const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: PropTypes): JSX.Element => {
   const path = usePathname()
@@ -42,7 +48,21 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
     alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
   }
 
-  
+  const menuItems: MenuItem[] = menuState.data.map(obj => ({
+    label: (
+      <NavLink href={obj.path}>
+        {obj.title}
+        {obj?.notification != null ? (
+          <Tag color="#B06AB3" className="m-0">
+            {obj?.notification}
+          </Tag>
+        ) : null}
+      </NavLink>
+    ),
+    icon: renderDynamicIcon(obj.icon),
+    key: obj.key,
+    onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
+  }))
   return (
     <Sider
       trigger={null}
@@ -58,36 +78,16 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
       </div>
       {menuState.loading ? (
         <div className="mx-3">
-          <CircleRect
-            rowCounts={10}
-            rectHeight={70}
-            circleCx={70}
-            circleCy={70}
-            circleR={70}
-            viewBox="-50 0 1000 200"
-            rectY={30}
-          />
+          <CircleRect rowCounts={10} rectHeight={110} circleR={130} viewBox="-50 0 1400 350" />
         </div>
       ) : (
-        <Menu className="menu-height" defaultSelectedKeys={['dashboard']} selectedKeys={[currentPath]}>
-          {menuState.data.map(obj => (
-            <Menu.Item 
-              key={obj.key} 
-              icon={renderDynamicIcon(obj.icon)}
-              onClick={() => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600)}>
-              <NavLink href={obj.path}>
-                <span>
-                  {obj.title}
-                  {obj?.notification != null ? (
-                    <Tag color="#B06AB3" className="m-0">
-                      {obj?.notification}
-                    </Tag>
-                  ) : null}
-                </span>
-              </NavLink>
-            </Menu.Item>
-          ))}
-        </Menu>
+        <Menu
+          mode="inline"
+          className="menu-height"
+          items={menuItems}
+          defaultSelectedKeys={['dashboard']}
+          selectedKeys={[currentPath]}
+        />
       )}
     </Sider>
   )

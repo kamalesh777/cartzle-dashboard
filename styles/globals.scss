@@ -144,9 +144,14 @@ li {
     display: flex;
     gap: 20px;
 }
+header.ant-layout-header.fix-header {
+    position: fixed;
+    width: 100%;
+    z-index: 6;
+}
 /* main-wrapper */
 .main-cont-wrap {
-	padding: 20px;
+	padding: 80px 20px 20px;
 	background-color: #f6f6f6;
 }
 .form-content h4 {

@@ -41,48 +41,55 @@ const RoleManageComp = (): JSX.Element => {
   ]
 
   const permissionsData = Form.useWatch('permissions', form)
-  console.log('==formData', permissionsData)
 
   const checkAllColHandler: CheckboxProps['onChange'] = (e): void => {
-    const isChecked = e.target.checked
-    const checkedVal = e.target.value
+    const { checked, value } = e.target
 
-    for (const key in permissionsData) {
-      const arr = key === checkedVal ? permissionsData[key] : []
-      if (isChecked) {
-        form.setFieldValue(['permissions', key], [...arr, checkedVal])
+    const updatedPermissions = Object.keys(permissionsData).reduce((acc, key) => {
+      const previousValue = permissionsData[key] || []
+
+      if (checked) {
+        // Use Set to avoid duplicates
+        acc[key] = [...new Set([...previousValue, value])] as string[]
       } else {
-        form.setFieldValue(['permissions', key], arr)
+        acc[key] = previousValue.filter((item: string) => item !== value)
       }
-    }
 
-    // form.setFieldValue('permissions', )
+      return acc
+    }, {} as Record<string, string[]>)
+
+    // Set the updated permissions in one go
+    form.setFieldValue('permissions', updatedPermissions)
   }
+
+  // console.log("===permissionsObj", permissionsObj)
 
   const columns: TableColumnsType<DataType> = [
     {
       title: 'Page Name',
       dataIndex: 'name',
       key: 'name',
+      width: '30%',
     },
     {
       title: (
-        <Row>
+        <Row justify="end">
           {permissionsArr.map(obj => (
             <Col sm={4} key={obj.name} className="text-center">
               <Space direction="vertical" size={0}>
-                {startCase(obj.name)} <Checkbox value={obj.name} onChange={checkAllColHandler} />
+                {startCase(obj.name)} <Checkbox indeterminate={false} value={obj.name} onChange={checkAllColHandler} />
               </Space>
             </Col>
           ))}
         </Row>
       ),
+      width: '70%',
       dataIndex: 'permissions',
       render: (_, record) => {
         return (
-          <FormItemWrapper name={['permissions', record.name]}>
+          <FormItemWrapper name={['permissions', record.name]} noStyle>
             <Checkbox.Group className="w-100">
-              <Row>
+              <Row justify="end">
                 {permissionsArr.map(obj => (
                   <Col sm={4} key={obj.name} className="text-center">
                     <Checkbox value={obj.name} />
@@ -123,7 +130,7 @@ const RoleManageComp = (): JSX.Element => {
 
   return (
     <Form form={form}>
-      <Table<DataType> columns={columns} dataSource={data} rowKey="name" />
+      <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
     </Form>
   )
 }
