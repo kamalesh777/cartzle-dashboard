@@ -6,6 +6,7 @@ export const EMPTY_PLACEHOLDER = '--'
 export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 
 export const CONTROL_PANEL_ROUTE = '/control-panel'
+export const ROLE_LIST_ROUTE = '/roles'
 
 export const MeasurementOptions = [
   {

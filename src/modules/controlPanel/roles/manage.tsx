@@ -6,6 +6,8 @@ import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col, type Che
 import { startCase } from 'lodash'
 
 import { FormItemWrapper } from '@/components/Wrapper'
+import DynamicPageLayout from '@/components/DynamicPageLayout'
+import { CONTROL_PANEL_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
 
 interface DataType {
   key: React.ReactNode
@@ -128,10 +130,13 @@ const RoleManageComp = (): JSX.Element => {
     },
   ]
 
-  return (
+  const MainComponent = (
     <Form form={form}>
       <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
     </Form>
+  )
+  return (
+    <DynamicPageLayout goBackUrl={`${CONTROL_PANEL_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
   )
 }
 
