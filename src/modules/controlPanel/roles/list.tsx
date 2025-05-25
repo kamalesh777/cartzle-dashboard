@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { EllipsisOutlined } from '@ant-design/icons'
+import { Dropdown, type MenuProps } from 'antd'
+
 import { TableWrapper } from '@/components/Wrapper'
 
 const RoleSettingList = (): JSX.Element => {
@@ -18,6 +21,17 @@ const RoleSettingList = (): JSX.Element => {
     },
   ]
 
+  const items: MenuProps['items'] = [
+    {
+      label: 'Update Role',
+      key: 'update_role',
+    },
+    {
+      label: 'Delete Role',
+      key: 'delete_role',
+    },
+  ]
+
   const columns = [
     {
       title: 'Name',
@@ -33,6 +47,16 @@ const RoleSettingList = (): JSX.Element => {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+    },
+    {
+      title: '',
+      key: 'action',
+      className: 'text-right',
+      render: () => (
+        <Dropdown menu={{ items }} trigger={['click']}>
+          <EllipsisOutlined />
+        </Dropdown>
+      ),
     },
   ]
 

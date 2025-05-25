@@ -22,8 +22,8 @@ const ControlPanelComp = (): JSX.Element => {
       value: '/roles',
     },
     {
-      label: 'Permissions',
-      value: '/permissions',
+      label: 'Page Menu',
+      value: '/page-menu',
     },
   ]
   return (

@@ -5,8 +5,8 @@ import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col, type Che
 
 import { startCase } from 'lodash'
 
-import { FormItemWrapper } from '@/components/Wrapper'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
+import { FormItemWrapper } from '@/components/Wrapper'
 import { CONTROL_PANEL_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
 
 interface DataType {
@@ -135,9 +135,7 @@ const RoleManageComp = (): JSX.Element => {
       <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
     </Form>
   )
-  return (
-    <DynamicPageLayout goBackUrl={`${CONTROL_PANEL_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
-  )
+  return <DynamicPageLayout goBackUrl={`${CONTROL_PANEL_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
 }
 
 export default RoleManageComp

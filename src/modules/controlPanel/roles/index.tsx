@@ -33,7 +33,11 @@ const RoleSettingComp = (): JSX.Element => {
     </Space>
   )
 
-  return <DynamicPageLayout goBackUrl={CONTROL_PANEL_ROUTE} MainComp={mainComp} ActionComp={actionComponent} />
+  return (
+    <>
+      <DynamicPageLayout goBackUrl={CONTROL_PANEL_ROUTE} MainComp={mainComp} ActionComp={actionComponent} />
+    </>
+  )
 }
 
 export default RoleSettingComp
