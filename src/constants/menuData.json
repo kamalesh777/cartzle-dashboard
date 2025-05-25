@@ -20,15 +20,17 @@
     "icon": "DashboardOutlined"
   },
   {
-    "key": "users",
-    "path": "/users",
-    "title": "Users",
-    "icon": "UserOutlined"
-  },
-  {
     "key": "control-pannel",
     "path": "/control-panel",
     "title": "Control Panel",
-    "icon": "SettingOutlined"
+    "icon": "SettingOutlined",
+    "children": [
+      {
+        "key": "control-pannel-user",
+        "path": "/control-panel/users",
+        "title": "Users",
+        "icon": "UserOutlined"
+      }
+    ]
   }
 ]

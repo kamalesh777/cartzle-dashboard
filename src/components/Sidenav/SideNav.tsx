@@ -48,21 +48,36 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
     alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
   }
 
-  const menuItems: MenuItem[] = menuState.data.map(obj => ({
-    label: (
-      <NavLink href={obj.path}>
-        {obj.title}
-        {obj?.notification != null ? (
-          <Tag color="#B06AB3" className="m-0">
-            {obj?.notification}
-          </Tag>
-        ) : null}
-      </NavLink>
-    ),
-    icon: renderDynamicIcon(obj.icon),
-    key: obj.key,
-    onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
-  }))
+  interface MenuObject {
+    path: string
+    notification: string
+    key: string
+    title: string
+    icon: string
+    children?: MenuObject[]
+  }
+
+  const mapMenuItems = (menuArray: MenuObject[]): MenuItem[] => {
+    return menuArray.map(obj => ({
+      label: (
+        <NavLink href={obj.path}>
+          {obj.title}
+          {obj?.notification != null ? (
+            <Tag color="#B06AB3" className="m-0">
+              {obj.notification}
+            </Tag>
+          ) : null}
+        </NavLink>
+      ),
+      icon: renderDynamicIcon(obj.icon),
+      key: obj.key,
+      onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
+      children: obj.children ? mapMenuItems(obj.children) : undefined,
+    }))
+  }
+
+  const menuItems = mapMenuItems(menuState.data as MenuObject[])
+
   return (
     <Sider
       trigger={null}
