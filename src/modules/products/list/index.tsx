@@ -1,18 +1,19 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 
-import { type TableColumnsType, Row, Col, Space } from 'antd'
+import { type TableColumnsType, Row, Col } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
-import CommonSearchComp from '@/components/Wrapper/CommonSearch'
+import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
 
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
+  const [, setSearchValue] = useState<string>('')
   const columns: TableColumnsType<ProductDataTypes> = [
     {
       title: 'Name',
@@ -52,12 +53,15 @@ const ProductListComp = (): JSX.Element => {
               <h3 className="fw-bold">Products</h3>
             </Col>
             <Col md={12} className="text-right">
-              <Space>
-                <CommonSearchComp placeholder="Search by name or categorie..." />
-                <ButtonWrapper type="primary" onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}>
+              <div className="d-flex">
+                <InputSearchWrapper
+                  placeholder="Search by name or categories..."
+                  onChange={e => setSearchValue(e.target.value)}
+                />
+                <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}>
                   Add
                 </ButtonWrapper>
-              </Space>
+              </div>
             </Col>
           </Row>
         )}
