@@ -1,7 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 
-import { type TableColumnsType, Row, Col } from 'antd'
+import { EllipsisOutlined } from '@ant-design/icons'
+
+import { type TableColumnsType, type MenuProps, Row, Col, Dropdown } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
@@ -14,6 +16,16 @@ import { listData } from '../static/data'
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
   const [, setSearchValue] = useState<string>('')
+
+  const getMoreMenus = (record: ProductDataTypes): MenuProps['items'] => [
+    {
+      label: 'Update Product',
+      key: 'update_product',
+      onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record?.name}`),
+    },
+  ]
+
+  // product list columns
   const columns: TableColumnsType<ProductDataTypes> = [
     {
       title: 'Name',
@@ -41,6 +53,15 @@ const ProductListComp = (): JSX.Element => {
       title: 'Sale Price',
       dataIndex: 'salePrice',
       render: price => `₹${price.toFixed(2)}`,
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      render: (_, record) => (
+        <Dropdown menu={{ items: getMoreMenus(record) }} trigger={['click']}>
+          <EllipsisOutlined />
+        </Dropdown>
+      ),
     },
   ]
 

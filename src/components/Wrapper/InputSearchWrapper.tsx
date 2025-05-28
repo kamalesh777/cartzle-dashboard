@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { CloseOutlined, SearchOutlined } from '@ant-design/icons'
+import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons'
 import { Input, type InputProps } from 'antd'
 
 interface PropTypes extends InputProps {
@@ -24,7 +24,7 @@ const InputSearchWrapper = ({ onChange, debounceTime = 600, ...props }: PropType
 
   return (
     <Input
-      suffix={value ? <CloseOutlined onClick={() => setValue('')} /> : <SearchOutlined />}
+      suffix={value ? <CloseCircleFilled onClick={() => setValue('')} /> : <SearchOutlined />}
       placeholder={props?.placeholder || 'Search...'}
       value={value}
       onChange={e => setValue(e.target.value)}
