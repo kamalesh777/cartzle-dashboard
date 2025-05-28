@@ -1,3 +1,5 @@
+import type { ProductDataTypes } from '../types/product'
+
 export const listData: ProductDataTypes[] = [
   {
     key: '1',

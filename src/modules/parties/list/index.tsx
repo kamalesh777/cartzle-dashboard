@@ -12,10 +12,10 @@ import { TableWrapper } from '@/components/Wrapper'
 interface DataType {
   key: string
   name: string
-  phone: number
-  status: string
-  job_role: string[]
-  address_info: {
+  phone?: number
+  status?: string
+  job_role?: string[]
+  address_info?: {
     city: string
     pin: string
     state: string
@@ -75,7 +75,7 @@ const UsersListComp = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: (_, record) => (
+      render: () => (
         <Dropdown menu={{ items }} trigger={['click']}>
           <EllipsisOutlined />
         </Dropdown>

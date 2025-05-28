@@ -97,6 +97,7 @@ const PageMenuList = (): JSX.Element => {
   const mainComp = <TableWrapper dataSource={dataSource} columns={columns} />
 
   const formSubmitHandler = async (values: FormValues): Promise<void> => {
+    // eslint-disable-next-line no-console
     console.log('===values', values)
   }
   return (
