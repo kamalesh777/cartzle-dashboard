@@ -7,6 +7,8 @@ import { type TableColumnsType, type MenuProps, Row, Col, Dropdown } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
+import type { ProductDataTypes } from '../types/product'
+
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'

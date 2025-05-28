@@ -1,4 +1,4 @@
-interface ProductDataTypes {
+export interface ProductDataTypes {
   category: string | null
   key: string
   name: string
@@ -11,4 +11,20 @@ interface ProductDataTypes {
   supplier?: {
     name: string
   }
+}
+
+export interface ProductFormValueTypes {
+  name: string
+  category: keyof (typeof categoriesOptions)[number]['value']
+  description?: string
+  thickness: number
+  width: number
+  length: number
+  unit: string
+  party: string
+  is_supplier: boolean
+  cost_price: number
+  sale_price: number
+  wood_type: string
+  // product_image: strings[]
 }

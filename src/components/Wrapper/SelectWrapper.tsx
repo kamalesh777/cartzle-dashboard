@@ -15,7 +15,7 @@ interface CustomOptionProps {
 
 function SelectWrapper(props: customSelectProps): JSX.Element {
   return (
-    <Select placement="bottomRight" {...props}>
+    <Select placement="bottomRight" dropdownStyle={{ minWidth: '150px' }} {...props}>
       {props.children}
     </Select>
   )

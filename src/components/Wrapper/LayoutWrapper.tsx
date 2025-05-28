@@ -27,7 +27,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
   return (
     <>
       <HeaderNav {...{ collapsed, setCollapsed, marginWidth, setOpenDrawer }} />
-      <main className="main-cont-wrap min-height-100-vh" style={{ marginLeft: marginWidth }}>
+      <main className="main-cont-wrap" style={{ marginLeft: marginWidth }}>
         {children}
       </main>
       {/* Side Nav according to the mobile device responsive */}

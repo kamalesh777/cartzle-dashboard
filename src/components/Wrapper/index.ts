@@ -1,6 +1,7 @@
 import ButtonWrapper from './ButtonWrapper'
 import CardWrapper from './CardWrapper'
 import CheckBoxWrapper from './CheckBoxWrapper'
+import ColWrapper from './ColWrapper'
 import DropdownWrapper from './DropdownWrapper'
 import EmailWrapper from './EmailWrapper'
 import FormItemWrapper from './FormItemWrapper'
@@ -34,4 +35,5 @@ export {
   TagWrapper,
   TooltipWrapper,
   URLWrapper,
+  ColWrapper,
 }

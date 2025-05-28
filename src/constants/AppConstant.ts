@@ -12,6 +12,7 @@ export const ERROR_MSG = 'Field is required.'
 export const WHITESPACE_MSG = 'Enter a vaild input'
 export const COMMON_ROW_GUTTER = 16
 
+// common required rules
 export const requiredFieldRules = [
   {
     required: true,
@@ -19,6 +20,7 @@ export const requiredFieldRules = [
   },
 ]
 
+// common required rules with checking of whitespace
 export const reqWithWhitspcFieldRules = [
   {
     required: true,
@@ -30,6 +32,7 @@ export const reqWithWhitspcFieldRules = [
   },
 ]
 
+//  mesaurement option
 export const MeasurementOptions = [
   {
     label: 'IN',
@@ -43,4 +46,11 @@ export const MeasurementOptions = [
     label: 'CFT',
     value: 'cft',
   },
+]
+
+// categories options
+export const categoriesOptions = [
+  { value: 'raw', label: 'Raw' },
+  { value: 'semi_finished', label: 'Semi Finished' },
+  { value: 'finished', label: 'Finished' },
 ]

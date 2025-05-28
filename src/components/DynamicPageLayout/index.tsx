@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
-import { Anchor, Col, Menu, Row, Tag } from 'antd'
+import { Anchor, Col, Menu, Row, Tag, Tooltip } from 'antd'
 
 import { useRouter, usePathname } from 'next/navigation'
 
@@ -82,13 +82,14 @@ const DynamicPageLayout = ({
 
   const goBackButton =
     goBackUrl != null ? (
-      <ButtonWrapper
-        title="Go Back"
-        onClick={() => router.push(goBackUrl)}
-        className="me-2"
-        style={{ width: '40px' }}
-        icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
-      />
+      <Tooltip title="Go Back">
+        <ButtonWrapper
+          onClick={() => router.push(goBackUrl)}
+          className="me-2"
+          style={{ width: '40px' }}
+          icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
+        />
+      </Tooltip>
     ) : null
 
   // anchor menu for scrollable card
