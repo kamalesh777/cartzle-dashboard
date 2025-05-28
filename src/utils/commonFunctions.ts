@@ -112,3 +112,11 @@ export const getCurrentPath = (path: string, slash = false): string => {
 }
 
 // export const goBack = (url: string): void => Router.push(url)
+
+interface ParamTypes {
+  id?: string
+  matcher?: string
+}
+export const getCardTitle = (params: ParamTypes, matcher = 'create'): string => {
+  return params?.id === matcher ? 'Create' : 'Update'
+}

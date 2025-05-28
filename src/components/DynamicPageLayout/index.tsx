@@ -108,22 +108,18 @@ const DynamicPageLayout = ({
     <>
       {isScrollable ? (
         <div style={{ position: 'fixed' }} className="settings-stepper title-row">
-          {!hideTitle ? (
-            <p className="page-title">
-              {goBackButton}
-              {customTitle || title}
-            </p>
-          ) : null}
+          <p className="page-title">
+            {goBackButton}
+            {!hideTitle ? customTitle || title : null}
+          </p>
           <Anchor affix={false} className="affix-menu" items={anchorMenus} />
         </div>
       ) : (
         <div className="settings-stepper title-row">
-          {!hideTitle ? (
-            <p className="page-title">
-              {goBackButton}
-              {customTitle || title}
-            </p>
-          ) : null}
+          <p className="page-title">
+            {goBackButton}
+            {!hideTitle ? customTitle || title : null}
+          </p>
           <Menu className="affix-menu">
             {linkedMenus?.map(obj => (
               <Menu.Item key={obj.key} className={obj.path?.split('/').at(-1) === currentPath ? 'ant-menu-item-selected' : ''}>
@@ -163,15 +159,13 @@ const DynamicPageLayout = ({
           ) : (
             // eslint-disable-next-line indent
             <Col span={24}>
-              {!hideTitle ? (
-                <div className="title-row mb-24 d-flex justify-content-between">
-                  <span className="page-title">
-                    {goBackButton}
-                    {customTitle || title}
-                  </span>
-                  {ActionComp}
-                </div>
-              ) : null}
+              <div className="title-row mb-24 d-flex justify-content-between">
+                <span className="page-title">
+                  {goBackButton}
+                  {!hideTitle ? customTitle || title : null}
+                </span>
+                {ActionComp}
+              </div>
               {rightSideComponent}
             </Col>
             // eslint-disable-next-line indent
