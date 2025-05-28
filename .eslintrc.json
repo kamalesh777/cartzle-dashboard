@@ -28,8 +28,8 @@
       "jsx-a11y",
       "prettier",
       "autofix",
-      "@typescript-eslint",
-      "react-hooks"
+      "react-hooks",
+      "@typescript-eslint"
     ],
     "rules": {
       "react/react-in-jsx-scope": "off",
@@ -49,7 +49,7 @@
           "react/prop-types": "off",
           "@typescript-eslint/no-unused-vars": "error",
           "no-console": "error",
-          "no-duplicate-imports": "error",
+          "no-duplicate-imports": ["error", { "includeExports": true }],
           "consistent-return": 2,
           "no-else-return"   : 1,
           "semi": ["error", "never"],
@@ -111,7 +111,7 @@
             "no-restricted-imports": [
               "error",
                 { 
-                  "patterns": ["../"] 
+                  "patterns": ["../.+/"]
                 }
               ]
         }

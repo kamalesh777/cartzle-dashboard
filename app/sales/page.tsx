@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SellListComp from '@/modules/sell/list'
+import SellListComp from '@/modules/sales/list'
 
 const SellListPage = (): JSX.Element => {
   return <SellListComp />

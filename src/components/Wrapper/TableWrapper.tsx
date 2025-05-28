@@ -4,6 +4,8 @@ import { Table, type TableProps } from 'antd'
 
 import type { AnyObject } from 'antd/es/_util/type'
 
+import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
+
 // type AnyObject = Record<string, unknown>
 
 export interface CustomTableProps<T> extends TableProps<T> {
@@ -14,6 +16,7 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
   const { columns, ...resProps } = props
   const tableColumns = columns?.map(item => {
     return {
+      render: (value: string | number) => value || EMPTY_PLACEHOLDER,
       ...item,
       ellipsis: item.ellipsis ?? true,
     }

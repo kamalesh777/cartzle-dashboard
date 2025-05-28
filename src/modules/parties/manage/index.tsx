@@ -4,7 +4,7 @@ import { Form } from 'antd'
 
 import { FormItemWrapper, SelectWrapper } from '@/components/Wrapper'
 
-const UsersModifierComp = (): JSX.Element => {
+const PartiesManageComp = (): JSX.Element => {
   return (
     <Form>
       <FormItemWrapper name="" label="">
@@ -14,4 +14,4 @@ const UsersModifierComp = (): JSX.Element => {
   )
 }
 
-export default UsersModifierComp
+export default PartiesManageComp
