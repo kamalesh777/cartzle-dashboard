@@ -15,7 +15,7 @@ import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
 
-const ProductListComp = (): JSX.Element => {
+const PurchaseListComp = (): JSX.Element => {
   const router = useRouter()
   const [, setSearchValue] = useState<string>('')
 
@@ -73,14 +73,11 @@ const ProductListComp = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <Col md={12}>
-              <h3 className="fw-bold">Products</h3>
+              <h3 className="fw-bold">Purchases</h3>
             </Col>
             <Col md={12} className="text-right">
               <div className="d-flex">
-                <InputSearchWrapper
-                  placeholder="Search by name or categories..."
-                  onChange={e => setSearchValue(e.target.value)}
-                />
+                <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
                 <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}>
                   Add
                 </ButtonWrapper>
@@ -95,4 +92,4 @@ const ProductListComp = (): JSX.Element => {
   )
 }
 
-export default ProductListComp
+export default PurchaseListComp

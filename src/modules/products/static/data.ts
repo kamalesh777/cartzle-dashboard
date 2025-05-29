@@ -1,4 +1,4 @@
-import type { ProductDataTypes } from '../types/product'
+import type { ProductDataTypes } from '../types'
 
 export const listData: ProductDataTypes[] = [
   {

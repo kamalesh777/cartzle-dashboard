@@ -28,7 +28,7 @@ import {
 import { getCardTitle } from '@/utils/commonFunctions'
 
 // main function
-const ProductManageComp = (): JSX.Element => {
+const PurchaseManageComp = (): JSX.Element => {
   const params = useParams()
   const cardTitle = `${getCardTitle(params)} Products`
 
@@ -174,4 +174,4 @@ const ProductManageComp = (): JSX.Element => {
   return <DynamicPageLayout MainComp={MAIN_COMP} goBackUrl={PRODUCT_LIST_ROUTE} hideTitle />
 }
 
-export default ProductManageComp
+export default PurchaseManageComp

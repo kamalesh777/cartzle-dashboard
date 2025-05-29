@@ -12,22 +12,30 @@
     "icon": "ProductOutlined"
   },
   {
-    "key": "purchases",
-    "path": "/purchases",
-    "title": "Purchases",
-    "icon": "ImportOutlined"
-  },
-  {
-    "key": "sales",
-    "path": "/sales",
-    "title": "Sales",
-    "icon": "ExportOutlined"
-  },
-  {
     "key": "parties",
     "path": "/parties",
     "title": "Parties",
     "icon": "UsergroupAddOutlined"
+  },
+  {
+    "key": "orders",
+    "path": "/orders/purchases",
+    "title": "Orders",
+    "icon": "InboxOutlined",
+    "children": [
+      {
+        "key": "purchases",
+        "path": "/orders/purchases",
+        "title": "Purchases",
+        "icon": "ImportOutlined"
+      },
+      {
+        "key": "sales",
+        "path": "/orders/sales",
+        "title": "Sales",
+        "icon": "ExportOutlined"
+      }
+    ]
   },
   {
     "key": "employees",
