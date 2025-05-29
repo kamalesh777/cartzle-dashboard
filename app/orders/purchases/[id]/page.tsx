@@ -3,8 +3,8 @@ import React from 'react'
 
 import PurchaseManageComp from '@/modules/orders/purchases/manage'
 
-const ManageProductPgae = (): JSX.Element => {
+const ManagePurchasePgae = (): JSX.Element => {
   return <PurchaseManageComp />
 }
 
-export default ManageProductPgae
+export default ManagePurchasePgae

@@ -7,11 +7,11 @@ import { type TableColumnsType, type MenuProps, Row, Col, Dropdown } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
-import type { ProductDataTypes } from '../types'
+import type { ListDataTypes } from '../types'
 
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
-import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
+import { PRODUCT_LIST_ROUTE, PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
 
@@ -19,11 +19,11 @@ const PurchaseListComp = (): JSX.Element => {
   const router = useRouter()
   const [, setSearchValue] = useState<string>('')
 
-  const getMoreMenus = (record: ProductDataTypes): MenuProps['items'] => [
+  const getMoreMenus = (record: ListDataTypes): MenuProps['items'] => [
     {
       label: 'Update Details',
       key: 'update_details',
-      onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record?.name}`),
+      onClick: () => router.push(`${PURCHASE_LIST_ROUTE}/${record?.name}`),
     },
   ]
 
@@ -78,7 +78,7 @@ const PurchaseListComp = (): JSX.Element => {
             <Col md={12} className="text-right">
               <div className="d-flex">
                 <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
-                <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}>
+                <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PURCHASE_LIST_ROUTE}/create`)}>
                   Add
                 </ButtonWrapper>
               </div>

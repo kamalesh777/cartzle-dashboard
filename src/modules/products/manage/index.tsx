@@ -43,13 +43,33 @@ const ProductManageComp = (): JSX.Element => {
   const COMMON_FIELDS = (
     <>
       <ColWrapper md={12}>
-        <FormItemWrapper name="qty" label="Quantity">
+        <FormItemWrapper name="stock_location" label="Stock Location">
+          <SelectWrapper />
+        </FormItemWrapper>
+      </ColWrapper>
+      <ColWrapper md={12}>
+        <FormItemWrapper name="cost_price" label="Cost Price" rules={requiredFieldRules}>
           <InputNumberWrapper />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper md={12}>
-        <FormItemWrapper name="stock_location" label="Stock Location">
-          <SelectWrapper />
+        <FormItemWrapper
+          name="sale_price"
+          label="Sale Price"
+          dependencies={['cost_price']}
+          rules={[
+            ...requiredFieldRules,
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || value > getFieldValue('cost_price')) {
+                  return Promise.resolve()
+                }
+                return Promise.reject(new Error('Sale price should be greater than Cost price!'))
+              },
+            }),
+          ]}
+        >
+          <InputNumberWrapper />
         </FormItemWrapper>
       </ColWrapper>
     </>
@@ -124,31 +144,6 @@ const ProductManageComp = (): JSX.Element => {
           </Row>
         ) : (
           <Row gutter={COMMON_ROW_GUTTER}>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="cost_price" label="Cost Price" rules={requiredFieldRules}>
-                <InputNumberWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper
-                name="sale_price"
-                label="Sale Price"
-                dependencies={['cost_price']}
-                rules={[
-                  ...requiredFieldRules,
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || value > getFieldValue('cost_price')) {
-                        return Promise.resolve()
-                      }
-                      return Promise.reject(new Error('Sale price should be greater than Cost price!'))
-                    },
-                  }),
-                ]}
-              >
-                <InputNumberWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
             <ColWrapper md={12}>
               <FormItemWrapper name="party" label="Party's Name" rules={reqWithWhitspcFieldRules}>
                 <SelectWrapper />

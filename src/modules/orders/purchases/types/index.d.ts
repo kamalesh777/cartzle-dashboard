@@ -3,7 +3,7 @@ export interface ListDataTypes {
   partyId: string
   type: 'purchase' | 'sale'
   date: string
-  items: {
+  product_items: {
     productId: string
     quantity: number
     price?: number // optional if auto-calculated
