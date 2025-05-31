@@ -1,9 +1,10 @@
 import React from 'react'
 
-import ButtonWrapper from './ButtonWrapper'
-import { ButtonProps } from 'antd'
+import type { ButtonProps } from 'antd'
 
-interface propTypes extends ButtonProps{
+import ButtonWrapper from './ButtonWrapper'
+
+interface propTypes extends ButtonProps {
   loading: boolean
   children?: React.ReactNode
 }

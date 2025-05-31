@@ -3,6 +3,7 @@ import type { AxiosResponse } from 'axios'
 export interface ModalPropTypes {
   openModal: boolean
   setOpenModal: (parama: boolean) => void
+  afterSubmit?: () => void
 }
 
 export interface responseType {

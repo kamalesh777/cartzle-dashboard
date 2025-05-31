@@ -1,49 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { Row, Col, Typography, Divider } from 'antd'
-import { ModalPropTypes } from 'src/types/common'
-import { useGetRequestHandler } from '@/hook/requestHandler'
-import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
+import React from 'react'
+
+import { Row, Col, Typography } from 'antd'
+
+import type { ModalPropTypes } from 'src/types/common'
+
 import { ButtonWrapper, ModalWrapper } from '@/components/Wrapper'
+import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
+import { useGetRequestHandler } from '@/hook/requestHandler'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
-const { Title, Text } = Typography
+const { Text } = Typography
 
 const ViewDetailsModal = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Element | null => {
-    if (!openModal) {
-        return null
-    }
-    // const { isLoading, data, fetchData } = useGetRequestHandler()
-    const [data, setData] = useState({})
+  const { data } = useGetRequestHandler()
 
-    const getData = () => {
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
-            .then(response => response.json())
-            .then(json => setData(json))
-    }
-
-    useEffect(() => {
-        getData()
-    }, [])
-
-    console.log("==data", data)
-    // close modal handler
-    const closeModal = () => modalCloseHandler(setOpenModal)
-    return (
-        <ModalWrapper open={openModal} onCancel={closeModal} title="View Details" footer={
-            <ButtonWrapper onClick={closeModal}>Close</ButtonWrapper>
-        }>
-            <div className='view-details-body'>
-                {
-                    Object?.entries(data)?.map(item => (
-                        <Row gutter={COMMON_ROW_GUTTER} className='mb-2'>
-                            <Col span={8}><Text strong>{item[0]}:</Text></Col>
-                            <Col span={16}><Text>{item[1] as string}</Text></Col>
-                        </Row>
-                    ))
-                }
-            </div>
-        </ModalWrapper>
-    )
+  // close modal handler
+  const closeModal = (): void => modalCloseHandler(setOpenModal)
+  return (
+    <ModalWrapper
+      open={openModal}
+      onCancel={closeModal}
+      title="View Details"
+      footer={<ButtonWrapper onClick={closeModal}>Close</ButtonWrapper>}
+    >
+      <div className="view-details-body">
+        {Object?.entries(data as Record<string, unknown>)?.map(item => (
+          <Row gutter={COMMON_ROW_GUTTER} key={item[0]} className="mb-2">
+            <Col span={8}>
+              <Text strong>{item[0]}:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>{item[1] as string}</Text>
+            </Col>
+          </Row>
+        ))}
+      </div>
+    </ModalWrapper>
+  )
 }
 
 export default ViewDetailsModal

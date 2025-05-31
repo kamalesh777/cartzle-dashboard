@@ -57,3 +57,5 @@ export const categoriesOptions = [
   { value: 'semi_finished', label: 'Semi Finished' },
   { value: 'finished', label: 'Finished' },
 ]
+
+export const PaymentMethods = ['PhonePe', 'GPay', 'Paytm', 'Amazon Pay', 'Cash', 'Bank Transfer']

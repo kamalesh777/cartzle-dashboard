@@ -3,6 +3,8 @@ import React from 'react'
 
 import { Form, Input, Row, Select, Space } from 'antd'
 
+import type { ModalPropTypes } from 'src/types/common'
+
 import {
   ButtonWrapper,
   ColWrapper,
@@ -16,8 +18,7 @@ import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } 
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
-import { partyTypeOptions } from '../static/constants'
-import { ModalPropTypes } from 'src/types/common'
+import { PartyTypeOptions } from '../static/constants'
 
 const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Element => {
   const [form] = Form.useForm()
@@ -27,7 +28,7 @@ const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Ele
   const formSubmitHandler = async (): Promise<void> => await submit()
 
   // close modal handler
-  const closeModal = () => modalCloseHandler(setOpenModal, form)
+  const closeModal = (): void => modalCloseHandler(setOpenModal, form)
   return (
     <ModalWrapper
       bodyScroll
@@ -47,7 +48,7 @@ const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Ele
         </FormItemWrapper>
 
         <FormItemWrapper name="type" label="Party Type" rules={requiredFieldRules}>
-          <Select options={partyTypeOptions} />
+          <Select options={PartyTypeOptions} />
         </FormItemWrapper>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>

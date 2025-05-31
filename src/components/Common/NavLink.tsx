@@ -11,7 +11,13 @@ interface NavLinkProps {
   activeClassName?: string
 }
 
-export function NavLink({ href, exact = false, children, className = '', activeClassName = '' }: NavLinkProps): JSX.Element {
+export default function NavLink({
+  href,
+  exact = false,
+  children,
+  className = '',
+  activeClassName = '',
+}: NavLinkProps): JSX.Element {
   const path = usePathname()
   const pathname = getCurrentPath(path, true)
   const isActive = exact ? pathname === href : pathname?.startsWith(href)

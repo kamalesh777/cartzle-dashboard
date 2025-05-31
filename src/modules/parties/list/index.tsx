@@ -2,20 +2,20 @@
 'use client'
 import React, { useState } from 'react'
 
-import { EditOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { Divider, Space, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
 
-import { TableWrapper, TooltipWrapper } from '@/components/Wrapper'
-
+import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
+import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
+import { TableWrapper } from '@/components/Wrapper'
+
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
-import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
 
 const UsersListComp = (): JSX.Element => {
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
@@ -48,7 +48,7 @@ const UsersListComp = (): JSX.Element => {
     {
       label: 'Deactivate',
       key: 'deactivate',
-      className: 'text-danger'
+      className: 'text-danger',
     },
   ]
 
@@ -91,16 +91,14 @@ const UsersListComp = (): JSX.Element => {
         <Space>
           <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
           {record?.alternate_mobile ? (
-            <TooltipWrapper
+            <InfoTooltip
               title={
                 <>
                   <p>Alternate Number </p>
                   <Typography.Text copyable={{ icon: [record?.alternate_mobile, record?.alternate_mobile] }} />{' '}
                 </>
               }
-            >
-              <InfoCircleOutlined className="text-primary" />
-            </TooltipWrapper>
+            />
           ) : (
             ''
           )}
@@ -122,7 +120,7 @@ const UsersListComp = (): JSX.Element => {
         return obj1 ? (
           <p className="text-danger">
             {obj1?.promised_date}{' '}
-            <TooltipWrapper
+            <InfoTooltip
               title={arr?.map((obj: PaymentPromise, index: React.Key) => (
                 <>
                   <Space align="start" className="w-100">
@@ -137,9 +135,7 @@ const UsersListComp = (): JSX.Element => {
                   {arr?.length - 1 !== index && <Divider className="my-2" />}
                 </>
               ))}
-            >
-              <InfoCircleOutlined className="text-primary" />
-            </TooltipWrapper>
+            />
           </p>
         ) : (
           EMPTY_PLACEHOLDER
@@ -162,8 +158,8 @@ const UsersListComp = (): JSX.Element => {
   return (
     <>
       <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
-      <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setOpenManageModal }} />
-      <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />
+      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setOpenManageModal }} />}
+      {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
     </>
   )
 }

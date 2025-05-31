@@ -50,7 +50,6 @@ export function TableContentLoaderWithProps(
   )
 }
 
-
 interface circleRectProps {
   rowCounts?: string | number
   rectHeight?: string | number
