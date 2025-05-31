@@ -58,6 +58,7 @@ const ProductListComp = (): JSX.Element => {
     {
       title: '',
       dataIndex: 'action',
+      className: 'text-right',
       render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,
     },
   ]
