@@ -15,11 +15,13 @@ import { TableWrapper } from '@/components/Wrapper'
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
+import AddPaymentModal from '../modals/AddPaymentModal'
 import { listData } from '../static/data'
 
 const UsersListComp = (): JSX.Element => {
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
+  const [openAPModal, setAPModal] = useState<boolean>(false)
 
   const items: MenuProps['items'] = [
     {
@@ -35,7 +37,7 @@ const UsersListComp = (): JSX.Element => {
     {
       label: 'Add Payment',
       key: 'add_payment',
-      onClick: () => setOpenManageModal(true),
+      onClick: () => setAPModal(true),
     },
     {
       label: 'Set Reminder',
@@ -160,6 +162,7 @@ const UsersListComp = (): JSX.Element => {
       <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
       {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setOpenManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
+      {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}
     </>
   )
 }

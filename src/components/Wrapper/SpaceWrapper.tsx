@@ -6,8 +6,8 @@ interface customRadioProps extends SpaceProps {
   label?: string
 }
 
-const RadioWrapper: React.FC<customRadioProps> = props => {
+const SpaceWrapper: React.FC<customRadioProps> = props => {
   return <Space {...props}>{props.children}</Space>
 }
 
-export default RadioWrapper
+export default SpaceWrapper

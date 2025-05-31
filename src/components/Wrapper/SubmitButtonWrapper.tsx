@@ -1,19 +1,24 @@
 import React from 'react'
 
-import type { ButtonProps } from 'antd'
+import { Space, type ButtonProps } from 'antd'
 
 import ButtonWrapper from './ButtonWrapper'
 
 interface propTypes extends ButtonProps {
-  loading: boolean
-  children?: React.ReactNode
+  okText?: React.ReactNode | string
+  cancelText?: React.ReactNode | string
+  cancelButtonProps?: ButtonProps
+  okButtonProps?: ButtonProps
 }
 
-const SubmitButtonWrapper = ({ loading = false, children, ...restProps }: propTypes): JSX.Element => {
+const SubmitButtonWrapper = ({ okText, cancelText, cancelButtonProps, okButtonProps }: propTypes): JSX.Element => {
   return (
-    <ButtonWrapper loading={loading} htmlType="submit" type="primary" {...restProps}>
-      {children || 'Save'}
-    </ButtonWrapper>
+    <Space>
+      <ButtonWrapper htmlType="submit" type="primary" loading={okButtonProps?.loading} {...okButtonProps}>
+        {okText || 'Save'}
+      </ButtonWrapper>
+      <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>
+    </Space>
   )
 }
 

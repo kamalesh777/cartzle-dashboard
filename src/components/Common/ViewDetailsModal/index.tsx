@@ -24,16 +24,17 @@ const ViewDetailsModal = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Elem
       footer={<ButtonWrapper onClick={closeModal}>Close</ButtonWrapper>}
     >
       <div className="view-details-body">
-        {Object?.entries(data as Record<string, unknown>)?.map(item => (
-          <Row gutter={COMMON_ROW_GUTTER} key={item[0]} className="mb-2">
-            <Col span={8}>
-              <Text strong>{item[0]}:</Text>
-            </Col>
-            <Col span={16}>
-              <Text>{item[1] as string}</Text>
-            </Col>
-          </Row>
-        ))}
+        {!!data &&
+          Object?.entries(data as Record<string, unknown>)?.map(item => (
+            <Row gutter={COMMON_ROW_GUTTER} key={item[0]} className="mb-2">
+              <Col span={8}>
+                <Text strong>{item[0]}:</Text>
+              </Col>
+              <Col span={16}>
+                <Text>{item[1] as string}</Text>
+              </Col>
+            </Row>
+          ))}
       </div>
     </ModalWrapper>
   )

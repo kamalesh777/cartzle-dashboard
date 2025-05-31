@@ -1,12 +1,11 @@
 'use client'
 import React from 'react'
 
-import { Form, Input, Row, Select, Space } from 'antd'
+import { Form, Input, Row, Select } from 'antd'
 
 import type { ModalPropTypes } from 'src/types/common'
 
 import {
-  ButtonWrapper,
   ColWrapper,
   FormItemWrapper,
   InputNumberWrapper,
@@ -36,10 +35,13 @@ const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Ele
       open={openModal}
       onCancel={closeModal}
       footer={
-        <Space>
-          <SubmitButtonWrapper loading={buttonLoading} onClick={() => form.submit()} />
-          <ButtonWrapper onClick={closeModal}>Cancel</ButtonWrapper>
-        </Space>
+        <SubmitButtonWrapper
+          okText="Add Payment"
+          okButtonProps={{ loading: buttonLoading, onClick: () => form.submit() }}
+          cancelButtonProps={{
+            onClick: () => closeModal(),
+          }}
+        />
       }
     >
       <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
@@ -62,7 +64,7 @@ const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Ele
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
-            <FormItemWrapper name="address" label="Address">
+            <FormItemWrapper name="address" label="Address" rules={[...requiredFieldRules]}>
               <Input.TextArea rows={3} />
             </FormItemWrapper>
           </ColWrapper>

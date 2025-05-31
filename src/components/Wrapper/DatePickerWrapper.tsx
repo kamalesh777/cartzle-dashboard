@@ -8,7 +8,7 @@ interface CustomDatePickerProps {
 }
 
 const DatePickerWrapper: React.FC<CustomDatePickerProps & DatePickerProps> = props => {
-  return <DatePicker {...props} />
+  return <DatePicker className="w-100" {...props} />
 }
 
 export default DatePickerWrapper

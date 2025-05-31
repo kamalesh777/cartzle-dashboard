@@ -12,6 +12,7 @@ import LayoutWrapper from './LayoutWrapper'
 import ModalWrapper from './ModalWrapper'
 import RadioWrapper from './RadioWrapper'
 import SelectWrapper from './SelectWrapper'
+import SpaceWrapper from './SpaceWrapper'
 import SubmitButtonWrapper from './SubmitButtonWrapper'
 import TableWrapper from './TableWrapper'
 import TagWrapper from './TagWrapper'
@@ -38,4 +39,5 @@ export {
   ColWrapper,
   SubmitButtonWrapper,
   InputSearchWrapper,
+  SpaceWrapper,
 }
