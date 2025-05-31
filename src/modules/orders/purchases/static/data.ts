@@ -1,6 +1,6 @@
 import type { ListDataTypes } from '../types'
 
-export const partyList: ListDataTypes[] = [
+export const listData: ListDataTypes[] = [
   {
     id: 'p1',
     name: 'Ravi Traders',

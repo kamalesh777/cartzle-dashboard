@@ -2,26 +2,18 @@
 'use client'
 import React from 'react'
 
-import { EllipsisOutlined } from '@ant-design/icons'
-import { Dropdown, type TableProps } from 'antd'
+import { EllipsisOutlined, InfoCircleOutlined } from '@ant-design/icons'
+import { Divider, Dropdown, Space, Tag, Typography, type TableProps } from 'antd'
 
+import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
 
-import { TableWrapper } from '@/components/Wrapper'
+import { TableWrapper, TooltipWrapper } from '@/components/Wrapper'
 
-interface DataType {
-  key: string
-  name: string
-  phone?: number
-  status?: string
-  job_role?: string[]
-  address_info?: {
-    city: string
-    pin: string
-    state: string
-    address: string
-  }
-}
+import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
+
+import { listData } from '../static/data'
+import TableActionButton from '@/components/Wrapper/TableActionButton'
 
 const UsersListComp = (): JSX.Element => {
   const items: MenuProps['items'] = [
@@ -49,55 +41,115 @@ const UsersListComp = (): JSX.Element => {
       key: '3',
     },
   ]
-  const columns: TableProps<DataType>['columns'] = [
+
+  // render the party types with hightlighted color
+  const partyTypes = (type: string): JSX.Element => {
+    if (type === 'supplier') {
+      return <Tag color="#2db7f5">{type}</Tag>
+    } else if (type === 'customer') {
+      return <Tag color="#626262">{type}</Tag>
+    }
+    return <Tag color="#87d068">{type}</Tag>
+  }
+
+  // table columns parties list
+  const columns: TableProps<ListDataTypes>['columns'] = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a>{text}</a>,
+      width: '18%',
     },
     {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+      width: '18%',
     },
     {
-      title: 'Job Role',
-      dataIndex: 'job_role',
-      key: 'job_role',
+      title: 'Type',
+      dataIndex: 'type',
+      width: '10%',
+      className: 'text-capitalize',
+      render: type => partyTypes(type),
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
+      title: 'Mobile',
+      dataIndex: 'mobile',
+      width: '14%',
+      render: (_, record) => (
+        <Space>
+          <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
+          {record?.alternate_mobile ? (
+            <TooltipWrapper
+              title={
+                <>
+                  <p>Alternate Number </p>
+                  <Typography.Text copyable={{ icon: [record?.alternate_mobile, record?.alternate_mobile] }} />{' '}
+                </>
+              }
+            >
+              <InfoCircleOutlined className="text-primary" />
+            </TooltipWrapper>
+          ) : (
+            ''
+          )}
+        </Space>
+      ),
+    },
+
+    {
+      title: 'Due Amt.',
+      dataIndex: 'due_amount',
+      width: '10%',
+    },
+    {
+      title: 'Due Date',
+      width: '15%',
+      dataIndex: 'payment_promises',
+      render: arr => {
+        const obj1 = arr?.[0] as PaymentPromise
+        return obj1 ? (
+          <p className="text-danger">
+            {obj1?.promised_date}{' '}
+            <TooltipWrapper
+              title={arr?.map((obj: PaymentPromise, index: React.Key) => (
+                <>
+                  <Space align="start" className="w-100">
+                    Date: {obj?.promised_date || EMPTY_PLACEHOLDER}
+                  </Space>
+                  <Space align="start" className="w-100">
+                    Amount: {obj?.promised_amount ?? EMPTY_PLACEHOLDER}
+                  </Space>
+                  <Space align="start" className="w-100">
+                    Note: {obj?.note ?? EMPTY_PLACEHOLDER}
+                  </Space>
+                  {arr?.length - 1 !== index && <Divider className="my-2" />}
+                </>
+              ))}
+            >
+              <InfoCircleOutlined className="text-primary" />
+            </TooltipWrapper>
+          </p>
+        ) : (
+          EMPTY_PLACEHOLDER
+        )
+      },
+    },
+    {
+      title: 'Total',
+      dataIndex: 'total_amount',
+      key: 'total_amount',
     },
     {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => (
-        <Dropdown menu={{ items }} trigger={['click']}>
-          <EllipsisOutlined />
-        </Dropdown>
-      ),
+      render: () => <TableActionButton items={items} />,
     },
   ]
 
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-    },
-  ]
-  return <TableWrapper columns={columns} dataSource={data} />
+  return <TableWrapper columns={columns} dataSource={listData} />
 }
 
 export default UsersListComp

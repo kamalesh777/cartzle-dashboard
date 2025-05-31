@@ -2,16 +2,10 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { ThemeConfig } from 'antd'
 
+import initialThemeConfig from '@/configs/ThemeConfig'
+
 // Define the initial state using that type
-const initialState: ThemeConfig = {
-  token: {
-    fontSize: 16,
-    colorPrimary: 'rgba(22, 119, 255, 1)',
-    // colorLink: 'red'
-    // colorTextBase: '#eee',
-    // borderRadius: 20
-  },
-}
+const initialState: ThemeConfig = initialThemeConfig
 
 export const themeSlice = createSlice({
   name: 'theme',

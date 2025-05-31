@@ -1,9 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-import { EllipsisOutlined } from '@ant-design/icons'
-
-import { type TableColumnsType, type MenuProps, Row, Col, Dropdown } from 'antd'
+import { type TableColumnsType, type MenuProps, Row, Col } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
@@ -11,7 +9,10 @@ import type { ListDataTypes } from '../types'
 
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
-import { PRODUCT_LIST_ROUTE, PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
+import TableActionButton from '@/components/Wrapper/TableActionButton'
+import { PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
+
+import { getDecimal } from '@/utils/commonFunctions'
 
 import { listData } from '../static/data'
 
@@ -28,7 +29,7 @@ const PurchaseListComp = (): JSX.Element => {
   ]
 
   // product list columns
-  const columns: TableColumnsType<ProductDataTypes> = [
+  const columns: TableColumnsType<ListDataTypes> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -49,21 +50,17 @@ const PurchaseListComp = (): JSX.Element => {
     {
       title: 'Purchase Price',
       dataIndex: 'purchasePrice',
-      render: price => `₹${price.toFixed(2)}`,
+      render: price => `₹${getDecimal(price)}`,
     },
     {
       title: 'Sale Price',
       dataIndex: 'salePrice',
-      render: price => `₹${price.toFixed(2)}`,
+      render: price => `₹${getDecimal(price)}`,
     },
     {
       title: 'Action',
       dataIndex: 'action',
-      render: (_, record) => (
-        <Dropdown menu={{ items: getMoreMenus(record) }} trigger={['click']}>
-          <EllipsisOutlined />
-        </Dropdown>
-      ),
+      render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,
     },
   ]
 

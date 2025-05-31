@@ -120,3 +120,10 @@ interface ParamTypes {
 export const getCardTitle = (params: ParamTypes, matcher = 'create'): string => {
   return params?.id === matcher ? 'Create' : 'Update'
 }
+
+export const getDecimal = (amount: number | string = 0, count = 2): string => {
+  if (typeof amount === 'string') {
+    return Number(amount).toFixed(count)
+  }
+  return amount.toFixed(count)
+}

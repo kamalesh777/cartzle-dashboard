@@ -1,18 +1,21 @@
 import type { ThemeConfig } from 'antd'
 
-const theme: ThemeConfig = {
+const initialThemeConfig: ThemeConfig = {
   token: {
     fontSize: 16,
-    colorPrimary: '#52c41a',
-    // colorLink: '#52c41a',
-    // colorTextBase: '#eee'
-    // borderRadius: 20
+    colorPrimary: '#ff9633',
+    // colorBgSolidHover: '#32ff00',
   },
   components: {
     Button: {
       colorLink: 'defaultColor',
     },
+    Tooltip: {
+      colorBgSpotlight: '#fff',
+      colorTextLightSolid: '#000000e0',
+      lineHeight: 1.3,
+    },
   },
 }
 
-export default theme
+export default initialThemeConfig
