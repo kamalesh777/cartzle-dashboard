@@ -1,5 +1,10 @@
 import type { AxiosResponse } from 'axios'
 
+export interface ModalPropTypes {
+  openModal: boolean
+  setOpenModal: (parama: boolean) => void
+}
+
 export interface responseType {
   code: number
   message: string

@@ -7,7 +7,7 @@ interface PropTypes extends ModalProps {
   bodyScroll?: boolean
 }
 
-const ModalWrapper = (props: PropTypes): JSX.Element => {
+const ModalWrapper = (props: PropTypes): JSX.Element | null => {
   const { children, bodyScroll, ...restProps } = props
   return <Modal {...restProps}>{bodyScroll ? <div className={'modal-scrollbar-adjust'}>{children}</div> : children}</Modal>
 }

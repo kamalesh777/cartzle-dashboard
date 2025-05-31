@@ -14,6 +14,7 @@ import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
+import TableActionButton from '@/components/Wrapper/TableActionButton'
 
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
@@ -59,11 +60,7 @@ const ProductListComp = (): JSX.Element => {
     {
       title: 'Action',
       dataIndex: 'action',
-      render: (_, record) => (
-        <Dropdown menu={{ items: getMoreMenus(record) }} trigger={['click']}>
-          <EllipsisOutlined />
-        </Dropdown>
-      ),
+      render: (_, record) => <TableActionButton items={getMoreMenus(record)} />
     },
   ]
 

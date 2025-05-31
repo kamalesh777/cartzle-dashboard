@@ -49,3 +49,55 @@ export function TableContentLoaderWithProps(
     </div>
   )
 }
+
+
+interface circleRectProps {
+  rowCounts?: string | number
+  rectHeight?: string | number
+  viewBox?: string | undefined
+  circleCx?: string | number
+  circleCy?: string | number
+  circleR?: string | number
+  rectX?: string | number
+  rectY?: string | number
+  rectWidth?: string | number
+}
+
+export const CircleRect = ({
+  rowCounts,
+  viewBox,
+  circleCx,
+  circleCy,
+  circleR,
+  rectX,
+  rectY,
+  rectHeight,
+  rectWidth,
+}: circleRectProps): JSX.Element => {
+  const rows = rowCounts ?? 5
+  const CirCx = circleCx ?? 150
+  const CirCy = circleCy ?? 150
+  const CirR = circleR ?? 120
+  const RecX = rectX ?? '25%'
+  const RecY = rectY ?? 100
+  const Rectheight = rectHeight ?? 50
+  const RectWidth = rectWidth ?? '65%'
+  const newViewBox = viewBox ?? '-50 0 1400 250'
+
+  return (
+    <div className="mb-2">
+      {Array.from(Array(rows).keys()).map((_, i) => (
+        <ContentLoader viewBox={newViewBox} key={i}>
+          {Array.from(Array(rows).keys())?.map((_, index) => {
+            return (
+              <React.Fragment key={index}>
+                <circle cx={CirCx} cy={CirCy} r={CirR} />
+                <rect x={RecX} y={RecY} rx="0" ry="0" width={RectWidth} height={Rectheight} />
+              </React.Fragment>
+            )
+          })}
+        </ContentLoader>
+      ))}
+    </div>
+  )
+}

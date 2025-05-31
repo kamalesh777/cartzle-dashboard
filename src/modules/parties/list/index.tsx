@@ -15,9 +15,11 @@ import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
+import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
 
 const UsersListComp = (): JSX.Element => {
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
+  const [openVDModal, setVDModal] = useState<boolean>(false)
 
   const items: MenuProps['items'] = [
     {
@@ -28,7 +30,7 @@ const UsersListComp = (): JSX.Element => {
     {
       label: 'View Details',
       key: 'view_details',
-      onClick: () => setOpenManageModal(true),
+      onClick: () => setVDModal(true),
     },
     {
       label: 'Add Payment',
@@ -160,7 +162,8 @@ const UsersListComp = (): JSX.Element => {
   return (
     <>
       <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
-      <PartiesManageComp {...{ openManageModal, setOpenManageModal }} />
+      <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setOpenManageModal }} />
+      <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />
     </>
   )
 }

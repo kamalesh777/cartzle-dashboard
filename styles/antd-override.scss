@@ -57,6 +57,9 @@
 .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
     padding: 8px 12px !important
 }
+.ant-modal-content .ant-modal-body {
+    margin: 20px 0;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

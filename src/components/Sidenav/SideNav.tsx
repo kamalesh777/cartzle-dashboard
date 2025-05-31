@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { MenuProps } from 'antd'
 
 import { NavLink } from '@/components/Common/NavLink'
-import { CircleRect } from '@/components/Common/SkeletonLoader'
 
 import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
 import { type AppThunkDispatch, type RootState } from '@/store/index'
 
 import { fetchSideNav } from '@/store/slice/navMenuSlice'
 import { getCurrentPath } from '@/utils/commonFunctions'
+import { CircleRect } from '../Common/SkeletonLoader/ContentLoader'
 
 const { Sider } = Layout
 

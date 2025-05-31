@@ -17,13 +17,9 @@ import { usePostRequestHandler } from '@/hook/requestHandler'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { partyTypeOptions } from '../static/constants'
+import { ModalPropTypes } from 'src/types/common'
 
-interface PropTypes {
-  openManageModal: boolean
-  setOpenManageModal: (parama: boolean) => void
-}
-
-const PartiesManageComp = ({ openManageModal, setOpenManageModal }: PropTypes): JSX.Element => {
+const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler()
@@ -31,12 +27,12 @@ const PartiesManageComp = ({ openManageModal, setOpenManageModal }: PropTypes): 
   const formSubmitHandler = async (): Promise<void> => await submit()
 
   // close modal handler
-  const closeModal = () => modalCloseHandler(setOpenManageModal, form)
+  const closeModal = () => modalCloseHandler(setOpenModal, form)
   return (
     <ModalWrapper
       bodyScroll
       title="Update Details"
-      open={openManageModal}
+      open={openModal}
       onCancel={closeModal}
       footer={
         <Space>
@@ -55,13 +51,13 @@ const PartiesManageComp = ({ openManageModal, setOpenManageModal }: PropTypes): 
         </FormItemWrapper>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>
-            <FormItemWrapper name="mobile" label="Mobile" rules={requiredFieldRules}>
-              <InputNumberWrapper />
+            <FormItemWrapper name="mobile" label="Mobile" rules={[...requiredFieldRules]}>
+              <InputNumberWrapper maxLength={10} />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={12}>
             <FormItemWrapper name="alternate_mobile" label="Alternate Mobile">
-              <InputNumberWrapper />
+              <InputNumberWrapper maxLength={10} />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
