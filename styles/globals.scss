@@ -128,13 +128,6 @@ li {
     display: flex;
     margin: 30px auto;
 }
-.number-cell {
-	color: #fff;
-	background-color: #B06AB3;
-	padding: 5px 9px 5px 9px;
-	line-height: 1;
-	border-radius: 15px;
-}
 
 .menu-height {
 	height: calc(100% - 100px);
@@ -156,7 +149,7 @@ header.ant-layout-header.fix-header {
 /* main-wrapper */
 .main-cont-wrap {
 	padding: 80px 20px 20px;
-	background-color: #f9f9f9;
+	background-color: #f6f6f6;
 }
 .form-content h4 {
     margin-bottom: 20px;
@@ -172,4 +165,7 @@ header.ant-layout-header.fix-header {
 .title-row .page-title {
 	font-size: 1.3rem;
 	font-weight: 600;
+}
+.ant-table-wrapper .ant-table-thead >tr>th {
+	background-color: var(--primary-bg-color-4) !important;
 }

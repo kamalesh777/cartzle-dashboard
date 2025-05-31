@@ -2,18 +2,18 @@
 'use client'
 import React from 'react'
 
-import { EllipsisOutlined, InfoCircleOutlined } from '@ant-design/icons'
-import { Divider, Dropdown, Space, Tag, Typography, type TableProps } from 'antd'
+import { InfoCircleOutlined } from '@ant-design/icons'
+import { Divider, Space, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
 
 import { TableWrapper, TooltipWrapper } from '@/components/Wrapper'
 
+import TableActionButton from '@/components/Wrapper/TableActionButton'
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
-import TableActionButton from '@/components/Wrapper/TableActionButton'
 
 const UsersListComp = (): JSX.Element => {
   const items: MenuProps['items'] = [

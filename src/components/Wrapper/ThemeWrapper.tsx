@@ -23,9 +23,10 @@ const ThemeWrapper = (props: PropsWithChildren): JSX.Element => {
           --primary-border-color: ${theme.token?.colorPrimary};
           --primary-outline-color: ${theme.token?.colorPrimary};
           --primary-bg-color-1: ${hexToRGBA(theme.token?.colorPrimary as string, 1)};
-          --primary-bg-color-2: ${hexToRGBA(theme.token?.colorPrimary as string, 0.3)};
-          --primary-bg-color-3: ${hexToRGBA(theme.token?.colorPrimary as string, 0.6)};
-          --primary-bg-color-4: ${hexToRGBA(theme.token?.colorPrimary as string, 0.08)};
+          --primary-bg-color-2: ${hexToRGBA(theme.token?.colorPrimary as string, 0.6)};
+          --primary-bg-color-3: ${hexToRGBA(theme.token?.colorPrimary as string, 0.3)};
+          --primary-bg-color-4: ${hexToRGBA(theme.token?.colorPrimary as string, 0.1)};
+          --primary-bg-color-5: ${hexToRGBA(theme.token?.colorPrimary as string, 0.05)};
         }
       `}</style>
       {props.children}
