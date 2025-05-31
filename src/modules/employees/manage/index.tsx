@@ -19,13 +19,13 @@ import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { PartyTypeOptions } from '../static/constants'
 
-const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
+const EmployessManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler()
 
   const formSubmitHandler = async (): Promise<void> => {
-    await submit('/parties', {})
+    await submit('/employees', {})
   }
 
   // close modal handler
@@ -86,4 +86,4 @@ const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>): 
   )
 }
 
-export default PartiesManageComp
+export default EmployessManageComp

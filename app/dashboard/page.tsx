@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DashboardComponent from '@/modules/Dashboard'
+import DashboardComponent from '@/modules/dashboard'
 
 const DashboardPage = (): JSX.Element => {
   return <DashboardComponent />
