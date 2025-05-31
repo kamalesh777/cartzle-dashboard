@@ -9,6 +9,7 @@ import { ModalWrapper, SubmitButtonWrapper, FormItemWrapper, InputNumberWrapper,
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
+import { disabledUptoCurrentDate } from '@/utils/disableFunction'
 
 const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -19,14 +20,15 @@ const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTy
   }
   // close modal handler
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
+
   return (
     <ModalWrapper
-      title="Add Payment"
+      title="Reschedule Payment"
       open={openModal}
       onCancel={closeModal}
       footer={
         <SubmitButtonWrapper
-          okText="Add Payment"
+          okText="Reschedule"
           okButtonProps={{ loading: false, onClick: () => form.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
@@ -36,7 +38,11 @@ const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTy
     >
       <Form layout="vertical" form={form} onFinish={handleFinish}>
         <FormItemWrapper label="Promised Date" name="promised_date" rules={requiredFieldRules}>
-          <DatePickerWrapper showTime={{ showSecond: false, showMinute: false, use12Hours: true }} />
+          <DatePickerWrapper
+            showNow={false}
+            disabledDate={disabledUptoCurrentDate}
+            // showTime={{ showSecond: false, showMinute: false, use12Hours: true }}
+          />
         </FormItemWrapper>
         <FormItemWrapper label="Promised Amount" name="promised_amount" rules={requiredFieldRules}>
           <InputNumberWrapper min={1} />

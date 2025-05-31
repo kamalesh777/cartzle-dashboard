@@ -19,6 +19,8 @@ import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
+import { disabledUptoCurrentDate } from '@/utils/disableFunction'
+
 import { PaymentOptions } from '../static/constants'
 
 const MISSED_CONST = 'missed'
@@ -62,7 +64,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
         {isMissedPayment ? (
           <>
             <FormItemWrapper label="Promised Date" name="promised_date" rules={requiredFieldRules}>
-              <DatePickerWrapper showTime={{ showSecond: false, showMinute: false, use12Hours: true }} />
+              <DatePickerWrapper showNow={false} disabledDate={disabledUptoCurrentDate} />
             </FormItemWrapper>
             <FormItemWrapper label="Promised Amount" name="promised_amount" rules={requiredFieldRules}>
               <InputNumberWrapper min={1} />

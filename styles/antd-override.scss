@@ -60,6 +60,12 @@
 .ant-modal-content .ant-modal-body {
     margin: 20px 0;
 }
+.ant-modal-header {
+    margin-bottom: 0px !important;
+    background-color: var(--primary-bg-color-5) !important;
+    padding: 15px 20px !important;
+    margin: -20px -24px;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

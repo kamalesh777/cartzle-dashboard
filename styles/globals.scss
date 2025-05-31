@@ -53,6 +53,7 @@ h4,
 h5,
 h6, b, strong {
 	font-family: 'Roboto', sans-serif !important;
+	font-weight: 600;
 }
 
 body {
@@ -67,9 +68,6 @@ body {
 	margin: 0;
 }
 
-* {
-	font-family: 'Roboto', sans-serif !important;
-}
 a {
 	color: inherit !important;
 }
