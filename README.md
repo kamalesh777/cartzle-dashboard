@@ -87,12 +87,24 @@ Reusable form and UI components wrapping Ant Design or custom components.
 ```
 Wrapper/
   ├── ButtonWrapper.tsx
-  ├── CardWrapper.tsx
-  ├── InputWrapper.tsx
-  ├── LayoutWrapper.tsx
-  ├── ModalWrapper.tsx
-  ├── SelectWrapper.tsx
-  └── ...other wrappers
+  ├──CardWrapper,
+  ├──CheckBoxWrapper,
+  ├──DropdownWrapper,
+  ├──EmailWrapper,
+  ├──FormItemWrapper,
+  ├──InputNumberWrapper,
+  ├──InputWrapper,
+  ├──LayoutWrapper,
+  ├──ModalWrapper,
+  ├──RadioWrapper,
+  ├──SelectWrapper,
+  ├──TableWrapper,
+  ├──TagWrapper,
+  ├──TooltipWrapper,
+  ├──URLWrapper,
+  ├──ColWrapper,
+  ├──SubmitButtonWrapper,
+  └── InputSearchWrapper
 ```
 
 ### `/Common Component`
@@ -175,10 +187,3 @@ Store/
 - Keep wrappers generic and reusable.
 - Update `.env.local` if you add new environment variables.
 
----
-
-## 👥 Contributors
-
-Feel free to add contributor names here if you're collaborating.
-
----
