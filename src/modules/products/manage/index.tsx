@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { Form, Input, Radio, Row, Space } from 'antd'
+import { Form, Input, Radio, Row } from 'antd'
 
 import { useParams } from 'next/navigation'
 
@@ -16,6 +16,7 @@ import {
   SelectWrapper,
   ColWrapper,
   ButtonWrapper,
+  SpaceWrapper,
 } from '@/components/Wrapper'
 import {
   categoriesOptions,
@@ -155,12 +156,12 @@ const ProductManageComp = (): JSX.Element => {
         )}
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper>
-            <Space>
+            <SpaceWrapper>
               <ButtonWrapper type="primary" htmlType="submit">
                 Save
               </ButtonWrapper>
               <ButtonWrapper>Cancel</ButtonWrapper>
-            </Space>
+            </SpaceWrapper>
           </ColWrapper>
         </Row>
       </Form>

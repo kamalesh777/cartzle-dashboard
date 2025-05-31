@@ -11,7 +11,7 @@ import { modalCloseHandler } from '@/utils/commonFunctions'
 
 const { Text } = Typography
 
-const ViewDetailsModal = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Element | null => {
+const ViewDetailsModal = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element | null => {
   const { data } = useGetRequestHandler()
 
   // close modal handler

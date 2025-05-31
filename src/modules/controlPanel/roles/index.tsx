@@ -3,12 +3,12 @@
 import React from 'react'
 
 import { SearchOutlined } from '@ant-design/icons'
-import { Input, Space } from 'antd'
+import { Input } from 'antd'
 
 import { usePathname, useRouter } from 'next/navigation'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { ButtonWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
 import { CONTROL_PANEL_ROUTE } from '@/constants/AppConstant'
 
 import Rolelist from './list'
@@ -25,12 +25,12 @@ const RoleSettingComp = (): JSX.Element => {
   )
 
   const actionComponent = (
-    <Space>
+    <SpaceWrapper>
       <Input prefix={<SearchOutlined />} placeholder="Search..." />
       <ButtonWrapper type="primary" onClick={() => router.push(`${pathname}/new-role`)}>
         New Role
       </ButtonWrapper>
-    </Space>
+    </SpaceWrapper>
   )
 
   return (

@@ -1,13 +1,15 @@
 import React from 'react'
 
 import { MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined } from '@ant-design/icons'
-import { Avatar, Button, Col, Dropdown, Layout, type MenuProps, Row, Space, Typography } from 'antd'
+import { Avatar, Button, Col, Dropdown, Layout, type MenuProps, Row, Typography } from 'antd'
 import { capitalize } from 'lodash'
 import Link from 'next/link'
 
 // import { useLogoutHandler } from 'src/hook/useAuth'
 
 import useDevice from 'src/hook/useDevice'
+
+import { SpaceWrapper } from '../Wrapper'
 
 const { Header } = Layout
 
@@ -69,10 +71,10 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
       key: 'sign-out',
       // onClick: () => logout(),
       label: (
-        <Space className="w-100 text-danger justify-content-between">
+        <SpaceWrapper className="w-100 text-danger justify-content-between">
           Sign Out
           <PoweroffOutlined />
-        </Space>
+        </SpaceWrapper>
       ),
     },
   ]
@@ -118,10 +120,10 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
             <Divider type="vertical" className="mx-4 h-36" /> */}
             <Dropdown menu={{ items: menuItems }} trigger={['click', 'hover']} placement="bottomRight" className="profile-box">
               <div className="d-flex align-items-center cursor-pointer">
-                <Space className="profile-nav" align="center">
+                <SpaceWrapper className="profile-nav" align="center">
                   <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${'Kamalesh'}`} size={32} />
                   {capitalize('Kamalesh Maity')}
-                </Space>
+                </SpaceWrapper>
               </div>
             </Dropdown>
           </div>

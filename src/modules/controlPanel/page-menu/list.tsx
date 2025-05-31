@@ -5,7 +5,7 @@ import { EllipsisOutlined, MinusCircleOutlined, PlusOutlined, SearchOutlined } f
 import { Dropdown, Form, Input, Space, type MenuProps } from 'antd'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { ButtonWrapper, FormItemWrapper, InputWrapper, ModalWrapper, TableWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, FormItemWrapper, InputWrapper, ModalWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 import { CONTROL_PANEL_ROUTE } from '@/constants/AppConstant'
 
 interface FormValues {
@@ -87,12 +87,12 @@ const PageMenuList = (): JSX.Element => {
   }
 
   const actionComponent = (
-    <Space>
+    <SpaceWrapper>
       <Input prefix={<SearchOutlined />} placeholder="Search..." />
       <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>
         Add Page
       </ButtonWrapper>
-    </Space>
+    </SpaceWrapper>
   )
   const mainComp = <TableWrapper dataSource={dataSource} columns={columns} />
 

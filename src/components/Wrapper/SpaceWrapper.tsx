@@ -2,11 +2,11 @@ import React from 'react'
 
 import { Space, type SpaceProps } from 'antd'
 
-interface customRadioProps extends SpaceProps {
+interface customSpaceProps extends SpaceProps {
   label?: string
 }
 
-const SpaceWrapper: React.FC<customRadioProps> = props => {
+const SpaceWrapper: React.FC<customSpaceProps> = props => {
   return <Space {...props}>{props.children}</Space>
 }
 

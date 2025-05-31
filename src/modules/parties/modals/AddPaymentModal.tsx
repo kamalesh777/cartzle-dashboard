@@ -1,13 +1,20 @@
 import React from 'react'
 
-import { Form, Input, Radio, Space, type RadioChangeEvent } from 'antd'
+import { Form, Input, Radio, type RadioChangeEvent } from 'antd'
 
 import dayjs from 'dayjs'
 
 import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
-import { FormItemWrapper, InputNumberWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputNumberWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SpaceWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
@@ -16,7 +23,7 @@ import { PaymentOptions } from '../static/constants'
 
 const MISSED_CONST = 'missed'
 
-const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes): JSX.Element => {
+const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   const isMissedPayment = Form.useWatch('status', form) === MISSED_CONST
 
@@ -78,10 +85,10 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
         )}
         <FormItemWrapper
           label={
-            <Space size={8}>
+            <SpaceWrapper size={8}>
               Notes
               <InfoTooltip title={'Optional note (e.g. paid via UPI)'} />
-            </Space>
+            </SpaceWrapper>
           }
           name="note"
         >

@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { Space, type ButtonProps } from 'antd'
+import { type ButtonProps } from 'antd'
 
 import ButtonWrapper from './ButtonWrapper'
+import SpaceWrapper from './SpaceWrapper'
 
 interface propTypes extends ButtonProps {
   okText?: React.ReactNode | string
@@ -13,12 +14,12 @@ interface propTypes extends ButtonProps {
 
 const SubmitButtonWrapper = ({ okText, cancelText, cancelButtonProps, okButtonProps }: propTypes): JSX.Element => {
   return (
-    <Space>
+    <SpaceWrapper>
       <ButtonWrapper htmlType="submit" type="primary" loading={okButtonProps?.loading} {...okButtonProps}>
         {okText || 'Save'}
       </ButtonWrapper>
       <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>
-    </Space>
+    </SpaceWrapper>
   )
 }
 

@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Divider, Space, Tag, Typography, type TableProps } from 'antd'
+import { Divider, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd'
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { TableWrapper } from '@/components/Wrapper'
+import { SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
@@ -19,9 +19,10 @@ import AddPaymentModal from '../modals/AddPaymentModal'
 import { listData } from '../static/data'
 
 const UsersListComp = (): JSX.Element => {
-  const [openManageModal, setOpenManageModal] = useState<boolean>(false)
+  const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
+  const [,]
 
   const items: MenuProps['items'] = [
     {
@@ -40,8 +41,8 @@ const UsersListComp = (): JSX.Element => {
       onClick: () => setAPModal(true),
     },
     {
-      label: 'Set Reminder',
-      key: 'set_reminder',
+      label: 'Reschedule Payment',
+      key: 'reschedule_payment',
       onClick: () => setOpenManageModal(true),
     },
     {
@@ -90,7 +91,7 @@ const UsersListComp = (): JSX.Element => {
       dataIndex: 'mobile',
       width: '14%',
       render: (_, record) => (
-        <Space>
+        <SpaceWrapper>
           <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
           {record?.alternate_mobile ? (
             <InfoTooltip
@@ -104,7 +105,7 @@ const UsersListComp = (): JSX.Element => {
           ) : (
             ''
           )}
-        </Space>
+        </SpaceWrapper>
       ),
     },
 
@@ -125,15 +126,15 @@ const UsersListComp = (): JSX.Element => {
             <InfoTooltip
               title={arr?.map((obj: PaymentPromise, index: React.Key) => (
                 <>
-                  <Space align="start" className="w-100">
+                  <SpaceWrapper align="start" className="w-100">
                     Date: {obj?.promised_date || EMPTY_PLACEHOLDER}
-                  </Space>
-                  <Space align="start" className="w-100">
+                  </SpaceWrapper>
+                  <SpaceWrapper align="start" className="w-100">
                     Amount: {obj?.promised_amount ?? EMPTY_PLACEHOLDER}
-                  </Space>
-                  <Space align="start" className="w-100">
+                  </SpaceWrapper>
+                  <SpaceWrapper align="start" className="w-100">
                     Note: {obj?.note ?? EMPTY_PLACEHOLDER}
-                  </Space>
+                  </SpaceWrapper>
                   {arr?.length - 1 !== index && <Divider className="my-2" />}
                 </>
               ))}
@@ -160,7 +161,7 @@ const UsersListComp = (): JSX.Element => {
   return (
     <>
       <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
-      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setOpenManageModal }} />}
+      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}
     </>

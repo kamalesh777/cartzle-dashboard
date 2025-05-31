@@ -3,10 +3,10 @@
 import React, { useState } from 'react'
 
 import { SearchOutlined } from '@ant-design/icons'
-import { Input, Space } from 'antd'
+import { Input } from 'antd'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { ButtonWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
 import { CONTROL_PANEL_ROUTE } from '@/constants/AppConstant'
 
 import CreateUserModaComp from './create'
@@ -24,12 +24,12 @@ const UserSettingComp = (): JSX.Element => {
   )
 
   const actionComponent = (
-    <Space>
+    <SpaceWrapper>
       <Input prefix={<SearchOutlined />} placeholder="Search..." />
       <ButtonWrapper type="primary" onClick={() => setOpenCreateModal(true)}>
         Add
       </ButtonWrapper>
-    </Space>
+    </SpaceWrapper>
   )
 
   return <DynamicPageLayout goBackUrl={CONTROL_PANEL_ROUTE} MainComp={mainComp} ActionComp={actionComponent} />

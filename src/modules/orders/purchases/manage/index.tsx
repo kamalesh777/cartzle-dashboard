@@ -2,12 +2,20 @@
 import React from 'react'
 
 import { CloseCircleFilled, PlusOutlined } from '@ant-design/icons'
-import { Form, Radio, Row, Space } from 'antd'
+import { Form, Radio, Row } from 'antd'
 
 import { useParams } from 'next/navigation'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { CardWrapper, FormItemWrapper, InputNumberWrapper, SelectWrapper, ColWrapper, ButtonWrapper } from '@/components/Wrapper'
+import {
+  CardWrapper,
+  FormItemWrapper,
+  InputNumberWrapper,
+  SelectWrapper,
+  ColWrapper,
+  ButtonWrapper,
+  SpaceWrapper,
+} from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import {
   categoriesOptions,
@@ -189,12 +197,12 @@ const PurchaseManageComp = (): JSX.Element => {
         )}
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper>
-            <Space>
+            <SpaceWrapper>
               <ButtonWrapper type="primary" htmlType="submit">
                 Save
               </ButtonWrapper>
               <ButtonWrapper>Cancel</ButtonWrapper>
-            </Space>
+            </SpaceWrapper>
           </ColWrapper>
         </Row>
       </Form>

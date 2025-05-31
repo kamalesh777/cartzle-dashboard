@@ -19,7 +19,7 @@ import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { PartyTypeOptions } from '../static/constants'
 
-const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes): JSX.Element => {
+const PartiesManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler()

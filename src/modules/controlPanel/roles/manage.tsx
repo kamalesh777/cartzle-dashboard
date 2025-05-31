@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Form, Space, Row, Col, type CheckboxProps } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Form, Row, Col, type CheckboxProps } from 'antd'
 
 import { startCase } from 'lodash'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { FormItemWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 import { CONTROL_PANEL_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
 
 interface DataType {
@@ -78,9 +78,9 @@ const RoleManageComp = (): JSX.Element => {
         <Row justify="end">
           {permissionsArr.map(obj => (
             <Col sm={4} key={obj.name} className="text-center">
-              <Space direction="vertical" size={0}>
+              <SpaceWrapper direction="vertical" size={0}>
                 {startCase(obj.name)} <Checkbox indeterminate={false} value={obj.name} onChange={checkAllColHandler} />
-              </Space>
+              </SpaceWrapper>
             </Col>
           ))}
         </Row>
