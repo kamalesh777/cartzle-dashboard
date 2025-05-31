@@ -1,8 +1,8 @@
 /* eslint-disable no-duplicate-imports */
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 
-import { InfoCircleOutlined } from '@ant-design/icons'
+import { EditOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { Divider, Space, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
@@ -13,32 +13,40 @@ import { TableWrapper, TooltipWrapper } from '@/components/Wrapper'
 import TableActionButton from '@/components/Wrapper/TableActionButton'
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
+import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
 
 const UsersListComp = (): JSX.Element => {
+  const [openManageModal, setOpenManageModal] = useState<boolean>(false)
+
   const items: MenuProps['items'] = [
     {
-      label: (
-        <a href="https://www.antgroup.com" target="_blank" rel="noopener noreferrer">
-          1st menu item
-        </a>
-      ),
-      key: '0',
+      label: 'Update Details',
+      key: 'update_details',
+      onClick: () => setOpenManageModal(true),
     },
     {
-      label: (
-        <a href="https://www.aliyun.com" target="_blank" rel="noopener noreferrer">
-          2nd menu item
-        </a>
-      ),
-      key: '1',
+      label: 'View Details',
+      key: 'view_details',
+      onClick: () => setOpenManageModal(true),
+    },
+    {
+      label: 'Add Payment',
+      key: 'add_payment',
+      onClick: () => setOpenManageModal(true),
+    },
+    {
+      label: 'Set Reminder',
+      key: 'set_reminder',
+      onClick: () => setOpenManageModal(true),
     },
     {
       type: 'divider',
     },
     {
-      label: '3rd menu item',
-      key: '3',
+      label: 'Deactivate',
+      key: 'deactivate',
+      className: 'text-danger'
     },
   ]
 
@@ -149,7 +157,12 @@ const UsersListComp = (): JSX.Element => {
     },
   ]
 
-  return <TableWrapper columns={columns} dataSource={listData} />
+  return (
+    <>
+      <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
+      <PartiesManageComp {...{ openManageModal, setOpenManageModal }} />
+    </>
+  )
 }
 
 export default UsersListComp

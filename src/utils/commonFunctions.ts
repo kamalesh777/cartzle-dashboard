@@ -1,3 +1,5 @@
+import type { FormInstance } from 'antd'
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const getBase64 = (file: File, cb: (result: string | ArrayBuffer | null) => void): void => {
   const reader = new FileReader()
@@ -126,4 +128,11 @@ export const getDecimal = (amount: number | string = 0, count = 2): string => {
     return Number(amount).toFixed(count)
   }
   return amount.toFixed(count)
+}
+
+type func = (value: boolean) => void
+
+export const modalCloseHandler = (func: func, form?: FormInstance): void => {
+  func(false)
+  form && form.resetFields()
 }

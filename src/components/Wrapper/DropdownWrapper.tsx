@@ -7,7 +7,7 @@ interface CustomDropdownProps extends DropdownProps {
 }
 
 const DropdownWrapper: React.FC<CustomDropdownProps> = props => {
-  return <Dropdown {...props}>{props.children}</Dropdown>
+  return <Dropdown  overlayStyle={{ width: '200px' }} {...props}>{props.children}</Dropdown>
 }
 
 export default DropdownWrapper

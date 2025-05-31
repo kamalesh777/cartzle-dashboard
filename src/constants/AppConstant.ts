@@ -24,7 +24,7 @@ export const requiredFieldRules = [
 ]
 
 // common required rules with checking of whitespace
-export const reqWithWhitspcFieldRules = [
+export const requiredWithWhitspcFieldRules = [
   {
     required: true,
     message: ERROR_MSG,

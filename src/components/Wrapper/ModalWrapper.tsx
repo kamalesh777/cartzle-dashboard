@@ -3,23 +3,13 @@ import React from 'react'
 
 import { Modal, type ModalProps } from 'antd'
 
-// interface heightRef {
-//   clientHeight: number
-// }
+interface PropTypes extends ModalProps {
+  bodyScroll?: boolean
+}
 
-const ModalWrapper = (props: ModalProps): JSX.Element => {
-  // const modalHeight = useRef<HTMLDivElement>(null)
-  // const [height, setHeight] = useState<number>(0)
-
-  // const clientHeight = (): void => {
-  //   setHeight((modalHeight?.current as heightRef)?.clientHeight)
-  // }
-
-  return (
-    <Modal {...props}>
-      <div className={'modal-scrollbar-adjust'}>{props.children}</div>
-    </Modal>
-  )
+const ModalWrapper = (props: PropTypes): JSX.Element => {
+  const { children, bodyScroll, ...restProps } = props
+  return <Modal {...restProps}>{bodyScroll ? <div className={'modal-scrollbar-adjust'}>{children}</div> : children}</Modal>
 }
 
 export default ModalWrapper

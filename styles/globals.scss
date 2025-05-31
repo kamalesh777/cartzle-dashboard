@@ -1,5 +1,6 @@
 /* ==================font family============= */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 $placeholder-color: rgb(188 188 188 / 88%);
 
@@ -45,6 +46,14 @@ li {
 	padding: 0;
 	box-sizing: border-box;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6, b, strong {
+	font-family: 'Roboto', sans-serif !important;
+}
 
 body {
 	-webkit-font-smoothing: antialiased;
@@ -53,7 +62,7 @@ body {
 	line-height: inherit;
 	background: #fff;
 	font-size: 14px;
-	font-family: 'Roboto', sans-serif !important;
+	font-family: "Raleway", sans-serif;
 	font-weight: 400;
 	margin: 0;
 }
@@ -168,4 +177,10 @@ header.ant-layout-header.fix-header {
 }
 .ant-table-wrapper .ant-table-thead >tr>th {
 	background-color: var(--primary-bg-color-4) !important;
+}
+.modal-scrollbar-adjust {
+  max-height: 400px;
+  overflow-y: scroll;
+  padding-right: 15px;
+  scrollbar-width: thin;
 }

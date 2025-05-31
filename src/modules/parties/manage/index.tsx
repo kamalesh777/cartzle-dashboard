@@ -1,10 +1,22 @@
+'use client'
 import React from 'react'
 
-import { Form, Input, InputNumber, Select, Button } from 'antd'
+import { Form, Input, Row, Select, Space } from 'antd'
 
-import { FormItemWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  ColWrapper,
+  FormItemWrapper,
+  InputNumberWrapper,
+  InputWrapper,
+  ModalWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
+import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
+import { usePostRequestHandler } from '@/hook/requestHandler'
+import { modalCloseHandler } from '@/utils/commonFunctions'
 
-const { TextArea } = Input
+import { partyTypeOptions } from '../static/constants'
 
 interface PropTypes {
   openManageModal: boolean
@@ -14,70 +26,62 @@ interface PropTypes {
 const PartiesManageComp = ({ openManageModal, setOpenManageModal }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
 
+  const { submit, buttonLoading } = usePostRequestHandler()
+
+  const formSubmitHandler = async (): Promise<void> => await submit()
+
+  // close modal handler
+  const closeModal = () => modalCloseHandler(setOpenManageModal, form)
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      initialValues={{
-        ...initialValues,
-        due_payment_reminder: initialValues.due_payment_reminder || '',
-      }}
+    <ModalWrapper
+      bodyScroll
+      title="Update Details"
+      open={openManageModal}
+      onCancel={closeModal}
+      footer={
+        <Space>
+          <SubmitButtonWrapper loading={buttonLoading} onClick={() => form.submit()} />
+          <ButtonWrapper onClick={closeModal}>Cancel</ButtonWrapper>
+        </Space>
+      }
     >
-      <FormItemWrapper name="name" label="Name" rules={[{ required: true }]}>
-        <Input placeholder="Enter party name" />
-      </FormItemWrapper>
+      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+        <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
+          <InputWrapper />
+        </FormItemWrapper>
 
-      <FormItemWrapper name="type" label="Party Type" rules={[{ required: true }]}>
-        <Select options={partyTypes} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="mobile" label="Mobile" rules={[{ required: true }]}>
-        <InputNumber style={{ width: '100%' }} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="alternate_mobile" label="Alternate Mobile">
-        <InputNumber style={{ width: '100%' }} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="address" label="Address">
-        <TextArea rows={2} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="city" label="City">
-        <Input />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="state" label="State">
-        <Input />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="pincode" label="Pincode">
-        <Input />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="due_payment_reminder" label="Due Payment Reminder">
-        <Input placeholder="e.g. every 10th, weekly, etc." />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="total_amount" label="Total Amount">
-        <InputNumber style={{ width: '100%' }} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="paid_amount" label="Paid Amount">
-        <InputNumber style={{ width: '100%' }} />
-      </FormItemWrapper>
-
-      <FormItemWrapper name="due_amount" label="Due Amount">
-        <InputNumber style={{ width: '100%' }} />
-      </FormItemWrapper>
-
-      <FormItemWrapper>
-        <Button type="primary" htmlType="submit">
-          Save Party
-        </Button>
-      </FormItemWrapper>
-    </Form>
+        <FormItemWrapper name="type" label="Party Type" rules={requiredFieldRules}>
+          <Select options={partyTypeOptions} />
+        </FormItemWrapper>
+        <Row gutter={COMMON_ROW_GUTTER}>
+          <ColWrapper md={12}>
+            <FormItemWrapper name="mobile" label="Mobile" rules={requiredFieldRules}>
+              <InputNumberWrapper />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={12}>
+            <FormItemWrapper name="alternate_mobile" label="Alternate Mobile">
+              <InputNumberWrapper />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={24}>
+            <FormItemWrapper name="address" label="Address">
+              <Input.TextArea rows={3} />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={12}>
+            <FormItemWrapper name="state" label="State">
+              <InputWrapper />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={12}>
+            <FormItemWrapper name="pincode" label="Pincode">
+              <InputWrapper />
+            </FormItemWrapper>
+          </ColWrapper>
+        </Row>
+      </Form>
+    </ModalWrapper>
   )
 }
 

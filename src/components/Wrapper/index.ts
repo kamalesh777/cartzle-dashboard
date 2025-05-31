@@ -6,12 +6,13 @@ import DropdownWrapper from './DropdownWrapper'
 import EmailWrapper from './EmailWrapper'
 import FormItemWrapper from './FormItemWrapper'
 import InputNumberWrapper from './InputNumberWrapper'
+import InputSearchWrapper from './InputSearchWrapper'
 import InputWrapper from './InputWrapper'
 import LayoutWrapper from './LayoutWrapper'
-import MobileInputWrapper from './MobileInputWrapper'
 import ModalWrapper from './ModalWrapper'
 import RadioWrapper from './RadioWrapper'
 import SelectWrapper from './SelectWrapper'
+import SubmitButtonWrapper from './SubmitButtonWrapper'
 import TableWrapper from './TableWrapper'
 import TagWrapper from './TagWrapper'
 import TooltipWrapper from './TooltipWrapper'
@@ -27,7 +28,6 @@ export {
   InputNumberWrapper,
   InputWrapper,
   LayoutWrapper,
-  MobileInputWrapper,
   ModalWrapper,
   RadioWrapper,
   SelectWrapper,
@@ -36,4 +36,6 @@ export {
   TooltipWrapper,
   URLWrapper,
   ColWrapper,
+  SubmitButtonWrapper,
+  InputSearchWrapper,
 }

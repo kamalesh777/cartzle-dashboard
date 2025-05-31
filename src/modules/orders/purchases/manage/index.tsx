@@ -15,7 +15,7 @@ import {
   MeasurementOptions,
   PURCHASE_LIST_ROUTE,
   requiredFieldRules,
-  reqWithWhitspcFieldRules,
+  requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
 import { getCardTitle } from '@/utils/commonFunctions'
 
@@ -48,12 +48,12 @@ const PurchaseManageComp = (): JSX.Element => {
       <Form layout="vertical" form={form} onFinish={formSubmitHandler} initialValues={formInitialValues}>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>
-            <FormItemWrapper name="party_id" label="Party's Name" rules={reqWithWhitspcFieldRules}>
+            <FormItemWrapper name="party_id" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
               <SelectWrapper />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={12}>
-            <FormItemWrapper name="date" label="Date" rules={reqWithWhitspcFieldRules}>
+            <FormItemWrapper name="date" label="Date" rules={requiredWithWhitspcFieldRules}>
               <DatePickerWrapper className="w-100" />
             </FormItemWrapper>
           </ColWrapper>
@@ -181,7 +181,7 @@ const PurchaseManageComp = (): JSX.Element => {
               </FormItemWrapper>
             </ColWrapper>
             <ColWrapper md={12}>
-              <FormItemWrapper name="party" label="Party's Name" rules={reqWithWhitspcFieldRules}>
+              <FormItemWrapper name="party" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
                 <SelectWrapper />
               </FormItemWrapper>
             </ColWrapper>

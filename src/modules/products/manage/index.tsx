@@ -23,7 +23,7 @@ import {
   MeasurementOptions,
   PRODUCT_LIST_ROUTE,
   requiredFieldRules,
-  reqWithWhitspcFieldRules,
+  requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
 import { getCardTitle } from '@/utils/commonFunctions'
 
@@ -79,12 +79,12 @@ const ProductManageComp = (): JSX.Element => {
       <Form layout="vertical" form={form} onFinish={formSubmitHandler} initialValues={{ category: 'raw' }}>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>
-            <FormItemWrapper name="name" label="Product name" rules={reqWithWhitspcFieldRules}>
+            <FormItemWrapper name="name" label="Product name" rules={requiredWithWhitspcFieldRules}>
               <InputWrapper />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={12}>
-            <FormItemWrapper name="wood_type" label="Wood Type" rules={reqWithWhitspcFieldRules}>
+            <FormItemWrapper name="wood_type" label="Wood Type" rules={requiredWithWhitspcFieldRules}>
               <SelectWrapper />
             </FormItemWrapper>
           </ColWrapper>
@@ -145,7 +145,7 @@ const ProductManageComp = (): JSX.Element => {
         ) : (
           <Row gutter={COMMON_ROW_GUTTER}>
             <ColWrapper md={12}>
-              <FormItemWrapper name="party" label="Party's Name" rules={reqWithWhitspcFieldRules}>
+              <FormItemWrapper name="party" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
                 <SelectWrapper />
               </FormItemWrapper>
             </ColWrapper>

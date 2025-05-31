@@ -54,6 +54,9 @@
 .ant-menu-light.ant-menu-root.ant-menu-inline {
     border-inline-end: 0px !important;
 }
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
+    padding: 8px 12px !important
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;
