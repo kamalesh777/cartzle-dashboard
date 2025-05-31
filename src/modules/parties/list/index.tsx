@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd'
 
 import { TableWrapper, TooltipWrapper } from '@/components/Wrapper'
 
-import TableActionButton from '@/components/Wrapper/TableActionButton'
+import TableActionButton from '@/components/Common/TableActionButton'
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'

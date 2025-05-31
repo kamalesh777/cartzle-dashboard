@@ -4,7 +4,7 @@ import { HolderOutlined } from '@ant-design/icons'
 
 import type { DropdownProps, MenuProps } from 'antd'
 
-import DropdownWrapper from './DropdownWrapper'
+import DropdownWrapper from '../Wrapper/DropdownWrapper'
 
 interface PropTypes extends DropdownProps {
   items: MenuProps['items']

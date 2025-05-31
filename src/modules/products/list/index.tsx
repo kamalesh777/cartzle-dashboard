@@ -1,20 +1,18 @@
 'use client'
 import React, { useState } from 'react'
 
-import { EllipsisOutlined } from '@ant-design/icons'
-
-import { type TableColumnsType, type MenuProps, Row, Col, Dropdown } from 'antd'
+import { type TableColumnsType, type MenuProps, Row, Col } from 'antd'
 
 import { useRouter } from 'next/navigation'
 
 import type { ProductDataTypes } from '../types'
 
+import TableActionButton from '@/components/Common/TableActionButton'
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
-import TableActionButton from '@/components/Wrapper/TableActionButton'
 
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
@@ -58,9 +56,9 @@ const ProductListComp = (): JSX.Element => {
       render: price => `₹${price.toFixed(2)}`,
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: 'action',
-      render: (_, record) => <TableActionButton items={getMoreMenus(record)} />
+      render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,
     },
   ]
 
