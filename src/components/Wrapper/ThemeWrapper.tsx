@@ -1,7 +1,7 @@
 'use client'
 import React, { type PropsWithChildren } from 'react'
 
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, theme } from 'antd'
 import { useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
@@ -10,27 +10,36 @@ import { useSelector } from 'react-redux'
 
 import type { RootState } from 'src/store'
 
-import { hexToRGBA } from '@/utils/commonFunctions'
-
 const ThemeWrapper = (props: PropsWithChildren): JSX.Element => {
   const theme = useSelector((state: RootState) => state.theme)
 
   return (
     <ConfigProvider theme={theme}>
-      <style jsx global>{`
-        :root {
-          --primary-color: ${theme.token?.colorPrimary};
-          --primary-border-color: ${theme.token?.colorPrimary};
-          --primary-outline-color: ${theme.token?.colorPrimary};
-          --primary-bg-color-1: ${hexToRGBA(theme.token?.colorPrimary as string, 1)};
-          --primary-bg-color-2: ${hexToRGBA(theme.token?.colorPrimary as string, 0.6)};
-          --primary-bg-color-3: ${hexToRGBA(theme.token?.colorPrimary as string, 0.3)};
-          --primary-bg-color-4: ${hexToRGBA(theme.token?.colorPrimary as string, 0.1)};
-          --primary-bg-color-5: ${hexToRGBA(theme.token?.colorPrimary as string, 0.05)};
-        }
-      `}</style>
-      {props.children}
+      <ThemeToken>{props.children}</ThemeToken>
     </ConfigProvider>
+  )
+}
+
+const { useToken } = theme
+
+// use the theme token and pass it by global css
+const ThemeToken = (props: PropsWithChildren): JSX.Element => {
+  const { token } = useToken()
+
+  return (
+    <>
+      <style jsx global>
+        {`
+          :root {
+            --primary-color: ${token?.colorPrimary};
+            --primary-border-color: ${token?.colorPrimaryBorder};
+            --primary-hover-color: ${token?.colorPrimaryHover};
+            --primary-bg-color: ${token?.colorPrimaryBg};
+          }
+        `}
+      </style>
+      {props.children}
+    </>
   )
 }
 

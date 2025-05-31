@@ -122,7 +122,7 @@ const UsersListComp = (): JSX.Element => {
       render: arr => {
         const obj1 = arr?.[0] as PaymentPromise
         return obj1 ? (
-          <p className="text-danger">
+          <p>
             {obj1?.promised_date}{' '}
             <InfoTooltip
               title={arr?.map((obj: PaymentPromise, index: React.Key) => (

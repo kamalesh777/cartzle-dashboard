@@ -161,7 +161,7 @@ const EmployessListComp = (): JSX.Element => {
 
   return (
     <>
-      <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
+      <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Employees</h3>} />
       {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}
