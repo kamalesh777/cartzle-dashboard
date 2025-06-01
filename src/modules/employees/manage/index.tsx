@@ -15,11 +15,9 @@ import {
 } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
-import { modalCloseHandler } from '@/utils/commonFunctions'
+import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-import { PartyTypeOptions } from '../static/constants'
-
-const EmployessManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
+const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler()
@@ -33,7 +31,7 @@ const EmployessManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>)
   return (
     <ModalWrapper
       bodyScroll
-      title="Update Details"
+      title={`${getModalTitle(selectedId as string)}`}
       open={openModal}
       onCancel={closeModal}
       footer={
@@ -52,7 +50,7 @@ const EmployessManageComp = ({ openModal, setOpenModal }: ModalPropTypes<never>)
         </FormItemWrapper>
 
         <FormItemWrapper name="type" label="Party Type" rules={requiredFieldRules}>
-          <Select options={PartyTypeOptions} />
+          <Select options={[]} />
         </FormItemWrapper>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>

@@ -62,9 +62,12 @@
 }
 .ant-modal-header {
     margin-bottom: 0px !important;
-    background-color: var(--primary-bg-color) !important;
+    background-color: var(--bs-gray-200) !important;
     padding: 15px 20px !important;
     margin: -20px -24px;
+}
+.ant-table-wrapper .ant-table-thead>tr>th {
+    padding: 12px !important;
 }
 @media (max-width: 768px) {
     .ant-menu {

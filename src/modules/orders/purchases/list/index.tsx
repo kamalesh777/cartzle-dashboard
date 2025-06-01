@@ -22,8 +22,8 @@ const PurchaseListComp = (): JSX.Element => {
 
   const getMoreMenus = (record: ListDataTypes): MenuProps['items'] => [
     {
-      label: 'Update Details',
-      key: 'update_details',
+      label: 'Update',
+      key: 'update',
       onClick: () => router.push(`${PURCHASE_LIST_ROUTE}/${record?.name}`),
     },
   ]

@@ -20,8 +20,8 @@ const ProductListComp = (): JSX.Element => {
 
   const getMoreMenus = (record: ProductDataTypes): MenuProps['items'] => [
     {
-      label: 'Update Details',
-      key: 'update_details',
+      label: 'Update',
+      key: 'update',
       onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record?.name}`),
     },
   ]

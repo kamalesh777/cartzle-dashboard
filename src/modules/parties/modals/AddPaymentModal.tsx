@@ -18,12 +18,12 @@ import {
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
-import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { COMMON_ROW_GUTTER, PaymentOptions, requiredFieldRules } from '@/constants/AppConstant'
 import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 
 import { disabledUptoCurrentDate } from '@/utils/disableFunction'
 
-import { PaymentOptions, TransactionTypeOptions } from '../static/constants'
+import { TransactionTypeOptions } from '../static/constants'
 import { upperFirst } from 'lodash'
 
 
@@ -104,7 +104,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
               <InputNumberWrapper min={1} />
             </FormItemWrapper>
 
-            <FormItemWrapper label="Payment Method" name="method" rules={requiredFieldRules}>
+            <FormItemWrapper label="Payment Method" name="payment_method" rules={requiredFieldRules}>
               <SelectWrapper options={PaymentOptions} />
             </FormItemWrapper>
           </>

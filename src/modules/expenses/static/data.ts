@@ -1,0 +1,81 @@
+import type { ListDataTypes } from '../types'
+
+export const listData: ListDataTypes[] = [
+  {
+    id: '1',
+    date: '2025-05-25',
+    category: 'Transport',
+    description: 'Wood delivery from supplier',
+    amount: 1200,
+    payment_method: 'Cash',
+  },
+  {
+    id: '2',
+    date: '2025-05-22',
+    category: 'Electricity',
+    description: 'Monthly power bill',
+    amount: 4500,
+    payment_method: 'Bank',
+  },
+]
+
+
+
+export const ExpensesReportData: ListDataTypes[] = [
+  {
+    id: '1',
+    date: '2025-05-25',
+    category: 'Transport',
+    description: 'Wood delivery from supplier',
+    amount: 1200,
+    payment_method: 'Cash',
+  },
+  {
+    id: '2',
+    date: '2025-05-22',
+    category: 'Electricity',
+    description: 'Monthly electricity bill',
+    amount: 4500,
+    payment_method: 'Bank',
+  },
+  {
+    id: '3',
+    date: '2025-04-18',
+    category: 'Rent',
+    description: 'Shop rent',
+    amount: 10000,
+    payment_method: 'Bank',
+  },
+  {
+    id: '4',
+    date: '2025-03-05',
+    category: 'Maintenance',
+    description: 'Machine servicing',
+    amount: 2000,
+    payment_method: 'Cash',
+  },
+  {
+    id: '5',
+    date: '2025-02-10',
+    category: 'Internet',
+    description: 'Monthly internet bill',
+    amount: 900,
+    payment_method: 'UPI',
+  },
+  {
+    id: '6',
+    date: '2025-01-28',
+    category: 'Labour Charges',
+    description: 'Daily wages for extra workers',
+    amount: 3500,
+    payment_method: 'Cash',
+  },
+  {
+    id: '7',
+    date: '2024-12-15',
+    category: 'Fuel',
+    description: 'Transport fuel',
+    amount: 1500,
+    payment_method: 'Cash',
+  },
+];

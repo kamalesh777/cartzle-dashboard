@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Divider, Tag, Typography, type TableProps } from 'antd'
+import { Col, Divider, Row, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
@@ -10,9 +10,9 @@ import type { MenuProps } from 'antd'
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
-import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
+import { EMPTY_PLACEHOLDER, PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import AddPaymentModal from '../modals/AddPaymentModal'
@@ -21,6 +21,7 @@ import { listData } from '../static/data'
 import PaymentHistoryModal from '../modals/PaymentHistoryModal'
 
 const UsersListComp = (): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>('')
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
@@ -29,8 +30,8 @@ const UsersListComp = (): JSX.Element => {
 
   const items: MenuProps['items'] = [
     {
-      label: 'Update Details',
-      key: 'update_details',
+      label: 'Update',
+      key: 'update',
       onClick: () => setManageModal(true),
     },
     {
@@ -63,7 +64,7 @@ const UsersListComp = (): JSX.Element => {
     },
   ]
 
-  // render the party types with hightlighted color
+  // render the party types with highlighted color
   const partyTypes = (type: string): JSX.Element => {
     if (type === 'supplier') {
       return <Tag color="#2db7f5">{type}</Tag>
@@ -168,7 +169,21 @@ const UsersListComp = (): JSX.Element => {
 
   return (
     <>
-      <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Parties</h3>} />
+      <TableWrapper columns={columns} dataSource={listData} title={() => (
+          <Row justify={'space-between'}>
+            <Col md={12}>
+              <h3 className="fw-bold">Parties</h3>
+            </Col>
+            <Col md={12} className="text-right">
+              <div className="d-flex">
+                <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
+                <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+                  Add
+                </ButtonWrapper>
+              </div>
+            </Col>
+          </Row>
+        )} />
       {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}

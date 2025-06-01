@@ -15,8 +15,6 @@ import { SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
-import AddPaymentModal from '../modals/AddPaymentModal'
-import ReschedulePayment from '../modals/ReschedulePayment'
 import { listData } from '../static/data'
 
 const EmployeesListComp = (): JSX.Element => {
@@ -27,8 +25,8 @@ const EmployeesListComp = (): JSX.Element => {
 
   const items: MenuProps['items'] = [
     {
-      label: 'Update Details',
-      key: 'update_details',
+      label: 'Update',
+      key: 'update',
       onClick: () => setManageModal(true),
     },
     {
@@ -164,8 +162,6 @@ const EmployeesListComp = (): JSX.Element => {
       <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Employees</h3>} />
       {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
-      {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}
-      {openRSPModal && <ReschedulePayment {...{ openModal: openRSPModal, setOpenModal: setRSPModal }} />}
     </>
   )
 }
