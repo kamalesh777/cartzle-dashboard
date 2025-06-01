@@ -1,62 +1,58 @@
 import React from 'react';
-import { Modal, Table, Tag, Typography } from 'antd';
+import { Tag, Typography } from 'antd';
 import { PaymentHistoryData } from '../static/data';
 import { ButtonWrapper, ModalWrapper, TableWrapper } from '@/components/Wrapper';
 import { ModalPropTypes } from 'src/types/common';
-import { modalCloseHandler } from '@/utils/commonFunctions';
-import form from 'antd/es/form';
+import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions';
+import dayjs from 'dayjs';
 
 const { Title, Text } = Typography;
-
-const columns = [
-  {
-    title: 'Date',
-    dataIndex: 'date',
-  },
-  {
-    title: 'Type',
-    dataIndex: 'type',
-    render: (type: string) => {
-      let color = type === 'Refund' ? 'blue' : type === 'Advance' ? 'gold' : 'default';
-      return <Tag color={color}>{type}</Tag>;
-    },
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-    render: (amt: number) =>
-      <Text type={amt < 0 ? 'danger' : undefined}>
-        ₹{new Intl.NumberFormat('en-IN').format(amt)}
-      </Text>,
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    render: (status: string) => {
-      if (!status) return '--';
-      const color = status === 'Paid' ? 'green' : 'red';
-      return <Tag color={color}>{status}</Tag>;
-    },
-  },
-  {
-    title: 'Method',
-    dataIndex: 'method',
-    render: (method: string) => method || '--',
-  },
-  {
-    title: 'Notes',
-    dataIndex: 'notes',
-  },
-];
 
 const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>) => {
 
   const closeModal = (): void => modalCloseHandler(setOpenModal)
+
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      render: (date: string) => dayjs(date).format('DD MMM YYYY, hh:mm A'),
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      render: (type: string) => {
+        const color = {
+          advance: 'gold',
+          normal: 'green',
+          refund: 'blue',
+          missed: 'red',
+        }[type] || 'default';
+        return <Tag color={color}>{type.toUpperCase()}</Tag>;
+      },
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+      render: (amt: string) => `₹${getDecimal(amt, true)}`,
+    },
+    {
+      title: 'Method',
+      dataIndex: 'method',
+    },
+    {
+      title: 'Notes',
+      dataIndex: 'notes',
+    },
+  ];
+
+
   return (
     <ModalWrapper
       title="Payment History"
       open={openModal}
       onCancel={closeModal}
+      bodyScroll
       footer={
         <ButtonWrapper type='primary' onClick={closeModal}>Close</ButtonWrapper>
       }

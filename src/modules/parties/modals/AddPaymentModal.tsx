@@ -24,13 +24,13 @@ import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 import { disabledUptoCurrentDate } from '@/utils/disableFunction'
 
 import { PaymentOptions, TransactionTypeOptions } from '../static/constants'
+import { upperFirst } from 'lodash'
 
-const MISSED_CONST = 'missed'
 
 const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
-  const isMissedPayment = Form.useWatch('status', form) === MISSED_CONST
-  const isNormalTransaction = Form.useWatch('transaction_type', form) === TransactionTypeOptions[1]
+  const isMissedPayment = Form.useWatch('transaction_type', form) === TransactionTypeOptions[3]
+  const isNormalTransaction = Form.useWatch('transaction_type', form) === TransactionTypeOptions[1] // normal
 
   const handleFinish = (): void => {
     afterSubmit?.()
@@ -46,9 +46,10 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
       title="Add Payment"
       open={openModal}
       onCancel={closeModal}
+      bodyScroll
       footer={
         <SubmitButtonWrapper
-          okText="Add Payment"
+          okText={"Save"}
           okButtonProps={{ loading: false, onClick: () => form.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
@@ -57,9 +58,9 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
       }
     >
       <Form layout="vertical" form={form} onFinish={handleFinish}>
-        <FormItemWrapper label="Select Transaction type" name="transaction_type" initialValue={TransactionTypeOptions[0]}>
+        <FormItemWrapper className='mb-3' label="Select Transaction type" name="transaction_type" initialValue={TransactionTypeOptions[0]}>
           <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('transaction_type', e.target.value)}>
-            {TransactionTypeOptions?.map(item => (<Radio value={item}>{item}</Radio>))}
+            {TransactionTypeOptions?.map(item => (<Radio value={item}>{upperFirst(item)}</Radio>))}
           </Radio.Group>
         </FormItemWrapper>
         {
@@ -77,12 +78,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
                     <SpaceWrapper>Due: <span className='error-color fw-bold'>{getDecimal(2000, true)}</span></SpaceWrapper>
                   </ColWrapper>
                 </Row>
-              </CardWrapper><FormItemWrapper name="status" initialValue={MISSED_CONST}>
-                  <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('status', e.target.value)}>
-                    <Radio value={MISSED_CONST}>Missed</Radio>
-                    <Radio value="paid">Paid</Radio>
-                  </Radio.Group>
-                </FormItemWrapper>
+              </CardWrapper>
               </>
           )
         }

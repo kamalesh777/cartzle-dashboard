@@ -8,4 +8,5 @@ export const PartyTypeOptions = [
 
 export const PaymentOptions = PaymentMethods?.map(item => ({ value: item, label: item }))
 
-export const TransactionTypeOptions = ['Advance', 'Normal', 'Refund'] as const
+//* Don't change or arrange the below constant it will cause error for AddPaymentModal.tsx */
+export const TransactionTypeOptions = ['advance', 'normal', 'refund', 'missed'] as const

@@ -19,7 +19,7 @@ import AddPaymentModal from '../modals/AddPaymentModal'
 import ReschedulePayment from '../modals/ReschedulePayment'
 import { listData } from '../static/data'
 
-const EmployessListComp = (): JSX.Element => {
+const EmployeesListComp = (): JSX.Element => {
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
@@ -56,7 +56,7 @@ const EmployessListComp = (): JSX.Element => {
     },
   ]
 
-  // render the party types with hightlighted color
+  // render the party types with highlighted color
   const partyTypes = (type: string): JSX.Element => {
     if (type === 'supplier') {
       return <Tag color="#2db7f5">{type}</Tag>
@@ -170,4 +170,4 @@ const EmployessListComp = (): JSX.Element => {
   )
 }
 
-export default EmployessListComp
+export default EmployeesListComp
