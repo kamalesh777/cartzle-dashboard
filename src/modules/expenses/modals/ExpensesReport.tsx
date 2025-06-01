@@ -66,7 +66,7 @@ const ExpenseReport = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
             render: amount => `₹${getDecimal(amount)}`,
         },
         {
-            title: 'Paid By',
+            title: 'Paid Method',
             dataIndex: 'payment_method',
             key: 'payment_method',
             render: payment_method => <Tag color="blue">{payment_method}</Tag>,

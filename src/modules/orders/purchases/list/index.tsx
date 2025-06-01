@@ -60,6 +60,7 @@ const PurchaseListComp = (): JSX.Element => {
     {
       title: 'Action',
       dataIndex: 'action',
+      className: 'text-right',
       render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,
     },
   ]

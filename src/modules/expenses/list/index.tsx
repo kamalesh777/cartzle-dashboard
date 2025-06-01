@@ -75,7 +75,7 @@ const ExpensesListComp = (): JSX.Element => {
     render: amount => `₹${amount.toFixed(2)}`,
   },
   {
-    title: 'Paid By',
+    title: 'Paid Method',
     dataIndex: 'payment_method',
     render: payment_method => <Tag color="blue">{payment_method}</Tag>,
   },
