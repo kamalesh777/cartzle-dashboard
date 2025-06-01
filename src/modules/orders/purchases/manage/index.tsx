@@ -30,7 +30,7 @@ import { getCardTitle } from '@/utils/commonFunctions'
 // main function
 const PurchaseManageComp = (): JSX.Element => {
   const params = useParams()
-  const cardTitle = `${getCardTitle(params)} Purchase`
+  const cardTitle = `${getCardTitle(params)} Detais`
 
   const [form] = Form.useForm()
   const isRawMaterial = Form.useWatch('category', form) === 'raw'

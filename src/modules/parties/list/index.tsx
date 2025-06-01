@@ -18,12 +18,14 @@ import PartiesManageComp from '../manage'
 import AddPaymentModal from '../modals/AddPaymentModal'
 import ReschedulePayment from '../modals/ReschedulePayment'
 import { listData } from '../static/data'
+import PaymentHistoryModal from '../modals/PaymentHistoryModal'
 
 const UsersListComp = (): JSX.Element => {
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
   const [openRSPModal, setRSPModal] = useState<boolean>(false)
+  const [openPHModal, setPHModal] = useState<boolean>(false)
 
   const items: MenuProps['items'] = [
     {
@@ -45,6 +47,11 @@ const UsersListComp = (): JSX.Element => {
       label: 'Reschedule Payment',
       key: 'reschedule_payment',
       onClick: () => setRSPModal(true),
+    },
+    {
+      label: 'Payment History',
+      key: 'payment_history',
+      onClick: () => setPHModal(true),
     },
     {
       type: 'divider',
@@ -166,6 +173,7 @@ const UsersListComp = (): JSX.Element => {
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}
       {openRSPModal && <ReschedulePayment {...{ openModal: openRSPModal, setOpenModal: setRSPModal }} />}
+      {openPHModal && <PaymentHistoryModal {...{ openModal: openPHModal, setOpenModal: setPHModal }} />}
     </>
   )
 }

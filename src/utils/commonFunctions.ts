@@ -123,9 +123,15 @@ export const getCardTitle = (params: ParamTypes, matcher = 'create'): string => 
   return params?.id === matcher ? 'Create' : 'Update'
 }
 
-export const getDecimal = (amount: number | string = 0, count = 2): string => {
+export const getDecimal = (amount: number | string = 0, format?: boolean, count = 2): string => {
   if (typeof amount === 'string') {
     return Number(amount).toFixed(count)
+  }
+  if (format) {
+    return amount.toLocaleString('en-IN', {
+      // minimumFractionDigits: 2,
+      // maximumFractionDigits: 2
+    })
   }
   return amount.toFixed(count)
 }

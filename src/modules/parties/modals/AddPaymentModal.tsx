@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input, Radio, type RadioChangeEvent } from 'antd'
+import { Form, Input, Radio, Row, Space, type RadioChangeEvent } from 'antd'
 
 import dayjs from 'dayjs'
 
@@ -8,6 +8,8 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
 import {
+  CardWrapper,
+  ColWrapper,
   FormItemWrapper,
   InputNumberWrapper,
   ModalWrapper,
@@ -16,18 +18,19 @@ import {
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
-import { requiredFieldRules } from '@/constants/AppConstant'
-import { modalCloseHandler } from '@/utils/commonFunctions'
+import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 
 import { disabledUptoCurrentDate } from '@/utils/disableFunction'
 
-import { PaymentOptions } from '../static/constants'
+import { PaymentOptions, TransactionTypeOptions } from '../static/constants'
 
 const MISSED_CONST = 'missed'
 
 const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   const isMissedPayment = Form.useWatch('status', form) === MISSED_CONST
+  const isNormalTransaction = Form.useWatch('transaction_type', form) === TransactionTypeOptions[1]
 
   const handleFinish = (): void => {
     afterSubmit?.()
@@ -54,12 +57,37 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
       }
     >
       <Form layout="vertical" form={form} onFinish={handleFinish}>
-        <FormItemWrapper name="status" initialValue={MISSED_CONST}>
-          <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('status', e.target.value)}>
-            <Radio value={MISSED_CONST}>Missed</Radio>
-            <Radio value="paid">Paid</Radio>
+        <FormItemWrapper label="Select Transaction type" name="transaction_type" initialValue={TransactionTypeOptions[0]}>
+          <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('transaction_type', e.target.value)}>
+            {TransactionTypeOptions?.map(item => (<Radio value={item}>{item}</Radio>))}
           </Radio.Group>
         </FormItemWrapper>
+        {
+          isNormalTransaction && (
+            <>
+              <CardWrapper className='mb-3 bg-gray-100' styles={{ body: { padding: '10px' } }}>
+                <Row gutter={COMMON_ROW_GUTTER}>
+                  <ColWrapper md={10}>
+                    <SpaceWrapper>Total: <span className='fw-bold'>{getDecimal(220000, true)}</span></SpaceWrapper>
+                  </ColWrapper>
+                  <ColWrapper md={7}>
+                    <SpaceWrapper>Paid: <span className='fw-bold success-color'>{getDecimal(20000, true)}</span></SpaceWrapper>
+                  </ColWrapper>
+                  <ColWrapper md={7}>
+                    <SpaceWrapper>Due: <span className='error-color fw-bold'>{getDecimal(2000, true)}</span></SpaceWrapper>
+                  </ColWrapper>
+                </Row>
+              </CardWrapper><FormItemWrapper name="status" initialValue={MISSED_CONST}>
+                  <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('status', e.target.value)}>
+                    <Radio value={MISSED_CONST}>Missed</Radio>
+                    <Radio value="paid">Paid</Radio>
+                  </Radio.Group>
+                </FormItemWrapper>
+              </>
+          )
+        }
+        
+        
         {/* if user failed to pay then schedule a next date */}
         {isMissedPayment ? (
           <>

@@ -85,3 +85,54 @@ export const listData: ListDataTypes[] = [
     payment_promises: [],
   },
 ]
+
+
+
+
+export const PaymentHistoryData = [
+  {
+    key: '1',
+    date: '2025-05-01',
+    type: 'Advance',
+    amount: 10000,
+    status: null,
+    method: 'Cash',
+    notes: 'Advance taken',
+  },
+  {
+    key: '2',
+    date: '2025-05-10',
+    type: 'Normal',
+    amount: 30000,
+    status: 'Paid',
+    method: 'UPI',
+    notes: 'Partial payment',
+  },
+  {
+    key: '3',
+    date: '2025-05-20',
+    type: 'Normal',
+    amount: 20000,
+    status: 'Missed',
+    method: null,
+    notes: 'Missed due to absence',
+  },
+  {
+    key: '4',
+    date: '2025-05-25',
+    type: 'Refund',
+    amount: -5000,
+    status: null,
+    method: 'Bank',
+    notes: 'Order postponed',
+  },
+  {
+    key: '5',
+    date: '2025-06-01',
+    type: 'Normal',
+    amount: 40000,
+    status: 'Paid',
+    method: 'Cash',
+    notes: 'Final payment',
+  },
+];

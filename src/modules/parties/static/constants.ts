@@ -7,3 +7,5 @@ export const PartyTypeOptions = [
 ]
 
 export const PaymentOptions = PaymentMethods?.map(item => ({ value: item, label: item }))
+
+export const TransactionTypeOptions = ['Advance', 'Normal', 'Refund'] as const

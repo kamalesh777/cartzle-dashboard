@@ -35,6 +35,12 @@ const ThemeToken = (props: PropsWithChildren): JSX.Element => {
             --primary-border-color: ${token?.colorPrimaryBorder};
             --primary-hover-color: ${token?.colorPrimaryHover};
             --primary-bg-color: ${token?.colorPrimaryBg};
+            --error-color: ${token?.colorError};
+            --error-color-bg: ${token?.colorErrorBg};
+            --success-color: ${token?.colorSuccess};
+            --success-color-bg: ${token?.colorSuccessBg};
+            --warning-color: ${token?.colorWarning};
+            --warning-color-bg: ${token?.colorWarningBg};
           }
         `}
       </style>
