@@ -2,22 +2,26 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Divider, Tag, Typography, type TableProps } from 'antd'
-
-import type { ListDataTypes, PaymentPromise } from '../types'
+import { Col, Divider, Row, Tag, Typography, type TableProps } from 'antd'
 import type { MenuProps } from 'antd'
 
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
+import EmployeesManageComp from '../manage'
+import { ListDataTypes } from '../types'
+import { title } from 'process'
+import { render } from 'sass'
+import { startCase, upperFirst } from 'lodash'
 
 const EmployeesListComp = (): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>('')
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
@@ -35,17 +39,27 @@ const EmployeesListComp = (): JSX.Element => {
       onClick: () => setVDModal(true),
     },
     {
-      label: 'Add Payment',
-      key: 'add_payment',
+      label: 'Mark Attendance',
+      key: 'mark_attendance',
       onClick: () => setAPModal(true),
     },
     {
-      label: 'Reschedule Payment',
-      key: 'reschedule_payment',
+      label: 'Manage Payment',
+      key: 'manage_payment',
+      onClick: () => setRSPModal(true),
+    },
+    {
+      label: 'Salary History',
+      key: 'salary_history',
       onClick: () => setRSPModal(true),
     },
     {
       type: 'divider',
+    },
+    {
+      label: 'View Payslip',
+      key: 'payslip',
+      onClick: () => setRSPModal(true),
     },
     {
       label: 'Deactivate',
@@ -69,21 +83,10 @@ const EmployeesListComp = (): JSX.Element => {
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
-      width: '18%',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      width: '18%',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      width: '10%',
-      className: 'text-capitalize',
-      render: type => partyTypes(type),
+      title: 'Role',
+      dataIndex: 'role',
     },
     {
       title: 'Mobile',
@@ -107,47 +110,22 @@ const EmployeesListComp = (): JSX.Element => {
         </SpaceWrapper>
       ),
     },
-
     {
-      title: 'Due Amt.',
-      dataIndex: 'due_amount',
-      width: '10%',
+      title: 'Joining Date',
+      dataIndex: 'joining_date',
     },
     {
-      title: 'Due Date',
-      width: '15%',
-      dataIndex: 'payment_promises',
-      render: arr => {
-        const obj1 = arr?.[0] as PaymentPromise
-        return obj1 ? (
-          <p className="text-danger">
-            {obj1?.promised_date}{' '}
-            <InfoTooltip
-              title={arr?.map((obj: PaymentPromise, index: React.Key) => (
-                <>
-                  <SpaceWrapper align="start" className="w-100">
-                    Date: {obj?.promised_date || EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  <SpaceWrapper align="start" className="w-100">
-                    Amount: {obj?.promised_amount ?? EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  <SpaceWrapper align="start" className="w-100">
-                    Note: {obj?.note ?? EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  {arr?.length - 1 !== index && <Divider className="my-2" />}
-                </>
-              ))}
-            />
-          </p>
-        ) : (
-          EMPTY_PLACEHOLDER
-        )
-      },
+      title: 'Job Type',
+      dataIndex: 'job_type',
+      render: text => <strong>{startCase(text)}</strong>
     },
     {
-      title: 'Total',
-      dataIndex: 'total_amount',
-      key: 'total_amount',
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (
+        <Tag color={status === 'active' ? 'green' : 'gray'}>{upperFirst(status)}</Tag>
+      ),
     },
     {
       title: '',
@@ -159,8 +137,22 @@ const EmployeesListComp = (): JSX.Element => {
 
   return (
     <>
-      <TableWrapper columns={columns} dataSource={listData} title={() => <h3 className="fw-bold">Employees</h3>} />
-      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
+      <TableWrapper columns={columns} dataSource={listData} title={() => (
+        <Row justify={'space-between'}>
+          <ColWrapper md={12}>
+            <h3 className="fw-bold">Employees</h3>
+          </ColWrapper>
+          <ColWrapper md={12} className="text-right">
+            <div className="d-flex">
+              <InputSearchWrapper placeholder="Search by category or mobile..." onChange={e => setSearchValue(e.target.value)} />
+              <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+                New
+              </ButtonWrapper>
+            </div>
+          </ColWrapper>
+        </Row>
+      )} />
+      {openManageModal && <EmployeesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
     </>
   )

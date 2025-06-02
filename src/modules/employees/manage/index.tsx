@@ -11,13 +11,17 @@ import {
   InputNumberWrapper,
   InputWrapper,
   ModalWrapper,
+  SelectWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
+import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import { getSelectOption } from '@/utils/disableFunction'
+import { JobTypeOptions } from '../static/contstants'
 
-const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler()
@@ -36,7 +40,7 @@ const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
       onCancel={closeModal}
       footer={
         <SubmitButtonWrapper
-          okText="Add Payment"
+          okText={getModalTitle(selectedId as string)}
           okButtonProps={{ loading: buttonLoading, onClick: () => form.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
@@ -48,9 +52,12 @@ const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
         <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
           <InputWrapper />
         </FormItemWrapper>
-
-        <FormItemWrapper name="type" label="Party Type" rules={requiredFieldRules}>
-          <Select options={[]} />
+        <FormItemWrapper
+          label="Role"
+          name="role"
+          rules={requiredFieldRules}
+        >
+          <SelectWrapper />
         </FormItemWrapper>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>
@@ -68,14 +75,40 @@ const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
               <Input.TextArea rows={3} />
             </FormItemWrapper>
           </ColWrapper>
-          <ColWrapper md={12}>
-            <FormItemWrapper name="state" label="State">
-              <InputWrapper />
+          <ColWrapper md={24}>
+            <FormItemWrapper
+              label="Joining Date"
+              name="joining_date"
+              rules={requiredFieldRules}
+            >
+              <DatePickerWrapper />
             </FormItemWrapper>
           </ColWrapper>
-          <ColWrapper md={12}>
-            <FormItemWrapper name="pincode" label="Pincode">
-              <InputWrapper />
+          <ColWrapper md={24}>
+            <FormItemWrapper
+              label="Job Type"
+              name="job_type"
+              rules={requiredFieldRules}
+            >
+              <SelectWrapper options={getSelectOption(JobTypeOptions)} />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={24}>
+            <FormItemWrapper
+              label="Salary Type"
+              name="salary_type"
+              rules={requiredFieldRules}
+            >
+              <SelectWrapper options={getSelectOption(['monthly', 'daily'])}/>
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper md={24}>
+            <FormItemWrapper
+              label="Salary Amount (₹)"
+              name="salary_amount"
+              rules={requiredFieldRules}
+            >
+              <InputNumberWrapper min={0} />
             </FormItemWrapper>
           </ColWrapper>
         </Row>
@@ -84,4 +117,4 @@ const EmployessManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
   )
 }
 
-export default EmployessManageComp
+export default EmployeesManageComp

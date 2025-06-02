@@ -1,38 +1,15 @@
-export interface PaymentRecord {
-  date: string // e.g., '2025-05-28'
-  amount: number // payment amount
-  method?: string // optional: 'cash', 'bank transfer', etc.
-  note?: string // optional: any remarks
-}
-
-export interface PaymentPromise {
-  promised_date: string // e.g., '2025-06-05'
-  promised_amount: number
-  note?: string
-}
+import { JobTypeOptions } from "../static/contstants";
 
 export interface ListDataTypes {
   id: string
-  name: string
-  address: string
-  city: string
-  state: string
-  pincode: string
-  mobile: number
-  alternate_mobile?: number
-  type: PartyType
-  // e.g., 'every 10th of the month'
-  due_payment_reminder?: string
-
-  // total amount of all transactions
-  total_amount: number
-  // total paid by/to the party
-  paid_amount: number
-  // total outstanding
-  due_amount: number
-
-  // chronological payment logs
-  payment_history: PaymentRecord[]
-  // for tracking future promised payments
-  payment_promises?: PaymentPromise[]
+  name: string;
+  role: string;
+  mobile: string;
+  alternate_mobile?: string
+  address: string;
+  joining_date: string;
+  salary_type: 'monthly' | 'daily';
+  salary_amount: number;
+  status?: 'active' | 'inactive'
+  job_type: keyof JobTypeOptions[number]
 }
