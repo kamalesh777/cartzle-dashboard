@@ -1,15 +1,20 @@
-import React from 'react';
-import { Tag, Typography } from 'antd';
-import { PaymentHistoryData } from '../static/data';
-import { ButtonWrapper, ModalWrapper, TableWrapper } from '@/components/Wrapper';
-import { ModalPropTypes } from 'src/types/common';
-import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions';
-import dayjs from 'dayjs';
+import React from 'react'
 
-const { Title, Text } = Typography;
+import { Tag, Typography } from 'antd'
 
-const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>) => {
+import dayjs from 'dayjs'
 
+import type { ModalPropTypes } from 'src/types/common'
+
+import { ButtonWrapper, ModalWrapper, TableWrapper } from '@/components/Wrapper'
+
+import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
+
+import { PaymentHistoryData } from '../static/data'
+
+const { Title, Text } = Typography
+
+const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
   const closeModal = (): void => modalCloseHandler(setOpenModal)
 
   const columns = [
@@ -22,13 +27,14 @@ const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>)
       title: 'Type',
       dataIndex: 'type',
       render: (type: string) => {
-        const color = {
-          advance: 'gold',
-          normal: 'green',
-          refund: 'blue',
-          missed: 'red',
-        }[type] || 'default';
-        return <Tag color={color}>{type.toUpperCase()}</Tag>;
+        const color =
+          {
+            advance: 'gold',
+            normal: 'green',
+            refund: 'blue',
+            missed: 'red',
+          }[type] || 'default'
+        return <Tag color={color}>{type.toUpperCase()}</Tag>
       },
     },
     {
@@ -44,8 +50,7 @@ const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>)
       title: 'Notes',
       dataIndex: 'notes',
     },
-  ];
-
+  ]
 
   return (
     <ModalWrapper
@@ -54,27 +59,21 @@ const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>)
       onCancel={closeModal}
       bodyScroll
       footer={
-        <ButtonWrapper type='primary' onClick={closeModal}>Close</ButtonWrapper>
+        <ButtonWrapper type="primary" onClick={closeModal}>
+          Close
+        </ButtonWrapper>
       }
       width={900}
     >
       <div style={{ marginBottom: 16 }}>
         <Title level={5}>Ramesh Sutar</Title>
-        <Text>Total Order: ₹2,20,000</Text> |{' '}
-        <Text type="success">Paid: ₹1,00,000</Text> |{' '}
+        <Text>Total Order: ₹2,20,000</Text> | <Text type="success">Paid: ₹1,00,000</Text> |{' '}
         <Text type="danger">Due: ₹1,20,000</Text>
       </div>
 
-      <TableWrapper
-        columns={columns}
-        dataSource={PaymentHistoryData}
-        pagination={false}
-        rowKey="key"
-        bordered
-        size="middle"
-      />
+      <TableWrapper columns={columns} dataSource={PaymentHistoryData} pagination={false} rowKey="key" bordered size="middle" />
     </ModalWrapper>
-  );
-};
+  )
+}
 
-export default PaymentHistoryModal;
+export default PaymentHistoryModal

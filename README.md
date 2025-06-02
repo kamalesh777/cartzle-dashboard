@@ -139,6 +139,8 @@ Utils/
   ├── getCurrentPath
   ├── getCardTitle
   ├── getDecimal
+  ├── getSelectOption
+  ├── getModalTitle
   └── modalCloseHandler
 ```
 

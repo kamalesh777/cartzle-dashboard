@@ -122,7 +122,7 @@ interface ParamTypes {
 export const getCardTitle = (params: ParamTypes, matcher = 'create'): string => {
   return params?.id === matcher ? 'Create' : 'Update'
 }
-export const getModalTitle = (id: string) => {
+export const getModalTitle = (id: string): string => {
   return !id ? 'Create' : 'Update'
 }
 

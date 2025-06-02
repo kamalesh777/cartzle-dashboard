@@ -12,16 +12,16 @@ import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
 import { ButtonWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
-import { EMPTY_PLACEHOLDER, PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
+import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import AddPaymentModal from '../modals/AddPaymentModal'
+import PaymentHistoryModal from '../modals/PaymentHistoryModal'
 import ReschedulePayment from '../modals/ReschedulePayment'
 import { listData } from '../static/data'
-import PaymentHistoryModal from '../modals/PaymentHistoryModal'
 
 const UsersListComp = (): JSX.Element => {
-  const [searchValue, setSearchValue] = useState<string>('')
+  const [, setSearchValue] = useState<string>('')
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
   const [openAPModal, setAPModal] = useState<boolean>(false)
@@ -169,7 +169,10 @@ const UsersListComp = (): JSX.Element => {
 
   return (
     <>
-      <TableWrapper columns={columns} dataSource={listData} title={() => (
+      <TableWrapper
+        columns={columns}
+        dataSource={listData}
+        title={() => (
           <Row justify={'space-between'}>
             <Col md={12}>
               <h3 className="fw-bold">Parties</h3>
@@ -183,7 +186,8 @@ const UsersListComp = (): JSX.Element => {
               </div>
             </Col>
           </Row>
-        )} />
+        )}
+      />
       {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openAPModal && <AddPaymentModal {...{ openModal: openAPModal, setOpenModal: setAPModal }} />}

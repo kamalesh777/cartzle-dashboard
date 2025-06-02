@@ -1,4 +1,4 @@
-import type { ListDataTypes } from '../types'
+import type { EmployeePaymentFormData, ListDataTypes } from '../types'
 
 export const listData: ListDataTypes[] = [
   {
@@ -63,5 +63,10 @@ export const listData: ListDataTypes[] = [
     salary_amount: 22000,
     status: 'active',
   },
-];
+]
 
+export const SalaryHistorydata: EmployeePaymentFormData[] = [
+  { id: '1', payment_type: 'salary', amount: 12000, date: '2025-04-01', notes: 'Monthly salary' },
+  { id: '2', payment_type: 'advance', amount: 3000, date: '2025-04-10', notes: 'Emergency' },
+  { id: '3', payment_type: 'salary', amount: 12000, date: '2025-05-01', notes: 'Full month' },
+]

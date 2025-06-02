@@ -112,9 +112,9 @@ const PageMenuList = (): JSX.Element => {
             {(fields, { add, remove }, {}) => (
               <>
                 {fields.map((field, index) => (
-                  <Form.Item label={index === 0 ? 'Cards Name' : ''} required={false} key={field.key}>
+                  <FormItemWrapper label={index === 0 ? 'Cards Name' : ''} required={false} key={field.key}>
                     <Space.Compact block>
-                      <Form.Item
+                      <FormItemWrapper
                         {...field}
                         validateTrigger={['onChange', 'onBlur']}
                         rules={[
@@ -127,16 +127,16 @@ const PageMenuList = (): JSX.Element => {
                         noStyle
                       >
                         <Input />
-                      </Form.Item>
+                      </FormItemWrapper>
                       {fields.length > 1 ? <MinusCircleOutlined className="ms-2" onClick={() => remove(field.name)} /> : null}
                     </Space.Compact>
-                  </Form.Item>
+                  </FormItemWrapper>
                 ))}
-                <Form.Item>
+                <FormItemWrapper>
                   <ButtonWrapper type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
                     Add card
                   </ButtonWrapper>
-                </Form.Item>
+                </FormItemWrapper>
               </>
             )}
           </Form.List>

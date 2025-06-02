@@ -106,12 +106,12 @@ const PurchaseManageComp = (): JSX.Element => {
                       </Row>
                     </CardWrapper>
                   ))}
-                  <Form.Item className="mt-3">
+                  <FormItemWrapper className="mt-3">
                     <ButtonWrapper type="dashed" className="text-primary" onClick={() => add()} icon={<PlusOutlined />}>
                       Add more items
                     </ButtonWrapper>
                     <Form.ErrorList errors={errors} />
-                  </Form.Item>
+                  </FormItemWrapper>
                 </>
               )}
             </Form.List>

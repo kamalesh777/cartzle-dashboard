@@ -19,8 +19,6 @@ export const listData: ListDataTypes[] = [
   },
 ]
 
-
-
 export const ExpensesReportData: ListDataTypes[] = [
   {
     id: '1',
@@ -78,4 +76,4 @@ export const ExpensesReportData: ListDataTypes[] = [
     amount: 1500,
     payment_method: 'Cash',
   },
-];
+]

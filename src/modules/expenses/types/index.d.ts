@@ -7,4 +7,3 @@ export interface ListDataTypes {
   payment_method: string
   attachment?: string
 }
-

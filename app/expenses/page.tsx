@@ -1,10 +1,9 @@
-import ExpensesListComp from '@/modules/expenses/list'
 import React from 'react'
 
-const ExpensesPage = ():JSX.Element => {
-  return (
-    <ExpensesListComp />
-  )
+import ExpensesListComp from '@/modules/expenses/list'
+
+const ExpensesPage = (): JSX.Element => {
+  return <ExpensesListComp />
 }
 
 export default ExpensesPage

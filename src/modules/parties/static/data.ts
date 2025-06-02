@@ -86,9 +86,6 @@ export const listData: ListDataTypes[] = [
   },
 ]
 
-
-
-
 export const PaymentHistoryData = [
   {
     key: '1',
@@ -130,4 +127,4 @@ export const PaymentHistoryData = [
     method: 'Cash',
     notes: 'Final payment',
   },
-];
+]

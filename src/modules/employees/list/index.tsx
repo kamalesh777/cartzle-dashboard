@@ -2,7 +2,12 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Col, Divider, Row, Tag, Typography, type TableProps } from 'antd'
+import { SyncOutlined } from '@ant-design/icons'
+import { Row, Tag, Typography, type TableProps } from 'antd'
+
+import { startCase, upperFirst } from 'lodash'
+
+import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
 
 import InfoTooltip from '@/components/Common/InfoTooltip'
@@ -10,24 +15,21 @@ import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
 import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
-import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
-
-import PartiesManageComp from '../manage'
-import { listData } from '../static/data'
 import EmployeesManageComp from '../manage'
-import { ListDataTypes } from '../types'
-import { title } from 'process'
-import { render } from 'sass'
-import { startCase, upperFirst } from 'lodash'
+import ManagePaymentModal from '../modals/ManagePayment'
+import MarkAttendanceForm from '../modals/MarkAttendanceForm'
+import SalaryHistoryModal from '../modals/SalaryHistoryModal'
+import { listData } from '../static/data'
 
 const EmployeesListComp = (): JSX.Element => {
-  const [searchValue, setSearchValue] = useState<string>('')
+  const [, setSearchValue] = useState<string>('')
   const [openManageModal, setManageModal] = useState<boolean>(false)
   const [openVDModal, setVDModal] = useState<boolean>(false)
-  const [openAPModal, setAPModal] = useState<boolean>(false)
-  const [openRSPModal, setRSPModal] = useState<boolean>(false)
+  const [openMarAttanModal, setMarAttanModal] = useState<boolean>(false)
+  const [openMPModal, setMPModal] = useState<boolean>(false)
+  const [openSHModal, setSHModal] = useState<boolean>(false)
 
-  const items: MenuProps['items'] = [
+  const moreMenu = (): MenuProps['items'] => [
     {
       label: 'Update',
       key: 'update',
@@ -41,42 +43,32 @@ const EmployeesListComp = (): JSX.Element => {
     {
       label: 'Mark Attendance',
       key: 'mark_attendance',
-      onClick: () => setAPModal(true),
+      onClick: () => setMarAttanModal(true),
     },
     {
       label: 'Manage Payment',
       key: 'manage_payment',
-      onClick: () => setRSPModal(true),
+      onClick: () => setMPModal(true),
     },
     {
       label: 'Salary History',
       key: 'salary_history',
-      onClick: () => setRSPModal(true),
+      onClick: () => setSHModal(true),
     },
     {
       type: 'divider',
     },
     {
-      label: 'View Payslip',
-      key: 'payslip',
-      onClick: () => setRSPModal(true),
-    },
-    {
-      label: 'Deactivate',
-      key: 'deactivate',
+      label: (
+        <SpaceWrapper>
+          <SyncOutlined />
+          Action
+        </SpaceWrapper>
+      ),
+      key: 'action',
       className: 'text-danger',
     },
   ]
-
-  // render the party types with highlighted color
-  const partyTypes = (type: string): JSX.Element => {
-    if (type === 'supplier') {
-      return <Tag color="#2db7f5">{type}</Tag>
-    } else if (type === 'customer') {
-      return <Tag color="#626262">{type}</Tag>
-    }
-    return <Tag color="#87d068">{type}</Tag>
-  }
 
   // table columns parties list
   const columns: TableProps<ListDataTypes>['columns'] = [
@@ -117,43 +109,51 @@ const EmployeesListComp = (): JSX.Element => {
     {
       title: 'Job Type',
       dataIndex: 'job_type',
-      render: text => <strong>{startCase(text)}</strong>
+      render: text => <strong>{startCase(text)}</strong>,
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => (
-        <Tag color={status === 'active' ? 'green' : 'gray'}>{upperFirst(status)}</Tag>
-      ),
+      render: status => <Tag color={status === 'active' ? 'green' : 'gray'}>{upperFirst(status)}</Tag>,
     },
     {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => <TableActionButton items={items} />,
+      render: () => <TableActionButton items={moreMenu()} />,
     },
   ]
 
   return (
     <>
-      <TableWrapper columns={columns} dataSource={listData} title={() => (
-        <Row justify={'space-between'}>
-          <ColWrapper md={12}>
-            <h3 className="fw-bold">Employees</h3>
-          </ColWrapper>
-          <ColWrapper md={12} className="text-right">
-            <div className="d-flex">
-              <InputSearchWrapper placeholder="Search by category or mobile..." onChange={e => setSearchValue(e.target.value)} />
-              <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
-                New
-              </ButtonWrapper>
-            </div>
-          </ColWrapper>
-        </Row>
-      )} />
+      <TableWrapper
+        columns={columns}
+        dataSource={listData}
+        title={() => (
+          <Row justify={'space-between'}>
+            <ColWrapper md={12}>
+              <h3 className="fw-bold">Employees</h3>
+            </ColWrapper>
+            <ColWrapper md={12} className="text-right">
+              <div className="d-flex">
+                <InputSearchWrapper
+                  placeholder="Search by category or mobile..."
+                  onChange={e => setSearchValue(e.target.value)}
+                />
+                <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+                  New
+                </ButtonWrapper>
+              </div>
+            </ColWrapper>
+          </Row>
+        )}
+      />
       {openManageModal && <EmployeesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
+      {openMarAttanModal && <MarkAttendanceForm {...{ openModal: openMarAttanModal, setOpenModal: setMarAttanModal }} />}
+      {openMPModal && <ManagePaymentModal {...{ openModal: openMPModal, setOpenModal: setMPModal }} />}
+      {openSHModal && <SalaryHistoryModal {...{ openModal: openSHModal, setOpenModal: setSHModal }} />}
     </>
   )
 }

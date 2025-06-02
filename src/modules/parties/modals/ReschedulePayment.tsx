@@ -9,7 +9,7 @@ import { ModalWrapper, SubmitButtonWrapper, FormItemWrapper, InputNumberWrapper,
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
-import { disabledUptoCurrentDate } from '@/utils/disableFunction'
+import { getDisabledDate } from '@/utils/disableFunction'
 
 const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -40,7 +40,7 @@ const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTy
         <FormItemWrapper label="Promised Date" name="promised_date" rules={requiredFieldRules}>
           <DatePickerWrapper
             showNow={false}
-            disabledDate={disabledUptoCurrentDate}
+            disabledDate={getDisabledDate('before', 0)}
             // showTime={{ showSecond: false, showMinute: false, use12Hours: true }}
           />
         </FormItemWrapper>

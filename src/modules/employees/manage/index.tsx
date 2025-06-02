@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { Form, Input, Row, Select } from 'antd'
+import { Form, Input, Row } from 'antd'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -14,11 +14,12 @@ import {
   SelectWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
-import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { getSelectOption } from '@/utils/disableFunction'
+
 import { JobTypeOptions } from '../static/contstants'
 
 const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
@@ -52,11 +53,7 @@ const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
         <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
           <InputWrapper />
         </FormItemWrapper>
-        <FormItemWrapper
-          label="Role"
-          name="role"
-          rules={requiredFieldRules}
-        >
+        <FormItemWrapper label="Role" name="role" rules={requiredFieldRules}>
           <SelectWrapper />
         </FormItemWrapper>
         <Row gutter={COMMON_ROW_GUTTER}>
@@ -76,38 +73,22 @@ const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
-            <FormItemWrapper
-              label="Joining Date"
-              name="joining_date"
-              rules={requiredFieldRules}
-            >
+            <FormItemWrapper label="Joining Date" name="joining_date" rules={requiredFieldRules}>
               <DatePickerWrapper />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
-            <FormItemWrapper
-              label="Job Type"
-              name="job_type"
-              rules={requiredFieldRules}
-            >
+            <FormItemWrapper label="Job Type" name="job_type" rules={requiredFieldRules}>
               <SelectWrapper options={getSelectOption(JobTypeOptions)} />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
-            <FormItemWrapper
-              label="Salary Type"
-              name="salary_type"
-              rules={requiredFieldRules}
-            >
-              <SelectWrapper options={getSelectOption(['monthly', 'daily'])}/>
+            <FormItemWrapper label="Salary Type" name="salary_type" rules={requiredFieldRules}>
+              <SelectWrapper options={getSelectOption(['monthly', 'daily'])} />
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={24}>
-            <FormItemWrapper
-              label="Salary Amount (₹)"
-              name="salary_amount"
-              rules={requiredFieldRules}
-            >
+            <FormItemWrapper label="Salary Amount (₹)" name="salary_amount" rules={requiredFieldRules}>
               <InputNumberWrapper min={0} />
             </FormItemWrapper>
           </ColWrapper>

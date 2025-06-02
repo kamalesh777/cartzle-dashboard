@@ -4,7 +4,7 @@ const initialThemeConfig: ThemeConfig = {
   token: {
     fontSize: 16,
     colorPrimary: '#fe2df1',
-    colorInfo: "#fe2df1",
+    colorInfo: '#fe2df1',
     // colorBgSolidHover: '#32ff00',
   },
   components: {

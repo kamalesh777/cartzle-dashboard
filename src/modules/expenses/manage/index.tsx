@@ -1,27 +1,20 @@
 'use client'
 import React from 'react'
 
-import { Form, Input, Row, Select } from 'antd'
+import { Form, Select } from 'antd'
+
+import dayjs from 'dayjs'
+import { upperFirst } from 'lodash'
 
 import type { ModalPropTypes } from 'src/types/common'
 
-import {
-  ColWrapper,
-  FormItemWrapper,
-  InputNumberWrapper,
-  InputWrapper,
-  ModalWrapper,
-  SelectWrapper,
-  SubmitButtonWrapper,
-} from '@/components/Wrapper'
-import { COMMON_ROW_GUTTER, PaymentOptions, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
+import { FormItemWrapper, InputNumberWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import { PaymentOptions, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-import { upperFirst } from 'lodash'
 import { ExpensesOptions } from '../static/constants'
-import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
-import dayjs from 'dayjs'
 
 const ExpensesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -64,8 +57,6 @@ const ExpensesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTy
         <FormItemWrapper label="Payment Method" name="payment_method" rules={requiredFieldRules}>
           <SelectWrapper options={PaymentOptions} />
         </FormItemWrapper>
-
-
       </Form>
     </ModalWrapper>
   )

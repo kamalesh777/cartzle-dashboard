@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { Form, Input, Radio, Row, Space, type RadioChangeEvent } from 'antd'
+import { Form, Input, Radio, Row, type RadioChangeEvent } from 'antd'
 
 import dayjs from 'dayjs'
+
+import { upperFirst } from 'lodash'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -13,6 +15,7 @@ import {
   FormItemWrapper,
   InputNumberWrapper,
   ModalWrapper,
+  RadioWrapper,
   SelectWrapper,
   SpaceWrapper,
   SubmitButtonWrapper,
@@ -21,11 +24,9 @@ import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { COMMON_ROW_GUTTER, PaymentOptions, requiredFieldRules } from '@/constants/AppConstant'
 import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 
-import { disabledUptoCurrentDate } from '@/utils/disableFunction'
+import { getDisabledDate } from '@/utils/disableFunction'
 
 import { TransactionTypeOptions } from '../static/constants'
-import { upperFirst } from 'lodash'
-
 
 const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -49,7 +50,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
       bodyScroll
       footer={
         <SubmitButtonWrapper
-          okText={"Save"}
+          okText={'Save'}
           okButtonProps={{ loading: false, onClick: () => form.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
@@ -58,37 +59,49 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
       }
     >
       <Form layout="vertical" form={form} onFinish={handleFinish}>
-        <FormItemWrapper className='mb-3' label="Select Transaction type" name="transaction_type" initialValue={TransactionTypeOptions[0]}>
+        <FormItemWrapper
+          className="mb-3"
+          label="Select Transaction type"
+          name="transaction_type"
+          initialValue={TransactionTypeOptions[0]}
+        >
           <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('transaction_type', e.target.value)}>
-            {TransactionTypeOptions?.map(item => (<Radio value={item}>{upperFirst(item)}</Radio>))}
+            {TransactionTypeOptions?.map(item => (
+              <RadioWrapper key={item} value={item}>
+                {upperFirst(item)}
+              </RadioWrapper>
+            ))}
           </Radio.Group>
         </FormItemWrapper>
-        {
-          isNormalTransaction && (
-            <>
-              <CardWrapper className='mb-3 bg-gray-100' styles={{ body: { padding: '10px' } }}>
-                <Row gutter={COMMON_ROW_GUTTER}>
-                  <ColWrapper md={10}>
-                    <SpaceWrapper>Total: <span className='fw-bold'>{getDecimal(220000, true)}</span></SpaceWrapper>
-                  </ColWrapper>
-                  <ColWrapper md={7}>
-                    <SpaceWrapper>Paid: <span className='fw-bold success-color'>{getDecimal(20000, true)}</span></SpaceWrapper>
-                  </ColWrapper>
-                  <ColWrapper md={7}>
-                    <SpaceWrapper>Due: <span className='error-color fw-bold'>{getDecimal(2000, true)}</span></SpaceWrapper>
-                  </ColWrapper>
-                </Row>
-              </CardWrapper>
-              </>
-          )
-        }
-        
-        
+        {isNormalTransaction && (
+          <>
+            <CardWrapper className="mb-3 bg-gray-100" styles={{ body: { padding: '10px' } }}>
+              <Row gutter={COMMON_ROW_GUTTER}>
+                <ColWrapper md={10}>
+                  <SpaceWrapper>
+                    Total: <span className="fw-bold">{getDecimal(220000, true)}</span>
+                  </SpaceWrapper>
+                </ColWrapper>
+                <ColWrapper md={7}>
+                  <SpaceWrapper>
+                    Paid: <span className="fw-bold success-color">{getDecimal(20000, true)}</span>
+                  </SpaceWrapper>
+                </ColWrapper>
+                <ColWrapper md={7}>
+                  <SpaceWrapper>
+                    Due: <span className="error-color fw-bold">{getDecimal(2000, true)}</span>
+                  </SpaceWrapper>
+                </ColWrapper>
+              </Row>
+            </CardWrapper>
+          </>
+        )}
+
         {/* if user failed to pay then schedule a next date */}
         {isMissedPayment ? (
           <>
             <FormItemWrapper label="Promised Date" name="promised_date" rules={requiredFieldRules}>
-              <DatePickerWrapper showNow={false} disabledDate={disabledUptoCurrentDate} />
+              <DatePickerWrapper showNow={false} disabledDate={getDisabledDate('before', 0)} />
             </FormItemWrapper>
             <FormItemWrapper label="Promised Amount" name="promised_amount" rules={requiredFieldRules}>
               <InputNumberWrapper min={1} />
