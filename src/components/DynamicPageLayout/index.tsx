@@ -3,43 +3,43 @@
 import React, { useEffect, useState } from 'react'
 
 import { ArrowLeftOutlined } from '@ant-design/icons'
-
-import { Anchor, Col, Menu, Row, Tag, Tooltip } from 'antd'
-
+import { Anchor, Col, Menu, Row, Tooltip } from 'antd'
 import { useRouter, usePathname } from 'next/navigation'
 
-import { NavLink } from '@/components/Common/NavLink'
+import { NavLink } from '@/components/Common'
 import { ButtonWrapper } from '@/components/Wrapper'
 import sidenavData from '@/constants/menuData.json'
 
 import styles from './style.module.css'
+
 interface pageMenuItems {
-  // label: string
   key: string
   path?: string
-  breadcrumb?: boolean
+  href?: string
   title?: string
-  herf?: string
+  icon?: React.ReactNode
+  breadcrumb?: boolean
   hasDivider?: boolean
   notification?: number
 }
+
 interface menuItems {
   label?: string
   key: string
   icon?: React.ReactNode
   path?: string
-  href?: string
   title?: string
+  href?: string
   breadcrumb?: boolean
   notification?: number
-  submenu?: pageMenuItems[]
+  pagemenu?: pageMenuItems[]
+  children?: menuItems[]
 }
 
 interface propTypes {
   isScrollable?: boolean
   MainComp: JSX.Element | null
   ActionComp?: JSX.Element | null
-  menuCounter?: number
   hasStaticPageMenuItem?: menuItems[]
   hideTitle?: boolean
   customTitle?: string
@@ -51,7 +51,7 @@ const DynamicPageLayout = ({
   isScrollable = false,
   MainComp,
   ActionComp,
-  menuCounter,
+
   hideTitle = false,
   customTitle,
   goBackUrl,
@@ -59,128 +59,108 @@ const DynamicPageLayout = ({
   const pathname = usePathname()
   const router = useRouter()
 
-  const firstIndexValue = pathname.split('/')[1]
-  // eslint-disable-next-line no-unused-vars
-  const currentPath = pathname.split('/').at(-1)
+  const firstPathKey = pathname.split('/')[1]
+  const currentPathKey = pathname.split('/').at(-1)
 
-  const [pageMenu, setPageMenu] = useState<menuItems[]>([])
-  const [title, setTitle] = useState<string | undefined>('')
+  const [pageMenu, setPageMenu] = useState<pageMenuItems[]>([])
+  const [title, setTitle] = useState<string>('')
 
   useEffect(() => {
-    getRouteSpecificMenu(firstIndexValue)
-  }, [firstIndexValue])
+    loadPageMenu(firstPathKey)
+  }, [firstPathKey, pathname])
 
-  const getRouteSpecificMenu = (routeName: string): void => {
-    const menuObj = sidenavData.find(obj => obj.key === routeName) as menuItems
-    // eslint-disable-next-line no-prototype-builtins
-    if (menuObj?.submenu != null) {
-      setPageMenu([...menuObj.submenu, ...hasStaticPageMenuItem])
+  const loadPageMenu = (mainKey: string): void => {
+    const mainMenu = sidenavData.find(obj => obj.key === mainKey) as menuItems
+    if (!mainMenu) return
+
+    // First try to match a child route with current pathname
+    const matchedChild = mainMenu.children?.find(child => pathname.startsWith(child.path ?? ''))
+
+    if (matchedChild?.pagemenu?.length) {
+      setPageMenu(matchedChild.pagemenu)
+      setTitle(matchedChild.title ?? '')
+    } else if (mainMenu.pagemenu?.length) {
+      setPageMenu([...mainMenu.pagemenu, ...hasStaticPageMenuItem])
+      setTitle(mainMenu.title ?? '')
+    } else {
+      setPageMenu([])
     }
-    // set the title of found object
-    menuObj != null && setTitle(menuObj.title)
   }
 
-  const goBackButton =
-    goBackUrl != null ? (
-      <Tooltip title="Go Back">
-        <ButtonWrapper
-          onClick={() => router.push(goBackUrl)}
-          className="me-2"
-          style={{ width: '40px' }}
-          icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
-        />
-      </Tooltip>
-    ) : null
-
-  // anchor menu for scrollable card
-  const anchorMenus = pageMenu?.map(obj => ({
-    title: obj.title,
-    key: obj.key,
-    href: `#${obj.key}`,
-  }))
-  // linked menu for redirect to specfic page
-  const linkedMenus = pageMenu?.map(obj => ({
-    ...obj,
-    label: obj.title,
+  const anchorItems = pageMenu.map(item => ({
+    title: <div style={{ paddingBlock: '4px' }}>{item.title}</div>,
+    key: item.key,
+    href: item.href ?? `#${item.key}`,
   }))
 
-  // left side component of main page layout
+  const linkedMenuItems = pageMenu.map(item => ({
+    ...item,
+    label: item.title,
+  }))
+
+  const goBackButton = goBackUrl ? (
+    <Tooltip title="Go Back">
+      <ButtonWrapper
+        onClick={() => router.push(goBackUrl)}
+        className="me-2"
+        style={{ width: 40 }}
+        icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
+      />
+    </Tooltip>
+  ) : null
+
   const leftSideComponent = (
-    <>
+    <div className="settings-stepper title-row" style={isScrollable ? { position: 'fixed' } : {}}>
+      <p className="page-title">
+        {goBackButton}
+        {!hideTitle ? customTitle || title : null}
+      </p>
       {isScrollable ? (
-        <div style={{ position: 'fixed' }} className="settings-stepper title-row">
-          <p className="page-title">
-            {goBackButton}
-            {!hideTitle ? customTitle || title : null}
-          </p>
-          <Anchor affix={false} className="affix-menu" items={anchorMenus} />
-        </div>
+        <Anchor affix={false} bounds={60} offsetTop={80} className="affix-menu mt-3" items={anchorItems} />
       ) : (
-        <div className="settings-stepper title-row">
-          <p className="page-title">
-            {goBackButton}
-            {!hideTitle ? customTitle || title : null}
-          </p>
-          <Menu className="affix-menu">
-            {linkedMenus?.map(obj => (
-              <Menu.Item key={obj.key} className={obj.path?.split('/').at(-1) === currentPath ? 'ant-menu-item-selected' : ''}>
-                <NavLink href={obj.path as string}>
-                  <div className="d-flex justify-content-between align-items-center">
-                    {obj.label}
-                    {menuCounter != null ? (
-                      <Tag color="#B06AB3" className="m-0">
-                        {menuCounter}
-                      </Tag>
-                    ) : null}
-                  </div>
-                </NavLink>
-              </Menu.Item>
-            ))}
-          </Menu>
-        </div>
+        <Menu className="affix-menu mt-3">
+          {linkedMenuItems.map(item => (
+            <Menu.Item key={item.key} className={item.path?.split('/').at(-1) === currentPathKey ? 'ant-menu-item-selected' : ''}>
+              <NavLink href={item.path ?? '#'}>
+                <div className="d-flex justify-content-between align-items-center">{item.label}</div>
+              </NavLink>
+            </Menu.Item>
+          ))}
+        </Menu>
       )}
-    </>
+    </div>
   )
 
-  // right side component of main page layout
   const rightSideComponent = <div className={styles['anchor-component']}>{MainComp}</div>
 
-  const renderComponent = (hasMenu: boolean): JSX.Element => {
-    return (
-      <div className="main-content">
-        <Row gutter={14}>
-          {hasMenu ? (
-            <>
-              <Col span={4}>{leftSideComponent}</Col>
-              <Col span={20}>
-                {ActionComp}
-                {rightSideComponent}
-              </Col>
-            </>
-          ) : (
-            // eslint-disable-next-line indent
-            <Col span={24}>
-              <div className="title-row mb-24 d-flex justify-content-between">
-                <span className="page-title">
-                  {goBackButton}
-                  {!hideTitle ? customTitle || title : null}
-                </span>
-                {ActionComp}
-              </div>
+  const renderLayout = (): JSX.Element => (
+    <div className="main-content">
+      <Row gutter={14}>
+        {pageMenu.length > 0 ? (
+          <>
+            <Col span={4}>{leftSideComponent}</Col>
+            <Col span={20}>
+              {ActionComp}
               {rightSideComponent}
             </Col>
-            // eslint-disable-next-line indent
-          )}
-        </Row>
-      </div>
-    )
-  }
+          </>
+        ) : (
+          <Col span={24}>
+            <div className="title-row mb-24 d-flex justify-content-between">
+              <span className="page-title">
+                {goBackButton}
+                {!hideTitle ? customTitle || title : null}
+              </span>
+              {ActionComp}
+            </div>
+            {rightSideComponent}
+          </Col>
+        )}
+      </Row>
+    </div>
+  )
 
-  // will return true or false behalf on menu item array
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const menuPresent = pageMenu.length > 0
-
-  return renderComponent(menuPresent)
+  return renderLayout()
 }
 
 export default DynamicPageLayout

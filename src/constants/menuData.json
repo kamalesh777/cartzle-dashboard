@@ -65,7 +65,21 @@
         "key": "shop-info",
         "path": "/settings/shop-info",
         "title": "Shop Info",
-        "icon": "ShopOutlined"
+        "icon": "ShopOutlined",
+        "pagemenu": [
+          {
+          "key": "shop-info-theme",
+          "href": "#theme",
+          "title": "Theme Config",
+          "icon": "ShopOutlined"
+        },
+        {
+          "key": "shop-info-config",
+          "href": "#shop-details",
+          "title": "Shop Config",
+          "icon": "ShopOutlined"
+        }
+      ]
       },
       {
         "key": "role-permissions",
