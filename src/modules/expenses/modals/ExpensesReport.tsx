@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Tag, DatePicker, Select, Row, type TableProps } from 'antd'
-
-import dayjs from 'dayjs'
 
 import type { ListDataTypes } from '../types'
 
@@ -18,34 +16,6 @@ const { RangePicker } = DatePicker
 const { Option } = Select
 
 const ExpenseReport = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
-  const [filteredData, setFilteredData] = useState(ExpensesReportData)
-  const [selectedRange, setSelectedRange] = useState(null)
-
-  const handleQuickFilter = months => {
-    const end = dayjs()
-    const start = end.subtract(months, 'month')
-    setSelectedRange([start, end])
-    filterData(start, end)
-  }
-
-  const handleRangeChange = (dates): void => {
-    if (!dates) {
-      setFilteredData(ExpensesReportData)
-      return
-    }
-    const [start, end] = dates
-    setSelectedRange([start, end])
-    filterData(start, end)
-  }
-
-  const filterData = (start, end): void => {
-    const result = ExpensesReportData.filter(item => {
-      const itemDate = dayjs(item.date)
-      return itemDate.isAfter(start.subtract(1, 'day')) && itemDate.isBefore(end.add(1, 'day'))
-    })
-    setFilteredData(result)
-  }
-
   // table columns
   const columns: TableProps<ListDataTypes>['columns'] = [
     {
@@ -97,12 +67,11 @@ const ExpenseReport = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
         <ColWrapper md={24}>
           <SpaceWrapper>
             Filter:
-            <RangePicker value={selectedRange} onChange={handleRangeChange} />
+            <RangePicker />
             <SelectWrapper
               // allowClear
               style={{ width: 150 }}
               placeholder="Quick Filter"
-              onChange={value => handleQuickFilter(value)}
             >
               <Option value={1}>Last 1 Month</Option>
               <Option value={3}>Last 3 Months</Option>
@@ -112,7 +81,7 @@ const ExpenseReport = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
           </SpaceWrapper>
         </ColWrapper>
       </Row>
-      <TableWrapper columns={columns} dataSource={filteredData} bordered pagination={{ pageSize: 5 }} />
+      <TableWrapper columns={columns} dataSource={ExpensesReportData} bordered pagination={{ pageSize: 5 }} />
     </ModalWrapper>
   )
 }

@@ -32,11 +32,11 @@ const ExpensesListComp = (): JSX.Element => {
       key: 'view_details',
       onClick: () => setVDModal(true),
     },
-    {
-      label: 'Exp. Report',
-      key: 'exp_report',
-      onClick: () => setExpReModal(true),
-    },
+    // {
+    //   label: 'Exp. Report',
+    //   key: 'exp_report',
+    //   onClick: () => setExpReModal(true),
+    // },
     {
       type: 'divider',
     },
@@ -103,6 +103,11 @@ const ExpensesListComp = (): JSX.Element => {
                 <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
                   Add
                 </ButtonWrapper>
+                {!!listData && (
+                  <ButtonWrapper className="ms-2" onClick={() => setExpReModal(true)}>
+                    Report
+                  </ButtonWrapper>
+                )}
               </div>
             </Col>
           </Row>

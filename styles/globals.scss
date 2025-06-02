@@ -150,7 +150,7 @@ li {
 }
 header.ant-layout-header.fix-header {
     position: fixed;
-    width: 100%;
+    width: calc(100% - 265px);
     z-index: 6;
 }
 /* main-wrapper */
@@ -181,4 +181,7 @@ header.ant-layout-header.fix-header {
   overflow-y: scroll;
   padding-right: 15px;
   scrollbar-width: thin;
+}
+.max-w-200 {
+	max-width: 200px !important;
 }
