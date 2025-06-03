@@ -12,15 +12,16 @@ export const themeSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    applyColor: (state, action: PayloadAction<string>) => {
+    applyThemeColor: (state, action: PayloadAction<string>) => {
       if (state.token != null) {
         state.token.colorPrimary = action.payload
+        state.token.colorInfo = action.payload
         // state.token.colorLink = isLightColor(action.payload) ? action.payload : '#fff'
       }
     },
   },
 })
 
-export const { applyColor } = themeSlice.actions
+export const { applyThemeColor } = themeSlice.actions
 
 export default themeSlice.reducer
