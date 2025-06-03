@@ -67,7 +67,7 @@ const RolePermissionList = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={8}>
-              <h4 className="fw-bold">Roles</h4>
+              <h4 className="ant-card-head-title">Roles</h4>
             </ColWrapper>
             <ColWrapper md={16} className="text-right">
               <SpaceWrapper>

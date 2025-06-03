@@ -69,6 +69,12 @@
 .ant-table-wrapper .ant-table-thead>tr>th {
     padding: 12px !important;
 }
+.ant-card-head-title, 
+.ant-modal .ant-modal-title {
+    font-weight: 600;
+    font-size: 18px;
+    font-family: "Raleway", sans-serif !important;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

@@ -84,7 +84,7 @@ const PageMenuList = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={12}>
-              <h4 className="fw-bold">Pages</h4>
+              <h4 className="ant-card-head-title">Pages</h4>
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>

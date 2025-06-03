@@ -175,7 +175,7 @@ const UsersListComp = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={12}>
-              <h4 className="fw-bold">Parties</h4>
+              <h4 className="ant-card-head-title">Parties</h4>
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <div className="d-flex">

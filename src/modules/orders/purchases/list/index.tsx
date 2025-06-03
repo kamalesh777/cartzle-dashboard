@@ -71,7 +71,7 @@ const PurchaseListComp = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <Col md={12}>
-              <h4 className="fw-bold">Purchases</h4>
+              <h4 className="ant-card-head-title">Purchases</h4>
             </Col>
             <Col md={12} className="text-right">
               <div className="d-flex">
