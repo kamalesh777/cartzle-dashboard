@@ -13,7 +13,7 @@ const useDevice = (): PropTypes => {
 
   return {
     isMobileDevice: !screens.md,
-    tableScroll: { x: !screens.md ? 1000 : '' },
+    tableScroll: { x: !screens.md ? 'max-content' : '' },
     componentSize: !screens.md ? 'middle' : 'large',
   }
 }

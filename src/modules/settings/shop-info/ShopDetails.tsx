@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { Form, Input } from 'antd'
+import { Form, Input, Row } from 'antd'
 
-import { ButtonWrapper, CardWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
 
 const ShopDetailsComp = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -14,31 +14,33 @@ const ShopDetailsComp = (): JSX.Element => {
   return (
     <CardWrapper title="Shop Information" id="shop-config" className="mb-3">
       <Form form={form} layout="vertical" onFinish={onFinish}>
-        <FormItemWrapper name="name" label="Shop Name" rules={[{ required: true }]}>
-          <InputWrapper />
-        </FormItemWrapper>
+        <Row>
+          <ColWrapper span={16}>
+            <FormItemWrapper name="name" label="Shop Name" rules={[{ required: true }]}>
+              <InputWrapper />
+            </FormItemWrapper>
 
-        <FormItemWrapper name="gstin" label="GSTIN">
-          <InputWrapper />
-        </FormItemWrapper>
+            <FormItemWrapper name="gstin" label="GSTIN">
+              <InputWrapper />
+            </FormItemWrapper>
 
-        <FormItemWrapper name="address" label="Address" rules={[{ required: true }]}>
-          <Input.TextArea rows={2} />
-        </FormItemWrapper>
+            <FormItemWrapper name="address" label="Address" rules={[{ required: true }]}>
+              <Input.TextArea rows={2} />
+            </FormItemWrapper>
 
-        <FormItemWrapper name="contact_number" label="Contact Number" rules={[{ required: true }]}>
-          <InputWrapper />
-        </FormItemWrapper>
+            <FormItemWrapper name="contact_number" label="Contact Number" rules={[{ required: true }]}>
+              <InputWrapper />
+            </FormItemWrapper>
 
-        <FormItemWrapper name="email" label="Email">
-          <InputWrapper type="email" />
-        </FormItemWrapper>
+            <FormItemWrapper name="email" label="Email">
+              <InputWrapper type="email" />
+            </FormItemWrapper>
 
-        <FormItemWrapper name="invoice_prefix" label="Invoice Prefix">
-          <InputWrapper />
-        </FormItemWrapper>
+            <FormItemWrapper name="storage_location" label="Storage Location">
+              <SelectWrapper mode="tags" />
+            </FormItemWrapper>
 
-        {/* <FormItemWrapper label="Bank Details">
+            {/* <FormItemWrapper label="Bank Details">
           <Input.Group compact>
             <FormItemWrapper name={['bank_details', 'account_holder']} noStyle>
               <Input style={{ width: '50%' }} placeholder="Account Holder" />
@@ -55,11 +57,13 @@ const ShopDetailsComp = (): JSX.Element => {
           </Input.Group>
         </FormItemWrapper> */}
 
-        <FormItemWrapper>
-          <ButtonWrapper type="primary" htmlType="submit">
-            Save Info
-          </ButtonWrapper>
-        </FormItemWrapper>
+            <FormItemWrapper>
+              <ButtonWrapper type="primary" htmlType="submit">
+                Save Info
+              </ButtonWrapper>
+            </FormItemWrapper>
+          </ColWrapper>
+        </Row>
       </Form>
     </CardWrapper>
   )

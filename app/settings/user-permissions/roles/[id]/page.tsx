@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RoleManageComp from '@/modules/controlPanel/roles/manage'
+import RoleManageComp from '@/modules/settings/user-permissions/roles/manage'
 
 const NewRolePage = (): JSX.Element => {
   return <RoleManageComp />

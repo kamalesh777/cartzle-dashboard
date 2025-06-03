@@ -7,7 +7,7 @@ import { startCase } from 'lodash'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
-import { CONTROL_PANEL_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
+import { SETTINGS_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
 
 interface DataType {
   key: React.ReactNode
@@ -135,7 +135,7 @@ const RoleManageComp = (): JSX.Element => {
       <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
     </Form>
   )
-  return <DynamicPageLayout goBackUrl={`${CONTROL_PANEL_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
+  return <DynamicPageLayout goBackUrl={`${SETTINGS_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
 }
 
 export default RoleManageComp

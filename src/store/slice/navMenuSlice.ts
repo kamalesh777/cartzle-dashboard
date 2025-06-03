@@ -1,7 +1,7 @@
 // import { getRequest } from '@api/preference/RequestService'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import sidenavData from '@/constants/menuData.json'
+import sidenavData from '@/constants/menuData'
 
 interface menuState {
   data: Array<{

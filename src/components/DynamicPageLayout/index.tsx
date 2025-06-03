@@ -8,7 +8,8 @@ import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/Common'
 import { ButtonWrapper } from '@/components/Wrapper'
-import sidenavData from '@/constants/menuData.json'
+import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
+import sidenavData from '@/constants/menuData'
 
 import styles from './style.module.css'
 
@@ -118,7 +119,7 @@ const DynamicPageLayout = ({
       {isScrollable ? (
         <Anchor affix={false} bounds={60} offsetTop={80} className="affix-menu mt-3" items={anchorItems} />
       ) : (
-        <Menu className="affix-menu mt-3">
+        <Menu className="mt-3 page-menu">
           {linkedMenuItems.map(item => (
             <Menu.Item key={item.key} className={item.path?.split('/').at(-1) === currentPathKey ? 'ant-menu-item-selected' : ''}>
               <NavLink href={item.path ?? '#'}>
@@ -135,11 +136,11 @@ const DynamicPageLayout = ({
 
   const renderLayout = (): JSX.Element => (
     <div className="main-content">
-      <Row gutter={14}>
+      <Row gutter={COMMON_ROW_GUTTER}>
         {pageMenu.length > 0 ? (
           <>
-            <Col span={4}>{leftSideComponent}</Col>
-            <Col span={20}>
+            <Col span={5}>{leftSideComponent}</Col>
+            <Col span={19}>
               {ActionComp}
               {rightSideComponent}
             </Col>

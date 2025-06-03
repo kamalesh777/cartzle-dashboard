@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Col, Divider, Row, Tag, Typography, type TableProps } from 'antd'
+import { Divider, Row, Tag, Typography, type TableProps } from 'antd'
 
 import type { ListDataTypes, PaymentPromise } from '../types'
 import type { MenuProps } from 'antd'
@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd'
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { ButtonWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
@@ -174,17 +174,17 @@ const UsersListComp = (): JSX.Element => {
         dataSource={listData}
         title={() => (
           <Row justify={'space-between'}>
-            <Col md={12}>
-              <h3 className="fw-bold">Parties</h3>
-            </Col>
-            <Col md={12} className="text-right">
+            <ColWrapper md={12}>
+              <h4 className="fw-bold">Parties</h4>
+            </ColWrapper>
+            <ColWrapper md={12} className="text-right">
               <div className="d-flex">
                 <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
                 <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
                   Add
                 </ButtonWrapper>
               </div>
-            </Col>
+            </ColWrapper>
           </Row>
         )}
       />

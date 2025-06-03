@@ -67,7 +67,7 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
             >
               <div className="cursor-pointer">
                 <SpaceWrapper className="profile-nav" align="center">
-                  <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${'Kamalesh'}`} size={32} />
+                  <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${'Kamalesh'}`} size={26} />
                   {capitalize('Kamalesh Maity')}
                 </SpaceWrapper>
               </div>

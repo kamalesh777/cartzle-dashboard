@@ -1,9 +1,9 @@
 import React from 'react'
 
-import RoleSettingComp from '@/modules/controlPanel/roles/index'
+import RoleSettingList from '@/modules/settings/user-permissions/roles/list'
 
 const UserSettingPage = (): JSX.Element => {
-  return <RoleSettingComp />
+  return <RoleSettingList />
 }
 
 export default UserSettingPage

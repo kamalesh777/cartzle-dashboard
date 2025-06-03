@@ -30,8 +30,8 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
   })
   return (
     <Table<T>
-      {...resProps}
       scroll={tableScroll}
+      {...resProps}
       columns={tableColumns as TableColumnsType}
       className={`common-table-height table-pagination-position ${props.className}`}
     />

@@ -152,6 +152,7 @@ header.ant-layout-header.fix-header {
     position: fixed;
     width: calc(100% - 265px);
     z-index: 6;
+	height: 55px;
 }
 /* main-wrapper */
 .main-cont-wrap {
@@ -187,6 +188,9 @@ header.ant-layout-header.fix-header {
 }
 .theme-color .ant-form-item-control-input {
 	margin-top: -12px;
+}
+.ant-table-wrapper .ant-table-tbody .ant-table-measure-row {
+	display: none;
 }
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
