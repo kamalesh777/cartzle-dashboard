@@ -57,7 +57,7 @@
   },
   {
     "key": "settings",
-    "path": "/settings",
+    "path": "/settings/shop-info",
     "title": "Settings",
     "icon": "SettingOutlined",
     "children": [
