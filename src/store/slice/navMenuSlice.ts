@@ -39,7 +39,7 @@ export const fetchSideNav = createAsyncThunk(
     // return response.data
 
     // wait a 2-second delay
-    await delay(2000)
+    await delay(1000)
     return sidenavData as unknown as menuState['data']
   },
 )

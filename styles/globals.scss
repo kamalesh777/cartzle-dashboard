@@ -185,3 +185,9 @@ header.ant-layout-header.fix-header {
 .max-w-200 {
 	max-width: 200px !important;
 }
+
+@media (max-width: 768px) {
+	header.ant-layout-header.fix-header {
+		width: 100%;
+	}
+}
