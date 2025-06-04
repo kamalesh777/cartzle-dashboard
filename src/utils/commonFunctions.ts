@@ -108,7 +108,8 @@ export const metaTitle = (title: string): string => `${title} | ${process.env.NE
 
 // get current path name without slash or include slash based on second param passed
 export const getCurrentPath = (path: string, slash = false): string => {
-  const currentPathname = path.split('/').at(-1)
+  const splitPath = path.split('/')
+  const currentPathname = splitPath?.length > 2 ? splitPath.at(-2) : splitPath.at(-1)
   const pathname = currentPathname ? (slash ? `/${currentPathname}` : currentPathname) : ''
   return pathname
 }
