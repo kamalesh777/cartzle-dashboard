@@ -150,9 +150,9 @@ li {
 }
 header.ant-layout-header.fix-header {
     position: fixed;
-    width: calc(100% - 265px);
     z-index: 6;
 	height: 55px;
+	right: 0;
 }
 /* main-wrapper */
 .main-cont-wrap {
@@ -196,5 +196,8 @@ header.ant-layout-header.fix-header {
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
+	}
+	.settings-stepper {
+		display: none;
 	}
 }

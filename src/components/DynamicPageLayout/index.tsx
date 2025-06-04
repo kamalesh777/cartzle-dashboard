@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react'
 
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Anchor, Col, Menu, Row, Tooltip } from 'antd'
+import { Anchor, Menu, Row, Tooltip } from 'antd'
 import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/Common'
-import { ButtonWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, ColWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import sidenavData from '@/constants/menuData'
 
@@ -139,14 +139,14 @@ const DynamicPageLayout = ({
       <Row gutter={COMMON_ROW_GUTTER}>
         {pageMenu.length > 0 ? (
           <>
-            <Col span={5}>{leftSideComponent}</Col>
-            <Col span={19}>
+            <ColWrapper md={5}>{leftSideComponent}</ColWrapper>
+            <ColWrapper md={19}>
               {ActionComp}
               {rightSideComponent}
-            </Col>
+            </ColWrapper>
           </>
         ) : (
-          <Col span={24}>
+          <ColWrapper md={24}>
             <div className="title-row mb-24 d-flex justify-content-between">
               <span className="page-title">
                 {goBackButton}
@@ -155,7 +155,7 @@ const DynamicPageLayout = ({
               {ActionComp}
             </div>
             {rightSideComponent}
-          </Col>
+          </ColWrapper>
         )}
       </Row>
     </div>

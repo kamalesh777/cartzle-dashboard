@@ -1,15 +1,15 @@
 import React from 'react'
 
 import PageMenuList from './page-menu/list'
-import RolePermissionList from './roles/list'
+import PermissionList from './permissions/list'
 
-const RolePermissionComp = (): JSX.Element => {
+const UserRolePermissionMainComp = (): JSX.Element => {
   return (
     <>
       <PageMenuList />
-      <RolePermissionList />
+      <PermissionList />
     </>
   )
 }
 
-export default RolePermissionComp
+export default UserRolePermissionMainComp

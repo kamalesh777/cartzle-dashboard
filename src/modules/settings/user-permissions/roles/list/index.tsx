@@ -1,14 +1,29 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Row, type MenuProps } from 'antd'
+import { EllipsisOutlined } from '@ant-design/icons'
+import { Dropdown, Form, Row, type MenuProps } from 'antd'
 
-import { TableActionButton } from '@/components/Common'
+import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
-import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import PageMenuModal from '../manage'
 
-const RolePermissionList = (): JSX.Element => {
-  const [, setSearchValue] = useState<string>('')
+const RolesListComp = (): JSX.Element => {
+  const [form] = Form.useForm()
+
+  const [openManageModal, setManageModal] = useState<boolean>(false)
+
+  const supposeObject = {
+    page: 'Puja',
+    cards: ['card1', 'card2', 'ayushi'],
+  }
+
+  useEffect(() => {
+    if (supposeObject) {
+      form.setFieldsValue(supposeObject)
+    }
+  }, [supposeObject])
+
   const dataSource = [
     {
       key: '1',
@@ -55,31 +70,35 @@ const RolePermissionList = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => <TableActionButton items={items} />,
+      render: () => (
+        <Dropdown menu={{ items }} trigger={['click']}>
+          <EllipsisOutlined />
+        </Dropdown>
+      ),
     },
   ]
 
   return (
-    <div id="roles">
+    <div id="page-menu">
       <TableWrapper
-        dataSource={dataSource}
-        columns={columns}
         title={() => (
           <Row justify={'space-between'}>
-            <ColWrapper md={8}>
-              <h4 className="ant-card-head-title">Roles</h4>
+            <ColWrapper md={12}>
+              <h4 className="ant-card-head-title">Pages</h4>
             </ColWrapper>
-            <ColWrapper md={16} className="text-right">
-              <SpaceWrapper>
-                <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
-                <ButtonWrapper type="primary">New</ButtonWrapper>
-              </SpaceWrapper>
+            <ColWrapper md={12} className="text-right">
+              <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+                New
+              </ButtonWrapper>
             </ColWrapper>
           </Row>
         )}
+        dataSource={dataSource}
+        columns={columns}
       />
+      {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}
     </div>
   )
 }
 
-export default RolePermissionList
+export default RolesListComp

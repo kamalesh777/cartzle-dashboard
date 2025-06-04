@@ -1,4 +1,4 @@
-import { ROLE_LIST_ROUTE, SETTINGS_ROUTE } from './AppConstant'
+import { USER_PERMISSION_ROUTE, SETTINGS_ROUTE } from './AppConstant'
 
 const menuData = [
   {
@@ -85,7 +85,7 @@ const menuData = [
       },
       {
         key: 'user-permissions',
-        path: `${SETTINGS_ROUTE}${ROLE_LIST_ROUTE}`,
+        path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}`,
         title: 'User Permissions',
         icon: 'PropertySafetyOutlined',
         pagemenu: [
@@ -97,8 +97,8 @@ const menuData = [
           },
           {
             key: 'user-roles-page',
-            href: `#roles`,
-            title: 'Roles',
+            href: `#permission`,
+            title: 'Permissions',
             icon: '',
           },
         ],

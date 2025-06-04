@@ -42,7 +42,7 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
   return (
     <Header
       style={{
-        marginLeft: collapsed ? `${marginWidth}px` : `${marginWidth}px`,
+        left: collapsed ? `${marginWidth}px` : `${marginWidth}px`,
       }}
       className="bg-white fix-header"
     >

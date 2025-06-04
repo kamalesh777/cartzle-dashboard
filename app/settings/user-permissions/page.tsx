@@ -2,10 +2,10 @@
 import React from 'react'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import RoleAndPageMenu from '@/modules/settings/user-permissions'
+import UserRolePermissionMainComp from '@/modules/settings/user-permissions'
 
-const RolePermissionPage = (): JSX.Element => {
-  return <DynamicPageLayout MainComp={<RoleAndPageMenu />} isScrollable />
+const UserRolePermissions = (): JSX.Element => {
+  return <DynamicPageLayout MainComp={<UserRolePermissionMainComp />} isScrollable />
 }
 
-export default RolePermissionPage
+export default UserRolePermissions

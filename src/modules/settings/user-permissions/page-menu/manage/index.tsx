@@ -7,10 +7,10 @@ import { Form, Space, Input } from 'antd'
 import type { FormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
-import { ModalWrapper, FormItemWrapper, InputWrapper, ButtonWrapper } from '@/components/Wrapper'
-import { modalCloseHandler } from '@/utils/commonFunctions'
+import { ModalWrapper, FormItemWrapper, InputWrapper, ButtonWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-const PageMenuModal = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.Element => {
+const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   // close modal handler
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
@@ -21,7 +21,20 @@ const PageMenuModal = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
   }
 
   return (
-    <ModalWrapper open={openModal} onCancel={closeModal} title="Add Pages" onOk={() => form.submit()}>
+    <ModalWrapper
+      open={openModal}
+      onCancel={closeModal}
+      title={getModalTitle(selectedId as string)}
+      footer={
+        <SubmitButtonWrapper
+          okText={'Save'}
+          okButtonProps={{ loading: false, onClick: () => form.submit() }}
+          cancelButtonProps={{
+            onClick: () => closeModal(),
+          }}
+        />
+      }
+    >
       <Form layout="vertical" onFinish={formSubmitHandler} form={form}>
         <FormItemWrapper name="page" label="Page Name">
           <InputWrapper />
@@ -46,7 +59,7 @@ const PageMenuModal = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
                     >
                       <Input />
                     </FormItemWrapper>
-                    {fields.length > 1 ? <MinusCircleOutlined className="ms-2" onClick={() => remove(field.name)} /> : null}
+                    <MinusCircleOutlined className="ms-2" onClick={() => remove(field.name)} />
                   </Space.Compact>
                 </FormItemWrapper>
               ))}

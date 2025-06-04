@@ -6,7 +6,7 @@ export const EMPTY_PLACEHOLDER = '--'
 export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 
 export const SETTINGS_ROUTE = '/settings'
-export const ROLE_LIST_ROUTE = '/user-permissions'
+export const USER_PERMISSION_ROUTE = '/user-permissions'
 export const PRODUCT_LIST_ROUTE = '/products'
 export const PURCHASE_LIST_ROUTE = '/orders/purchases'
 export const SALE_LIST_ROUTE = '/orders/sales'

@@ -1,141 +1,79 @@
-'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Form, Row, Col, type CheckboxProps } from 'antd'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
-import { startCase } from 'lodash'
+import { Form, Space, Input } from 'antd'
 
-import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
-import { SETTINGS_ROUTE, ROLE_LIST_ROUTE } from '@/constants/AppConstant'
+import type { FormValues } from '../types'
+import type { ModalPropTypes } from 'src/types/common'
 
-interface DataType {
-  key: React.ReactNode
-  name: string
-  permissions?: string[]
-  children?: DataType[]
-}
+import { ModalWrapper, FormItemWrapper, InputWrapper, ButtonWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-const RoleManageComp = (): JSX.Element => {
+const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
+  // close modal handler
+  const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
-  const permissionsArr = [
-    {
-      name: 'view',
-      _id: 'view_01',
-    },
-    {
-      name: 'edit',
-      _id: 'edit_01',
-    },
-    {
-      name: 'delete',
-      _id: 'delete_01',
-    },
-    {
-      name: 'setting',
-      _id: 'setting_01',
-    },
-    {
-      name: 'modify',
-      _id: 'modify_01',
-    },
-  ]
-
-  const permissionsData = Form.useWatch('permissions', form)
-
-  const checkAllColHandler: CheckboxProps['onChange'] = (e): void => {
-    const { checked, value } = e.target
-
-    const updatedPermissions = Object.keys(permissionsData).reduce((acc, key) => {
-      const previousValue = permissionsData[key] || []
-
-      if (checked) {
-        // Use Set to avoid duplicates
-        acc[key] = [...new Set([...previousValue, value])] as string[]
-      } else {
-        acc[key] = previousValue.filter((item: string) => item !== value)
-      }
-
-      return acc
-    }, {} as Record<string, string[]>)
-
-    // Set the updated permissions in one go
-    form.setFieldValue('permissions', updatedPermissions)
+  const formSubmitHandler = async (values: FormValues): Promise<void> => {
+    // eslint-disable-next-line no-console
+    console.log('===values', values)
   }
 
-  // console.log("===permissionsObj", permissionsObj)
-
-  const columns: TableColumnsType<DataType> = [
-    {
-      title: 'Page Name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '30%',
-    },
-    {
-      title: (
-        <Row justify="end">
-          {permissionsArr.map(obj => (
-            <Col sm={4} key={obj.name} className="text-center">
-              <SpaceWrapper direction="vertical" size={0}>
-                {startCase(obj.name)} <Checkbox indeterminate={false} value={obj.name} onChange={checkAllColHandler} />
-              </SpaceWrapper>
-            </Col>
-          ))}
-        </Row>
-      ),
-      width: '70%',
-      dataIndex: 'permissions',
-      render: (_, record) => {
-        return (
-          <FormItemWrapper name={['permissions', record.name]} noStyle>
-            <Checkbox.Group className="w-100">
-              <Row justify="end">
-                {permissionsArr.map(obj => (
-                  <Col sm={4} key={obj.name} className="text-center">
-                    <Checkbox value={obj.name} />
-                  </Col>
-                ))}
-              </Row>
-            </Checkbox.Group>
-          </FormItemWrapper>
-        )
-      },
-    },
-  ]
-
-  const data: DataType[] = [
-    {
-      name: 'home',
-      permissions: ['view', 'edit', 'delete', 'modify'],
-      key: 'home',
-    },
-    {
-      name: 'profile',
-      permissions: ['view', 'edit', 'delete', 'modify'],
-      key: 'profile',
-      children: [
-        {
-          name: 'skill',
-          permissions: ['view', 'settings'],
-          key: 'skill',
-        },
-        {
-          name: 'experience',
-          permissions: ['edit', 'delete', 'list'],
-          key: 'experience',
-        },
-      ],
-    },
-  ]
-
-  const MainComponent = (
-    <Form form={form}>
-      <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
-    </Form>
+  return (
+    <ModalWrapper
+      open={openModal}
+      onCancel={closeModal}
+      title={getModalTitle(selectedId as string)}
+      footer={
+        <SubmitButtonWrapper
+          okText={'Save'}
+          okButtonProps={{ loading: false, onClick: () => form.submit() }}
+          cancelButtonProps={{
+            onClick: () => closeModal(),
+          }}
+        />
+      }
+    >
+      <Form layout="vertical" onFinish={formSubmitHandler} form={form}>
+        <FormItemWrapper name="page" label="Page Name">
+          <InputWrapper />
+        </FormItemWrapper>
+        <Form.List name="cards">
+          {(fields, { add, remove }, {}) => (
+            <>
+              {fields.map((field, index) => (
+                <FormItemWrapper label={index === 0 ? 'Cards Name' : ''} required={false} key={field.key}>
+                  <Space.Compact block>
+                    <FormItemWrapper
+                      {...field}
+                      validateTrigger={['onChange', 'onBlur']}
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: 'Please input card name.',
+                        },
+                      ]}
+                      noStyle
+                    >
+                      <Input />
+                    </FormItemWrapper>
+                    <MinusCircleOutlined className="ms-2" onClick={() => remove(field.name)} />
+                  </Space.Compact>
+                </FormItemWrapper>
+              ))}
+              <FormItemWrapper>
+                <ButtonWrapper type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                  Add card
+                </ButtonWrapper>
+              </FormItemWrapper>
+            </>
+          )}
+        </Form.List>
+      </Form>
+    </ModalWrapper>
   )
-  return <DynamicPageLayout goBackUrl={`${SETTINGS_ROUTE}${ROLE_LIST_ROUTE}`} MainComp={MainComponent} />
 }
 
-export default RoleManageComp
+export default RoleManageModal
