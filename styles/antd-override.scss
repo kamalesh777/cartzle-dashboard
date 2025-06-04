@@ -75,6 +75,9 @@
     font-size: 18px;
     font-family: "Raleway", sans-serif !important;
 }
+.ant-anchor-link.ant-anchor-link-active {
+    color: var(--primary-color);
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;
