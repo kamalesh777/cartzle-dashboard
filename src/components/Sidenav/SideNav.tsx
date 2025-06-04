@@ -29,8 +29,7 @@ interface PropTypes {
 type MenuItem = Required<MenuProps>['items'][number]
 
 const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: PropTypes): JSX.Element => {
-  const path = usePathname()
-  const currentPath = getCurrentPath(path)
+  const pathname = usePathname()
 
   const dispatch = useDispatch<AppThunkDispatch>()
   const menuState = useSelector((state: RootState) => state.menu)
@@ -57,7 +56,17 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
     children?: MenuObject[]
   }
 
-  const mapMenuItems = (menuArray: MenuObject[]): MenuItem[] => {
+  function getMenuItemSelectedClass(obj: MenuObject, route: string, start: number, end: number): string {
+    const isCurrentPath = getCurrentPath(route, start, end) === obj.path
+    // const hasChildren = obj?.children?.length
+
+    if (isCurrentPath) {
+      return 'ant-menu-item-selected'
+    }
+    return ''
+  }
+
+  const mapMenuItems = (menuArray: MenuObject[], loopCount = 2): MenuItem[] => {
     return menuArray.map(obj => ({
       label: (
         <NavLink href={obj.path}>
@@ -71,13 +80,13 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
       ),
       icon: renderDynamicIcon(obj.icon),
       key: obj.key,
+      className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
+      children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
       onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
-      children: obj.children ? mapMenuItems(obj.children) : undefined,
     }))
   }
 
   const menuItems = mapMenuItems(menuState.data as MenuObject[])
-
   return (
     <Sider
       trigger={null}
@@ -96,13 +105,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
           <CircleRect rowCounts={10} rectHeight={110} circleR={130} viewBox="-50 0 1400 350" />
         </div>
       ) : (
-        <Menu
-          mode="inline"
-          className="menu-height"
-          items={menuItems}
-          defaultSelectedKeys={['dashboard']}
-          selectedKeys={[currentPath]}
-        />
+        <Menu mode="inline" className="menu-height" items={menuItems} selectedKeys={[getCurrentPath(pathname, 2, 1)]} />
       )}
     </Sider>
   )

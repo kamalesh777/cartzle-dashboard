@@ -11,6 +11,8 @@ import { ButtonWrapper, ColWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import sidenavData from '@/constants/menuData'
 
+import { getCurrentPath } from '@/utils/commonFunctions'
+
 import styles from './style.module.css'
 
 interface pageMenuItems {
@@ -60,8 +62,7 @@ const DynamicPageLayout = ({
   const pathname = usePathname()
   const router = useRouter()
 
-  const firstPathKey = pathname.split('/')[1]
-  const currentPathKey = pathname.split('/').at(-1)
+  const firstPathKey = getCurrentPath(pathname, 1, 1)
 
   const [pageMenu, setPageMenu] = useState<pageMenuItems[]>([])
   const [title, setTitle] = useState<string>('')
@@ -131,9 +132,9 @@ const DynamicPageLayout = ({
       {isScrollable ? (
         <Anchor affix={false} bounds={60} offsetTop={80} className="affix-menu mt-3" items={anchorItems} />
       ) : (
-        <Menu className="mt-3 page-menu">
+        <Menu className="mt-3 page-menu-box">
           {linkedMenuItems.map(item => (
-            <Menu.Item key={item.key} className={item.path?.split('/').at(-1) === currentPathKey ? 'ant-menu-item-selected' : ''}>
+            <Menu.Item key={item.key} className={item.path === getCurrentPath(pathname, 0, 4) ? 'ant-menu-item-selected' : ''}>
               <NavLink href={item.path ?? '#'}>
                 <div className="d-flex justify-content-between align-items-center">{item.label}</div>
               </NavLink>

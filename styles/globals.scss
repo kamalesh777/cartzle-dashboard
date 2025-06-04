@@ -67,10 +67,6 @@ body {
 	font-weight: 400;
 	margin: 0;
 }
-
-a {
-	color: inherit !important;
-}
 a,
 button,
 input[type="submit"] {
@@ -191,6 +187,22 @@ header.ant-layout-header.fix-header {
 }
 .ant-table-wrapper .ant-table-tbody .ant-table-measure-row {
 	display: none;
+}
+
+.page-menu-box {
+    background: transparent !important;
+    border-inline-end: 0 !important;
+}
+.page-menu-box .ant-menu-item {
+    border-inline-start: 2px solid rgba(5, 5, 5, 0.06);
+    border-radius: 0 !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding-inline: 16px 0 !important;
+    padding-block: 0px !important;
+}
+.page-menu-box .ant-menu-item.ant-menu-item-selected {
+    border-color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
