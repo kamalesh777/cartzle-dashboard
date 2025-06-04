@@ -1,12 +1,19 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { Form, Row, type MenuProps } from 'antd'
+import { Form, Row, type MenuProps, type TableProps } from 'antd'
+
+import { startCase } from 'lodash'
+
+import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
+import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
+
 import PageMenuModal from '../manage'
+import { listData } from '../static/data'
 
 const PageMenuList = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -24,21 +31,6 @@ const PageMenuList = (): JSX.Element => {
     }
   }, [supposeObject])
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ]
-
   const items: MenuProps['items'] = [
     {
       label: 'Update Role',
@@ -50,21 +42,15 @@ const PageMenuList = (): JSX.Element => {
     },
   ]
 
-  const columns = [
+  const columns: TableProps<ListDataTypes>['columns'] = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Page Name',
+      dataIndex: 'page_name',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Cards',
+      dataIndex: 'cards_name',
+      render: val => (val?.length ? val.map((item: string) => startCase(item)).join(', ') : EMPTY_PLACEHOLDER),
     },
     {
       title: '',
@@ -89,7 +75,7 @@ const PageMenuList = (): JSX.Element => {
             </ColWrapper>
           </Row>
         )}
-        dataSource={dataSource}
+        dataSource={listData}
         columns={columns}
       />
       {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}

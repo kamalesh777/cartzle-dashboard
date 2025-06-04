@@ -1,13 +1,15 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { Form, Row, type MenuProps } from 'antd'
+import { Form, Row, type MenuProps, type TableProps } from 'antd'
+
+import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import PageMenuModal from '../manage'
-import { ListData } from '../static/data'
+import { listData } from '../static/data'
 
 const RolesListComp = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -36,21 +38,20 @@ const RolesListComp = (): JSX.Element => {
     },
   ]
 
-  const columns = [
+  const columns: TableProps<ListDataTypes>['columns'] = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Description',
+      dataIndex: 'description',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Used Count',
+      dataIndex: 'user_count',
+      key: 'user_count',
     },
     {
       title: '',
@@ -75,7 +76,7 @@ const RolesListComp = (): JSX.Element => {
             </ColWrapper>
           </Row>
         )}
-        dataSource={ListData}
+        dataSource={listData}
         columns={columns}
       />
       {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}

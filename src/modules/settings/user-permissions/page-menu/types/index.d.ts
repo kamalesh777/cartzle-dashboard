@@ -1,4 +1,9 @@
 export interface FormValues {
-  page: string
-  cards: string[]
+  page_name: string
+  cards_name: string[]
+}
+
+export interface ListDataTypes {
+  page_name: string
+  cards_name: string[]
 }

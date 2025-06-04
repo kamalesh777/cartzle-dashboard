@@ -36,10 +36,10 @@ const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<n
       }
     >
       <Form layout="vertical" onFinish={formSubmitHandler} form={form}>
-        <FormItemWrapper name="page" label="Page Name">
+        <FormItemWrapper name="page_name" label="Page Name">
           <InputWrapper />
         </FormItemWrapper>
-        <Form.List name="cards">
+        <Form.List name="cards_name">
           {(fields, { add, remove }, {}) => (
             <>
               {fields.map((field, index) => (

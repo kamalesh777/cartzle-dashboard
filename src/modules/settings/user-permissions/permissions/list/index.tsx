@@ -51,7 +51,7 @@ const PermissionList = (): JSX.Element => {
   ]
 
   return (
-    <div id="permission">
+    <div id="permissions">
       <TableWrapper
         dataSource={listData}
         columns={columns}

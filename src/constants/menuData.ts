@@ -103,7 +103,7 @@ const menuData = [
           },
           {
             key: 'user-permission-page',
-            href: `#permission`,
+            href: `#permissions`,
             title: 'Permissions',
             icon: '',
           },
