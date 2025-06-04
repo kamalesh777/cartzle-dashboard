@@ -1,28 +1,18 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Row, type MenuProps } from 'antd'
+import { Row, type MenuProps, type TableProps } from 'antd'
+
+import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
 
 import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
+import { listData } from '../static/data'
+
 const PermissionList = (): JSX.Element => {
   const [, setSearchValue] = useState<string>('')
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ]
 
   const items: MenuProps['items'] = [
     {
@@ -35,22 +25,23 @@ const PermissionList = (): JSX.Element => {
     },
   ]
 
-  const columns = [
+  const columns: TableProps<ListDataTypes>['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+    },
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Description',
+      dataIndex: 'description',
     },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
+    // {
+    //   title: 'Created At',
+    //   dataIndex: 'created_at',
+    // },
     {
       title: '',
       key: 'action',
@@ -62,12 +53,12 @@ const PermissionList = (): JSX.Element => {
   return (
     <div id="permission">
       <TableWrapper
-        dataSource={dataSource}
+        dataSource={listData}
         columns={columns}
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={8}>
-              <h4 className="ant-card-head-title">Roles</h4>
+              <h4 className="ant-card-head-title">Permissions</h4>
             </ColWrapper>
             <ColWrapper md={16} className="text-right">
               <SpaceWrapper>

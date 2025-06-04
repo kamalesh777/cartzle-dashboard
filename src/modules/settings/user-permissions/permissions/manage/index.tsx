@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Form, Row, Col, type CheckboxProps } from 'antd'
+import { type TableColumnsType, Table, Checkbox, Form, Row, Col, type CheckboxProps, Input } from 'antd'
 
 import { startCase } from 'lodash'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, InputWrapper, SpaceWrapper } from '@/components/Wrapper'
 import { SETTINGS_ROUTE, USER_PERMISSION_ROUTE } from '@/constants/AppConstant'
 
 interface DataType {
@@ -21,24 +21,28 @@ const PermissionManageComp = (): JSX.Element => {
 
   const permissionsArr = [
     {
-      name: 'view',
-      _id: 'view_01',
+      name: 'Create',
+      _id: 'create', // Create new entries/items
     },
     {
-      name: 'edit',
-      _id: 'edit_01',
+      name: 'Modify',
+      _id: 'modify', // Update/edit existing entries
     },
     {
-      name: 'delete',
-      _id: 'delete_01',
+      name: 'View',
+      _id: 'view', // Read-only or detail view
     },
     {
-      name: 'setting',
-      _id: 'setting_01',
+      name: 'Delete',
+      _id: 'delete', // Remove entries/items
     },
     {
-      name: 'modify',
-      _id: 'modify_01',
+      name: 'Export',
+      _id: 'export', // Export data (CSV, PDF, etc.)
+    },
+    {
+      name: 'Settings',
+      _id: 'settings', // Export data (CSV, PDF, etc.)
     },
   ]
 
@@ -132,6 +136,12 @@ const PermissionManageComp = (): JSX.Element => {
 
   const MainComponent = (
     <Form form={form}>
+      <FormItemWrapper name="name" label="Name">
+        <InputWrapper />
+      </FormItemWrapper>
+      <FormItemWrapper name="description" label="Description">
+        <Input.TextArea rows={3} />
+      </FormItemWrapper>
       <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
     </Form>
   )

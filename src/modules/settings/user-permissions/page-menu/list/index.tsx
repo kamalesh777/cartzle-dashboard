@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { EllipsisOutlined } from '@ant-design/icons'
-import { Dropdown, Form, Row, type MenuProps } from 'antd'
+import { Form, Row, type MenuProps } from 'antd'
 
+import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import PageMenuModal from '../manage'
@@ -70,11 +70,7 @@ const PageMenuList = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => (
-        <Dropdown menu={{ items }} trigger={['click']}>
-          <EllipsisOutlined />
-        </Dropdown>
-      ),
+      render: () => <TableActionButton items={items} />,
     },
   ]
 

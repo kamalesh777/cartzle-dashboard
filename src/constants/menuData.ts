@@ -97,6 +97,12 @@ const menuData = [
           },
           {
             key: 'user-roles-page',
+            href: `#roles`,
+            title: 'Roles',
+            icon: '',
+          },
+          {
+            key: 'user-permission-page',
             href: `#permission`,
             title: 'Permissions',
             icon: '',

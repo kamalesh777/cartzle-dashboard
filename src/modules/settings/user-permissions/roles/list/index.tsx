@@ -1,12 +1,13 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { EllipsisOutlined } from '@ant-design/icons'
-import { Dropdown, Form, Row, type MenuProps } from 'antd'
+import { Form, Row, type MenuProps } from 'antd'
 
+import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import PageMenuModal from '../manage'
+import { ListData } from '../static/data'
 
 const RolesListComp = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -23,21 +24,6 @@ const RolesListComp = (): JSX.Element => {
       form.setFieldsValue(supposeObject)
     }
   }, [supposeObject])
-
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ]
 
   const items: MenuProps['items'] = [
     {
@@ -70,21 +56,17 @@ const RolesListComp = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => (
-        <Dropdown menu={{ items }} trigger={['click']}>
-          <EllipsisOutlined />
-        </Dropdown>
-      ),
+      render: () => <TableActionButton items={items} />,
     },
   ]
 
   return (
-    <div id="page-menu">
+    <div id="roles">
       <TableWrapper
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={12}>
-              <h4 className="ant-card-head-title">Pages</h4>
+              <h4 className="ant-card-head-title">Roles</h4>
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
@@ -93,7 +75,7 @@ const RolesListComp = (): JSX.Element => {
             </ColWrapper>
           </Row>
         )}
-        dataSource={dataSource}
+        dataSource={ListData}
         columns={columns}
       />
       {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}
