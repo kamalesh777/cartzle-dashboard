@@ -1,13 +1,12 @@
 'use client'
 import React from 'react'
 
-import { type TableColumnsType, Table, Checkbox, Form, Row, Col, type CheckboxProps, Input } from 'antd'
+import { type TableColumnsType, Checkbox, Form, Row, Col, type CheckboxProps, Input } from 'antd'
 
 import { startCase } from 'lodash'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { FormItemWrapper, InputWrapper, SpaceWrapper } from '@/components/Wrapper'
-import { SETTINGS_ROUTE, USER_PERMISSION_ROUTE } from '@/constants/AppConstant'
+import { CardWrapper, FormItemWrapper, InputWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 interface DataType {
   key: React.ReactNode
@@ -135,17 +134,19 @@ const PermissionManageComp = (): JSX.Element => {
   ]
 
   const MainComponent = (
-    <Form form={form}>
-      <FormItemWrapper name="name" label="Name">
-        <InputWrapper />
-      </FormItemWrapper>
-      <FormItemWrapper name="description" label="Description">
-        <Input.TextArea rows={3} />
-      </FormItemWrapper>
-      <Table<DataType> pagination={false} columns={columns} dataSource={data} defaultExpandAllRows rowKey="name" />
+    <Form form={form} layout="vertical">
+      <CardWrapper styles={{ body: { paddingBottom: '10px' } }}>
+        <FormItemWrapper name="name" label="Name">
+          <InputWrapper />
+        </FormItemWrapper>
+        <FormItemWrapper name="description" label="Description">
+          <Input.TextArea rows={3} />
+        </FormItemWrapper>
+      </CardWrapper>
+      <TableWrapper<DataType> columns={columns} dataSource={data} defaultExpandAllRows rowKey="page_name" />
     </Form>
   )
-  return <DynamicPageLayout goBackUrl={`${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}`} hideTitle MainComp={MainComponent} />
+  return <DynamicPageLayout MainComp={MainComponent} />
 }
 
 export default PermissionManageComp

@@ -3,25 +3,31 @@ import React, { useState } from 'react'
 
 import { Row, type MenuProps, type TableProps } from 'antd'
 
+import { useRouter } from 'next/navigation'
+
 import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
 
 import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
+import { SETTINGS_ROUTE, USER_PERMISSION_ROUTE } from '@/constants/AppConstant'
+
 import { listData } from '../static/data'
 
 const PermissionList = (): JSX.Element => {
+  const router = useRouter()
   const [, setSearchValue] = useState<string>('')
 
-  const items: MenuProps['items'] = [
+  const items = (record: ListDataTypes): MenuProps['items'] => [
     {
-      label: 'Update Role',
-      key: 'update_role',
+      label: 'Update',
+      key: 'update',
+      onClick: () => redirectToUrlPath(record?.id),
     },
     {
-      label: 'Delete Role',
-      key: 'delete_role',
+      label: 'Delete',
+      key: 'delete',
     },
   ]
 
@@ -46,10 +52,14 @@ const PermissionList = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: () => <TableActionButton items={items} />,
+      render: record => <TableActionButton items={items(record)} />,
     },
   ]
 
+  const redirectToUrlPath = (dynamicId: string): void => {
+    const MAIN_URL = `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/permissions/${dynamicId}`
+    router.push(MAIN_URL)
+  }
   return (
     <div id="permissions">
       <TableWrapper
@@ -63,7 +73,9 @@ const PermissionList = (): JSX.Element => {
             <ColWrapper md={16} className="text-right">
               <SpaceWrapper>
                 <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
-                <ButtonWrapper type="primary">New</ButtonWrapper>
+                <ButtonWrapper type="primary" onClick={() => redirectToUrlPath('create')}>
+                  New
+                </ButtonWrapper>
               </SpaceWrapper>
             </ColWrapper>
           </Row>

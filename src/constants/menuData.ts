@@ -91,19 +91,19 @@ const menuData = [
         pagemenu: [
           {
             key: 'user-permissions-page',
-            href: `#page-menu`,
+            path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/page-menu`,
             title: 'Page Menu',
             icon: '',
           },
           {
             key: 'user-roles-page',
-            href: `#roles`,
+            path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/roles`,
             title: 'Roles',
             icon: '',
           },
           {
             key: 'user-permission-page',
-            href: `#permissions`,
+            path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/permissions`,
             title: 'Permissions',
             icon: '',
           },
