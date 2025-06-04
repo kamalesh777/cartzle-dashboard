@@ -1,9 +1,9 @@
 import React from 'react'
 
-import PageMenuSettingComp from '@/modules/settings/user-permissions'
+import PageMenuSettingComp from '@/modules/settings/user-permissions/page-menu/list'
 
-const PageMenuSettingspage = (): JSX.Element => {
+const PageMenuSettingsPage = (): JSX.Element => {
   return <PageMenuSettingComp />
 }
 
-export default PageMenuSettingspage
+export default PageMenuSettingsPage

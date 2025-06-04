@@ -79,7 +79,7 @@
     "__tests__",
     "next.config.js",
     "app",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
   ],
   "exclude": [
     "node_modules"

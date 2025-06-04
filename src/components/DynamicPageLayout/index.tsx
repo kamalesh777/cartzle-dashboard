@@ -75,7 +75,19 @@ const DynamicPageLayout = ({
     if (!mainMenu) return
 
     // First try to match a child route with current pathname
-    const matchedChild = mainMenu.children?.find(child => pathname.startsWith(child.path ?? ''))
+    const matchedChild = mainMenu.children?.find(child => {
+      // Get the child path safely (fallback to empty string if undefined)
+      const childPath = child?.path ?? ''
+
+      // If the menu is scrollable, check if pathname starts with child path
+      if (isScrollable) {
+        return pathname.startsWith(childPath)
+      }
+
+      // If not scrollable, remove the last segment of the pathname (e.g., "/users/123" → "/users")
+      const parentPath = pathname.split('/').slice(0, -1).join('/')
+      return parentPath.startsWith(childPath)
+    })
 
     if (matchedChild?.pagemenu?.length) {
       setPageMenu(matchedChild.pagemenu)

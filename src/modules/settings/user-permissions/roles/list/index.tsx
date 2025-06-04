@@ -6,6 +6,7 @@ import { Form, Row, type MenuProps, type TableProps } from 'antd'
 import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
+import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import PageMenuModal from '../manage'
@@ -61,24 +62,28 @@ const RolesListComp = (): JSX.Element => {
     },
   ]
 
+  const MAIN_COMP = (
+    <TableWrapper
+      title={() => (
+        <Row justify={'space-between'}>
+          <ColWrapper md={12}>
+            <h4 className="ant-card-head-title">Roles</h4>
+          </ColWrapper>
+          <ColWrapper md={12} className="text-right">
+            <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+              New
+            </ButtonWrapper>
+          </ColWrapper>
+        </Row>
+      )}
+      dataSource={listData}
+      columns={columns}
+    />
+  )
+
   return (
     <div id="roles">
-      <TableWrapper
-        title={() => (
-          <Row justify={'space-between'}>
-            <ColWrapper md={12}>
-              <h4 className="ant-card-head-title">Roles</h4>
-            </ColWrapper>
-            <ColWrapper md={12} className="text-right">
-              <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
-                New
-              </ButtonWrapper>
-            </ColWrapper>
-          </Row>
-        )}
-        dataSource={listData}
-        columns={columns}
-      />
+      <DynamicPageLayout MainComp={MAIN_COMP} />
       {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}
     </div>
   )

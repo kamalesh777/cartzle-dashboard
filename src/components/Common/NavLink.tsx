@@ -23,7 +23,6 @@ export default function NavLink({
   const isActive = exact ? pathname === href : pathname?.startsWith(href)
 
   const combinedClassName = isActive ? `${className} ${activeClassName}` : className
-  console.log("==href", pathname, href)
   return (
     <Link href={href} passHref legacyBehavior>
       <a {...{ href, className: combinedClassName }}>{children}</a>
