@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 
-import PurchaseManageComp from '@/modules/orders/purchases/manage'
+import OrdersManageComp from '@/modules/orders/manage'
 
 const ManagePurchasePgae = (): JSX.Element => {
-  return <PurchaseManageComp />
+  return <OrdersManageComp />
 }
 
 export default ManagePurchasePgae

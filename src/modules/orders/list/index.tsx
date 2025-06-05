@@ -3,28 +3,36 @@ import React, { useState } from 'react'
 
 import { type TableColumnsType, type MenuProps, Row, Col } from 'antd'
 
-import { useRouter } from 'next/navigation'
+import { upperFirst } from 'lodash'
+import { useParams, useRouter } from 'next/navigation'
 
-import type { ListDataTypes } from '../types'
+import type { ListDataTypes, PageTypes } from '../types'
 
+import { NotFoundPage } from '@/components/Common'
 import TableActionButton from '@/components/Common/TableActionButton'
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
-import { PURCHASE_LIST_ROUTE } from '@/constants/AppConstant'
+import { ORDER_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { getDecimal } from '@/utils/commonFunctions'
 
 import { listData } from '../static/data'
 
-const PurchaseListComp = (): JSX.Element => {
+const OrderListComp = (): JSX.Element => {
   const router = useRouter()
+  const params = useParams()
+
   const [, setSearchValue] = useState<string>('')
+
+  if (!['sales', 'purchases'].includes((params as PageTypes)?.type)) {
+    return <NotFoundPage height="80vh" message="Page not found" />
+  }
 
   const getMoreMenus = (record: ListDataTypes): MenuProps['items'] => [
     {
       label: 'Update',
       key: 'update',
-      onClick: () => router.push(`${PURCHASE_LIST_ROUTE}/${record?.name}`),
+      onClick: () => router.push(`${ORDER_LIST_ROUTE}/${params?.type}/${record?.name}`),
     },
   ]
 
@@ -71,12 +79,16 @@ const PurchaseListComp = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <Col md={12}>
-              <h4 className="ant-card-head-title">Purchases</h4>
+              <h4 className="ant-card-head-title">{upperFirst(params?.type as PageTypes['type'])}</h4>
             </Col>
             <Col md={12} className="text-right">
               <div className="d-flex">
                 <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
-                <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PURCHASE_LIST_ROUTE}/create`)}>
+                <ButtonWrapper
+                  type="primary"
+                  className="ms-2"
+                  onClick={() => router.push(`${ORDER_LIST_ROUTE}/${params?.type}/create`)}
+                >
                   Add
                 </ButtonWrapper>
               </div>
@@ -90,4 +102,4 @@ const PurchaseListComp = (): JSX.Element => {
   )
 }
 
-export default PurchaseListComp
+export default OrderListComp

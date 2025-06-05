@@ -1,6 +1,9 @@
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
+
 export interface ListDataTypes {
   id: string
   partyId: string
+  name: string
   type: 'purchase' | 'sale'
   date: string
   product_items: {
@@ -36,4 +39,8 @@ export interface MainFormValueTypes {
   sale_price: number
   wood_type: string
   // product_image: strings[]
+}
+
+export interface PageTypes extends Params {
+  type: 'purchases' | 'sales'
 }

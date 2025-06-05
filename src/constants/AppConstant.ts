@@ -8,7 +8,7 @@ export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 export const SETTINGS_ROUTE = '/settings'
 export const USER_PERMISSION_ROUTE = '/user-permissions'
 export const PRODUCT_LIST_ROUTE = '/products'
-export const PURCHASE_LIST_ROUTE = '/orders/purchases'
+export const ORDER_LIST_ROUTE = '/orders'
 export const SALE_LIST_ROUTE = '/orders/sales'
 
 export const ERROR_MSG = 'Field is required.'

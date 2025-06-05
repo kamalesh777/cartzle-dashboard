@@ -21,14 +21,14 @@ import {
   categoriesOptions,
   COMMON_ROW_GUTTER,
   MeasurementOptions,
-  PURCHASE_LIST_ROUTE,
+  ORDER_LIST_ROUTE,
   requiredFieldRules,
   requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
 import { getCardTitle } from '@/utils/commonFunctions'
 
 // main function
-const PurchaseManageComp = (): JSX.Element => {
+const OrderManageComp = (): JSX.Element => {
   const params = useParams()
   const cardTitle = `${getCardTitle(params)} Detais`
 
@@ -209,7 +209,7 @@ const PurchaseManageComp = (): JSX.Element => {
     </CardWrapper>
   )
 
-  return <DynamicPageLayout MainComp={MAIN_COMP} goBackUrl={PURCHASE_LIST_ROUTE} hideTitle />
+  return <DynamicPageLayout MainComp={MAIN_COMP} goBackUrl={`${ORDER_LIST_ROUTE}/${params?.type}`} hideTitle />
 }
 
-export default PurchaseManageComp
+export default OrderManageComp
