@@ -49,7 +49,7 @@ const OrderListComp = (): JSX.Element => {
     {
       title: 'Dimensions (W × T × L)',
       key: 'dimensions',
-      render: (_, record) => `${record.width} × ${record.thickness} × ${record.length} cm`,
+      // render: (_, record) => `${record.width} × ${record.thickness} × ${record.length} cm`,
     },
     {
       title: 'Supplier',
@@ -57,16 +57,16 @@ const OrderListComp = (): JSX.Element => {
     },
     {
       title: 'Purchase Price',
-      dataIndex: 'purchasePrice',
+      dataIndex: 'purchase_price',
       render: price => `₹${getDecimal(price)}`,
     },
     {
       title: 'Sale Price',
-      dataIndex: 'salePrice',
+      dataIndex: 'sale_price',
       render: price => `₹${getDecimal(price)}`,
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: 'action',
       className: 'text-right',
       render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,

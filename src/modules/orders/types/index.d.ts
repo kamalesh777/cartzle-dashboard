@@ -4,15 +4,24 @@ export interface ListDataTypes {
   id: string
   partyId: string
   name: string
+  address: string
+  city: string
+  state: string
+  pincode: string
+  mobile: number
+  alternate_mobile: number
+  is_supplier?: 'yes' | 'no' | 'both'
   type: 'purchase' | 'sale'
   date: string
+  due_payment_reminder?: string
   product_items: {
     productId: string
     quantity: number
     price?: number // optional if auto-calculated
   }[]
-  total: number
-
+  total_amount: number
+  due_amount: number
+  payment_details?: { date: string; payment_amount: number }[]
   payment_history: {
     paid_amount: number
     paid_on: string // actual payment date

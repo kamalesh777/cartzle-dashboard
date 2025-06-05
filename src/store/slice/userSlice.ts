@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import Axios from 'axios'
 
-import type { dataResponse } from '@/utils/allTypes'
+import type { dataResponse } from 'src/types/common'
 // eslint-disable-next-line import/named
 
 // First, create the thunk

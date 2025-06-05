@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix . --ignore-path .gitignore"
+    "lint": "eslint --fix . --ignore-path .gitignore",
+    "build-error": "tsc --noEmit"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",

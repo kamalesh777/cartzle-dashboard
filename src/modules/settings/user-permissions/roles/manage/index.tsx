@@ -4,7 +4,6 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 import { Form, Space, Input } from 'antd'
 
-import type { FormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { ModalWrapper, FormItemWrapper, InputWrapper, ButtonWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
@@ -15,7 +14,7 @@ const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
   // close modal handler
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
-  const formSubmitHandler = async (values: FormValues): Promise<void> => {
+  const formSubmitHandler = async (values: any): Promise<void> => {
     // eslint-disable-next-line no-console
     console.log('===values', values)
   }
