@@ -5,7 +5,7 @@ import { Col, Row } from 'antd'
 import { CardWrapper } from '@/components/Wrapper'
 import IconWrapper from '@/components/Wrapper/IconWrapper'
 
-import { data } from './data'
+import { data } from '../static/data'
 
 const DashboardComponent = (): JSX.Element => {
   return (

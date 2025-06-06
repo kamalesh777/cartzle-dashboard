@@ -3,7 +3,7 @@ import { USER_PERMISSION_ROUTE, SETTINGS_ROUTE } from './AppConstant'
 const menuData = [
   {
     key: 'dashboard',
-    path: '/dashboard',
+    path: '/',
     title: 'Dashboard',
     icon: 'DashboardOutlined',
   },
