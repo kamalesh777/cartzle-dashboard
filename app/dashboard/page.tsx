@@ -1,9 +1,7 @@
 import React from 'react'
 
-import DashboardComponent from '@/modules/dashboard'
-
 const DashboardPage = (): JSX.Element => {
-  return <DashboardComponent />
+  return <h2>Dashboard</h2>
 }
 
 export default DashboardPage
