@@ -77,7 +77,7 @@
   "include": [
     "src",
     "__tests__",
-    "next.config.mjs",
+    "next.config.js",
     "app",
     ".next/types/**/*.ts",
   ],
