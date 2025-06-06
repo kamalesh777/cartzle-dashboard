@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf .next/cache && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint --fix . --ignore-path .gitignore",
     "build-check": "rm -rf .next/cache && tsc --noEmit"

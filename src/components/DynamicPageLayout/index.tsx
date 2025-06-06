@@ -7,13 +7,14 @@ import { Anchor, Menu, Row, Tooltip } from 'antd'
 import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/Common'
+
 import { ButtonWrapper, ColWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import sidenavData from '@/constants/menuData'
 
 import { getCurrentPath } from '@/utils/commonFunctions'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 interface pageMenuItems {
   key: string
