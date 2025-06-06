@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next/cache && next build",
     "start": "next start",
     "lint": "eslint --fix . --ignore-path .gitignore",
-    "build-error": "tsc --noEmit"
+    "build-check": "rm -rf .next/cache && tsc --noEmit"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",

@@ -40,9 +40,12 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
 
   // console.log("menu==", menuState)
 
+  const LOGO_ICON = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON
+  const BRAND_LOGO = process.env.NEXT_PUBLIC_BRAND_LOGO
+
   const logoObj = {
-    url: collapsed ? '/LMC_icon.png' : '/LMC_logo.png',
-    width: collapsed ? 50 : 240,
+    url: collapsed ? LOGO_ICON : BRAND_LOGO,
+    width: collapsed ? 50 : 340,
     height: collapsed ? 50 : 70,
     alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
   }
