@@ -12,7 +12,7 @@ const DashboardComponent = (): JSX.Element => {
     <Row gutter={16}>
       {data?.map(item => (
         <Col span={12} md={6} key={item?.title} className="mb-3">
-          <h2>Test CI/CD</h2>
+          <h2>Testing CI/CD</h2>
           <CardWrapper>
             <IconWrapper icon={item.icon} style={{ fontSize: '32px' }} />
             <h2>{item?.title}</h2>
