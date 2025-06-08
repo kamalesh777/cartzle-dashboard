@@ -1,4 +1,4 @@
-interface UserFormValues {
+export interface UserFormValues {
   name: string
   mobile: string
   email: string

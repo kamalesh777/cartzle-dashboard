@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Input } from 'antd'
+import { type FormInstance, Input } from 'antd'
 
 import {
   FormItemWrapper,
@@ -12,7 +12,12 @@ import {
 } from '@/components/Wrapper'
 import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/AppConstant'
 
-const Step2Content = (): JSX.Element => {
+interface PropTypes {
+  form?: FormInstance
+  setCurrentStep: (param: number) => void
+}
+
+const Step2Content = ({}: PropTypes): JSX.Element => {
   return (
     <>
       <FormItemWrapper name={['company', 'name']} label="Name" rules={requiredWithWhitspcFieldRules}>

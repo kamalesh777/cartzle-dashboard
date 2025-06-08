@@ -26,12 +26,12 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     {
       title: 'User info',
       key: 'step_1',
-      content: <Step1Content />,
+      content: <Step1Content {...{ setCurrentStep, form }} />,
     },
     {
       title: 'Company info',
       key: 'step_2',
-      content: <Step2Content />,
+      content: <Step2Content {...{ setCurrentStep, form }} />,
     },
     {
       title: 'Ready!',
@@ -44,6 +44,7 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     // eslint-disable-next-line no-console
     console.log('==values', formValues)
   }
+
   return (
     <ModalWrapper
       // bodyScroll
@@ -53,10 +54,14 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
       onCancel={closeModal}
       footer={null}
     >
-      <Steps current={currentStep} onChange={setCurrentStep} items={stepsOption} />
+      <Steps current={currentStep} items={stepsOption} />
       <div className="pt-4">
         <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
-          {stepsOption[currentStep].content}
+          {stepsOption?.map((step, index) => (
+            <div key={step.key} className={currentStep === index ? 'opacity-1 height-auto' : 'opacity-0 height-0'}>
+              {step.content}
+            </div>
+          ))}
         </Form>
       </div>
     </ModalWrapper>
