@@ -1,14 +1,20 @@
-export interface PaymentRecord {
-  date: string // e.g., '2025-05-28'
-  amount: number // payment amount
-  method?: string // optional: 'cash', 'bank transfer', etc.
-  note?: string // optional: any remarks
+interface UserFormValues {
+  name: string
+  mobile: string
+  email: string
+  password: string
 }
 
-export interface PaymentPromise {
-  promised_date: string // e.g., '2025-06-05'
-  promised_amount: number
-  note?: string
+interface CompanyFormValues {
+  name: string
+  support_number: string
+  support_email: string
+  address: string
+}
+
+export interface MainFormValues {
+  company: CompanyFormValues
+  user: UserFormValues
 }
 
 export interface ListDataTypes {

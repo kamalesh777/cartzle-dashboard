@@ -22,7 +22,12 @@ const SubmitButtonWrapper = ({
 }: propTypes): JSX.Element => {
   return (
     <SpaceWrapper className={spaceClassName}>
-      <ButtonWrapper htmlType="submit" type="primary" loading={okButtonProps?.loading} {...okButtonProps}>
+      <ButtonWrapper
+        htmlType={okButtonProps?.htmlType || 'submit'}
+        type="primary"
+        loading={okButtonProps?.loading}
+        {...okButtonProps}
+      >
         {okText || 'Save'}
       </ButtonWrapper>
       <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>

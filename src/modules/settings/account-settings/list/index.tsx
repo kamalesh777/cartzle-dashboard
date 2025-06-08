@@ -2,17 +2,15 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Divider, Row, Tag, Typography, type TableProps } from 'antd'
+import { Row, Tag, Typography, type TableProps } from 'antd'
 
-import type { ListDataTypes, PaymentPromise } from '../types'
+import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
 
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
 import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
-
-import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
@@ -96,42 +94,6 @@ const AccountSettingListComp = (): JSX.Element => {
       title: 'Due Amt.',
       dataIndex: 'due_amount',
       width: '10%',
-    },
-    {
-      title: 'Due Date',
-      width: '15%',
-      dataIndex: 'payment_promises',
-      render: arr => {
-        const obj1 = arr?.[0] as PaymentPromise
-        return obj1 ? (
-          <p>
-            {obj1?.promised_date}{' '}
-            <InfoTooltip
-              title={arr?.map((obj: PaymentPromise, index: React.Key) => (
-                <>
-                  <SpaceWrapper align="start" className="w-100">
-                    Date: {obj?.promised_date || EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  <SpaceWrapper align="start" className="w-100">
-                    Amount: {obj?.promised_amount ?? EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  <SpaceWrapper align="start" className="w-100">
-                    Note: {obj?.note ?? EMPTY_PLACEHOLDER}
-                  </SpaceWrapper>
-                  {arr?.length - 1 !== index && <Divider className="my-2" />}
-                </>
-              ))}
-            />
-          </p>
-        ) : (
-          EMPTY_PLACEHOLDER
-        )
-      },
-    },
-    {
-      title: 'Total',
-      dataIndex: 'total_amount',
-      key: 'total_amount',
     },
     {
       title: '',

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input } from 'antd'
+import { Input } from 'antd'
 
 import {
   FormItemWrapper,
@@ -12,37 +12,24 @@ import {
 } from '@/components/Wrapper'
 import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/AppConstant'
 
-interface FormValues {
-  name: string
-  number: string
-  email: string
-  address: string
-}
-
 const Step2Content = (): JSX.Element => {
-  const [form] = Form.useForm()
-
-  const formSubmitHandler = async (formValues: FormValues): Promise<void> => {
-    // eslint-disable-next-line no-console
-    console.log('==values', formValues)
-  }
   return (
-    <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
-      <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
+    <>
+      <FormItemWrapper name={['company', 'name']} label="Name" rules={requiredWithWhitspcFieldRules}>
         <InputWrapper />
       </FormItemWrapper>
       <ColWrapper>
-        <FormItemWrapper name="support_number" label="Support Number" rules={[...requiredFieldRules]}>
+        <FormItemWrapper name={['company', 'support_number']} label="Support Number" rules={[...requiredFieldRules]}>
           <InputNumberWrapper maxLength={10} />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name="email" label="Support Email">
+        <FormItemWrapper name={['company', 'support_email']} label="Support Email">
           <InputWrapper />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper md={24}>
-        <FormItemWrapper name="address" label="Company Address" rules={[...requiredFieldRules]}>
+        <FormItemWrapper name={['company', 'address']} label="Company Address" rules={[...requiredFieldRules]}>
           <Input.TextArea rows={3} />
         </FormItemWrapper>
       </ColWrapper>
@@ -52,7 +39,7 @@ const Step2Content = (): JSX.Element => {
           <SubmitButtonWrapper okText="Save" okButtonProps={{ loading: false }} />
         </div>
       </ColWrapper>
-    </Form>
+    </>
   )
 }
 

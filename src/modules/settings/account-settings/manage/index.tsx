@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Steps } from 'antd'
+import { Form, Steps } from 'antd'
 
+import type { MainFormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { ModalWrapper } from '@/components/Wrapper'
@@ -14,6 +15,8 @@ import Step2Content from './Step2'
 import Step3Contengt from './Step3'
 
 const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+  const [form] = Form.useForm()
+
   const [currentStep, setCurrentStep] = useState<number>(0)
 
   // close modal handler
@@ -36,6 +39,11 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
       content: <Step3Contengt />,
     },
   ]
+
+  const formSubmitHandler = async (formValues: MainFormValues): Promise<void> => {
+    // eslint-disable-next-line no-console
+    console.log('==values', formValues)
+  }
   return (
     <ModalWrapper
       // bodyScroll
@@ -46,7 +54,11 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
       footer={null}
     >
       <Steps current={currentStep} onChange={setCurrentStep} items={stepsOption} />
-      <div className="pt-4">{stepsOption[currentStep].content}</div>
+      <div className="pt-4">
+        <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+          {stepsOption[currentStep].content}
+        </Form>
+      </div>
     </ModalWrapper>
   )
 }
