@@ -1,14 +1,17 @@
-const BACKEND_API_SERVICE = process.env.NEXT_PUBLIC_API_SERVICE
+const BACKEND_API_SERVICE = process.env.NEXT_PUBLIC_API_SERVICE || 'http://localhost:5000/api'
+const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1'
+
+const API_BASE_URL = `${BACKEND_API_SERVICE}/${API_VERSION}`
 
 const routesObj = {
-  'api-testing': `${BACKEND_API_SERVICE}/test`,
-  'workspace-testing': `${BACKEND_API_SERVICE}/workspace`,
-  'create-workspace': `${BACKEND_API_SERVICE}/workspace/create-workspace`,
-  'view-workspace': `${BACKEND_API_SERVICE}/workspace/view-workspace`,
+  'api-testing': `${API_BASE_URL}`,
+  'workspace-testing': `${API_BASE_URL}/workspace`,
+  'create-workspace': `${API_BASE_URL}/workspace/create-workspace`,
+  'view-workspace': `${API_BASE_URL}/workspace/view-workspace`,
 
-  'view-user': `${BACKEND_API_SERVICE}/user/view-user`,
-  'update-user': `${BACKEND_API_SERVICE}/user/update-user`,
-  'except-me': `${BACKEND_API_SERVICE}/user/list-except-me`,
+  'view-user': `${API_BASE_URL}/user/view-user`,
+  'update-user': `${API_BASE_URL}/user/update-user`,
+  'except-me': `${API_BASE_URL}/user/list-except-me`,
 }
 
 export default routesObj

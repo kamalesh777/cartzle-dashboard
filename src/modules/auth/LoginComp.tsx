@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Form, Input, Checkbox, Button, Row } from 'antd'
 
+import { getRequest } from '@/api/preference/RequestService'
 import { CardWrapper, ColWrapper, FormItemWrapper } from '@/components/Wrapper'
 
 const LoginComp = (): JSX.Element => {
+  useEffect(() => {
+    apiTesting()
+  }, [])
+
+  const apiTesting = async (): Promise<void> => {
+    const resp = await getRequest('/api/api-testing')
+
+    // eslint-disable-next-line no-console
+    console.log('==resp', resp)
+  }
+
   return (
     <div className="login-bg auth-container">
       <Row justify="center" align="middle" className="h-100">

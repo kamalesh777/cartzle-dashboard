@@ -14,6 +14,7 @@ const responseHandler = (response: unknown, status: number, endpoint: string): R
 
 async function handleRequest(request: Request): Promise<Response> {
   const nextRequest = new URL(request.url)
+
   const newUrl = nextRequest.pathname.replace('/api/', '')
   const urlParams = newUrl.split('/')
 
