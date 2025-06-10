@@ -2,6 +2,7 @@
 import React, { type PropsWithChildren } from 'react'
 
 import { ConfigProvider, theme } from 'antd'
+import { usePathname } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
@@ -10,12 +11,16 @@ import { useSelector } from 'react-redux'
 
 import type { RootState } from 'src/store'
 
-const ThemeWrapper = (props: PropsWithChildren): JSX.Element => {
+import LayoutWrapper from './LayoutWrapper'
+
+const ThemeWrapper = ({ children }: PropsWithChildren): JSX.Element => {
   const theme = useSelector((state: RootState) => state.theme)
+  const pathname = usePathname()
+  const isAuth = pathname.startsWith('/auth')
 
   return (
     <ConfigProvider theme={theme}>
-      <ThemeToken>{props.children}</ThemeToken>
+      <ThemeToken>{!isAuth ? <LayoutWrapper>{children}</LayoutWrapper> : children}</ThemeToken>
     </ConfigProvider>
   )
 }

@@ -213,6 +213,10 @@ header.ant-layout-header.fix-header {
 .height-0 {
 	height: 0px;
 }
+.auth-container {
+    background: aliceblue;
+    height: 100%;
+}
 
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {

@@ -8,7 +8,7 @@ import React, { type PropsWithChildren } from 'react'
 
 import { RootStyleRegistry } from '@/components/RootStyle'
 import StoreProvider from '@/components/StoreProvider'
-import { LayoutWrapper } from '@/components/Wrapper'
+
 import ThemeWrapper from '@/components/Wrapper/ThemeWrapper'
 
 import { metaTitle } from '@/utils/commonFunctions'
@@ -29,19 +29,12 @@ export const metadata = {
 }
 
 const IndexLayout = ({ children }: PropsWithChildren): JSX.Element => {
-  const isAuth = true
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <RootStyleRegistry>
         <body>
           <StoreProvider>
-            {isAuth ? (
-              <ThemeWrapper>
-                <LayoutWrapper>{children}</LayoutWrapper>
-              </ThemeWrapper>
-            ) : (
-              <ThemeWrapper>{children}</ThemeWrapper>
-            )}
+            <ThemeWrapper>{children}</ThemeWrapper>
           </StoreProvider>
         </body>
       </RootStyleRegistry>
