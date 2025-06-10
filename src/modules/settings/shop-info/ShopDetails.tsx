@@ -9,7 +9,7 @@ const ShopDetailsComp = (): JSX.Element => {
   const [form] = Form.useForm()
 
   const onFinish = (values: any): void => {
-    console.log('Shop Info Submitted:', values)
+    console.log('===Shop Info Submitted:', values)
   }
   return (
     <CardWrapper title="Shop Information" id="shop-config" className="mb-3">

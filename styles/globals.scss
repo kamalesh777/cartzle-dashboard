@@ -207,6 +207,12 @@ header.ant-layout-header.fix-header {
 .page-menu-box .ant-menu-item.ant-menu-item-selected {
     border-color: var(--primary-color);
 }
+.height-auto {
+	height: auto;
+}
+.height-0 {
+	height: 0px;
+}
 
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {

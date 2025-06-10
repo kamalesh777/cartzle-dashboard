@@ -10,12 +10,24 @@ interface propTypes extends ButtonProps {
   cancelText?: React.ReactNode | string
   cancelButtonProps?: ButtonProps
   okButtonProps?: ButtonProps
+  spaceClassName?: string
 }
 
-const SubmitButtonWrapper = ({ okText, cancelText, cancelButtonProps, okButtonProps }: propTypes): JSX.Element => {
+const SubmitButtonWrapper = ({
+  okText,
+  cancelText,
+  cancelButtonProps,
+  okButtonProps,
+  spaceClassName,
+}: propTypes): JSX.Element => {
   return (
-    <SpaceWrapper>
-      <ButtonWrapper htmlType="submit" type="primary" loading={okButtonProps?.loading} {...okButtonProps}>
+    <SpaceWrapper className={spaceClassName}>
+      <ButtonWrapper
+        htmlType={okButtonProps?.htmlType || 'submit'}
+        type="primary"
+        loading={okButtonProps?.loading}
+        {...okButtonProps}
+      >
         {okText || 'Save'}
       </ButtonWrapper>
       <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '@/store/index'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
-import { FormItemWrapper, CardWrapper, InputWrapper, SpaceWrapper, ButtonWrapper, ColWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, CardWrapper, InputWrapper, SpaceWrapper, ButtonWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
 import { applyThemeColor } from '@/store/slice/themeSlice'
 
 const BrandConfigComp = (): JSX.Element => {
@@ -20,6 +20,10 @@ const BrandConfigComp = (): JSX.Element => {
   // const imageUrl = Form.useWatch('logo_url', form)
 
   const [imgLoading] = useState<boolean>(false)
+
+  const formSubmitHandler = (formVal) => {
+    console.log("==formVal", formVal)
+  }
 
   const uploadButton = (
     <ButtonWrapper style={{ border: 0, background: 'none' }}>
@@ -32,9 +36,17 @@ const BrandConfigComp = (): JSX.Element => {
 
   return (
     <CardWrapper title="Shop Information" id="theme-config" className="mb-3">
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
         <Row>
           <ColWrapper span={16}>
+            <FormItemWrapper
+              name="theme_color"
+              label="Select theme color"
+              className="theme-color"
+              initialValue={themeState?.colorPrimary}
+            >
+              <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
+            </FormItemWrapper>
             <FormItemWrapper name="logo_url" label="Logo">
               <InputWrapper
                 addonAfter={
@@ -53,14 +65,7 @@ const BrandConfigComp = (): JSX.Element => {
                 }
               />
             </FormItemWrapper>
-            <FormItemWrapper
-              name="theme_color"
-              label="Select theme color"
-              className="theme-color"
-              initialValue={themeState?.colorPrimary}
-            >
-              <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
-            </FormItemWrapper>
+            <SubmitButtonWrapper />
           </ColWrapper>
         </Row>
       </Form>
