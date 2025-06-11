@@ -1,6 +1,11 @@
 import React from 'react'
 
 import { Form, Input, Checkbox, Row } from 'antd'
+import Cookies from 'js-cookie'
+
+import { useRouter } from 'next/navigation'
+
+import type { DataResponse } from 'src/types/common'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
 import { usePostRequestHandler } from '@/hook/requestHandler'
@@ -10,11 +15,23 @@ interface FormValueTypes {
   password: string
 }
 
+interface ResultTypes {
+  accessToken: string
+  refreshToken: string
+}
+
 const LoginComp = (): JSX.Element => {
-  const { submit, buttonLoading } = usePostRequestHandler()
+  const router = useRouter()
+  const { submit, buttonLoading } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>()
 
   const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
-    await submit('/api/login', formValues)
+    const resp = await submit('/api/login', formValues, null)
+
+    if (resp?.success) {
+      router.push('/') // go to home page
+      Cookies.set('accessToken', resp.result.accessToken, { secure: true, sameSite: 'Strict' })
+      Cookies.set('refreshToken', resp.result.refreshToken, { secure: true, sameSite: 'Strict' })
+    }
   }
 
   return (

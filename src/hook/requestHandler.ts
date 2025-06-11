@@ -10,11 +10,11 @@ import Toast from '@/components/common/Toast'
 type RequestMethod = 'post' | 'put'
 type Callback = () => void
 
-interface PostRequestHandlerReturn<T> {
+interface PostRequestHandlerReturn<T, P> {
   data: T | null
   isSuccess: boolean
   buttonLoading: boolean
-  submit: (endPoint: string, payload?: T, goBack?: string | null, callBack?: Callback) => Promise<T | null>
+  submit: (endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback) => Promise<T | null>
 }
 
 /**
@@ -25,17 +25,17 @@ interface PostRequestHandlerReturn<T> {
  * @param failToast Whether to show a failure toast. Default is true.
  * @returns An object containing `data`, `isSuccess`, `buttonLoading`, and the `submit` function.
  */
-export const usePostRequestHandler = <T = unknown>(
+export const usePostRequestHandler = <T = unknown, P = unknown>(
   method: RequestMethod = 'post',
   successToast = true,
   failToast = true,
-): PostRequestHandlerReturn<T> => {
+): PostRequestHandlerReturn<T, P> => {
   const router = useRouter()
   const [buttonLoading, setButtonLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [data, setData] = useState<T | null>(null)
 
-  const submit = async (endPoint: string, payload?: T, goBack?: string | null, callBack?: Callback): Promise<T | null> => {
+  const submit = async (endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback): Promise<T | null> => {
     if (buttonLoading) return null
 
     setButtonLoading(true)
@@ -52,7 +52,7 @@ export const usePostRequestHandler = <T = unknown>(
         if (goBack) router.push(goBack)
         if (callBack) callBack()
 
-        response = res.data.result as T
+        response = res.data as T
       } else {
         const message = typeof res.data.message === 'string' ? res.data.message : 'An error occurred'
         if (failToast) Toast('error', message)
