@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { Form, Input, Checkbox, Button, Row } from 'antd'
+import { Form, Input, Checkbox, Row } from 'antd'
 
-import { getRequest } from '@/api/preference/RequestService'
-import { CardWrapper, ColWrapper, FormItemWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import { usePostRequestHandler } from '@/hook/requestHandler'
+
+interface FormValueTypes {
+  email: string
+  password: string
+}
 
 const LoginComp = (): JSX.Element => {
-  useEffect(() => {
-    apiTesting()
-  }, [])
+  const { submit, buttonLoading } = usePostRequestHandler()
 
-  const apiTesting = async (): Promise<void> => {
-    const resp = await getRequest('/api/api-testing')
-
-    // eslint-disable-next-line no-console
-    console.log('==resp', resp)
+  const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
+    await submit('/api/login', formValues)
   }
 
   return (
@@ -23,13 +23,9 @@ const LoginComp = (): JSX.Element => {
         <ColWrapper md={6}>
           <CardWrapper>
             <h2 className="mb-3">Login Now!</h2>
-            <Form layout="vertical">
-              <FormItemWrapper
-                label="Username"
-                name="username"
-                rules={[{ required: true, message: 'Please input your username!' }]}
-              >
-                <Input />
+            <Form layout="vertical" onFinish={formSubmitHandler}>
+              <FormItemWrapper label="Username" name="email" rules={[{ required: true, message: 'Please input your username!' }]}>
+                <InputWrapper />
               </FormItemWrapper>
 
               <FormItemWrapper
@@ -45,9 +41,9 @@ const LoginComp = (): JSX.Element => {
               </FormItemWrapper>
 
               <FormItemWrapper label={null}>
-                <Button type="primary" htmlType="submit">
+                <ButtonWrapper type="primary" htmlType="submit" loading={buttonLoading}>
                   Submit
-                </Button>
+                </ButtonWrapper>
               </FormItemWrapper>
             </Form>
           </CardWrapper>

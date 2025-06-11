@@ -9,13 +9,12 @@ import Toast from '@/components/common/Toast'
 
 type RequestMethod = 'post' | 'put'
 type Callback = () => void
-type Payload = Record<string, unknown>
 
 interface PostRequestHandlerReturn<T> {
   data: T | null
   isSuccess: boolean
   buttonLoading: boolean
-  submit: (endPoint: string, payload?: Payload, goBack?: string | null, callBack?: Callback) => Promise<T | null>
+  submit: (endPoint: string, payload?: T, goBack?: string | null, callBack?: Callback) => Promise<T | null>
 }
 
 /**
@@ -36,7 +35,7 @@ export const usePostRequestHandler = <T = unknown>(
   const [isSuccess, setIsSuccess] = useState(false)
   const [data, setData] = useState<T | null>(null)
 
-  const submit = async (endPoint: string, payload?: Payload, goBack?: string | null, callBack?: Callback): Promise<T | null> => {
+  const submit = async (endPoint: string, payload?: T, goBack?: string | null, callBack?: Callback): Promise<T | null> => {
     if (buttonLoading) return null
 
     setButtonLoading(true)
