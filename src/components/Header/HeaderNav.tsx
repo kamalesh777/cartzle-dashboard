@@ -6,6 +6,8 @@ import { capitalize } from 'lodash'
 
 // import { useLogoutHandler } from 'src/hook/useAuth'
 
+import { useRouter } from 'next/navigation'
+
 import useDevice from 'src/hook/useDevice'
 
 import { ButtonWrapper, ColWrapper, DropdownWrapper, SpaceWrapper } from '../Wrapper'
@@ -18,6 +20,7 @@ interface PropTypes {
   setOpenDrawer: (param: boolean) => void
 }
 const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: PropTypes): JSX.Element => {
+  const router = useRouter()
   // const userInfo = useSelector((state: RootState) => state.userState.userInfo)
 
   const { isMobileDevice } = useDevice()
@@ -33,9 +36,10 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
       label: (
         <SpaceWrapper className="error-color">
           <PoweroffOutlined />
-          Sign Out
+          Log Out
         </SpaceWrapper>
       ),
+      onClick: () => router.push('/auth/logout'),
     },
   ]
 

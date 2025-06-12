@@ -5,6 +5,7 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 
 import LoginComp from './LoginComp'
+import LogoutComp from './LogoutComp'
 
 const AuthComp = (): JSX.Element => {
   const params = useParams()
@@ -13,6 +14,8 @@ const AuthComp = (): JSX.Element => {
     switch (path) {
       case 'login':
         return <LoginComp />
+      case 'logout':
+        return <LogoutComp />
       default:
         return <></>
     }

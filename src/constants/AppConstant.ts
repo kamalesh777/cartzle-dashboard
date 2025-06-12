@@ -5,6 +5,7 @@ export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
 export const EMPTY_PLACEHOLDER = '--'
 export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 
+export const LOGIN_ROUTE = '/auth/login'
 export const SETTINGS_ROUTE = '/settings'
 export const USER_PERMISSION_ROUTE = '/user-permissions'
 export const PRODUCT_LIST_ROUTE = '/products'
