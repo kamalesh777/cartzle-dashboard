@@ -20,7 +20,7 @@ API.interceptors.request.use(
   async req => {
     // const { pathname } = new URL(req.url);
     // const index = pathname.replace("/api/", "");
-
+    console.log("===req", req)
     // const ENDPOINT = apiRoutes[index as keyof typeof apiRoutes] as string;
 
     req.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'

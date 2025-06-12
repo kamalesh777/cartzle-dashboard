@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Col, Row } from 'antd'
 
 import { CardWrapper } from '@/components/Wrapper'
 import IconWrapper from '@/components/Wrapper/IconWrapper'
 
+import { useGetRequestHandler } from '@/hook/requestHandler'
+
 import { data } from '../static/data'
 
 const DashboardComponent = (): JSX.Element => {
+  const { fetchData } = useGetRequestHandler()
+  useEffect(() => {
+    fetchData('/api/api-testing')
+  }, [])
+
   return (
     <Row gutter={16}>
       {data?.map(item => (

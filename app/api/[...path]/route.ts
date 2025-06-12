@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers'
+
 import type { AxiosError, AxiosResponse } from 'axios'
 
 import API from '@/api/preference/API'
@@ -14,9 +16,11 @@ const responseHandler = (response: unknown, status: number, endpoint: string): R
 
 async function handleRequest(request: Request): Promise<Response> {
   const nextRequest = new URL(request.url)
-
   const newUrl = nextRequest.pathname.replace('/api/', '')
   const urlParams = newUrl.split('/')
+
+  const Cookies = cookies()
+  const accessToken = Cookies.get('accessToken')?.value
 
   // It will give the original API endpoint
   const maskUrl = apiRoute[urlParams?.at(0) as keyof typeof apiRoute] as string
@@ -27,7 +31,6 @@ async function handleRequest(request: Request): Promise<Response> {
 
   try {
     // const { getToken } = await auth()
-    const token = 'hello token'
 
     const isGetMethod = request.method === 'GET'
 
@@ -43,7 +46,7 @@ async function handleRequest(request: Request): Promise<Response> {
       url: ENDPOINT,
       data: bodyData, // Include bodyData for non-GET methods
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
         'X-client-host': nextRequest.host,
       },
