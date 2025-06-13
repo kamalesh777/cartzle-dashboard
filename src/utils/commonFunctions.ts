@@ -145,3 +145,11 @@ export const modalCloseHandler = (func: func, form?: FormInstance): void => {
   func(false)
   form && form.resetFields()
 }
+
+export const generateSubdomain = (companyName: string): string => {
+  return companyName
+    ?.toLowerCase()
+    .replace(/[^a-z0-9]/g, '-') // Replace non-alphanumeric chars with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+}

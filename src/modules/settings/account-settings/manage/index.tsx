@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 import { Form, Steps } from 'antd'
 
-import type { MainFormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { ModalWrapper } from '@/components/Wrapper'
@@ -12,7 +11,7 @@ import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 import Step1Content from './Step1'
 import Step2Content from './Step2'
-import Step3Contengt from './Step3'
+import Step3Content from './Step3'
 
 const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -36,14 +35,9 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     {
       title: 'Ready!',
       key: 'step_3',
-      content: <Step3Contengt />,
+      content: <Step3Content {...{ form }} />,
     },
   ]
-
-  const formSubmitHandler = async (formValues: MainFormValues): Promise<void> => {
-    // eslint-disable-next-line no-console
-    console.log('==values', formValues)
-  }
 
   return (
     <ModalWrapper
@@ -56,7 +50,7 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     >
       <Steps current={currentStep} items={stepsOption} />
       <div className="pt-4">
-        <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+        <Form form={form} layout="vertical">
           {stepsOption?.map((step, index) => (
             <div key={step.key} className={currentStep === index ? 'opacity-1 height-auto' : 'opacity-0 height-0'}>
               {step.content}

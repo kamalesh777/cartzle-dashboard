@@ -11,6 +11,9 @@ const routesObj = {
 
   // User login
   login: `${API_BASE_URL}/user/login`,
+
+  // Create company
+  'create-company': `${API_BASE_URL}/company/create`,
 }
 
 export default routesObj

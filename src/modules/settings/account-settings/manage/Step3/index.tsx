@@ -1,21 +1,74 @@
-import React from 'react'
+'use client'
 
-import { CheckCircleOutlined } from '@ant-design/icons'
+import React, { useEffect, useState } from 'react'
+
+import { Progress } from 'antd'
+import Link from 'next/link'
+
+import type { FormInstance } from 'antd/es/form/Form'
 
 import { ButtonWrapper } from '@/components/Wrapper'
+import { generateSubdomain } from '@/utils/commonFunctions'
 
-const Step3Contengt = (): JSX.Element => {
+interface PropTypes {
+  form?: FormInstance
+}
+
+const Step3Content = ({ form }: PropTypes): JSX.Element => {
+  const companyName = form?.getFieldValue('company')?.name || ''
+  const subdomain = companyName ? generateSubdomain(companyName) : ''
+  const finalDomain = `https://${subdomain}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}`
+
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const duration = 5000 // total time in ms
+    const intervalTime = 50
+    const steps = duration / intervalTime
+    const increment = 100 / steps
+
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        const next = prev + increment
+        if (next >= 100) {
+          clearInterval(interval)
+          return 100
+        }
+        return next
+      })
+    }, intervalTime)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const getProgressText = (): string => {
+    if (progress < 20) return 'Initializing workspace...'
+    if (progress < 50) return `Processing ${Math.round(progress)}%...`
+    if (progress < 80) return 'Building resources...'
+    if (progress < 100) return 'Almost ready...'
+    return 'Workspace is ready!'
+  }
+
   return (
-    <div className=" p-4 rounded-3 text-center">
-      <CheckCircleOutlined style={{ fontSize: '70px' }} className="success-color" />
-      {/* <Progress percent={30} type="line" /> */}
-      <h2 className="mt-2">Successfully Build</h2>
-      <p>Your workspace is ready click on the below link to login!</p>
-      <ButtonWrapper className="mt-4" type="primary">
-        Go Now
-      </ButtonWrapper>
+    <div className="p-4 rounded-3 text-center">
+      {progress < 100 ? (
+        <>
+          <Progress percent={Math.round(progress)} type="line" status={progress < 100 ? 'active' : 'success'} />
+          <p className="mt-2">{getProgressText()}</p>
+        </>
+      ) : (
+        <>
+          <h2 className="mt-4">Successfully Built 🎉</h2>
+          <p>Your workspace is ready. Click below to log in!</p>
+          <Link href={finalDomain}>
+            <ButtonWrapper className="mt-4" type="primary">
+              Go Now
+            </ButtonWrapper>
+          </Link>
+        </>
+      )}
     </div>
   )
 }
 
-export default Step3Contengt
+export default Step3Content
