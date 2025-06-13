@@ -58,7 +58,6 @@ async function handleRequest(request: Request): Promise<Response> {
       ...response.data,
       message: response.data.message || ERROR_MSG,
     }
-
     return responseHandler(finalResponse, response.status, ENDPOINT)
   } catch (error) {
     const axiosResponse = (error as AxiosError)?.response as AxiosResponse

@@ -1,5 +1,6 @@
-// import Toast from '@/components/common/Toast'
 import axios from 'axios'
+
+import Cookies from 'js-cookie'
 
 import Toast from '@/components/Common/Toast'
 
@@ -12,6 +13,13 @@ interface MyErrorType {
     data?: Record<string, string>
     error?: boolean
     message?: string
+  }
+}
+
+interface NewTokenTypes {
+  data: {
+    success: boolean
+    result: { accessToken: string; refreshToken: string }
   }
 }
 
@@ -38,7 +46,16 @@ API.interceptors.response.use(
   async (err: MyErrorType) => {
     if (typeof window !== 'undefined') {
       if (err?.response?.status === 401 || err?.response?.status === 403) {
-        Toast('error', 'Your session has expired! Please Re-login.')
+        Cookies.set('accessToken', '')
+        const resp: NewTokenTypes = await API.get('/api/generate-token')
+
+        if (resp?.data?.success) {
+          const result = resp.data.result || {}
+          Cookies.set('accessToken', result.accessToken, { secure: true, sameSite: 'Strict' })
+          Cookies.set('refreshToken', result.refreshToken, { secure: true, sameSite: 'Strict' })
+        } else {
+          Toast('error', 'Your session has expired! Please Re-login.')
+        }
       }
     }
     return await Promise.reject(err)
