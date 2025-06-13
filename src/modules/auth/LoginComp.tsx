@@ -22,7 +22,7 @@ interface ResultTypes {
 
 const LoginComp = (): JSX.Element => {
   const router = useRouter()
-  const { submit, buttonLoading } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>()
+  const { submit, buttonLoading } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>('post', false)
 
   const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
     const resp = await submit('/api/login', formValues, null)

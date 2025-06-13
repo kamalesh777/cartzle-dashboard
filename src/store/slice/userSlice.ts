@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import Axios from 'axios'
 
-import type { dataResponse } from 'src/types/common'
+import type { DataResponse } from 'src/types/common'
 // eslint-disable-next-line import/named
 
 // First, create the thunk
 export const fetchToDo = createAsyncThunk('users/fetchToDo', async () => {
   const response = await Axios.get('https://jsonplaceholder.typicode.com/todos')
-  return response.data as dataResponse
+  return response.data as DataResponse
 })
 
 interface UsersState {

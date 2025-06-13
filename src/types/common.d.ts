@@ -8,7 +8,7 @@ export interface ModalPropTypes<T> {
   afterSubmit?: () => void
 }
 
-export interface DataResponse<T> extends AxiosResponse {
+export interface DataResponse<T = null> extends AxiosResponse {
   result: T
   message?: string
   success: number

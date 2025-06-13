@@ -21,6 +21,7 @@ async function handleRequest(request: Request): Promise<Response> {
 
   const Cookies = cookies()
   const accessToken = Cookies.get('accessToken')?.value
+  const refreshToken = Cookies.get('refreshToken')?.value
 
   // It will give the original API endpoint
   const maskUrl = apiRoute[urlParams?.at(0) as keyof typeof apiRoute] as string
@@ -49,6 +50,7 @@ async function handleRequest(request: Request): Promise<Response> {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
         'X-client-host': nextRequest.host,
+        'X-refresh-token': refreshToken,
       },
     })
 

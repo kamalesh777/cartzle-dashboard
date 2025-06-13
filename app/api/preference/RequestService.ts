@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios'
 
-import type { dataResponse } from 'src/types/common'
+import type { DataResponse } from 'src/types/common'
 
 import API from './API'
 // import landerAPI from '@pages/api/landerAPI';
@@ -13,16 +13,16 @@ import API from './API'
  * @param {string} appSlug - (Optional) The application slug (default is 'hire').
  * @param {string} baseVersion - (Optional) The API base version (default is 'v1').
  *
- * @returns {Promise<dataResponse>} A Promise that resolves to the response data or rejects with an error.
+ * @returns {Promise<DataResponse>} A Promise that resolves to the response data or rejects with an error.
  */
 
-export const getRequest = async (endPoint: string, headerData = {}): Promise<dataResponse> => {
+export const getRequest = async (endPoint: string, headerData = {}): Promise<DataResponse> => {
   try {
     const response = await API.get(endPoint, headerData)
-    return response
+    return response as DataResponse
   } catch (err) {
     // Return a rejected promise with the error response
-    return (err as AxiosError).response as dataResponse
+    return (err as AxiosError).response as DataResponse
   }
 }
 
@@ -39,10 +39,10 @@ interface payloadType {
  * @param {string} appSlug - (Optional) The application slug (default is 'hire').
  * @param {string} baseVersion - (Optional) The API base version (default is 'v1').
  *
- * @returns {Promise<dataResponse>} A Promise that resolves to the response data or rejects with an error.
+ * @returns {Promise<DataResponse>} A Promise that resolves to the response data or rejects with an error.
  */
 
-export const postRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<dataResponse> => {
+export const postRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
   // Construct the full API endpoint URL
   // const API_ENDPOINT = cloudEndpoint(endPoint)
 
@@ -51,38 +51,38 @@ export const postRequest = async (endPoint: string, data: payloadType['payload']
     const response = await API.post(`${endPoint}`, data, headerData)
 
     // Return the response data
-    return response
+    return response as DataResponse
   } catch (err) {
     // If an error occurs, return a rejected promise with the error response
-    return (err as AxiosError).response as dataResponse
+    return (err as AxiosError).response as DataResponse
   }
 }
 
 // same as post method here we useing only PUT request instead of POST
-export const putRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<dataResponse> => {
+export const putRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
   try {
     // Perform an HTTP PUT request using the provided endpoint, data, and headers
     const response = await API.put(endPoint, data, headerData)
 
     // Return the response data
-    return response
+    return response as DataResponse
   } catch (err) {
     // If an error occurs, return a rejected promise with the error response
-    return (err as AxiosError).response as dataResponse
+    return (err as AxiosError).response as DataResponse
   }
 }
 
 // same as post method here we useing only PATCH request instead of POST
-export const patchRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<dataResponse> => {
+export const patchRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
   try {
     // Perform an HTTP PATCH request using the provided endpoint, data, and headers
     const response = await API.patch(endPoint, data, headerData)
 
     // Return the response data
-    return response
+    return response as DataResponse
   } catch (err) {
     // If an error occurs, return a rejected promise with the error response
-    return (err as AxiosError).response as dataResponse
+    return (err as AxiosError).response as DataResponse
   }
 }
 
@@ -93,14 +93,14 @@ export const patchRequest = async (endPoint: string, data: payloadType['payload'
  * @param {object} headerData - (Optional) Additional headers to include in the request (default is an empty object).
  * @param {string} appSlug - (Optional) The application slug (default is 'hire').
  * @param {string} baseVersion - (Optional) The API base version (default is 'v1').
- * @returns {Promise<dataResponse>} A Promise that resolves to the response data or rejects with an error.
+ * @returns {Promise<DataResponse>} A Promise that resolves to the response data or rejects with an error.
  */
 
-export const deleteRequest = async (endPoint: string, headerData = {}): Promise<dataResponse> => {
+export const deleteRequest = async (endPoint: string, headerData = {}): Promise<DataResponse> => {
   try {
     const response = await API.delete(endPoint, headerData)
-    return response
+    return response as DataResponse
   } catch (err) {
-    return (err as AxiosError).response as dataResponse
+    return (err as AxiosError).response as DataResponse
   }
 }

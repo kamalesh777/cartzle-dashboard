@@ -18,11 +18,7 @@ interface MyErrorType {
 API.interceptors.request.use(
   // eslint-disable-next-line @typescript-eslint/require-await
   async req => {
-    // const { pathname } = new URL(req.url);
-    // const index = pathname.replace("/api/", "");
-    console.log("===req", req)
-    // const ENDPOINT = apiRoutes[index as keyof typeof apiRoutes] as string;
-
+    // delete req.
     req.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     req.headers.Pragma = 'no-cache'
     req.headers['Content-Type'] = 'application/json'
