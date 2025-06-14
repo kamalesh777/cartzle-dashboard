@@ -9,7 +9,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '@/store/index'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
-import { FormItemWrapper, CardWrapper, InputWrapper, SpaceWrapper, ButtonWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  CardWrapper,
+  InputWrapper,
+  SpaceWrapper,
+  ButtonWrapper,
+  ColWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import { applyThemeColor } from '@/store/slice/themeSlice'
 
 const BrandConfigComp = (): JSX.Element => {
@@ -21,7 +29,8 @@ const BrandConfigComp = (): JSX.Element => {
 
   const [imgLoading] = useState<boolean>(false)
 
-  const formSubmitHandler = (formVal) => {
+  const formSubmitHandler = (formVal: any): void => {
+    // eslint-disable-next-line prettier/prettier, no-console
     console.log("==formVal", formVal)
   }
 
