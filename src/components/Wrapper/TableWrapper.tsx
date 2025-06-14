@@ -11,6 +11,7 @@ import useDevice from '@/hook/useDevice'
 
 export interface CustomTableProps<T> extends TableProps<T> {
   size?: 'large' | 'middle' | 'small'
+  rowKey?: string
 }
 
 const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Element => {
@@ -33,6 +34,7 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
       scroll={tableScroll}
       {...resProps}
       columns={tableColumns as TableColumnsType}
+      rowKey={props.rowKey ?? 'id'}
       className={`common-table-height table-pagination-position ${props.className}`}
     />
   )

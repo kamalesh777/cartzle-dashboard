@@ -12,9 +12,10 @@ import { generateSubdomain } from '@/utils/commonFunctions'
 
 interface PropTypes {
   form?: FormInstance
+  currentStep: number
 }
 
-const Step3Content = ({ form }: PropTypes): JSX.Element => {
+const Step3Content = ({ form, currentStep }: PropTypes): JSX.Element => {
   const companyName = form?.getFieldValue('company')?.name || ''
   const subdomain = companyName ? generateSubdomain(companyName) : ''
   const finalDomain = `https://${subdomain}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}`
@@ -22,24 +23,27 @@ const Step3Content = ({ form }: PropTypes): JSX.Element => {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const duration = 5000 // total time in ms
-    const intervalTime = 50
-    const steps = duration / intervalTime
-    const increment = 100 / steps
+    if (currentStep === 2) {
+      const duration = 10000 // total time in ms
+      const intervalTime = 50
+      const steps = duration / intervalTime
+      const increment = 100 / steps
 
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        const next = prev + increment
-        if (next >= 100) {
-          clearInterval(interval)
-          return 100
-        }
-        return next
-      })
-    }, intervalTime)
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          const next = prev + increment
+          if (next >= 100) {
+            clearInterval(interval)
+            return 100
+          }
+          return next
+        })
+      }, intervalTime)
 
-    return () => clearInterval(interval)
-  }, [])
+      return () => clearInterval(interval)
+    }
+    return () => null
+  }, [currentStep])
 
   const getProgressText = (): string => {
     if (progress < 20) return 'Initializing workspace...'
@@ -51,7 +55,7 @@ const Step3Content = ({ form }: PropTypes): JSX.Element => {
 
   return (
     <div className="p-4 rounded-3 text-center">
-      {progress < 100 ? (
+      {progress < 99 ? (
         <>
           <Progress percent={Math.round(progress)} type="line" status={progress < 100 ? 'active' : 'success'} />
           <p className="mt-2">{getProgressText()}</p>

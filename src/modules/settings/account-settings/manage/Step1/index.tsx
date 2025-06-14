@@ -8,9 +8,10 @@ import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/A
 interface PropTypes {
   form?: FormInstance
   setCurrentStep: (param: number) => void
+  closeModal: () => void
 }
 
-const Step1Content = ({ form, setCurrentStep }: PropTypes): JSX.Element => {
+const Step1Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
   const formHandler = (): void => {
     form
       ?.validateFields([
@@ -46,6 +47,7 @@ const Step1Content = ({ form, setCurrentStep }: PropTypes): JSX.Element => {
       <SubmitButtonWrapper
         okText="Next"
         okButtonProps={{ loading: false, htmlType: 'button', onClick: () => formHandler() }}
+        cancelButtonProps={{ onClick: () => closeModal() }}
         spaceClassName="justify-content-end w-100"
       />
     </>

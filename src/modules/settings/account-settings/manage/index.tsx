@@ -25,17 +25,17 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     {
       title: 'User info',
       key: 'step_1',
-      content: <Step1Content {...{ setCurrentStep, form }} />,
+      content: <Step1Content {...{ setCurrentStep, form, closeModal }} />,
     },
     {
       title: 'Company info',
       key: 'step_2',
-      content: <Step2Content {...{ setCurrentStep, form }} />,
+      content: <Step2Content {...{ setCurrentStep, form, closeModal }} />,
     },
     {
       title: 'Ready!',
       key: 'step_3',
-      content: <Step3Content {...{ form }} />,
+      content: <Step3Content {...{ form, currentStep }} />,
     },
   ]
 

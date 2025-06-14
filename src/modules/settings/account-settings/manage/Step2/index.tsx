@@ -16,9 +16,10 @@ import { usePostRequestHandler } from '@/hook/requestHandler'
 interface PropTypes {
   form?: FormInstance
   setCurrentStep: (param: number) => void
+  closeModal: () => void
 }
 
-const Step2Content = ({ form, setCurrentStep }: PropTypes): JSX.Element => {
+const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
   const { submit, buttonLoading } = usePostRequestHandler()
 
   const formSubmitHandler = async (): Promise<void> => {
@@ -49,8 +50,12 @@ const Step2Content = ({ form, setCurrentStep }: PropTypes): JSX.Element => {
       </ColWrapper>
       <ColWrapper>
         <div className="w-100 d-flex justify-content-between">
-          <ButtonWrapper onClick={() => setCurrentStep(1)}>Back</ButtonWrapper>
-          <SubmitButtonWrapper okText="Save" okButtonProps={{ loading: buttonLoading, onClick: formSubmitHandler }} />
+          <ButtonWrapper onClick={() => setCurrentStep(0)}>Back</ButtonWrapper>
+          <SubmitButtonWrapper
+            okText="Save"
+            okButtonProps={{ loading: buttonLoading, onClick: formSubmitHandler }}
+            cancelButtonProps={{ onClick: () => closeModal() }}
+          />
         </div>
       </ColWrapper>
     </>
