@@ -24,7 +24,7 @@ const Step3Content = ({ form, currentStep }: PropTypes): JSX.Element => {
 
   useEffect(() => {
     if (currentStep === 2) {
-      const duration = 10000 // total time in ms
+      const duration = 20000 // total time in ms
       const intervalTime = 50
       const steps = duration / intervalTime
       const increment = 100 / steps
