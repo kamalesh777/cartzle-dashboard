@@ -32,7 +32,7 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
   }
   return (
     <>
-      <FormItemWrapper label="Name">
+      <FormItemWrapper label="Name" noStyle>
         <Space.Compact block>
           <FormItemWrapper className="w-75" name={['company', 'name']} rules={requiredWithWhitspcFieldRules}>
             <InputWrapper />
