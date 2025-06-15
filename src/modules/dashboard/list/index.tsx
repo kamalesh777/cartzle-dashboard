@@ -12,7 +12,7 @@ import { data } from '../static/data'
 const DashboardComponent = (): JSX.Element => {
   const { fetchData } = useGetRequestHandler()
   useEffect(() => {
-    fetchData('/api/api-testing')
+    fetchData('/api/api-testing?hello=world')
   }, [])
 
   return (
