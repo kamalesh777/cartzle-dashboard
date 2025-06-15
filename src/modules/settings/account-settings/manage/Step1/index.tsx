@@ -35,7 +35,7 @@ const Step1Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['user', 'email']} label="Email">
+        <FormItemWrapper name={['user', 'email']} label="Email" rules={[...requiredFieldRules]}>
           <InputWrapper type="email" />
         </FormItemWrapper>
       </ColWrapper>

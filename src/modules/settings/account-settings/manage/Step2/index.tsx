@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { type FormInstance, Input } from 'antd'
+import { type FormInstance, Input, Space } from 'antd'
 
 import {
   FormItemWrapper,
@@ -21,6 +21,8 @@ interface PropTypes {
 
 const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
   const { submit, buttonLoading } = usePostRequestHandler()
+  const domainSuffix = process.env.NEXT_PUBLIC_DOMAIN_SUFFIX
+  const domainName = process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME
 
   const formSubmitHandler = async (): Promise<void> => {
     const formValues = await form?.getFieldsValue()
@@ -30,8 +32,20 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
   }
   return (
     <>
-      <FormItemWrapper name={['company', 'name']} label="Name" rules={requiredWithWhitspcFieldRules}>
-        <InputWrapper />
+      <FormItemWrapper label="Name">
+        <Space.Compact block>
+          <FormItemWrapper className="w-75" name={['company', 'name']} rules={requiredWithWhitspcFieldRules}>
+            <InputWrapper />
+          </FormItemWrapper>
+          <FormItemWrapper
+            name={['company', 'suffix_domain']}
+            initialValue={domainSuffix}
+            label=""
+            rules={requiredWithWhitspcFieldRules}
+          >
+            <InputWrapper addonAfter={domainName} readOnly />
+          </FormItemWrapper>
+        </Space.Compact>
       </FormItemWrapper>
       <ColWrapper>
         <FormItemWrapper name={['company', 'support_number']} label="Support Number" rules={[...requiredFieldRules]}>
@@ -39,7 +53,7 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['company', 'support_email']} label="Support Email">
+        <FormItemWrapper name={['company', 'support_email']} label="Support Email" rules={[...requiredFieldRules]}>
           <InputWrapper />
         </FormItemWrapper>
       </ColWrapper>
