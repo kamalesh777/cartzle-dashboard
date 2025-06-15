@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import Toast from '@/components/Common/Toast'
-import { AUTH_PATHS } from '@/constants/AppConstant'
+import { AUTH_PATHS, LOGOUT_ROUTE } from '@/constants/AppConstant'
 
 export const API = axios.create()
 
@@ -85,14 +85,14 @@ API.interceptors.response.use(
               window.location.reload()
             } else {
               Toast('error', 'Your session has expired! Please re-login.')
-              window.location.replace('/auth/logout')
+              window.location.replace(LOGOUT_ROUTE)
             }
           } catch (refreshError) {
             Toast('error', 'Unable to refresh session. Please log in again.')
-            window.location.replace('/auth/logout')
+            window.location.replace(LOGOUT_ROUTE)
           }
         } else {
-          window.location.replace('/auth/logout')
+          window.location.replace(LOGOUT_ROUTE)
         }
       }
     }

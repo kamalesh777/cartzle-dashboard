@@ -9,6 +9,7 @@ export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 export const AUTH_PATHS = ['/auth/login', '/auth/logout', '/auth/register', '/auth/forgot-password']
 
 export const LOGIN_ROUTE = '/auth/login'
+export const LOGOUT_ROUTE = '/auth/logout'
 export const SETTINGS_ROUTE = '/settings'
 export const USER_PERMISSION_ROUTE = '/user-permissions'
 export const PRODUCT_LIST_ROUTE = '/products'
