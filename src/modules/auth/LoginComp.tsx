@@ -56,7 +56,6 @@ const LoginComp = (): JSX.Element => {
               <FormItemWrapper name="remember" valuePropName="checked" label={null}>
                 <Checkbox>Remember me</Checkbox>
               </FormItemWrapper>
-
               <FormItemWrapper label={null}>
                 <ButtonWrapper type="primary" htmlType="submit" loading={buttonLoading}>
                   Submit

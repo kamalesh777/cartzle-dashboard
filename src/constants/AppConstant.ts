@@ -5,6 +5,9 @@ export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
 export const EMPTY_PLACEHOLDER = '--'
 export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME
 
+// List of paths where we don't want to generate new tokens for 401 and 403 errors
+export const AUTH_PATHS = ['/auth/login', '/auth/logout', '/auth/register', '/auth/forgot-password']
+
 export const LOGIN_ROUTE = '/auth/login'
 export const SETTINGS_ROUTE = '/settings'
 export const USER_PERMISSION_ROUTE = '/user-permissions'
