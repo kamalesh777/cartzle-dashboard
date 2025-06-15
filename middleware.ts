@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const LOGIN_ROUTE = '/auth/login'
+import { LOGIN_ROUTE } from './src/constants/AppConstant'
 
 // This function can be marked `async` if using `await` inside
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
