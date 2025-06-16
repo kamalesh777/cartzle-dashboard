@@ -2,7 +2,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import Toast from '@/components/Common/Toast'
-import { LOGOUT_ROUTE } from '@/constants/AppConstant'
 
 export const API = axios.create()
 
@@ -42,7 +41,7 @@ API.interceptors.request.use(
     req.headers.Pragma = 'no-cache'
     req.headers['Content-Type'] = 'application/json'
     // get the hostname from the cookie for debug purpose
-    req.headers['X-client-host'] = Cookies.get('hostname') || req.headers['X-client-host']
+    req.headers['X-client-host'] = req.headers['X-client-host']
     req.maxContentLength = Infinity
     req.maxBodyLength = Infinity
 
@@ -77,7 +76,7 @@ API.interceptors.response.use(
           return await Promise.reject(err)
         }
       } else {
-        window.location.replace(LOGOUT_ROUTE)
+        // window.location.replace(LOGOUT_ROUTE)
         return await Promise.reject(err)
       }
     }

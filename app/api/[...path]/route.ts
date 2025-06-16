@@ -21,11 +21,17 @@ async function handleRequest(request: Request): Promise<Response> {
 
   const Cookies = cookies()
   const debugValue = Cookies.get('debug')?.value
+  const hostname = Cookies.get('hostname')?.value
+
   const accessToken = Cookies.get('accessToken')?.value
   const refreshToken = Cookies.get('refreshToken')?.value
 
   if (debugValue) {
     nextRequest.searchParams.set('debug', debugValue)
+  }
+
+  if (hostname) {
+    nextRequest.hostname = hostname
   }
 
   // It will give the original API endpoint
@@ -54,7 +60,7 @@ async function handleRequest(request: Request): Promise<Response> {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
-        'X-client-host': nextRequest.host,
+        'X-client-host': nextRequest.hostname,
         'X-refresh-token': refreshToken,
       },
     })

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input, Checkbox, Row } from 'antd'
+import { Form, Input, Checkbox, Row, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
 import { useRouter } from 'next/navigation'
@@ -22,7 +22,11 @@ interface ResultTypes {
 
 const LoginComp = (): JSX.Element => {
   const router = useRouter()
-  const { submit, buttonLoading } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>('post', false)
+  const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>(
+    'post',
+    false,
+    false,
+  )
 
   const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
     const resp = await submit('/api/login', formValues, null)
@@ -37,10 +41,13 @@ const LoginComp = (): JSX.Element => {
   return (
     <div className="login-bg auth-container">
       <Row justify="center" align="middle" className="h-100">
-        <ColWrapper md={6}>
+        <ColWrapper md={7}>
           <CardWrapper>
             <h2 className="mb-3">Login Now!</h2>
+
             <Form layout="vertical" onFinish={formSubmitHandler}>
+              {!isSuccess && data?.message ? <Alert message={data?.message} type="error" showIcon className="my-3" /> : null}
+
               <FormItemWrapper
                 label="Email / Mobile"
                 name="email"

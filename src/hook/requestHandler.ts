@@ -45,7 +45,7 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
       const res = method === 'post' ? await postRequest(endPoint, payload || {}) : await putRequest(endPoint, payload || {})
 
       if (res.data.success) {
-        setData(res.data.result as T)
+        setData(res.data as T)
         setIsSuccess(true)
 
         if (successToast) Toast('success', res.data.message || 'Request successful')
@@ -54,8 +54,12 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
 
         response = res.data as T
       } else {
+        setData(res.data as T)
+        setIsSuccess(false)
+        // if the message is an object, then we need to get the message from the object
         const message = typeof res.data.message === 'string' ? res.data.message : 'An error occurred'
         response = res.data as T
+
         if (failToast) Toast('error', message)
       }
     } catch (err) {
