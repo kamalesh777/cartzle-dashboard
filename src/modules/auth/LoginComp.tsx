@@ -41,7 +41,11 @@ const LoginComp = (): JSX.Element => {
           <CardWrapper>
             <h2 className="mb-3">Login Now!</h2>
             <Form layout="vertical" onFinish={formSubmitHandler}>
-              <FormItemWrapper label="Username" name="email" rules={[{ required: true, message: 'Please input your username!' }]}>
+              <FormItemWrapper
+                label="Email / Mobile"
+                name="email"
+                rules={[{ required: true, message: 'Please input your username!' }]}
+              >
                 <InputWrapper />
               </FormItemWrapper>
 

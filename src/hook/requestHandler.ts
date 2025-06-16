@@ -55,6 +55,7 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
         response = res.data as T
       } else {
         const message = typeof res.data.message === 'string' ? res.data.message : 'An error occurred'
+        response = res.data as T
         if (failToast) Toast('error', message)
       }
     } catch (err) {
