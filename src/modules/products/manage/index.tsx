@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { Form, Input, Radio, Row } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import { Form, Input, Row, Upload } from 'antd'
 
 import { useParams } from 'next/navigation'
 
@@ -21,7 +22,6 @@ import {
 import {
   categoriesOptions,
   COMMON_ROW_GUTTER,
-  MeasurementOptions,
   PRODUCT_LIST_ROUTE,
   requiredFieldRules,
   requiredWithWhitspcFieldRules,
@@ -78,82 +78,71 @@ const ProductManageComp = (): JSX.Element => {
   const MAIN_COMP = (
     <CardWrapper title={cardTitle}>
       <Form layout="vertical" form={form} onFinish={formSubmitHandler} initialValues={{ category: 'raw' }}>
-        <Row gutter={COMMON_ROW_GUTTER}>
-          <ColWrapper md={12}>
-            <FormItemWrapper name="name" label="Product name" rules={requiredWithWhitspcFieldRules}>
+        <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
+          {/* Left side fields */}
+          <ColWrapper md={14}>
+            <FormItemWrapper name="title" label="Title" rules={requiredWithWhitspcFieldRules}>
               <InputWrapper />
             </FormItemWrapper>
-          </ColWrapper>
-          <ColWrapper md={12}>
-            <FormItemWrapper name="wood_type" label="Wood Type" rules={requiredWithWhitspcFieldRules}>
-              <SelectWrapper />
-            </FormItemWrapper>
-          </ColWrapper>
-        </Row>
-        <Row>
-          <ColWrapper md="24">
-            <FormItemWrapper name="description" label="Product description">
+            <FormItemWrapper name="description" label="Description">
               <Input.TextArea rows={3} />
             </FormItemWrapper>
-          </ColWrapper>
-        </Row>
 
-        <Row>
-          <ColWrapper>
+            <FormItemWrapper name="media" label="Media">
+              <Upload.Dragger>
+                <p className="ant-upload-drag-icon">
+                  <UploadOutlined />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                {/* <small className="ant-upload-hint">Only Accept  </small> */}
+              </Upload.Dragger>
+            </FormItemWrapper>
+
+            <Row gutter={COMMON_ROW_GUTTER}>
+              <ColWrapper md={12}>
+                <FormItemWrapper name="cost_price" label="Cost Price" rules={requiredFieldRules}>
+                  <InputNumberWrapper />
+                </FormItemWrapper>
+              </ColWrapper>
+              <ColWrapper md={12}>
+                <FormItemWrapper
+                  name="sale_price"
+                  label="Sale Price"
+                  dependencies={['cost_price']}
+                  rules={[
+                    ...requiredFieldRules,
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || value > getFieldValue('cost_price')) {
+                          return Promise.resolve()
+                        }
+                        return Promise.reject(new Error('Sale price should be greater than Cost price!'))
+                      },
+                    }),
+                  ]}
+                >
+                  <InputNumberWrapper />
+                </FormItemWrapper>
+              </ColWrapper>
+            </Row>
+          </ColWrapper>
+
+          {/* Right side fields */}
+          <ColWrapper md={9}>
+            <FormItemWrapper name="party" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
+              <SelectWrapper />
+            </FormItemWrapper>
+            <FormItemWrapper name="type" label="Type" rules={requiredWithWhitspcFieldRules}>
+              <SelectWrapper />
+            </FormItemWrapper>
             <FormItemWrapper name="category" label="Category">
-              <Radio.Group options={categoriesOptions} />
+              <SelectWrapper options={categoriesOptions} />
+            </FormItemWrapper>
+            <FormItemWrapper name="tags" label="Tags">
+              <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
             </FormItemWrapper>
           </ColWrapper>
         </Row>
-        {isRawMaterial ? (
-          <Row gutter={COMMON_ROW_GUTTER}>
-            <ColWrapper md={12}>
-              <FormItemWrapper name={['width', 'value']} label="Width" rules={requiredFieldRules}>
-                <InputNumberWrapper
-                  addonAfter={
-                    <FormItemWrapper name={['width', 'unit']} initialValue={'in'} noStyle>
-                      <SelectWrapper options={MeasurementOptions} />
-                    </FormItemWrapper>
-                  }
-                />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper name={['width', 'value']} label="Thickness" rules={requiredFieldRules}>
-                <InputNumberWrapper
-                  addonAfter={
-                    <FormItemWrapper name={['thickness', 'unit']} initialValue={'in'} noStyle>
-                      <SelectWrapper options={MeasurementOptions} />
-                    </FormItemWrapper>
-                  }
-                />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper name={['length', 'value']} label="Length" rules={requiredFieldRules}>
-                <InputNumberWrapper
-                  addonAfter={
-                    <FormItemWrapper name={['length', 'unit']} initialValue={'in'} noStyle>
-                      <SelectWrapper options={MeasurementOptions} />
-                    </FormItemWrapper>
-                  }
-                />
-              </FormItemWrapper>
-            </ColWrapper>
-            {/* common quantity and stock location field */}
-            {COMMON_FIELDS}
-          </Row>
-        ) : (
-          <Row gutter={COMMON_ROW_GUTTER}>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="party" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-            {/* common quantity and stock location field */}
-            {COMMON_FIELDS}
-          </Row>
-        )}
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper>
             <SpaceWrapper>
