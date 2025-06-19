@@ -21,7 +21,8 @@ async function handleRequest(request: Request): Promise<Response> {
 
   const Cookies = cookies()
   const debugValue = Cookies.get('debug')?.value
-  const hostname = Cookies.get('hostname')?.value
+  // Set the hostname to the request from the environment variable or the cookie
+  const hostname = process.env.NEXT_PUBLIC_LOCAL_HOSTNAME || Cookies.get('hostname')?.value
 
   const accessToken = Cookies.get('accessToken')?.value
   const refreshToken = Cookies.get('refreshToken')?.value
