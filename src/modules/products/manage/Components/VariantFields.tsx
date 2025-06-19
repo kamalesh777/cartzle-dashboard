@@ -32,6 +32,8 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
     }
   }
 
+  const variantsPlaceHolder = ['Color', 'Size', 'Material']
+
   return (
     <CardWrapper
       key={vKey}
@@ -55,7 +57,7 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
             rules={[{ required: true, message: 'Option name is required' }]}
             {...restField}
           >
-            <InputWrapper />
+            <InputWrapper placeholder={variantsPlaceHolder[name]} />
           </FormItemWrapper>
           <FormItemWrapper
             label="Option Value"
@@ -65,8 +67,10 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
           >
             <SelectWrapper mode="tags" tokenSeparators={[',']} showArrow={false} notFoundContent={null} />
           </FormItemWrapper>
-          <SpaceWrapper className="w-100 justify-content-end">
-            <ButtonWrapper onClick={() => remove(name)}>Delete</ButtonWrapper>
+          <SpaceWrapper className="w-100 justify-content-between">
+            <ButtonWrapper className="error-color" onClick={() => remove(name)}>
+              Delete
+            </ButtonWrapper>
             <ButtonWrapper className="bg-secondary text-white" onClick={() => saveVariant(name)}>
               Save
             </ButtonWrapper>
