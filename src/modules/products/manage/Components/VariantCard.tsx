@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons'
 
 import { Form, type FormInstance } from 'antd'
 
-import { ButtonWrapper, CardWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, CardWrapper, EmptyWrapper } from '@/components/Wrapper'
 
 import VariantFields from './VariantFields'
 
@@ -27,9 +27,11 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
             </div>
           }
         >
-          {fields.map((field, index) => (
-            <VariantFields key={index} field={field} remove={remove} form={form} />
-          ))}
+          {fields?.length > 0 ? (
+            fields.map((field, index) => <VariantFields key={index} field={field} remove={remove} form={form} />)
+          ) : (
+            <EmptyWrapper onClick={() => add()} entity="variants" />
+          )}
         </CardWrapper>
       )}
     </Form.List>

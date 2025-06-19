@@ -4,6 +4,7 @@ import CheckBoxWrapper from './CheckBoxWrapper'
 import ColWrapper from './ColWrapper'
 import DropdownWrapper from './DropdownWrapper'
 import EmailWrapper from './EmailWrapper'
+import EmptyWrapper from './EmptyWrapper'
 import FormItemWrapper from './FormItemWrapper'
 import InputNumberWrapper from './InputNumberWrapper'
 import InputSearchWrapper from './InputSearchWrapper'
@@ -40,4 +41,5 @@ export {
   SubmitButtonWrapper,
   InputSearchWrapper,
   SpaceWrapper,
+  EmptyWrapper,
 }
