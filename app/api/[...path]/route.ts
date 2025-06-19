@@ -26,10 +26,12 @@ async function handleRequest(request: Request): Promise<Response> {
   const accessToken = Cookies.get('accessToken')?.value
   const refreshToken = Cookies.get('refreshToken')?.value
 
+  // Set the debug value to the request
   if (debugValue) {
     nextRequest.searchParams.set('debug', debugValue)
   }
 
+  // Set the hostname to the request
   if (hostname) {
     nextRequest.hostname = hostname
   }
