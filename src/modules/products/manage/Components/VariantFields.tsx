@@ -23,7 +23,7 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
 
   const variantArr = Form.useWatch('variants', form)
-  const [inputEdit, setInputEdit] = useState<boolean>(true)
+  const [inputEdit, setInputEdit] = useState<boolean>(false)
 
   /** Save variant
    * @param name - variant name

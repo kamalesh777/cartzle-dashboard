@@ -21,3 +21,9 @@ export interface VariantOptionTypes {
   op_name: string
   op_value: string[]
 }
+
+export interface VariantCombination {
+  label: string
+  children?: VariantCombination[]
+  options?: Record<string, string>
+}

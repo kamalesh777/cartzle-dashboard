@@ -27,9 +27,23 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
     })
   }, [form, initialGroupBy, variantArr])
 
+  const staticData = [
+    {
+      op_name: 'color',
+      op_value: ['red', 'green', 'blue'],
+    },
+    {
+      op_name: 'size',
+      op_value: ['4gb', '6gb'],
+    },
+    {
+      op_name: 'rom',
+      op_value: ['64gb', '128gb'],
+    },
+  ]
   return (
     <>
-      <Form.List name="variants">
+      <Form.List name="variants" initialValue={staticData}>
         {(fields, { add, remove }) => (
           <CardWrapper
             title={
