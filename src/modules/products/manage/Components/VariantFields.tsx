@@ -52,12 +52,12 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
       {!inputEdit ? (
         <>
           <SpaceWrapper className="w-100 justify-content-between">
-            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'option_name'])}</p>
+            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'op_name'])}</p>
             <TooltipWrapper title="Delete variant">
               <ButtonWrapper type="link" icon={<DeleteOutlined />} className="error-color" onClick={() => remove(name)} />
             </TooltipWrapper>
           </SpaceWrapper>
-          {form.getFieldValue(['variants', name, 'option_value']).map((item: string, index: number) => (
+          {form.getFieldValue(['variants', name, 'op_value']).map((item: string, index: number) => (
             <Tag key={index} color="processing">
               {item}
             </Tag>
@@ -67,7 +67,7 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
         <>
           <FormItemWrapper
             label="Option Name"
-            name={[name, 'option_name']}
+            name={[name, 'op_name']}
             rules={[{ required: true, message: 'Option name is required' }]}
             {...restField}
           >
@@ -75,11 +75,11 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
           </FormItemWrapper>
           <FormItemWrapper
             label="Option Value"
-            name={[name, 'option_value']}
+            name={[name, 'op_value']}
             rules={[{ required: true, message: 'Option value is required' }]}
             {...restField}
           >
-            <SelectWrapper mode="tags" tokenSeparators={[',']} showArrow={false} notFoundContent={null} />
+            <SelectWrapper mode="tags" tokenSeparators={[',', ' ']} showArrow={false} notFoundContent={null} />
           </FormItemWrapper>
           <SpaceWrapper className="w-100 justify-content-between">
             <ButtonWrapper className="error-color" onClick={() => remove(name)}>

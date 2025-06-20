@@ -28,6 +28,7 @@ import {
 import { getCurrency, getProfitMargin } from '@/utils/currency'
 
 import VariantCardComp from './Components/VariantCard'
+import VariantsTable from './Components/VariantsTable'
 
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
@@ -61,41 +62,6 @@ const ProductManageComp = (): JSX.Element => {
   }
   console.log('===isRawMaterial', isRawMaterial)
 
-  /** Common fields for raw and finished products */
-  const COMMON_FIELDS = (
-    <>
-      <ColWrapper md={12}>
-        <FormItemWrapper name="stock_location" label="Stock Location">
-          <SelectWrapper />
-        </FormItemWrapper>
-      </ColWrapper>
-      <ColWrapper md={12}>
-        <FormItemWrapper name="cost_price" label="Cost Price" rules={requiredFieldRules}>
-          <InputNumberWrapper />
-        </FormItemWrapper>
-      </ColWrapper>
-      <ColWrapper md={12}>
-        <FormItemWrapper
-          name="sale_price"
-          label="Sale Price"
-          dependencies={['cost_price']}
-          rules={[
-            ...requiredFieldRules,
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || value > getFieldValue('cost_price')) {
-                  return Promise.resolve()
-                }
-                return Promise.reject(new Error('Sale price should be greater than Cost price!'))
-              },
-            }),
-          ]}
-        >
-          <InputNumberWrapper />
-        </FormItemWrapper>
-      </ColWrapper>
-    </>
-  )
   /** Main component */
   const MAIN_COMP = (
     <>
@@ -164,6 +130,8 @@ const ProductManageComp = (): JSX.Element => {
               </Row>
             </CardWrapper>
             <VariantCardComp form={form} />
+            {/* Variants table */}
+            <VariantsTable form={form} />
           </ColWrapper>
 
           {/* Right side fields */}

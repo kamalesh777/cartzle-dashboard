@@ -217,7 +217,9 @@ header.ant-layout-header.fix-header {
     background: aliceblue;
     height: 100%;
 }
-
+.anticon.anticon-menu:hover {
+	color: var(--primary-color);
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
