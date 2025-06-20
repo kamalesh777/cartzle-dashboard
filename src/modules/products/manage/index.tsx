@@ -115,12 +115,12 @@ const ProductManageComp = (): JSX.Element => {
                   </FormItemWrapper>
                 </ColWrapper>
                 <ColWrapper md={12}>
-                  <FormItemWrapper name="profit" label="Profit" rules={requiredFieldRules}>
+                  <FormItemWrapper name="profit" label="Profit" className="mb-2">
                     <InputWrapper readOnly />
                   </FormItemWrapper>
                 </ColWrapper>
                 <ColWrapper md={12}>
-                  <FormItemWrapper name="margin" label="Margin" rules={requiredFieldRules}>
+                  <FormItemWrapper name="margin" label="Margin" className="mb-2">
                     <InputNumberWrapper
                       formatter={value => (value !== EMPTY_PLACEHOLDER ? value + '%' : EMPTY_PLACEHOLDER)}
                       readOnly
