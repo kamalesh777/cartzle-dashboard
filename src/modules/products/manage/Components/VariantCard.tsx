@@ -6,7 +6,7 @@ import { Form, type FormInstance } from 'antd'
 
 import { startCase } from 'lodash'
 
-import type { VariantOptionTypes } from '../types'
+import type { OptionTypes } from '../types'
 
 import { ButtonWrapper, CardWrapper, EmptyWrapper, FormItemWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
 
@@ -58,7 +58,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
               <SelectWrapper
                 style={{ width: '200px' }}
                 defaultActiveFirstOption
-                options={variantArr?.map((variant: VariantOptionTypes) => ({
+                options={variantArr?.map((variant: OptionTypes) => ({
                   label: startCase(variant?.op_name),
                   value: variant?.op_name,
                 }))}
