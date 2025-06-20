@@ -37,7 +37,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     {
       title: 'Variant',
       dataIndex: 'label',
-      key: 'key',
       width: '40%',
     },
     {
@@ -76,7 +75,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   return computedVariants?.length > 0 ? (
-    <TableWrapper columns={columns} rowSelection={{ ...rowSelection }} dataSource={computedVariants} />
+    <TableWrapper columns={columns} rowKey="key" rowSelection={rowSelection} dataSource={computedVariants} />
   ) : null
 }
 
