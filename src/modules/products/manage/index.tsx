@@ -33,7 +33,6 @@ import VariantsTable from './Components/VariantsTable'
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
-  const isRawMaterial = Form.useWatch('category', form) === 'raw'
   const costPrice = Form.useWatch('cost_price', form)
   const salePrice = Form.useWatch('sale_price', form)
 
@@ -60,7 +59,6 @@ const ProductManageComp = (): JSX.Element => {
   const formSubmitHandler = async (formValue: ProductFormValueTypes): Promise<void> => {
     console.log('===formValue', formValue)
   }
-  console.log('===isRawMaterial', isRawMaterial)
 
   /** Main component */
   const MAIN_COMP = (

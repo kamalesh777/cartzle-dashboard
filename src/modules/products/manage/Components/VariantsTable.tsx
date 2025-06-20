@@ -12,7 +12,7 @@ import type { TableRowSelection } from 'antd/es/table/interface'
 import { TableActionButton } from '@/components/Common'
 import { TableWrapper } from '@/components/Wrapper'
 
-import { computeVariants } from '../utils/comuteVariants'
+import { computeVariants } from '../utils/computeVariants'
 
 interface PropTypes {
   form: FormInstance
@@ -34,6 +34,8 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       setComputedVariants([])
     }
   }, [variants, groupBy])
+
+  console.log('===computedVariants', computedVariants)
 
   // Table columns
   const columns: TableColumnsType<GroupedVariant> = [

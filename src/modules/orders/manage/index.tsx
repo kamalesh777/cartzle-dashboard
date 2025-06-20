@@ -38,7 +38,6 @@ const OrderManageComp = (): JSX.Element => {
   const formSubmitHandler = async (formValue: any): Promise<void> => {
     console.log('===formValue', formValue)
   }
-  console.log('===isRawMaterial', isRawMaterial)
 
   const formInitialValues = {
     type: 'purchase',
