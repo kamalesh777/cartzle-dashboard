@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
 
+import { DeleteOutlined } from '@ant-design/icons'
 import { Form, Tag, type FormInstance } from 'antd'
 
-import { CardWrapper, FormItemWrapper, InputWrapper, SelectWrapper, SpaceWrapper, ButtonWrapper } from '@/components/Wrapper'
+import {
+  CardWrapper,
+  FormItemWrapper,
+  InputWrapper,
+  SelectWrapper,
+  SpaceWrapper,
+  ButtonWrapper,
+  TooltipWrapper,
+} from '@/components/Wrapper'
 
 interface PropTypes {
   field: { name: number; key: React.Key }
@@ -42,7 +51,12 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
     >
       {!inputEdit ? (
         <>
-          <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'option_name'])}</p>
+          <SpaceWrapper className="w-100 justify-content-between">
+            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'option_name'])}</p>
+            <TooltipWrapper title="Delete variant">
+              <ButtonWrapper type="link" icon={<DeleteOutlined />} className="error-color" onClick={() => remove(name)} />
+            </TooltipWrapper>
+          </SpaceWrapper>
           {form.getFieldValue(['variants', name, 'option_value']).map((item: string, index: number) => (
             <Tag key={index} color="processing">
               {item}
