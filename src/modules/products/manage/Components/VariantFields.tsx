@@ -45,8 +45,9 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
 
   return (
     <CardWrapper
+      bodyStyle={{ padding: '15px' }}
       key={vKey}
-      className={`bg-gray-100 cursor-pointer ${variantArr?.length !== key + 1 ? 'mb-3' : ''}`}
+      className={`bg-gray-100 cursor-pointer ${variantArr?.length - 1 === vKey ? 'mb-3' : ''}`}
       onClick={() => setInputEdit(true)}
     >
       {!inputEdit ? (

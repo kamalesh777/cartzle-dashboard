@@ -45,20 +45,18 @@ export const computeVariants = (options: OptionTypes[], groupBy: string): Groupe
   const combinations = getCombinations(restValues)
 
   // Create children array from combinations
-  const getChildren = (groupBy?: string): GroupedVariant['children'] =>
+  const children =
     combinations.flat()?.length > 0
       ? combinations.map(combo => ({
           label: combo.join('/'),
           value: combo,
-          key: `child-of-${groupBy}`,
         }))
       : []
 
   // Create grouped variants
   return groupOption?.op_value?.map(groupValue => ({
     label: groupValue,
-    key: `parent-${groupValue}`,
-    ...(getChildren(groupValue)?.length ? { children: getChildren(groupValue) } : {}),
+    ...(children?.length ? { children } : {}),
   }))
 }
 

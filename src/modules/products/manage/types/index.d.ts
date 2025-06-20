@@ -17,7 +17,7 @@ export interface Variant {
   value: string[]
 }
 
-export interface OptionTypes {
+export interface VariantOptionTypes {
   op_name: string
   op_value: string[]
 }
