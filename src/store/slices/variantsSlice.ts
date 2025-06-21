@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VariantCombination, VariantOptionTypes } from '@/modules/products/manage/types'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+
+import type { VariantCombination, VariantOptionTypes } from '@/modules/products/manage/types'
 
 interface VariantsState {
   variantsTable: VariantCombination[]
@@ -10,7 +11,7 @@ interface VariantsState {
 const initialState: VariantsState = {
   variantsTable: [],
   variants: [],
-  groupBy: ''
+  groupBy: '',
 }
 
 const variantsSlice = createSlice({

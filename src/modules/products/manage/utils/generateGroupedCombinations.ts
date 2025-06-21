@@ -5,11 +5,11 @@ import type { VariantCombination, VariantItem, VariantOptionTypes } from '../typ
  * @param options Array of options with their values
  * @param groupBy Key to group variants by
  * @returns Array of grouped variants
- */ 
+ */
 export const generateGroupedCombinations = (
   options: VariantOptionTypes[],
   groupBy: string,
-  existingData?: VariantCombination[]
+  existingData?: VariantCombination[],
 ): VariantCombination[] => {
   const allCombinations: Array<{ label: string; options: Record<string, string> }> = []
 
@@ -34,6 +34,7 @@ export const generateGroupedCombinations = (
   recurse()
 
   // Helpers to recover previous values
+  // eslint-disable-next-line consistent-return
   const findExistingChildData = (label: string): Partial<VariantItem> | undefined => {
     for (const group of existingData || []) {
       if (group?.children) {

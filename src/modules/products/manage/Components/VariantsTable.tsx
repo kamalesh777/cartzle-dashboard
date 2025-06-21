@@ -1,49 +1,52 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Form, type TableColumnsType } from 'antd';
-import type { FormInstance } from 'antd';
-import type { TableRowSelection } from 'antd/es/table/interface';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useMemo, useState } from 'react'
 
-import type { VariantCombination, VariantItem, VariantOptionTypes } from '../types';
-import { InfoTooltip, TableActionButton } from '@/components/Common';
-import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper';
-import { getCurrency } from '@/utils/currency';
-import { generateGroupedCombinations } from '../utils/generateGroupedCombinations';
-import VariantsGroupModal from '../modal/VariantsGroupModal';
-import { setVariantsTable } from '@/store/slices/variantsSlice';
-import { RootState } from '@/store/index';
-import { FormOutlined, RightSquareOutlined } from '@ant-design/icons';
+import { FormOutlined } from '@ant-design/icons'
+import { Form, type TableColumnsType, type FormInstance } from 'antd'
+
+import { useDispatch, useSelector } from 'react-redux'
+
+import type { VariantCombination, VariantOptionTypes } from '../types'
+import type { RootState } from '@/store/index'
+import type { TableRowSelection } from 'antd/es/table/interface'
+
+import { InfoTooltip, TableActionButton } from '@/components/Common'
+import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
+import { setVariantsTable } from '@/store/slices/variantsSlice'
+import { getCurrency } from '@/utils/currency'
+
+import VariantsGroupModal from '../modal/VariantsGroupModal'
+import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
 
 interface PropTypes {
-  form: FormInstance;
+  form: FormInstance
 }
 
 const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // variants table state from store
-  const variantsTableState = useSelector((state: RootState) => state.variants?.variantsTable);
+  const variantsTableState = useSelector((state: RootState) => state.variants?.variantsTable)
 
   // variants from form
-  const variantsCard = Form.useWatch('variants', form);
-  const groupBy = Form.useWatch('group_by', form);
+  const variantsCard = Form.useWatch('variants', form)
+  const groupBy = Form.useWatch('group_by', form)
 
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedList, setSelectedList] = useState<VariantCombination>();
+  const [openModal, setOpenModal] = useState(false)
+  const [selectedList, setSelectedList] = useState<VariantCombination>()
 
   // filter variants with op_value length > 0
   const variantsArr = useMemo(() => {
-    return variantsCard?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0);
-  }, [variantsCard]);
+    return variantsCard?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
+  }, [variantsCard])
 
   // generate grouped combinations on variants change
   useEffect(() => {
     if (variantsArr?.length) {
-      const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState);
-      dispatch(setVariantsTable(data));
+      const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
+      dispatch(setVariantsTable(data))
     } else {
-      dispatch(setVariantsTable([]));
+      dispatch(setVariantsTable([]))
     }
-  }, [JSON.stringify(variantsArr), groupBy]);
+  }, [JSON.stringify(variantsArr), groupBy])
 
   // table columns
   const columns: TableColumnsType<VariantCombination> = [
@@ -62,9 +65,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           prefix={getCurrency()}
           defaultValue={record.sell_price}
           size="small"
-          onChange={(value) =>
-            rowChangeHandler({ ...record, sell_price: value as number })
-          }
+          onChange={value => rowChangeHandler({ ...record, sell_price: value as number })}
         />
       ),
     },
@@ -77,9 +78,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           prefix={getCurrency()}
           defaultValue={record.cost_price}
           size="small"
-          onChange={(value) =>
-            rowChangeHandler({ ...record, cost_price: value as number })
-          }
+          onChange={value => rowChangeHandler({ ...record, cost_price: value as number })}
         />
       ),
     },
@@ -92,9 +91,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           prefix={getCurrency()}
           defaultValue={record.available}
           size="small"
-          onChange={(value) =>
-            rowChangeHandler({ ...record, available: value as number })
-          }
+          onChange={value => rowChangeHandler({ ...record, available: value as number })}
         />
       ),
     },
@@ -104,52 +101,52 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       fixed: 'right',
       width: 50,
       className: 'text-right',
-      render: (_, record) => <TableActionButton items={[]} icon={<FormOutlined onClick={() => editRowHandler(record)} />} tooltipTitle="Edit" />,
+      render: (_, record) => (
+        <TableActionButton items={[]} icon={<FormOutlined onClick={() => editRowHandler(record)} />} tooltipTitle="Edit" />
+      ),
     },
-  ];
+  ]
 
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-  };
+  }
 
   /**
    * Handle row change in variants table
    * @param updatedRecord - updated record
    */
-  const rowChangeHandler = (updatedRecord: VariantCombination) => {
-    const finalData = (variantsTableState || []).map((item) => {
+  const rowChangeHandler = (updatedRecord: VariantCombination): void => {
+    const finalData = (variantsTableState || []).map(item => {
       if (item.label === updatedRecord.label && item.parent) {
         return {
           ...item,
           ...updatedRecord,
-          children: item.children?.map((child) => ({
+          children: item.children?.map(child => ({
             ...child,
             sell_price: updatedRecord.sell_price,
             cost_price: updatedRecord.cost_price,
             available: updatedRecord.available,
           })),
-        };
+        }
       }
       if (!updatedRecord.parent && item.parent) {
         return {
           ...item,
-          children: item.children?.map((child) =>
-            child.label === updatedRecord.label ? { ...child, ...updatedRecord } : child
-          ),
-        };
+          children: item.children?.map(child => (child.label === updatedRecord.label ? { ...child, ...updatedRecord } : child)),
+        }
       }
-      return item;
-    });
+      return item
+    })
 
-    dispatch(setVariantsTable(finalData));
-    form.setFieldValue('variants_table', finalData);
-  };
+    dispatch(setVariantsTable(finalData))
+    form.setFieldValue('variants_table', finalData)
+  }
 
   // edit row handler
-  const editRowHandler = (record: VariantCombination) => {
-    setSelectedList(record);
-    setOpenModal(true);
-  };
+  const editRowHandler = (record: VariantCombination): void => {
+    setSelectedList(record)
+    setOpenModal(true)
+  }
 
   return (
     <>
@@ -168,15 +165,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         />
       )}
 
-      {openModal && (
-        <VariantsGroupModal
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          selectedList={selectedList}
-        />
-      )}
+      {openModal && <VariantsGroupModal openModal={openModal} setOpenModal={setOpenModal} selectedList={selectedList} />}
     </>
-  );
-};
+  )
+}
 
-export default VariantsTable;
+export default VariantsTable
