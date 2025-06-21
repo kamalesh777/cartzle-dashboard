@@ -28,7 +28,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   const [computedVariants, setComputedVariants] = React.useState<VariantCombination[]>([])
   const [openModal, setOpenModal] = React.useState(false)
-  const [selectedList, setSelectedList] = React.useState<VariantCombination[]>([])  
+  const [selectedList, setSelectedList] = React.useState<VariantCombination>()  
 
   useEffect(() => {
     const variantsArr = variants?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
@@ -50,14 +50,22 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       className: 'd-flex align-items-center',
     },
     {
-      title: 'Price',
+      title: 'Sell Price',
       dataIndex: 'price',
-      width: '25%',
+      width: '20%',
       render: (_, record) => {
         return (
-          <FormItemWrapper name={['variants_table', record.groupKey, 'price']} noStyle>
-            <InputNumberWrapper prefix={getCurrency()} size="small" />
-          </FormItemWrapper>
+            <InputNumberWrapper prefix={getCurrency()} size="small" onChange={(value) => record.sell_price = value} />
+        )
+      },
+    },
+    {
+      title: 'Cost Price',
+      dataIndex: 'price',
+      width: '20%',
+      render: (_, record) => {
+        return (
+            <InputNumberWrapper prefix={getCurrency()} size="small" onChange={(value) => record.cost_price = value} />
         )
       },
     },
@@ -66,16 +74,22 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dataIndex: 'available',
       width: '20%',
       render: (_, record) => (
-        <FormItemWrapper name={['variants_table', record.groupKey, 'available']} noStyle>
-          <InputNumberWrapper size="small" />
-        </FormItemWrapper>
+          <InputNumberWrapper size="small" onChange={(value) => record.available = value} />
       ),
     },
+    {
+      title: '',
+      dataIndex: 'action',
+      fixed: 'right',
+      width: 50,
+      className: 'text-right',
+      render: (_, record) => <TableActionButton items={[]} />,
+    }
   ]
 
   // Row click handler
   const rowClick = (record: VariantCombination) => {
-    setSelectedList([record])
+    setSelectedList(record)
     setOpenModal(true)
   }
 
@@ -85,20 +99,33 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
     onChange: (selectedRowKeys, selectedRows) => {
-      // form.setFieldsValue({
-      //   variants_table: selectedRows,
-      // })
-      // eslint-disable-next-line no-console
+      
       console.log('===selectedRowKeys:', selectedRows)
     },
   }
 
   const expandable = {
-    expandedRowKeys: []
+    // expandedRowKeys: []
+    onExpand: (expanded, record) => {
+      if (expanded) {
+        record.children = record.children?.map((child: VariantCombination) => {
+          const {children, parent, ...rest} = record
+          return {
+            ...rest,
+            ...child,
+          }
+        })
+      }
+      console.log('===expanded:', expanded)
+      console.log('===record:', record)
+    }
   }
 
   return (
     <>
+    {/* hidden form item for variants table */}
+    <FormItemWrapper name="variants_table" hidden />
+
       {computedVariants?.length > 0 ? (
         <TableWrapper
           columns={columns}
@@ -106,14 +133,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           rowSelection={rowSelection}
           dataSource={computedVariants}
           expandable={expandable}
-          onRow={(record) => ({
-            onClick: () => rowClick(record),
-          })}
         />
       ) : null}
       {
         openModal ? (
-          <VariantsGroupModal openModal={openModal} setOpenModal={setOpenModal} />
+          <VariantsGroupModal openModal={openModal} setOpenModal={setOpenModal} selectedList={selectedList} />
         ) : null
       }
     </>

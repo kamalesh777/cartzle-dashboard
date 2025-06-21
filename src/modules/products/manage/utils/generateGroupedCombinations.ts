@@ -41,8 +41,9 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
   const result = Object.entries(grouped).map(([label, children]) => {
     return {
       label,
-      groupKey: label,
-      children: children.map(item => ({ ...item, groupKey: label })),
+      parent: true,
+      key: label,
+      children: children.map((item, index) => ({ ...item, key: `${label}-${index}` })),
     }
   })
 
