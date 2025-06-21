@@ -4,7 +4,7 @@ import { Form, type TableColumnsType } from 'antd'
 
 // eslint-disable-next-line no-duplicate-imports
 
-import type { VariantCombination, VariantOptionTypes } from '../types'
+import type { VariantCombination, VariantItem, VariantOptionTypes } from '../types'
 // eslint-disable-next-line no-duplicate-imports
 import type { FormInstance } from 'antd'
 import type { TableRowSelection } from 'antd/es/table/interface'
@@ -14,7 +14,7 @@ import { TableActionButton } from '@/components/Common'
 import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
 import { getCurrency } from '@/utils/currency'
 
-import { deduplicateVariants, generateGroupedCombinations } from '../utils/generateGroupedCombinations'
+import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
 import VariantsGroupModal from '../modal/VariantsGroupModal'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { useDispatch } from 'react-redux'
@@ -53,29 +53,35 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     },
     {
       title: 'Sell Price',
-      dataIndex: 'price',
+      dataIndex: 'sell_price',
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper 
-            prefix={getCurrency()} 
-            defaultValue={record.sell_price} 
-            size="small" 
-            onChange={(value) => record.sell_price = value} />
+          <InputNumberWrapper
+            prefix={getCurrency()}
+            defaultValue={record.sell_price}
+            size="small"
+            onChange={(value) =>
+              rowChangeHandler({ ...record, sell_price: value as number })
+            }
+          />
         )
       },
     },
     {
       title: 'Cost Price',
-      dataIndex: 'price',
+      dataIndex: 'cost_price',
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper 
-            prefix={getCurrency()} 
-            defaultValue={record.cost_price} 
-            size="small" 
-            onChange={(value) => record.cost_price = value} />
+          <InputNumberWrapper
+            prefix={getCurrency()}
+            defaultValue={record.cost_price}
+            size="small"
+            onChange={(value) =>
+              rowChangeHandler({ ...record, cost_price: value as number })
+            }
+          />
         )
       },
     },
@@ -84,7 +90,14 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dataIndex: 'available',
       width: '20%',
       render: (_, record) => (
-          <InputNumberWrapper size="small" defaultValue={record.available} onChange={(value) => record.available = value} />
+        <InputNumberWrapper
+          prefix={getCurrency()}
+          defaultValue={record.available}
+          size="small"
+          onChange={(value) =>
+            rowChangeHandler({ ...record, available: value as number })
+          }
+        />
       ),
     },
     {
@@ -106,34 +119,47 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // Table row selection
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-    onChange: (selectedRowKeys, selectedRows) => {
-      
-      console.log('===selectedRowKeys:', selectedRows)
-    },
   }
 
-  const rowChangeHandler = (record: VariantCombination) => {
-    const currentRecord = {
-      ...record,
-      children: record.children?.map((child: VariantCombination) => {
-        const {children, parent, ...rest} = record
+  const rowChangeHandler = (updatedRecord: VariantCombination) => {
+    const tableData = variantsTableData || [];
+    const finalData = tableData.map((item: VariantCombination) => {
+      // Handle updating parent item
+      if (item.label === updatedRecord.label && item.parent) {
         return {
-          ...rest,
-          ...child,
-        }
-      })  
-    }
-    record.children = currentRecord.children
-    const finalData = deduplicateVariants([...variantsTableData, currentRecord])
-    form.setFieldValue('variants_table', finalData)
-    dispatch(setVariantsTable(finalData)) // updating the variants table in the store
-  }
+          ...item,
+          ...updatedRecord,
+          children: item.children?.map((child: VariantItem) => ({
+            ...child, // Keep existing child values intact
+            sell_price: updatedRecord.sell_price,
+            cost_price: updatedRecord.cost_price,
+            available: updatedRecord.available
+          }))
+        };
+      } // If child row is being updated
+      if (!updatedRecord.parent && item.parent) {
+        return {
+          ...item,
+          children: item.children?.map((child: VariantItem) =>
+            child.label === updatedRecord.label
+              ? { ...child, ...updatedRecord }
+              : child
+          )
+        };
+      }
+      return item;
+    });
+
+    dispatch(setVariantsTable(finalData))
+    form.setFieldValue('variants_table', finalData);
+  };
   
-  console.log('===variantsTable:', variantsTableData)
+ 
+
   return (
     <>
-    {/* hidden form item for variants table */}
-    <FormItemWrapper name="variants_table" hidden />
+      {/* hidden form item for variants table */}
+      <FormItemWrapper name="variants_table" hidden />
 
       {variantsTableData?.length > 0 ? (
         <TableWrapper
@@ -141,9 +167,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           rowKey="label"
           rowSelection={rowSelection}
           dataSource={variantsTableData}
-          onRow={(record) => ({
-            onBlur: () => rowChangeHandler(record),
-          })}
+          pagination={false}
         />
       ) : null}
       {

@@ -23,13 +23,21 @@ export interface VariantOptionTypes {
 }
 
 export interface VariantCombination {
-  sell_price?: number
-  cost_price?: number
-  available?: number
-  parent?: boolean
-  open?: boolean
-  key: string
-  label: string
-  children?: VariantCombination[]
-  options?: Record<string, string>
+  label: string;
+  key: string;
+  parent?: boolean;
+  sell_price?: number;
+  cost_price?: number;
+  available?: number;
+  children: VariantItem[];
 }
+
+
+type VariantItem = {
+  label: string;
+  key: string;
+  sell_price?: number;
+  cost_price?: number;
+  available?: number;
+  options: Record<string, string>;
+};

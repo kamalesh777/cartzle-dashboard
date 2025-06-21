@@ -1,4 +1,4 @@
-import type { VariantCombination, VariantOptionTypes } from '../types'
+import type { VariantCombination, VariantItem, VariantOptionTypes } from '../types'
 
 /**
  * Generate all possible combinations of variant values
@@ -43,52 +43,9 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
       label,
       parent: true,
       key: label,
-      children: children.map((item, index) => ({ ...item, key: `${label}-${index}` })),
+      children: children.map((item, index) => ({ ...item, key: `${label}-${index}`, parent: false })),
     }
   })
 
   return result
 }
-
-
-/**
- * Deduplicate variants
- * @param variants - Array of variants
- * @returns Array of deduplicated variants
- */
-export const deduplicateVariants = (variants: VariantCombination[]) => {
-  const groupedMap = new Map<string, any>();
-
-  for (const group of variants) {
-    const key = group.label;
-
-    if (!groupedMap.has(key)) {
-      groupedMap.set(key, {
-        ...group,
-        children: [...(group.children || [])]
-      });
-    } else {
-      const existing = groupedMap.get(key);
-      const merged = [...existing.children, ...(group.children || [])];
-
-      // Deduplicate children using a Set of keys
-      const seen = new Set<string>();
-      const uniqueChildren = [];
-
-      for (const child of merged) {
-        const childKey = child.label; // or child.key
-        if (!seen.has(childKey)) {
-          seen.add(childKey);
-          uniqueChildren.push(child);
-        }
-      }
-
-      groupedMap.set(key, {
-        ...group,
-        children: uniqueChildren
-      });
-    }
-  }
-
-  return Array.from(groupedMap.values());
-};

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VariantCombination, VariantOptionTypes } from '../../modules/products/manage/types'
+import { VariantCombination, VariantOptionTypes } from '@/modules/products/manage/types'
 
 interface VariantsState {
   variantsTable: VariantCombination[]
