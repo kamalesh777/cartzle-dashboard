@@ -9,14 +9,16 @@ import DropdownWrapper from '../Wrapper/DropdownWrapper'
 
 interface PropTypes extends DropdownProps {
   items: MenuProps['items']
+  icon?: React.ReactNode
+  tooltipTitle?: string
 }
 
 const TableActionButton: React.FC<PropTypes> = (props): JSX.Element => {
-  const { items, ...restProps } = props
+  const { items, icon, tooltipTitle, ...restProps } = props
   return (
     <DropdownWrapper menu={{ items }} trigger={['click']} {...restProps}>
-      <TooltipWrapper title="Action">
-        <MenuOutlined style={{ fontSize: '12px' }} />
+      <TooltipWrapper title={tooltipTitle || "Action"}>
+        {icon || <MenuOutlined style={{ fontSize: '12px' }} />}
       </TooltipWrapper>
     </DropdownWrapper>
   )

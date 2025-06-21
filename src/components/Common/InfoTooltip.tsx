@@ -4,12 +4,15 @@ import { InfoCircleOutlined } from '@ant-design/icons'
 
 import type { TooltipProps } from 'antd'
 
-import { TooltipWrapper } from '../Wrapper'
+import { SpaceWrapper, TooltipWrapper } from '../Wrapper'
 
 const InfoTooltip: React.FC<TooltipProps> = (props): JSX.Element => {
   return (
     <TooltipWrapper {...props}>
-      <InfoCircleOutlined className="text-primary" />
+      <SpaceWrapper>
+        {props?.children}
+        <InfoCircleOutlined className="text-primary" />
+      </SpaceWrapper>
     </TooltipWrapper>
   )
 }

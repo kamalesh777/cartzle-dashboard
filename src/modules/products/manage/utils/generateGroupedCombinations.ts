@@ -5,14 +5,18 @@ import type { VariantCombination, VariantItem, VariantOptionTypes } from '../typ
  * @param options Array of options with their values
  * @param groupBy Key to group variants by
  * @returns Array of grouped variants
- */
-export const generateGroupedCombinations = (options: VariantOptionTypes[], groupBy: string): VariantCombination[] => {
+ */ 
+export const generateGroupedCombinations = (
+  options: VariantOptionTypes[],
+  groupBy: string,
+  existingData?: VariantCombination[]
+): VariantCombination[] => {
   const allCombinations: Array<{ label: string; options: Record<string, string> }> = []
 
   const recurse = (depth = 0, current: string[] = [], optionMap: Record<string, string> = {}): void => {
     if (depth === options.length) {
       allCombinations.push({
-        label: current.join('/'),
+        label: current.join(', '),
         options: { ...optionMap },
       })
       return
@@ -29,7 +33,21 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
 
   recurse()
 
-  // Group by selected option key
+  // Helpers to recover previous values
+  const findExistingChildData = (label: string): Partial<VariantItem> | undefined => {
+    for (const group of existingData || []) {
+      if (group?.children) {
+        const match = group.children.find(child => child.label === label)
+        if (match) return match
+      }
+    }
+  }
+
+  const findExistingParentData = (index: number): Partial<VariantCombination> | undefined => {
+    return existingData?.at(index)
+  }
+
+  // Group combinations by selected option key
   const grouped: Record<string, typeof allCombinations> = {}
   for (const item of allCombinations) {
     const key = item.options[groupBy]
@@ -37,31 +55,27 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
     grouped[key].push(item)
   }
 
-  // Format the grouped result
-  const result = Object.entries(grouped).map(([label, children]) => {
+  // Final grouping
+  const result = Object.entries(grouped).map(([label, children], index) => {
+    const existingParent = findExistingParentData(index)
+
     return {
+      ...(existingParent || {}), // keep sell_price, cost_price, available
       label,
       parent: true,
       key: label,
-      children: children.map((item, index) => ({ ...item, key: `${label}-${index}`, parent: false })),
+      children: children.map((item, index) => {
+        const existingChild = findExistingChildData(item.label)
+
+        return {
+          ...item,
+          parent: false,
+          ...(existingChild || {}),
+          key: `${label}-${index}`, // better than undefined-0
+        }
+      }),
     }
   })
 
   return result
-}
-
-
-// Update labels only for parent items when groupBy changes
-export const updateLabels = (data: VariantCombination[], groupBy: string) => {
-  console.log('===groupBy', data, groupBy)
-  const updatedData = data.map((item) => {
-    if (item.parent) { // Only update parent items
-      return {
-        ...item,
-        label: String(item[groupBy as keyof VariantCombination] ?? '')
-      }
-    }
-    return item
-  })
-  return updatedData
 }
