@@ -16,18 +16,21 @@ import { getCurrency } from '@/utils/currency'
 
 import { deduplicateVariants, generateGroupedCombinations } from '../utils/generateGroupedCombinations'
 import VariantsGroupModal from '../modal/VariantsGroupModal'
+import { setVariantsTable } from '@/store/slices/variantsSlice'
+import { useDispatch } from 'react-redux'
 
 interface PropTypes {
   form: FormInstance
 }
 
 const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
+  const dispatch = useDispatch()
   const variants = Form.useWatch('variants', form)
   const groupBy = Form.useWatch('group_by', form)
   const variantsTableData = Form.useWatch('variants_table', form) || []
 
   const [openModal, setOpenModal] = React.useState(false)
-  const [selectedList, setSelectedList] = React.useState<VariantCombination>()  
+  const [selectedList, setSelectedList] = React.useState<VariantCombination>()
 
   useEffect(() => {
     const variantsArr = variants?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
@@ -54,13 +57,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: '20%',
       render: (_, record) => {
         return (
-          <Form.Item name={['variants_table', record?.label, 'sell_price']}>
             <InputNumberWrapper 
             prefix={getCurrency()} 
             defaultValue={record.sell_price} 
             size="small" 
             onChange={(value) => record.sell_price = value} />
-          </Form.Item>
         )
       },
     },
@@ -125,6 +126,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     record.children = currentRecord.children
     const finalData = deduplicateVariants([...variantsTableData, currentRecord])
     form.setFieldValue('variants_table', finalData)
+    dispatch(setVariantsTable(finalData)) // updating the variants table in the store
   }
   
   console.log('===variantsTable:', variantsTableData)

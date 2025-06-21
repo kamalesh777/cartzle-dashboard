@@ -1,10 +1,11 @@
 import { type AnyAction, configureStore, type ThunkDispatch, Tuple } from '@reduxjs/toolkit'
 import { thunk } from 'redux-thunk'
 
-import counterSlice from './slice/counterSlice'
-import menuSlice from './slice/navMenuSlice'
-import themeSlice from './slice/themeSlice'
-import userSlice from './slice/userSlice'
+import counterSlice from './slices/counterSlice'
+import menuSlice from './slices/navMenuSlice'
+import themeSlice from './slices/themeSlice'
+import userSlice from './slices/userSlice'
+import variantsReducer from './slices/variantsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     user: userSlice,
     menu: menuSlice,
     theme: themeSlice,
+    variants: variantsReducer,
   },
   middleware: () => new Tuple(thunk),
 })

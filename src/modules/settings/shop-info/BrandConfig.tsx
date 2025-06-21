@@ -18,7 +18,7 @@ import {
   ColWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
-import { applyThemeColor } from '@/store/slice/themeSlice'
+import { applyThemeColor } from '@/store/slices/themeSlice'
 
 const BrandConfigComp = (): JSX.Element => {
   const [form] = Form.useForm()

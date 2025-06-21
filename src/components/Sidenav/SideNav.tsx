@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd'
 import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
 import { type AppThunkDispatch, type RootState } from '@/store/index'
 
-import { fetchSideNav } from '@/store/slice/navMenuSlice'
+import { fetchSideNav } from '@/store/slices/navMenuSlice'
 import { getCurrentPath } from '@/utils/commonFunctions'
 
 import { NavLink } from '../Common'
