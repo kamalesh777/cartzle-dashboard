@@ -23,9 +23,10 @@ export interface VariantOptionTypes {
 }
 
 export interface VariantCombination {
-  sell_price: any
-  cost_price: any
-  available: any
+  sell_price?: number
+  cost_price?: number
+  available?: number
+  parent?: boolean
   open?: boolean
   key: string
   label: string

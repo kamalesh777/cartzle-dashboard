@@ -15,7 +15,6 @@ import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/
 import { getCurrency } from '@/utils/currency'
 
 import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
-import { ArrowDownOutlined } from '@ant-design/icons'
 import VariantsGroupModal from '../modal/VariantsGroupModal'
 
 interface PropTypes {
@@ -25,6 +24,7 @@ interface PropTypes {
 const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const variants = Form.useWatch('variants', form)
   const groupBy = Form.useWatch('group_by', form)
+  const variantsTable = Form.useWatch('variants_table', form)
 
   const [computedVariants, setComputedVariants] = React.useState<VariantCombination[]>([])
   const [openModal, setOpenModal] = React.useState(false)
@@ -55,7 +55,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper prefix={getCurrency()} size="small" onChange={(value) => record.sell_price = value} />
+            <InputNumberWrapper prefix={getCurrency()} defaultValue={record.sell_price} size="small" onChange={(value) => record.sell_price = value} />
         )
       },
     },
@@ -65,7 +65,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper prefix={getCurrency()} size="small" onChange={(value) => record.cost_price = value} />
+            <InputNumberWrapper prefix={getCurrency()} defaultValue={record.cost_price} size="small" onChange={(value) => record.cost_price = value} />
         )
       },
     },
@@ -74,7 +74,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dataIndex: 'available',
       width: '20%',
       render: (_, record) => (
-          <InputNumberWrapper size="small" onChange={(value) => record.available = value} />
+          <InputNumberWrapper size="small" defaultValue={record.available} onChange={(value) => record.available = value} />
       ),
     },
     {
@@ -104,23 +104,22 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     },
   }
 
-  const expandable = {
-    // expandedRowKeys: []
-    onExpand: (expanded, record) => {
-      if (expanded) {
-        record.children = record.children?.map((child: VariantCombination) => {
-          const {children, parent, ...rest} = record
-          return {
-            ...rest,
-            ...child,
-          }
-        })
-      }
-      console.log('===expanded:', expanded)
-      console.log('===record:', record)
+  const rowChangeHandler = (record: VariantCombination) => {
+    const variantsTable = {
+      ...record,
+      children: record.children?.map((child: VariantCombination) => {
+        const {children, parent, ...rest} = record
+        return {
+          ...rest,
+          ...child,
+        }
+      })  
     }
+    record.children = variantsTable.children
+    form.setFieldValue('variants_table', variantsTable)
   }
-
+  
+  console.log('===variantsTable:', variantsTable)
   return (
     <>
     {/* hidden form item for variants table */}
@@ -132,7 +131,10 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           rowKey="label"
           rowSelection={rowSelection}
           dataSource={computedVariants}
-          expandable={expandable}
+          // expandable={expandable}
+          onRow={(record) => ({
+            onBlur: () => rowChangeHandler(record),
+          })}
         />
       ) : null}
       {
