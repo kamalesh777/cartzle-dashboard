@@ -14,7 +14,7 @@ import { TableActionButton } from '@/components/Common'
 import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
 import { getCurrency } from '@/utils/currency'
 
-import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
+import { deduplicateVariants, generateGroupedCombinations } from '../utils/generateGroupedCombinations'
 import VariantsGroupModal from '../modal/VariantsGroupModal'
 
 interface PropTypes {
@@ -24,9 +24,8 @@ interface PropTypes {
 const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const variants = Form.useWatch('variants', form)
   const groupBy = Form.useWatch('group_by', form)
-  const variantsTable = Form.useWatch('variants_table', form)
+  const variantsTableData = Form.useWatch('variants_table', form) || []
 
-  const [computedVariants, setComputedVariants] = React.useState<VariantCombination[]>([])
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedList, setSelectedList] = React.useState<VariantCombination>()  
 
@@ -35,9 +34,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     // check if variantsArr is not empty
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy)
-      setComputedVariants(data as VariantCombination[])
+      form.setFieldValue('variants_table', data)
     } else {
-      setComputedVariants([])
+      form.setFieldValue('variants_table', [])
     }
   }, [variants, groupBy])
 
@@ -55,7 +54,13 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper prefix={getCurrency()} defaultValue={record.sell_price} size="small" onChange={(value) => record.sell_price = value} />
+          <Form.Item name={['variants_table', record?.label, 'sell_price']}>
+            <InputNumberWrapper 
+            prefix={getCurrency()} 
+            defaultValue={record.sell_price} 
+            size="small" 
+            onChange={(value) => record.sell_price = value} />
+          </Form.Item>
         )
       },
     },
@@ -65,7 +70,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: '20%',
       render: (_, record) => {
         return (
-            <InputNumberWrapper prefix={getCurrency()} defaultValue={record.cost_price} size="small" onChange={(value) => record.cost_price = value} />
+            <InputNumberWrapper 
+            prefix={getCurrency()} 
+            defaultValue={record.cost_price} 
+            size="small" 
+            onChange={(value) => record.cost_price = value} />
         )
       },
     },
@@ -93,8 +102,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     setOpenModal(true)
   }
 
-  console.log("===selectedList:", selectedList)
-
   // Table row selection
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
@@ -105,7 +112,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   const rowChangeHandler = (record: VariantCombination) => {
-    const variantsTable = {
+    const currentRecord = {
       ...record,
       children: record.children?.map((child: VariantCombination) => {
         const {children, parent, ...rest} = record
@@ -115,23 +122,23 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         }
       })  
     }
-    record.children = variantsTable.children
-    form.setFieldValue('variants_table', variantsTable)
+    record.children = currentRecord.children
+    const finalData = deduplicateVariants([...variantsTableData, currentRecord])
+    form.setFieldValue('variants_table', finalData)
   }
   
-  console.log('===variantsTable:', variantsTable)
+  console.log('===variantsTable:', variantsTableData)
   return (
     <>
     {/* hidden form item for variants table */}
     <FormItemWrapper name="variants_table" hidden />
 
-      {computedVariants?.length > 0 ? (
+      {variantsTableData?.length > 0 ? (
         <TableWrapper
           columns={columns}
           rowKey="label"
           rowSelection={rowSelection}
-          dataSource={computedVariants}
-          // expandable={expandable}
+          dataSource={variantsTableData}
           onRow={(record) => ({
             onBlur: () => rowChangeHandler(record),
           })}
