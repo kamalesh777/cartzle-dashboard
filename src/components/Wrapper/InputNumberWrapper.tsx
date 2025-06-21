@@ -9,6 +9,7 @@ const InputNumberWrapper = (props: InputNumberProps): JSX.Element => {
     <InputNumber
       controls={false}
       className={`w-100 ${props.className}`}
+      min={0}
       onKeyPress={event => {
         if (!event.code.startsWith('Digit')) {
           event.preventDefault()

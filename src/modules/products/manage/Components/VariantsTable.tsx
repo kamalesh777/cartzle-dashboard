@@ -14,10 +14,11 @@ import { TableActionButton } from '@/components/Common'
 import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
 import { getCurrency } from '@/utils/currency'
 
-import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
+import { generateGroupedCombinations, updateLabels } from '../utils/generateGroupedCombinations'
 import VariantsGroupModal from '../modal/VariantsGroupModal'
-import { setVariantsTable } from '@/store/slices/variantsSlice'
-import { useDispatch } from 'react-redux'
+import { setGroupBy, setVariantsTable } from '@/store/slices/variantsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store/index'
 
 interface PropTypes {
   form: FormInstance
@@ -25,7 +26,9 @@ interface PropTypes {
 
 const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const dispatch = useDispatch()
-  const variants = Form.useWatch('variants', form)
+  const variantsTableState = useSelector((state: RootState) => state.variants?.variantsTable)
+
+  const variantsCard = Form.useWatch('variants', form)
   const groupBy = Form.useWatch('group_by', form)
   const variantsTableData = Form.useWatch('variants_table', form) || []
 
@@ -33,15 +36,22 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const [selectedList, setSelectedList] = React.useState<VariantCombination>()
 
   useEffect(() => {
-    const variantsArr = variants?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
+    const variantsArr = variantsCard?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
+
     // check if variantsArr is not empty
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy)
-      form.setFieldValue('variants_table', data)
+      
+
+      const newArr = updateLabels(variantsTableState, groupBy)
+      console.log('===newArr', newArr)
+      form.setFieldValue('variants_table', newArr)
+      !variantsTableState?.length && dispatch(setVariantsTable(newArr))
     } else {
       form.setFieldValue('variants_table', [])
+      dispatch(setVariantsTable([]))
     }
-  }, [variants, groupBy])
+  }, [variantsCard, groupBy])
 
   // Table columns
   const columns: TableColumnsType<VariantCombination> = [
@@ -166,7 +176,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           columns={columns}
           rowKey="label"
           rowSelection={rowSelection}
-          dataSource={variantsTableData}
+          dataSource={variantsTableState}
           pagination={false}
         />
       ) : null}

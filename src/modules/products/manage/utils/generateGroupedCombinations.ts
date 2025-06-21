@@ -49,3 +49,19 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
 
   return result
 }
+
+
+// Update labels only for parent items when groupBy changes
+export const updateLabels = (data: VariantCombination[], groupBy: string) => {
+  console.log('===groupBy', data, groupBy)
+  const updatedData = data.map((item) => {
+    if (item.parent) { // Only update parent items
+      return {
+        ...item,
+        label: String(item[groupBy as keyof VariantCombination] ?? '')
+      }
+    }
+    return item
+  })
+  return updatedData
+}
