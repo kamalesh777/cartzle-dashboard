@@ -23,6 +23,8 @@ export interface VariantOptionTypes {
 }
 
 export interface VariantCombination {
+  open?: boolean
+  groupKey: string
   label: string
   children?: VariantCombination[]
   options?: Record<string, string>

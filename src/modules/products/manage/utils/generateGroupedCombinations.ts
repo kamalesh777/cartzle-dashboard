@@ -1,5 +1,11 @@
 import type { VariantCombination, VariantOptionTypes } from '../types'
 
+/**
+ * Generate all possible combinations of variant values
+ * @param options Array of options with their values
+ * @param groupBy Key to group variants by
+ * @returns Array of grouped variants
+ */
 export const generateGroupedCombinations = (options: VariantOptionTypes[], groupBy: string): VariantCombination[] => {
   const allCombinations: Array<{ label: string; options: Record<string, string> }> = []
 
@@ -32,10 +38,13 @@ export const generateGroupedCombinations = (options: VariantOptionTypes[], group
   }
 
   // Format the grouped result
-  const result = Object.entries(grouped).map(([label, children]) => ({
-    label,
-    children,
-  }))
+  const result = Object.entries(grouped).map(([label, children]) => {
+    return {
+      label,
+      groupKey: label,
+      children: children.map(item => ({ ...item, groupKey: label })),
+    }
+  })
 
   return result
 }
