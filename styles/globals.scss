@@ -122,7 +122,8 @@ li {
 .fix-sidebar {
   overflow: auto;
   height: 100vh;
-  position: fixed;
+  position: fixed !important;
+  background-color: #fff !important;
   inset-inline-start: 0;
   top: 0;
   bottom: 0;
@@ -170,7 +171,7 @@ header.ant-layout-header.fix-header {
 	margin-bottom: 20px;
 }
 .title-row .page-title {
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 }
 .ant-table-wrapper .ant-table-thead >tr>th {

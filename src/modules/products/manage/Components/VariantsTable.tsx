@@ -83,7 +83,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: <InfoTooltip title="Available">SKU</InfoTooltip>,
+      title: <InfoTooltip title="Available product in stock">SKU</InfoTooltip>,
       dataIndex: 'available',
       width: '20%',
       render: (_, record) => (
