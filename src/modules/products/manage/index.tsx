@@ -74,7 +74,9 @@ const ProductManageComp = (): JSX.Element => {
               <FormItemWrapper name="description" label="Description">
                 <Input.TextArea rows={3} />
               </FormItemWrapper>
-
+              <FormItemWrapper name="category" label="Category">
+                <SelectWrapper options={categoriesOptions} />
+              </FormItemWrapper>
               <FormItemWrapper name="media" label="Media">
                 <Upload.Dragger>
                   <p className="fs-1">
@@ -141,9 +143,7 @@ const ProductManageComp = (): JSX.Element => {
               <FormItemWrapper name="type" label="Type">
                 <SelectWrapper />
               </FormItemWrapper>
-              <FormItemWrapper name="category" label="Category">
-                <SelectWrapper options={categoriesOptions} />
-              </FormItemWrapper>
+              
               <FormItemWrapper name="tags" label="Tags">
                 <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
               </FormItemWrapper>
