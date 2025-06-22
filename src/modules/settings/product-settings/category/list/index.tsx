@@ -1,15 +1,19 @@
 import { TableActionButton } from '@/components/Common'
-import { ButtonWrapper, CardWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 import React from 'react'
-import { CategoryList } from './types'
+import CategoryManageModal from '../modal/CategoryManageModal'
+import { CategoryList } from '../../types'
 
 const CategoryCard = () => {
+    const [openModal, setOpenModal] = React.useState(false)
+    const [selectedId, setSelectedId] = React.useState('')
     const getMoreMenus = (record: CategoryList) => [
         {
             key: 'edit',
             title: 'Edit',
             onClick: () => {
-                console.log(record)
+                setSelectedId(record.id)
+                setOpenModal(true)
             },
         },
         {
@@ -61,13 +65,16 @@ const CategoryCard = () => {
     const ACTION_COMP = (
         <SpaceWrapper className="w-100 justify-content-between">
             <h4 className="ant-card-head-title">Categories</h4>
-            <ButtonWrapper type="primary">New</ButtonWrapper>
+            <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>New</ButtonWrapper>
         </SpaceWrapper>
     )
   return (
+    <>
     <div id="categories" className="mb-3">
         <TableWrapper title={() => ACTION_COMP} columns={columns} dataSource={data} />
     </div>
+    {openModal && <CategoryManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
+    </>
   )
 }
 

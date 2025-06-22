@@ -221,6 +221,11 @@ header.ant-layout-header.fix-header {
 .anticon.anticon-menu:hover {
 	color: var(--primary-color);
 }
+.btn-fixed-bottom-modal {
+    position: absolute !important;
+    bottom: 20px;
+    left: 0;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
