@@ -57,12 +57,14 @@ const menuData = [
     title: 'Reports',
     icon: 'LineChartOutlined',
   },
+  // Settings
   {
     key: 'settings',
     path: '/settings/shop-info',
     title: 'Settings',
     icon: 'SettingOutlined',
     children: [
+      // Shop Info
       {
         key: 'shop-info',
         path: '/settings/shop-info',
@@ -73,16 +75,50 @@ const menuData = [
             key: 'shop-info-theme',
             href: '#theme-config',
             title: 'Theme Config',
-            icon: 'ShopOutlined',
+            icon: '',
           },
           {
             key: 'shop-info-config',
             href: '#shop-config',
             title: 'Shop Config',
-            icon: 'ShopOutlined',
+            icon: '',
           },
         ],
       },
+      // Product Settings
+      {
+        key: 'product-settings',
+        path: '/settings/product-settings',
+        title: 'Product Settings',
+        icon: 'ProfileOutlined',
+        pagemenu: [
+          {
+            key: 'product-settings-brands',
+            href: '#brands',
+            title: 'Brands',
+            icon: '',
+          },
+          {
+            key: 'product-settings-categories',
+            href: '#categories',
+            title: 'Categories',
+            icon: '',
+          },
+          {
+            key: 'product-settings-unit-types',
+            href: '#unit-types',
+            title: 'Unit Types',
+            icon: '',
+          },
+          {
+            key: 'product-settings-units',
+            href: '#units',
+            title: 'Units',
+            icon: '',
+          },
+        ],
+      },
+      // User Permissions
       {
         key: 'user-permissions',
         path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}`,
@@ -109,7 +145,7 @@ const menuData = [
           },
         ],
       },
-      {
+          {
         key: 'account-settings',
         path: '/settings/account-settings',
         title: 'Account Settings',
