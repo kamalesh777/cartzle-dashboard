@@ -1,15 +1,42 @@
 import { ButtonWrapper, FormItemWrapper, InputWrapper, ModalWrapper, SelectWrapper, SpaceWrapper, SubmitButtonWrapper, TooltipWrapper, CardWrapper } from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
+import { useGetRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 import { CloseOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { Card, Form } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ModalPropTypes } from 'src/types/common'
+import { UnitTypePayload, UnitsPayload, CategoryList, CategoryPayload } from '../../types'
+import { ArrOptions, getSelectOption } from '@/utils/disableFunction'
+import { TableContentLoaderWithProps } from '@/components/Common'
+import { usePostRequestHandler } from '@/hook/requestHandler'
 
 const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
     const [form] = Form.useForm()
-    const onFinish = (values: any): void => {
-        console.log('===Category Submitted:', values)
+
+    const {submit, buttonLoading, isSuccess} = usePostRequestHandler<CategoryList>()
+
+    // fetch all unit types
+        const { fetchData: fetchUnitTypes, data: unitTypes, isLoading: unitTypesLoading } = useGetRequestHandler<UnitTypePayload[]>()
+        // fetch all units
+        const { fetchData: fetchUnits, data: units, isLoading: unitsLoading } = useGetRequestHandler<UnitsPayload[]>() 
+        
+        // fetch unit types
+        useEffect(() => {
+            fetchUnitTypes('/api/unit-types-list')
+        }, [])
+    
+        // fetch units
+        useEffect(() => {
+            fetchUnits(`/api/units-list/${selectedId}`)
+        }, [])
+    
+    
+    const onFinish = async(values: CategoryPayload): Promise<void> => {
+        await submit('create-category', values, null, () => {
+            form.resetFields()
+            setOpenModal(false)
+        })
     }
     const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
@@ -17,13 +44,13 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
         <ModalWrapper bodyScroll open={openModal} onCancel={closeModal} title={getModalTitle(selectedId as string)} footer={
             <SubmitButtonWrapper
                 okText={'Save'}
-                okButtonProps={{ loading: false, onClick: () => form.submit() }}
+                okButtonProps={{ loading: buttonLoading, onClick: () => form.submit() }}
                 cancelButtonProps={{
                     onClick: () => closeModal(),
                 }}
             />
         }>
-            <Form layout="vertical" form={form} onFinish={onFinish} >
+            <Form layout="vertical" form={form} onFinish={onFinish} initialValues={{ unit_types: [{id: '', units: []}] }} >
                 <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
                     <InputWrapper placeholder="eg. Furniture, groceries, etc."/>
                 </FormItemWrapper>
@@ -41,19 +68,29 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
                                         styles={{ body: { paddingBottom: '5px' } }}
                                     >
                                         <ButtonWrapper
-                                        type="link"
-                                         style={{ zIndex: 500, right: '0px', top: '3px', position: 'absolute' }} size="small"
-                                         onClick={() => remove(field.name)}>
+                                            disabled={fields.length === 1}
+                                            type="link"
+                                            style={{ zIndex: 500, right: '0px', top: '3px', position: 'absolute' }} size="small"
+                                            onClick={() => remove(field.name)}>
                                             <TooltipWrapper title="Remove">
                                                 <CloseOutlined />
                                             </TooltipWrapper>
                                         </ButtonWrapper>
 
-                                        <Form.Item label="Name" name={[field.name, 'name']} rules={requiredFieldRules}>
-                                            <InputWrapper placeholder="eg. weight, size, ram, etc." />
+                                        <Form.Item label="Name" name={[field.name, 'id']} rules={requiredFieldRules}>
+                                            {unitTypesLoading ? (
+                                                <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
+                                            ) : (
+                                            <SelectWrapper options={getSelectOption((unitTypes as unknown as ArrOptions), ['name', 'id'])} placeholder="eg. weight, size, ram, etc." />
+                                            )}
                                         </Form.Item>
                                         <Form.Item label="Units" name={[field.name, 'units']} rules={requiredFieldRules}>
-                                            <SelectWrapper mode="tags" tokenSeparators={[',', ' ']} showArrow={false}  placeholder="eg. kg, cm, m, mm" />
+                                            <SelectWrapper 
+                                            optionFilterProp='label'
+                                            options={getSelectOption((units as unknown as ArrOptions), ['value', 'id'])} 
+                                            mode="multiple" 
+                                            showArrow={false} 
+                                            placeholder="eg. kg, cm, m, mm" />
                                         </Form.Item>
 
                                     </CardWrapper>

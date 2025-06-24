@@ -23,6 +23,33 @@ export const getDisabledDate = (direction: 'before' | 'after', days = 0): RangeP
   }
 }
 
-export const getSelectOption = (arr: string[]): Array<Record<string, string>> => {
-  return arr.map(item => ({ label: startCase(item), value: item }))
-}
+// convert array to select option 
+
+type ParseOption = [string, string] | null;
+export type ArrOptions = { [key: string]: string }[] | string[];
+
+export const getSelectOption = (
+  arr: ArrOptions | null,
+  option?: ParseOption
+): Array<{ label: string; value: string }> => {
+  if (!arr) return []
+  return arr.map((item) => {
+    if (Array.isArray(option) && typeof item === 'object' && item !== null) {
+      const labelValue = item[option[0]];
+      const valueValue = item[option[1]];
+      return {
+        label: startCase(labelValue),
+        value: valueValue
+      };
+    }
+
+    // fallback if item is a string
+    const strItem = item as string;
+    return {
+      label: startCase(strItem),
+      value: strItem
+    };
+  });
+};
+
+

@@ -1,14 +1,24 @@
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
-import React from 'react'
-import { BrandTypePayload, CategoryList } from '../../types'
+import React, { useEffect } from 'react'
+import { BrandTypePayload, CategoryList, UnitTypePayload } from '../../types'
 import UnitTypeManageModal from '../modal/UnitTypeManageModal'
-import { Row } from 'antd'
+import { Row, Skeleton } from 'antd'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
+import { useGetRequestHandler } from '@/hook/requestHandler'
 
 const UnitTypeCard = () => {
+    const { fetchData, data, isLoading } = useGetRequestHandler<UnitTypePayload[]>()
     const [openModal, setOpenModal] = React.useState(false)
     const [selectedId, setSelectedId] = React.useState('')
+
+    const fetchUnitTypes = async () => {
+        fetchData('/api/unit-types-list')
+    }
+
+    useEffect(() => {
+        fetchUnitTypes()
+    }, [])
 
     const getMoreMenus = (record: BrandTypePayload) => [
         {
@@ -27,44 +37,6 @@ const UnitTypeCard = () => {
             },
         },
     ]
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Unit Type',
-            dataIndex: 'unitType',
-        },
-        {
-            title: 'Units',
-            dataIndex: 'units',
-        },
-        {
-            title: '',
-            key: 'action',
-            className: 'text-right',
-            render: (record: CategoryList) => (
-                <TableActionButton items={getMoreMenus(record)} />
-            ),
-        },
-    ]
-
-    const data = [
-        {
-            key: '1',
-            name: 'Category 1',
-            unitType: 'Unit Type 1',
-            units: 'Units 1',
-        },
-        {
-            key: '2',
-            name: 'Category 2',
-            unitType: 'Unit Type 2',
-            units: 'Units 2',
-        },
-    ]
 
 
 
@@ -73,10 +45,10 @@ const UnitTypeCard = () => {
             <div id="unit-types" className="mb-3">
                 <CardWrapper title={"Unit Types"} extra={<ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>New</ButtonWrapper>}>
                 <Row gutter={COMMON_ROW_GUTTER}>
-                    {data?.map((item) => (
-                        <ColWrapper md={6} span={12} key={item.name}>
-                            <CardWrapper styles={{body: {padding: '10px'}}}>
-                                <SpaceWrapper className='w-100 justify-content-between'>
+                    {data?.map((item: UnitTypePayload) => (
+                            <ColWrapper md={6} span={12} key={item.name}>
+                                <CardWrapper styles={{body: {padding: '10px'}}} loading={isLoading} className='mb-3'>
+                                    <SpaceWrapper className='w-100 justify-content-between'>
                                     <p>{item.name}</p>
                                     <TableActionButton tooltipTitle="" items={getMoreMenus(item as BrandTypePayload)} />
                                 </SpaceWrapper> 

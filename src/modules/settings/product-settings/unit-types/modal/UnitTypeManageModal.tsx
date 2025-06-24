@@ -4,11 +4,13 @@ import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 import { Form } from 'antd'
 import React from 'react'
 import { ModalPropTypes } from 'src/types/common'
+import { usePostRequestHandler } from '@/hook/requestHandler'
 
 const UnitTypeManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
+    const { submit, buttonLoading, isSuccess } = usePostRequestHandler()
     const [form] = Form.useForm()
     const onFinish = (values: any): void => {
-        console.log('===Brand Submitted:', values)
+        submit('create-unit-type', values, null, )
     }
     const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 

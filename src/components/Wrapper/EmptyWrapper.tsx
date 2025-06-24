@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Empty, type EmptyProps } from 'antd'
 
-interface EmptyWrapperProps extends EmptyProps {
+export interface EmptyWrapperProps extends EmptyProps {
   onClick?: () => void
   content?: React.ReactNode
   entity?: string

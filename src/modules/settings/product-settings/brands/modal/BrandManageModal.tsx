@@ -1,14 +1,17 @@
 import { FormItemWrapper, InputWrapper, ModalWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
+import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 import { Form } from 'antd'
 import React from 'react'
 import { ModalPropTypes } from 'src/types/common'
 
 const BrandManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
+    const { submit, buttonLoading, isSuccess } = usePostRequestHandler()
     const [form] = Form.useForm()
-    const onFinish = (values: any): void => {
-        console.log('===Brand Submitted:', values)
+    // TODO: Add brand type
+    const onFinish = async(values: any): Promise<void> => {
+        await submit('brand', values)
     }
     const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
