@@ -9,7 +9,7 @@ interface PropTypes extends ModalProps {
 
 const ModalWrapper = (props: PropTypes): JSX.Element | null => {
   const { children, bodyScroll, ...restProps } = props
-  return <Modal {...restProps}>{bodyScroll ? <div className={'modal-scrollbar-adjust'}>{children}</div> : children}</Modal>
+  return <Modal centered {...restProps}>{bodyScroll ? <div className={'modal-scrollbar-adjust'}>{children}</div> : children}</Modal>
 }
 
 export default ModalWrapper

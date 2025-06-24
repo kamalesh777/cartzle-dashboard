@@ -5,7 +5,7 @@ import { Form } from 'antd'
 import React from 'react'
 import { ModalPropTypes } from 'src/types/common'
 
-const BrandManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
+const UnitTypeManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
     const [form] = Form.useForm()
     const onFinish = (values: any): void => {
         console.log('===Brand Submitted:', values)
@@ -24,14 +24,11 @@ const BrandManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropType
     }>
     <Form layout="vertical" form={form} onFinish={onFinish} >
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
-            <InputWrapper placeholder='Enter brand name' />
-        </FormItemWrapper>
-        <FormItemWrapper name="official_url" label="Official URL">
-            <InputWrapper placeholder='Enter brand official url' />
+            <InputWrapper placeholder="Enter name eg. width, height, length" />
         </FormItemWrapper>
     </Form>
     </ModalWrapper>
   )
 }
 
-export default BrandManageModal
+export default UnitTypeManageModal

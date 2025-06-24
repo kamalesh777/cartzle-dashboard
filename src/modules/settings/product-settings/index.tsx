@@ -1,15 +1,17 @@
 import React from 'react'
 
-import ShopDetailsComp from './ShopDetails'
 import BrandCollection from './brands/list'
 import CategoryCard from './category/list'
+import UnitTypeCard from './unit-types/list'
+import UnitsList from './units/list'
 
 const ProductSettingsComp = (): JSX.Element => {
   return (
     <>
       <BrandCollection />
       <CategoryCard />
-      <ShopDetailsComp />
+      <UnitTypeCard />
+      <UnitsList />
     </>
   )
 }
