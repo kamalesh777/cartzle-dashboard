@@ -6,13 +6,13 @@ export interface ListDataTypes {
   name: string
   role: string
   mobile: string
-  alternate_mobile?: string
+  alternateMobile?: string
   address: string
-  joining_date: string
-  salary_type: 'monthly' | 'daily'
-  salary_amount: number
+  joiningDate: string
+  salaryType: 'monthly' | 'daily'
+  salaryAmount: number
   status?: 'active' | 'inactive'
-  job_type: keyof JobTypeOptions[number]
+  jobType: keyof JobTypeOptions[number]
 }
 
 export interface AttendanceFormData {
@@ -24,7 +24,7 @@ export interface AttendanceFormData {
 
 export interface EmployeePaymentFormData {
   id: string
-  payment_type: 'salary' | 'advance'
+  paymentType: 'salary' | 'advance'
   amount: number
   date: Dayjs | string
   notes?: string

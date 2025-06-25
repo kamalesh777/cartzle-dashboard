@@ -9,26 +9,28 @@ export interface ListDataTypes {
   state: string
   pincode: string
   mobile: number
-  alternate_mobile: number
-  is_supplier?: 'yes' | 'no' | 'both'
+  alternateMobile: number
+  isSupplier?: 'yes' | 'no' | 'both'
   type: 'purchase' | 'sale'
   date: string
-  due_payment_reminder?: string
-  product_items: {
+  duePaymentReminder?: string
+  productItems: {
     productId: string
     quantity: number
     price?: number // optional if auto-calculated
   }[]
-  total_amount: number
-  due_amount: number
-  payment_details?: { date: string; payment_amount: number }[]
-  payment_history: {
-    paid_amount: number
-    paid_on: string // actual payment date
-    promised_on?: string // optional future commitment
+  totalAmount: number
+  dueAmount: number
+  paymentHistory: {
+    paidAmount: number
+    paidOn: string // actual payment date
+    promisedOn?: string // optional future commitment
     mode?: 'cash' | 'bank' | 'upi' | 'cheque'
     note?: string // optional remarks
   }[]
+  paid: number // auto-calculated from paymentHistory
+  due: number // = total - paid
+  paymentDetails?: { date: string; paymentAmount: number }[]
 
   paid: number // auto-calculated from payment_history
   due: number // = total - paid
@@ -43,11 +45,11 @@ export interface MainFormValueTypes {
   length: number
   unit: string
   party: string
-  is_supplier: boolean
-  cost_price: number
-  sale_price: number
-  wood_type: string
-  // product_image: strings[]
+  isSupplier: boolean
+  costPrice: number
+  salePrice: number
+  woodType: string
+  // productImage: strings[]
 }
 
 export interface PageTypes extends Params {

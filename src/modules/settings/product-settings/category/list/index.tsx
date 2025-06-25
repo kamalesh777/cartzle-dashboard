@@ -10,7 +10,7 @@ import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import CategoryManageModal from '../modal/CategoryManageModal'
 
-const CategoryCard = () => {
+const CategoryCard = (): JSX.Element => {
   // fetch all categories
   const { fetchData, data, isLoading } = useGetRequestHandler<CategoryList[]>()
 
