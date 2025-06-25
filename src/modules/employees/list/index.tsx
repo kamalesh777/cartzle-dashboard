@@ -87,12 +87,12 @@ const EmployeesListComp = (): JSX.Element => {
       render: (_, record) => (
         <SpaceWrapper>
           <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
-          {record?.alternate_mobile ? (
+          {record?.alternateMobile ? (
             <InfoTooltip
               title={
                 <>
                   <p>Alternate Number </p>
-                  <Typography.Text copyable={{ icon: [record?.alternate_mobile, record?.alternate_mobile] }} />{' '}
+                  <Typography.Text copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }} />{' '}
                 </>
               }
             />
