@@ -24,9 +24,6 @@ const CategoryCard = (): JSX.Element => {
     {
       key: 'delete',
       label: 'Delete',
-      onClick: () => {
-        console.log(record)
-      },
     },
   ]
   const columns = [

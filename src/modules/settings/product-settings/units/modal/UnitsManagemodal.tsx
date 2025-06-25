@@ -11,6 +11,7 @@ import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 const UnitsManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   const onFinish = (values: any): void => {
+    // eslint-disable-next-line no-console
     console.log('===Brand Submitted:', values)
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
