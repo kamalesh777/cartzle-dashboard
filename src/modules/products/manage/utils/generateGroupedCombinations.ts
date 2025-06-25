@@ -22,11 +22,11 @@ export const generateGroupedCombinations = (
       return
     }
 
-    const { op_name, op_value } = options[depth]
-    for (const value of op_value) {
+    const { opName, opValue } = options[depth]
+    for (const value of opValue) {
       recurse(depth + 1, [...current, value], {
         ...optionMap,
-        [op_name]: value,
+        [opName]: value,
       })
     }
   }
@@ -61,7 +61,7 @@ export const generateGroupedCombinations = (
     const existingParent = findExistingParentData(index)
 
     return {
-      ...(existingParent || {}), // keep sell_price, cost_price, available
+      ...(existingParent || {}), // keep sellPrice, costPrice, available
       label,
       parent: true,
       key: label,

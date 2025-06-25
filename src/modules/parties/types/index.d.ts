@@ -6,8 +6,8 @@ export interface PaymentRecord {
 }
 
 export interface PaymentPromise {
-  promised_date: string // e.g., '2025-06-05'
-  promised_amount: number
+  promisedDate: string // e.g., '2025-06-05'
+  promisedAmount: number
   note?: string
 }
 
@@ -19,20 +19,20 @@ export interface ListDataTypes {
   state: string
   pincode: string
   mobile: number
-  alternate_mobile?: number
+  alternateMobile?: number
   type: PartyType
   // e.g., 'every 10th of the month'
-  due_payment_reminder?: string
+  duePaymentReminder?: string
 
   // total amount of all transactions
-  total_amount: number
+  totalAmount: number
   // total paid by/to the party
-  paid_amount: number
+  paidAmount: number
   // total outstanding
-  due_amount: number
+  dueAmount: number
 
   // chronological payment logs
-  payment_history: PaymentRecord[]
+  paymentHistory: PaymentRecord[]
   // for tracking future promised payments
-  payment_promises?: PaymentPromise[]
+  paymentPromises?: PaymentPromise[]
 }

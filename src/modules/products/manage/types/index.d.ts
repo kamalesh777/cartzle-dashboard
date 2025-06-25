@@ -18,16 +18,16 @@ export interface Variant {
 }
 
 export interface VariantOptionTypes {
-  op_name: string
-  op_value: string[]
+  opName: string
+  opValue: string[]
 }
 
 export interface VariantCombination {
   label: string
   key: string
   parent?: boolean
-  sell_price?: number
-  cost_price?: number
+  sellPrice?: number
+  costPrice?: number
   available?: number
   children: VariantItem[]
 }
@@ -35,8 +35,8 @@ export interface VariantCombination {
 type VariantItem = {
   label: string
   key: string
-  sell_price?: number
-  cost_price?: number
+  sellPrice?: number
+  costPrice?: number
   available?: number
   options: Record<string, string>
 }

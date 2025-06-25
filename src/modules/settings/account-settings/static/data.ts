@@ -128,4 +128,3 @@ export const PaymentHistoryData = [
     notes: 'Monthly bill',
   },
 ]
- 

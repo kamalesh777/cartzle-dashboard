@@ -35,7 +35,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   // filter variants with op_value length > 0
   const variantsArr = useMemo(() => {
-    return variantsCard?.filter((variant: VariantOptionTypes) => variant?.op_value?.length > 0)
+    return variantsCard?.filter((variant: VariantOptionTypes) => variant?.opValue?.length > 0)
   }, [variantsCard])
 
   // generate grouped combinations on variants change
@@ -58,27 +58,27 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     },
     {
       title: <InfoTooltip title="Sell Price">Price</InfoTooltip>,
-      dataIndex: 'sell_price',
+      dataIndex: 'sellPrice',
       width: '20%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
-          defaultValue={record.sell_price}
+          defaultValue={record.sellPrice}
           size="small"
-          onChange={value => rowChangeHandler({ ...record, sell_price: value as number })}
+          onChange={value => rowChangeHandler({ ...record, sellPrice: value as number })}
         />
       ),
     },
     {
       title: <InfoTooltip title="Cost Price">Price</InfoTooltip>,
-      dataIndex: 'cost_price',
+      dataIndex: 'costPrice',
       width: '20%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
-          defaultValue={record.cost_price}
+          defaultValue={record.costPrice}
           size="small"
-          onChange={value => rowChangeHandler({ ...record, cost_price: value as number })}
+          onChange={value => rowChangeHandler({ ...record, costPrice: value as number })}
         />
       ),
     },
@@ -123,8 +123,8 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           ...updatedRecord,
           children: item.children?.map(child => ({
             ...child,
-            sell_price: updatedRecord.sell_price,
-            cost_price: updatedRecord.cost_price,
+            sellPrice: updatedRecord.sellPrice,
+            costPrice: updatedRecord.costPrice,
             available: updatedRecord.available,
           })),
         }
@@ -139,7 +139,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     })
 
     dispatch(setVariantsTable(finalData))
-    form.setFieldValue('variants_table', finalData)
+    form.setFieldValue('variantsTable', finalData)
   }
 
   // edit row handler
