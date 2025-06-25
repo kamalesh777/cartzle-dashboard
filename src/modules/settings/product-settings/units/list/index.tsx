@@ -25,7 +25,7 @@ const UnitsList = (): JSX.Element => {
 
   useEffect(() => {
     fetchUnits()
-  }, [fetchUnits])
+  }, [])
 
   const getMoreMenus = (record: UnitsPayload): MenuProps['items'] => [
     {
@@ -39,9 +39,6 @@ const UnitsList = (): JSX.Element => {
     {
       key: 'delete',
       label: 'Delete',
-      onClick: () => {
-        console.log(record)
-      },
     },
   ]
 

@@ -24,7 +24,7 @@ const CategoryCard = (): JSX.Element => {
 
   useEffect(() => {
     fetchCategories()
-  }, [fetchCategories])
+  }, [])
 
   const getMoreMenus = (record: CategoryList): MenuProps['items'] => [
     {

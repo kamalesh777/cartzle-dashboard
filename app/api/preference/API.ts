@@ -5,6 +5,11 @@ import Toast from '@/components/Common/Toast'
 
 export const API = axios.create()
 
+let failureCount = 0
+const MAX_FAILURES = 10
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, autofix/no-unused-vars
+let blockAllRequests = false
+
 interface MyErrorType {
   code?: string
   response?: {
@@ -52,8 +57,17 @@ API.interceptors.request.use(
 
 // ✅ Response Interceptor
 API.interceptors.response.use(
-  res => res,
+  res => {
+    // On success, reset failure count
+    failureCount = 0
+    return res
+  },
   async (err: MyErrorType) => {
+    failureCount++
+    if (failureCount >= MAX_FAILURES) {
+      blockAllRequests = true
+      Toast('error', `API blocked after ${failureCount} failures.`)
+    }
     if (typeof window !== 'undefined') {
       // Skip refresh logic if already failed at /generate-token
       const isGenerateTokenRequest = err?.config?.url?.includes('/api/generate-token')

@@ -61,7 +61,6 @@
           "semi": ["error", "never"],
           "space-unary-ops"  : 2,
           "react-hooks/rules-of-hooks": "error",
-          "react-hooks/exhaustive-deps": "warn",
           "prettier/prettier": [
             "error",
             {

@@ -24,7 +24,7 @@ const UnitTypeCard = (): JSX.Element => {
 
   useEffect(() => {
     fetchUnitTypes()
-  }, [fetchUnitTypes])
+  }, [])
 
   const getMoreMenus = (record: BrandTypePayload): MenuProps['items'] => [
     {
