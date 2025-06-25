@@ -30,8 +30,6 @@ const routesObj = {
   // units list
   'units-list': `${API_BASE_URL}/category/units/list`,
   'create-unit': `${API_BASE_URL}/category/units/create`,
-
-  
 }
 
 export default routesObj

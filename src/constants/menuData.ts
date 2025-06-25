@@ -145,7 +145,7 @@ const menuData = [
           },
         ],
       },
-          {
+      {
         key: 'account-settings',
         path: '/settings/account-settings',
         title: 'Account Settings',

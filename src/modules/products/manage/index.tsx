@@ -143,7 +143,7 @@ const ProductManageComp = (): JSX.Element => {
               <FormItemWrapper name="type" label="Type">
                 <SelectWrapper />
               </FormItemWrapper>
-              
+
               <FormItemWrapper name="tags" label="Tags">
                 <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
               </FormItemWrapper>

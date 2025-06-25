@@ -2,19 +2,19 @@ import type { ListDataTypes } from '../types'
 
 export const listData: ListDataTypes[] = [
   {
-    page_name: 'Product',
-    cards_name: ['width', 'height', 'length'],
+    pageName: 'Product',
+    cardsName: ['width', 'height', 'length'],
   },
   {
-    page_name: 'Orders',
-    cards_name: [],
+    pageName: 'Orders',
+    cardsName: [],
   },
   {
-    page_name: 'Employee',
-    cards_name: ['salary', 'report', 'tracker', 'leave'],
+    pageName: 'Employee',
+    cardsName: ['salary', 'report', 'tracker', 'leave'],
   },
   {
-    page_name: 'Parties',
-    cards_name: ['due', 'info'],
+    pageName: 'Parties',
+    cardsName: ['due', 'info'],
   },
 ]
