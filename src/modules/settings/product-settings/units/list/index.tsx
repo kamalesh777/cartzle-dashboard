@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Row } from 'antd'
+import { Row, type MenuProps } from 'antd'
 
 import type { UnitsPayload } from '../../types'
 
@@ -19,15 +19,15 @@ const UnitsList = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
-  const fetchUnits = async () => {
+  const fetchUnits = async (): Promise<void> => {
     fetchData('/api/units-list')
   }
 
   useEffect(() => {
     fetchUnits()
-  }, [])
+  }, [fetchUnits])
 
-  const getMoreMenus = (record: UnitsPayload) => [
+  const getMoreMenus = (record: UnitsPayload): MenuProps['items'] => [
     {
       key: 'edit',
       label: 'Edit',

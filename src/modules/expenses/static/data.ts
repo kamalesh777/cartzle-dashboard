@@ -58,7 +58,6 @@ export const listData: ListDataTypes[] = [
     paymentMethod: 'Cash',
   },
 ]
-]
 
 export const ExpensesReportData: ListDataTypes[] = [
   {

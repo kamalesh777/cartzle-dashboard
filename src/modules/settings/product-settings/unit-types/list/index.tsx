@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 
-import { Row } from 'antd'
+import { Row, type MenuProps } from 'antd'
 
 import type { BrandTypePayload, UnitTypePayload } from '../../types'
-import type { MenuProps } from 'antd'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
@@ -25,7 +24,7 @@ const UnitTypeCard = (): JSX.Element => {
 
   useEffect(() => {
     fetchUnitTypes()
-  }, [])
+  }, [fetchUnitTypes])
 
   const getMoreMenus = (record: BrandTypePayload): MenuProps['items'] => [
     {
@@ -40,7 +39,7 @@ const UnitTypeCard = (): JSX.Element => {
       key: 'delete',
       label: 'Delete',
       onClick: () => {
-        console.log(record)
+        // Handle delete action
       },
     },
   ]

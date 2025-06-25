@@ -8,7 +8,7 @@ interface PropTypes extends EmptyWrapperProps {
   columns: number[]
   rowCounts?: number
 }
-const EmptyContentTableLoading = ({ isLoading, columns, rowCounts, ...props }: PropTypes) => {
+const EmptyContentTableLoading = ({ isLoading, columns, rowCounts, ...props }: PropTypes): JSX.Element => {
   return isLoading ? (
     <TableContentLoaderWithProps columnWidth={columns} rowCounts={rowCounts || 5} />
   ) : (

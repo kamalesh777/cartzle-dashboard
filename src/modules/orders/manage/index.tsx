@@ -35,15 +35,15 @@ const OrderManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
   const isRawMaterial = Form.useWatch('category', form) === 'raw'
 
-  const formSubmitHandler = async (formValue: any): Promise<void> => {
-    console.log('===formValue', formValue)
+  const formSubmitHandler = async (): Promise<void> => {
+    // Handle form submission
   }
 
   const formInitialValues = {
     type: 'purchase',
-    product_items: [
+    productItems: [
       {
-        product_id: '',
+        productId: '',
         qty: '',
         price: '',
       },

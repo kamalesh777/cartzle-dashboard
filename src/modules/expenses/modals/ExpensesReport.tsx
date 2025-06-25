@@ -42,9 +42,9 @@ const ExpenseReport = ({ openModal, setOpenModal }: ModalPropTypes<never>): JSX.
     },
     {
       title: 'Paid Method',
-      dataIndex: 'payment_method',
-      key: 'payment_method',
-      render: payment_method => <Tag color="blue">{payment_method}</Tag>,
+      dataIndex: 'paymentMethod',
+      key: 'paymentMethod',
+      render: paymentMethod => <Tag color="blue">{paymentMethod}</Tag>,
     },
   ]
 

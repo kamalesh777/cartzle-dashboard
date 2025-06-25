@@ -1,12 +1,12 @@
 import React from 'react'
 
 import type { CategoryList } from '../../types'
+import type { MenuProps } from 'antd'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import BrandManageModal from '../modal/BrandManageModal'
-import { MenuProps } from 'antd'
 
 const CategoryCard = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)

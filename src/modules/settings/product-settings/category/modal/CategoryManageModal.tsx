@@ -5,7 +5,6 @@ import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 
 import type { UnitTypePayload, UnitsPayload, CategoryList, CategoryPayload } from '../../types'
-import type { ArrOptions } from '@/utils/disableFunction'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -24,7 +23,7 @@ import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-import { getSelectOption } from '@/utils/disableFunction'
+import { getSelectOption, type ArrOptions } from '@/utils/disableFunction'
 
 const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -39,12 +38,12 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
   // fetch unit types
   useEffect(() => {
     fetchUnitTypes('/api/unit-types-list')
-  }, [])
+  }, [fetchUnitTypes])
 
   // fetch units
   useEffect(() => {
     fetchUnits(`/api/units-list/${selectedId}`)
-  }, [])
+  }, [fetchUnits, selectedId])
 
   const onFinish = async (values: CategoryPayload): Promise<void> => {
     await submit('create-category', values, null, () => {
@@ -78,7 +77,7 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
           {(fields, { add, remove }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
               {fields.map(field => (
-                <FormItemWrapper label={field.name === 0 ? 'Unit Type' : ''} className="mb-1">
+                <FormItemWrapper key={field.key} label={field.name === 0 ? 'Unit Type' : ''} className="mb-1">
                   <CardWrapper size="small" key={field.key} className="bg-gray-100" styles={{ body: { paddingBottom: '5px' } }}>
                     <ButtonWrapper
                       disabled={fields.length === 1}

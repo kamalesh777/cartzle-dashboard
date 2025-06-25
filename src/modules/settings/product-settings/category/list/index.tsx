@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import type { CategoryList } from '../../types'
+import type { MenuProps } from 'antd'
 
 import { TableActionButton } from '@/components/Common'
 import EmptyContentWithLoading from '@/components/Common/EmptyContentTableLoading'
@@ -9,7 +10,6 @@ import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import CategoryManageModal from '../modal/CategoryManageModal'
-import { MenuProps } from 'antd'
 
 const CategoryCard = (): JSX.Element => {
   // fetch all categories
@@ -24,7 +24,7 @@ const CategoryCard = (): JSX.Element => {
 
   useEffect(() => {
     fetchCategories()
-  }, [])
+  }, [fetchCategories])
 
   const getMoreMenus = (record: CategoryList): MenuProps['items'] => [
     {
@@ -39,7 +39,7 @@ const CategoryCard = (): JSX.Element => {
       key: 'delete',
       title: 'Delete',
       onClick: () => {
-        console.log(record)
+        // Handle delete action
       },
     },
   ]
