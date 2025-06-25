@@ -102,12 +102,12 @@ const UsersListComp = (): JSX.Element => {
       render: (_, record) => (
         <SpaceWrapper>
           <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
-          {record?.alternate_mobile ? (
+          {record?.alternateMobile ? (
             <InfoTooltip
               title={
                 <>
                   <p>Alternate Number </p>
-                  <Typography.Text copyable={{ icon: [record?.alternate_mobile, record?.alternate_mobile] }} />{' '}
+                  <Typography.Text copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }} />{' '}
                 </>
               }
             />
@@ -131,15 +131,15 @@ const UsersListComp = (): JSX.Element => {
         const obj1 = arr?.[0] as PaymentPromise
         return obj1 ? (
           <p>
-            {obj1?.promised_date}{' '}
+            {obj1?.promisedDate}{' '}
             <InfoTooltip
               title={arr?.map((obj: PaymentPromise, index: React.Key) => (
                 <>
                   <SpaceWrapper align="start" className="w-100">
-                    Date: {obj?.promised_date || EMPTY_PLACEHOLDER}
+                    Date: {obj?.promisedDate || EMPTY_PLACEHOLDER}
                   </SpaceWrapper>
                   <SpaceWrapper align="start" className="w-100">
-                    Amount: {obj?.promised_amount ?? EMPTY_PLACEHOLDER}
+                    Amount: {obj?.promisedAmount ?? EMPTY_PLACEHOLDER}
                   </SpaceWrapper>
                   <SpaceWrapper align="start" className="w-100">
                     Note: {obj?.note ?? EMPTY_PLACEHOLDER}

@@ -61,7 +61,7 @@ const PartiesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTyp
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper md={12}>
-            <FormItemWrapper name="alternate_mobile" label="Alternate Mobile">
+            <FormItemWrapper name="alternateMobile" label="Alternate Mobile">
               <InputNumberWrapper maxLength={10} />
             </FormItemWrapper>
           </ColWrapper>
