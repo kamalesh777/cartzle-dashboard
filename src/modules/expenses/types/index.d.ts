@@ -4,6 +4,6 @@ export interface ListDataTypes {
   category: string
   description: string
   amount: number
-  payment_method: string
+  paymentMethod: string
   attachment?: string
 }

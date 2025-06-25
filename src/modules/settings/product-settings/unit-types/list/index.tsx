@@ -13,7 +13,7 @@ import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import UnitTypeManageModal from '../modal/UnitTypeManageModal'
 
-const UnitTypeCard = () => {
+const UnitTypeCard = (): JSX.Element => {
   const { fetchData, data, isLoading } = useGetRequestHandler<UnitTypePayload[]>()
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')

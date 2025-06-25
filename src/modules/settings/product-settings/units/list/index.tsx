@@ -13,7 +13,7 @@ import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import UnitsManagemodal from '../modal/UnitsManagemodal'
 
-const UnitsList = () => {
+const UnitsList = (): JSX.Element => {
   const { fetchData, data } = useGetRequestHandler<UnitsPayload[]>()
 
   const [openModal, setOpenModal] = React.useState(false)

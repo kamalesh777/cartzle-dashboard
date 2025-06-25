@@ -7,7 +7,7 @@ export const listData: ListDataTypes[] = [
     category: 'Transport',
     description: 'Wood delivery from supplier',
     amount: 1200,
-    payment_method: 'Cash',
+    paymentMethod: 'Cash',
   },
   {
     id: '2',
@@ -15,8 +15,49 @@ export const listData: ListDataTypes[] = [
     category: 'Electricity',
     description: 'Monthly power bill',
     amount: 4500,
-    payment_method: 'Bank',
+    paymentMethod: 'Bank',
   },
+  {
+    id: '3',
+    date: '2025-04-18',
+    category: 'Rent',
+    description: 'Shop rent',
+    amount: 10000,
+    paymentMethod: 'Bank',
+  },
+  {
+    id: '4',
+    date: '2025-03-05',
+    category: 'Maintenance',
+    description: 'Machine servicing',
+    amount: 2000,
+    paymentMethod: 'Cash',
+  },
+  {
+    id: '5',
+    date: '2025-02-10',
+    category: 'Internet',
+    description: 'Monthly internet bill',
+    amount: 900,
+    paymentMethod: 'UPI',
+  },
+  {
+    id: '6',
+    date: '2025-01-28',
+    category: 'Labour Charges',
+    description: 'Daily wages for extra workers',
+    amount: 3500,
+    paymentMethod: 'Cash',
+  },
+  {
+    id: '7',
+    date: '2024-12-15',
+    category: 'Fuel',
+    description: 'Transport fuel',
+    amount: 1500,
+    paymentMethod: 'Cash',
+  },
+]
 ]
 
 export const ExpensesReportData: ListDataTypes[] = [
@@ -26,7 +67,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Transport',
     description: 'Wood delivery from supplier',
     amount: 1200,
-    payment_method: 'Cash',
+    paymentMethod: 'Cash',
   },
   {
     id: '2',
@@ -34,7 +75,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Electricity',
     description: 'Monthly electricity bill',
     amount: 4500,
-    payment_method: 'Bank',
+    paymentMethod: 'Bank',
   },
   {
     id: '3',
@@ -42,7 +83,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Rent',
     description: 'Shop rent',
     amount: 10000,
-    payment_method: 'Bank',
+    paymentMethod: 'Bank',
   },
   {
     id: '4',
@@ -50,7 +91,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Maintenance',
     description: 'Machine servicing',
     amount: 2000,
-    payment_method: 'Cash',
+    paymentMethod: 'Cash',
   },
   {
     id: '5',
@@ -58,7 +99,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Internet',
     description: 'Monthly internet bill',
     amount: 900,
-    payment_method: 'UPI',
+    paymentMethod: 'UPI',
   },
   {
     id: '6',
@@ -66,7 +107,7 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Labour Charges',
     description: 'Daily wages for extra workers',
     amount: 3500,
-    payment_method: 'Cash',
+    paymentMethod: 'Cash',
   },
   {
     id: '7',
@@ -74,6 +115,6 @@ export const ExpensesReportData: ListDataTypes[] = [
     category: 'Fuel',
     description: 'Transport fuel',
     amount: 1500,
-    payment_method: 'Cash',
+    paymentMethod: 'Cash',
   },
 ]

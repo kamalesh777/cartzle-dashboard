@@ -27,7 +27,7 @@ import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 import { getSelectOption } from '@/utils/disableFunction'
 
-const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
+const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler<CategoryList>()

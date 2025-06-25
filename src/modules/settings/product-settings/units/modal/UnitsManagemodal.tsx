@@ -8,7 +8,7 @@ import { FormItemWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } fro
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
-const UnitsManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>) => {
+const UnitsManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   const onFinish = (values: any): void => {
     console.log('===Brand Submitted:', values)
