@@ -6,12 +6,13 @@ import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import BrandManageModal from '../modal/BrandManageModal'
+import { MenuProps } from 'antd'
 
 const CategoryCard = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
-  const getMoreMenus = (record: CategoryList) => [
+  const getMoreMenus = (record: CategoryList): MenuProps['items'] => [
     {
       key: 'edit',
       label: 'Edit',

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Row } from 'antd'
 
 import type { BrandTypePayload, UnitTypePayload } from '../../types'
+import type { MenuProps } from 'antd'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
@@ -18,7 +19,7 @@ const UnitTypeCard = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
-  const fetchUnitTypes = async () => {
+  const fetchUnitTypes = async (): Promise<void> => {
     fetchData('/api/unit-types-list')
   }
 
@@ -26,7 +27,7 @@ const UnitTypeCard = (): JSX.Element => {
     fetchUnitTypes()
   }, [])
 
-  const getMoreMenus = (record: BrandTypePayload) => [
+  const getMoreMenus = (record: BrandTypePayload): MenuProps['items'] => [
     {
       key: 'edit',
       label: 'Edit',

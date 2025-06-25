@@ -9,6 +9,7 @@ import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import CategoryManageModal from '../modal/CategoryManageModal'
+import { MenuProps } from 'antd'
 
 const CategoryCard = (): JSX.Element => {
   // fetch all categories
@@ -17,7 +18,7 @@ const CategoryCard = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
-  const fetchCategories = async () => {
+  const fetchCategories = async (): Promise<void> => {
     fetchData('/api/categories-list-full')
   }
 
@@ -25,7 +26,7 @@ const CategoryCard = (): JSX.Element => {
     fetchCategories()
   }, [])
 
-  const getMoreMenus = (record: CategoryList) => [
+  const getMoreMenus = (record: CategoryList): MenuProps['items'] => [
     {
       key: 'edit',
       title: 'Edit',

@@ -73,8 +73,8 @@ const ExpensesListComp = (): JSX.Element => {
     },
     {
       title: 'Paid Method',
-      dataIndex: 'payment_method',
-      render: payment_method => <Tag color="blue">{payment_method}</Tag>,
+      dataIndex: 'paymentMethod',
+      render: paymentMethod => <Tag color="blue">{paymentMethod}</Tag>,
     },
     {
       title: '',

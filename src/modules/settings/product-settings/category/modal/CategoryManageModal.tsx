@@ -21,8 +21,7 @@ import {
   CardWrapper,
 } from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
-import { useGetRequestHandler } from '@/hook/requestHandler'
-import { usePostRequestHandler } from '@/hook/requestHandler'
+import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 import { getSelectOption } from '@/utils/disableFunction'

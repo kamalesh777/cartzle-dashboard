@@ -46,12 +46,12 @@ const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({ openModal, setOpe
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={handleFinish} initialValues={{ date: dayjs(), payment_type: 'salary' }}>
+      <Form layout="vertical" form={form} onFinish={handleFinish} initialValues={{ date: dayjs(), paymentType: 'salary' }}>
         <FormItemWrapper label="Payment Date" name="date" rules={requiredFieldRules}>
           <DatePickerWrapper />
         </FormItemWrapper>
 
-        <FormItemWrapper label="Payment Type" name="payment_type" rules={requiredFieldRules}>
+        <FormItemWrapper label="Payment Type" name="paymentType" rules={requiredFieldRules}>
           <SelectWrapper options={getSelectOption(['salary', 'advance'])} />
         </FormItemWrapper>
 
