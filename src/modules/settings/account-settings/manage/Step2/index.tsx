@@ -38,7 +38,7 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
             <InputWrapper />
           </FormItemWrapper>
           <FormItemWrapper
-            name={['company', 'suffix_domain']}
+            name={['company', 'suffixDomain']}
             initialValue={domainSuffix}
             label=""
             rules={requiredWithWhitspcFieldRules}
@@ -48,12 +48,12 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
         </Space.Compact>
       </FormItemWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['company', 'support_number']} label="Support Number" rules={[...requiredFieldRules]}>
+        <FormItemWrapper name={['company', 'supportNumber']} label="Support Number" rules={[...requiredFieldRules]}>
           <InputNumberWrapper maxLength={10} />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['company', 'support_email']} label="Support Email" rules={[...requiredFieldRules]}>
+        <FormItemWrapper name={['company', 'supportEmail']} label="Support Email" rules={[...requiredFieldRules]}>
           <InputWrapper />
         </FormItemWrapper>
       </ColWrapper>

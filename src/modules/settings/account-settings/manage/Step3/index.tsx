@@ -18,7 +18,7 @@ interface PropTypes {
 const Step3Content = ({ form, currentStep }: PropTypes): JSX.Element => {
   const { company } = form?.getFieldsValue()
   const subdomain = company?.name ? generateSubdomain(company.name) : ''
-  const domainSuffix = company?.suffix_domain ? company.suffix_domain : ''
+  const domainSuffix = company?.suffixDomain ? company.suffixDomain : ''
   const finalDomain = `https://${subdomain}.${domainSuffix}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`
 
   const [progress, setProgress] = useState(0)
