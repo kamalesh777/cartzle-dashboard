@@ -7,7 +7,7 @@ import { ButtonWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
 
 import BrandManageModal from '../modal/BrandManageModal'
 
-const CategoryCard = () => {
+const CategoryCard = (): JSX.Element => {
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
