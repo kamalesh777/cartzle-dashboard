@@ -37,12 +37,12 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
 
   // fetch unit types
   useEffect(() => {
-    fetchUnitTypes('/api/unit-types-list')
+    fetchUnitTypes('/api/unit-group-list')
   }, [fetchUnitTypes])
 
   // fetch units
   useEffect(() => {
-    fetchUnits(`/api/units-list/${selectedId}`)
+    fetchUnits(`/api/unit-list/${selectedId}`)
   }, [fetchUnits, selectedId])
 
   const onFinish = async (values: CategoryPayload): Promise<void> => {

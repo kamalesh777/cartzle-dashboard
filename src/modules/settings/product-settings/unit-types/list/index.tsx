@@ -20,7 +20,7 @@ const UnitTypeCard = (): JSX.Element => {
   const [selectedId, setSelectedId] = React.useState('')
 
   const fetchUnitTypes = async (): Promise<void> => {
-    fetchData('/api/unit-types-list')
+    fetchData('/api/unit-group-list')
   }
 
   useEffect(() => {

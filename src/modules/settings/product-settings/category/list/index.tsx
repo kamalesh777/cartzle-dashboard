@@ -20,7 +20,7 @@ const CategoryCard = (): JSX.Element => {
   const [selectedId, setSelectedId] = React.useState('')
 
   const fetchCategories = async (): Promise<void> => {
-    fetchData('/api/categories-list-full')
+    fetchData('/api/category-list?include=false')
   }
 
   useEffect(() => {

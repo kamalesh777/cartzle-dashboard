@@ -20,7 +20,7 @@ const UnitsList = (): JSX.Element => {
   const [selectedId, setSelectedId] = React.useState('')
 
   const fetchUnits = async (): Promise<void> => {
-    fetchData('/api/units-list')
+    fetchData('/api/unit-list')
   }
 
   useEffect(() => {

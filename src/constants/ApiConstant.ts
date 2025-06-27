@@ -14,22 +14,22 @@ const routesObj = {
   login: `${API_BASE_URL}/user/login`,
 
   // Create company
-  'create-company': `${API_BASE_URL}/company/create`,
+  'company-create': `${API_BASE_URL}/company/create`,
 
   // Create brand
-  'create-brand': `${API_BASE_URL}/brand/create`,
+  'brand-create': `${API_BASE_URL}/brand/create`,
 
   // Create category
-  'create-category-full': `${API_BASE_URL}/category/create/full`,
-  'categories-list-full': `${API_BASE_URL}/category/list/full`,
+  'category-create': `${API_BASE_URL}/category/create`,
+  'category-list': `${API_BASE_URL}/category/list`,
 
   // Create unit type
-  'unit-types-list': `${API_BASE_URL}/category/unit-types/list`,
-  'create-unit-type': `${API_BASE_URL}/category/unit-types/create`,
+  'unit-group-list': `${API_BASE_URL}/category/unit-group/list`,
+  'unit-group-create': `${API_BASE_URL}/category/unit-group/create`,
 
   // units list
-  'units-list': `${API_BASE_URL}/category/units/list`,
-  'create-unit': `${API_BASE_URL}/category/units/create`,
+  'unit-list': `${API_BASE_URL}/category/unit/list`,
+  'unit-create': `${API_BASE_URL}/category/unit/create`,
 }
 
 export default routesObj
