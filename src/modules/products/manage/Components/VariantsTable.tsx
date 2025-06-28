@@ -28,7 +28,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   // variants from form
   const variantsCard = Form.useWatch('variants', form)
-  const groupBy = Form.useWatch('group_by', form)
+  const costPrice = Form.useWatch('costPrice', form)
+  const salePrice = Form.useWatch('salePrice', form)
+  const groupBy = Form.useWatch('groupBy', form)
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
@@ -42,11 +44,18 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   useEffect(() => {
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
-      dispatch(setVariantsTable(data))
+      const finalData = data.map(item => ({
+        ...item,
+        sellPrice: salePrice,
+        costPrice: costPrice,
+        available: 0,
+      }))
+
+      dispatch(setVariantsTable(finalData))
     } else {
       dispatch(setVariantsTable([]))
     }
-  }, [JSON.stringify(variantsArr), groupBy])
+  }, [JSON.stringify(variantsArr), groupBy, costPrice, salePrice])
 
   // table columns
   const columns: TableColumnsType<VariantCombination> = [
@@ -57,28 +66,28 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       className: 'd-flex align-items-center',
     },
     {
-      title: <InfoTooltip title="Sell Price">Price</InfoTooltip>,
-      dataIndex: 'sellPrice',
-      width: '20%',
-      render: (_, record) => (
-        <InputNumberWrapper
-          prefix={getCurrency()}
-          defaultValue={record.sellPrice}
-          size="small"
-          onChange={value => rowChangeHandler({ ...record, sellPrice: value as number })}
-        />
-      ),
-    },
-    {
       title: <InfoTooltip title="Cost Price">Price</InfoTooltip>,
       dataIndex: 'costPrice',
       width: '20%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
-          defaultValue={record.costPrice}
+          value={record.costPrice}
           size="small"
           onChange={value => rowChangeHandler({ ...record, costPrice: value as number })}
+        />
+      ),
+    },
+    {
+      title: <InfoTooltip title="Sell Price">Price</InfoTooltip>,
+      dataIndex: 'sellPrice',
+      width: '20%',
+      render: (_, record) => (
+        <InputNumberWrapper
+          prefix={getCurrency()}
+          value={record.sellPrice}
+          size="small"
+          onChange={value => rowChangeHandler({ ...record, sellPrice: value as number })}
         />
       ),
     },
@@ -89,7 +98,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
-          defaultValue={record.available}
+          value={record.available}
           size="small"
           onChange={value => rowChangeHandler({ ...record, available: value as number })}
         />

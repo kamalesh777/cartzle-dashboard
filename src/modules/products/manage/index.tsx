@@ -33,8 +33,8 @@ import VariantsTable from './Components/VariantsTable'
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
-  const costPrice = Form.useWatch('cost_price', form)
-  const salePrice = Form.useWatch('sale_price', form)
+  const costPrice = Form.useWatch('costPrice', form)
+  const salePrice = Form.useWatch('salePrice', form)
 
   // Set profit and margin on cost price and sale price change
   useEffect(() => {
@@ -90,20 +90,20 @@ const ProductManageComp = (): JSX.Element => {
             <CardWrapper title={'Pricing'} className="mb-3">
               <Row gutter={COMMON_ROW_GUTTER}>
                 <ColWrapper md={12}>
-                  <FormItemWrapper name="cost_price" label="Cost Price" rules={requiredFieldRules}>
+                  <FormItemWrapper name="costPrice" label="Cost Price" rules={requiredFieldRules}>
                     <InputNumberWrapper prefix={getCurrency()} />
                   </FormItemWrapper>
                 </ColWrapper>
                 <ColWrapper md={12}>
                   <FormItemWrapper
-                    name="sale_price"
+                    name="salePrice"
                     label="Sale Price"
-                    dependencies={['cost_price']}
+                    dependencies={['costPrice']}
                     rules={[
                       ...requiredFieldRules,
                       ({ getFieldValue }) => ({
                         validator(_, value) {
-                          if (!value || value > getFieldValue('cost_price')) {
+                          if (!value || value > getFieldValue('costPrice')) {
                             return Promise.resolve()
                           }
                           return Promise.reject(new Error('Sale price must be > Cost price!'))

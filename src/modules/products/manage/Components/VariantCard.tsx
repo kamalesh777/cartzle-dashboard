@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -21,42 +21,52 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const variantArr = Form.useWatch('variants', form)
   const initialGroupBy = variantArr?.at(0)?.opName
 
+  const [inputEdit, setInputEdit] = useState<boolean>(false)
+
   useEffect(() => {
     form.setFieldsValue({
       groupBy: initialGroupBy,
     })
   }, [form, initialGroupBy, variantArr])
 
-  const staticData = [
-    {
-      opName: 'color',
-      opValue: ['red', 'green', 'blue'],
-    },
-    {
-      opName: 'size',
-      opValue: ['4gb', '6gb'],
-    },
-    {
-      opName: 'rom',
-      opValue: ['64gb', '128gb'],
-    },
-  ]
+  // const staticData = [
+  //   {
+  //     opName: 'color',
+  //     opValue: ['red', 'green', 'blue'],
+  //   },
+  //   {
+  //     opName: 'size',
+  //     opValue: ['4gb', '6gb'],
+  //   },
+  //   {
+  //     opName: 'rom',
+  //     opValue: ['64gb', '128gb'],
+  //   },
+  // ]
   return (
     <>
-      <Form.List name="variants" initialValue={staticData}>
+      <Form.List name="variants">
         {(fields, { add, remove }) => (
           <CardWrapper
             title={
               <div className="d-flex justify-content-between align-items-center">
                 Variants
-                <ButtonWrapper onClick={() => add()} icon={<PlusOutlined />} type="link" className="p-0">
+                <ButtonWrapper
+                  onClick={() => {
+                    setInputEdit(true)
+                    add(null, 0)
+                  }}
+                  icon={<PlusOutlined />}
+                  type="link"
+                  className="p-0"
+                >
                   Add Variant
                 </ButtonWrapper>
               </div>
             }
           >
             {fields?.length > 0 ? (
-              fields.map((field, index) => <VariantFields key={index} field={field} remove={remove} form={form} />)
+              fields.map((field, index) => <VariantFields key={index} {...{ field, form, remove, inputEdit, setInputEdit }} />)
             ) : (
               <EmptyWrapper onClick={() => add()} entity="variants" />
             )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { DeleteOutlined } from '@ant-design/icons'
 import { Form, Tag, type FormInstance } from 'antd'
@@ -18,12 +18,13 @@ interface PropTypes {
   remove: (index: number) => void
   key: number
   form: FormInstance
+  inputEdit: boolean
+  setInputEdit: (value: boolean) => void
 }
-const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => {
+const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
 
   const variantArr = Form.useWatch('variants', form)
-  const [inputEdit, setInputEdit] = useState<boolean>(false)
 
   /** Save variant
    * @param name - variant name
@@ -54,12 +55,12 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
       {!inputEdit ? (
         <>
           <SpaceWrapper className="w-100 justify-content-between">
-            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'op_name'])}</p>
+            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'opName'])}</p>
             <TooltipWrapper title="Delete variant">
               <ButtonWrapper type="link" icon={<DeleteOutlined />} className="error-color" onClick={() => remove(name)} />
             </TooltipWrapper>
           </SpaceWrapper>
-          {form.getFieldValue(['variants', name, 'op_value']).map((item: string, index: number) => (
+          {form.getFieldValue(['variants', name, 'opValue'])?.map((item: string, index: number) => (
             <Tag key={index} color="processing">
               {item}
             </Tag>
@@ -69,7 +70,7 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
         <>
           <FormItemWrapper
             label="Option Name"
-            name={[name, 'op_name']}
+            name={[name, 'opName']}
             rules={[{ required: true, message: 'Option name is required' }]}
             {...restField}
           >
@@ -77,7 +78,7 @@ const VariantFields = ({ field, remove, key, form }: PropTypes): JSX.Element => 
           </FormItemWrapper>
           <FormItemWrapper
             label="Option Value"
-            name={[name, 'op_value']}
+            name={[name, 'opValue']}
             rules={[{ required: true, message: 'Option value is required' }]}
             {...restField}
           >
