@@ -59,7 +59,6 @@ export const generateGroupedCombinations = (
   // Final grouping
   const result = Object.entries(grouped).map(([label, children], index) => {
     const existingParent = findExistingParentData(index)
-
     return {
       ...(existingParent || {}), // keep sellPrice, costPrice, available
       label,

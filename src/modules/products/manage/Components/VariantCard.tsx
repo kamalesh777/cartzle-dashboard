@@ -21,7 +21,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const variantArr = Form.useWatch('variants', form)
   const initialGroupBy = variantArr?.at(0)?.opName
 
-  const [inputEdit, setInputEdit] = useState<boolean>(false)
+  const [inputEdit, setInputEdit] = useState<boolean | number>(false)
 
   useEffect(() => {
     form.setFieldsValue({
@@ -43,6 +43,11 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   //     opValue: ['64gb', '128gb'],
   //   },
   // ]
+
+  const addFunc = (add: (index?: number | null, position?: number) => void): void => {
+    setInputEdit(0)
+    add(null, 0)
+  }
   return (
     <>
       <Form.List name="variants">
@@ -51,15 +56,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
             title={
               <div className="d-flex justify-content-between align-items-center">
                 Variants
-                <ButtonWrapper
-                  onClick={() => {
-                    setInputEdit(true)
-                    add(null, 0)
-                  }}
-                  icon={<PlusOutlined />}
-                  type="link"
-                  className="p-0"
-                >
+                <ButtonWrapper onClick={() => addFunc(add)} icon={<PlusOutlined />} type="link" className="p-0">
                   Add Variant
                 </ButtonWrapper>
               </div>
@@ -68,7 +65,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
             {fields?.length > 0 ? (
               fields.map((field, index) => <VariantFields key={index} {...{ field, form, remove, inputEdit, setInputEdit }} />)
             ) : (
-              <EmptyWrapper onClick={() => add()} entity="variants" />
+              <EmptyWrapper onClick={() => addFunc(add)} entity="variants" />
             )}
           </CardWrapper>
         )}
