@@ -4,6 +4,7 @@ import type { VariantCombination, VariantItem, VariantOptionTypes } from '../typ
  * Generate all possible combinations of variant values
  * @param options Array of options with their values
  * @param groupBy Key to group variants by
+ * @param existingData Array of existing variants data
  * @returns Array of grouped variants
  */
 export const generateGroupedCombinations = (
@@ -16,7 +17,7 @@ export const generateGroupedCombinations = (
   const recurse = (depth = 0, current: string[] = [], optionMap: Record<string, string> = {}): void => {
     if (depth === options.length) {
       allCombinations.push({
-        label: current.join(' x '), // add x between options
+        label: current.length > 1 ? current.join(' x ') : current[0], // add x between options
         options: { ...optionMap },
       })
       return
@@ -59,21 +60,25 @@ export const generateGroupedCombinations = (
   // Final grouping
   const result = Object.entries(grouped).map(([label, children], index) => {
     const existingParent = findExistingParentData(index)
+    // if children length is 1 then return the existing data
+    const childrenData = children?.map((item, index) => {
+      const existingChild = findExistingChildData(item.label)
+      return {
+        ...item,
+        parent: false,
+        ...(existingChild || {}),
+        key: `${label}-${index}`, // better than undefined-0
+      }
+    })
+
+    // if options length is 1 then return the existing data
     return {
       ...(existingParent || {}), // keep sellPrice, costPrice, available
       label,
       parent: true,
       key: label,
-      children: children.map((item, index) => {
-        const existingChild = findExistingChildData(item.label)
-
-        return {
-          ...item,
-          parent: false,
-          ...(existingChild || {}),
-          key: `${label}-${index}`, // better than undefined-0
-        }
-      }),
+      // children: childrenData,
+      ...(options?.length > 1 ? { children: childrenData } : {}),
     }
   })
 

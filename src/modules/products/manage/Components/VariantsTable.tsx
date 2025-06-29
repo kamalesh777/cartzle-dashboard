@@ -39,9 +39,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const variantsArr = useMemo(() => {
     return variantsCard?.filter((variant: VariantOptionTypes) => variant?.opValue?.length > 0)
   }, [variantsCard])
-
   // generate grouped combinations on variants change
   useEffect(() => {
+    console.log('==variantsCard', variantsArr)
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
       const finalData = data.map(item => ({
@@ -55,7 +55,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     } else {
       dispatch(setVariantsTable([]))
     }
-  }, [JSON.stringify(variantsArr), groupBy, costPrice, salePrice])
+  }, [variantsArr, groupBy, costPrice, salePrice])
 
   // table columns
   const columns: TableColumnsType<VariantCombination> = [
@@ -64,6 +64,15 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dataIndex: 'label',
       width: '40%',
       className: 'd-flex align-items-center',
+      render: label =>
+        label?.split(' x ')?.map((item: string, index: number, array: string[]) => {
+          return (
+            <>
+              <span key={index}>{item}</span>
+              {index < array.length - 1 && <span className="fw-bold primary-color mx-2">x</span>}
+            </>
+          )
+        }),
     },
     {
       title: <InfoTooltip title="Cost Price">Price</InfoTooltip>,
@@ -100,6 +109,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           prefix={getCurrency()}
           value={record.available}
           size="small"
+          disabled={record?.children && record?.children?.length > 0}
           onChange={value => rowChangeHandler({ ...record, available: value as number })}
         />
       ),
