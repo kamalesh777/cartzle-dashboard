@@ -37,16 +37,17 @@ interface NewTokenTypes {
 // ✅ Request Interceptor
 API.interceptors.request.use(
   async req => {
-    const accessToken = Cookies.get('accessToken')
-    if (accessToken) {
-      req.headers.Authorization = `Bearer ${accessToken}`
-    }
+    // const accessToken = Cookies.get('accessToken')
+    // if (accessToken) {
+    //   req.headers.Authorization = `Bearer ${accessToken}`
+    // }
 
     req.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     req.headers.Pragma = 'no-cache'
     req.headers['Content-Type'] = 'application/json'
     // get the hostname from the cookie for debug purpose
-    req.headers['X-client-host'] = req.headers['X-client-host']
+    // req.headers['X-Client-Host'] = req.headers['X-Client-Host']
+    // req.headers['X-Refresh-Token'] = req.headers['X-Refresh-Token']
     req.maxContentLength = Infinity
     req.maxBodyLength = Infinity
 

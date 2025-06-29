@@ -63,8 +63,8 @@ async function handleRequest(request: Request): Promise<Response> {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
-        'X-client-host': nextRequest.hostname,
-        'X-refresh-token': refreshToken,
+        'X-Client-Host': nextRequest.hostname,
+        'X-Refresh-Token': refreshToken,
       },
     })
 
