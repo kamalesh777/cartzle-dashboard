@@ -189,7 +189,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   return (
     <>
-      <FormItemWrapper name="variants_table" hidden />
+      <FormItemWrapper name="variantsTable" hidden />
 
       {variantsTableState?.length > 0 && (
         <TableWrapper

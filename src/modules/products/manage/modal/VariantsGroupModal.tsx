@@ -18,7 +18,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList }: ModalProp
       <Row gutter={COMMON_ROW_GUTTER}>
         <ColWrapper md={8}>
           <FormItemWrapper
-            name={['variants_table', selectedList?.label, 'sell_price']}
+            name={['variantsTable', selectedList?.label, 'sellPrice']}
             label="Sell Price"
             rules={requiredFieldRules}
           >
@@ -27,7 +27,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList }: ModalProp
         </ColWrapper>
         <ColWrapper md={8}>
           <FormItemWrapper
-            name={['variants_table', selectedList?.label, 'cost_price']}
+            name={['variantsTable', selectedList?.label, 'costPrice']}
             label="Cost Price"
             rules={requiredFieldRules}
           >
@@ -35,7 +35,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList }: ModalProp
           </FormItemWrapper>
         </ColWrapper>
         <ColWrapper md={8}>
-          <FormItemWrapper name={['variants_table', selectedList?.label, 'available']} label="Available">
+          <FormItemWrapper name={['variantsTable', selectedList?.label, 'available']} label="Available">
             <InputNumberWrapper />
           </FormItemWrapper>
         </ColWrapper>

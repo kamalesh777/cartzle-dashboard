@@ -5,9 +5,13 @@ import React, { useEffect, useState } from 'react'
 import { FileImageOutlined } from '@ant-design/icons'
 import { Form, Input, Row, Upload } from 'antd'
 
+import { useSelector } from 'react-redux'
+
 import type { ProductFormValueTypes } from '../types'
 
 import type { CategoryType } from './types'
+
+import type { RootState } from '@/store/index'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { InfoTooltip } from '@/components/Common'
@@ -39,6 +43,8 @@ import VariantsTable from './Components/VariantsTable'
 
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
+  const variantsTable = useSelector((state: RootState) => state.variants?.variantsTable)
+
   const [form] = Form.useForm()
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
@@ -80,7 +86,11 @@ const ProductManageComp = (): JSX.Element => {
    * @description This function is called when the form is submitted
    */
   const formSubmitHandler = async (formValue: ProductFormValueTypes): Promise<void> => {
-    console.log('===formValue', formValue)
+    const payload = {
+      ...formValue,
+      variantsTable,
+    }
+    console.log('===formValue', payload)
   }
 
   /** Main component */
