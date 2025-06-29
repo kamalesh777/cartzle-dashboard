@@ -3,6 +3,7 @@ import dayjs, { type Dayjs } from 'dayjs'
 import { startCase } from 'lodash'
 
 import type { RangePickerProps } from 'antd/es/date-picker'
+import type { DefaultOptionType } from 'antd/es/select'
 
 // disable currentDate and all day before today
 /**
@@ -26,7 +27,7 @@ export const getDisabledDate = (direction: 'before' | 'after', days = 0): RangeP
 // convert array to select option
 
 type ParseOption = [string, string] | null
-export type ArrOptions = { [key: string]: string }[] | string[]
+export type ArrOptions = DefaultOptionType[] | string[]
 
 export const getSelectOption = (arr: ArrOptions | null, option?: ParseOption): Array<{ label: string; value: string }> => {
   if (!arr) return []
