@@ -40,22 +40,40 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     return variantsCard?.filter((variant: VariantOptionTypes) => variant?.opValue?.length > 0)
   }, [variantsCard])
 
-  // generate grouped combinations on variants change
+  /**
+   * Add default price for all variants
+   * @param data - variant data
+   * @returns variant data with default price
+   */
+
+  const addDefaultPriceForAll = (data: VariantCombination[]): VariantCombination[] => {
+    return data.map(item => {
+      const updatedItem: VariantCombination = {
+        ...item,
+        sellPrice: item?.sellPrice || salePrice,
+        costPrice: item?.costPrice || costPrice,
+        available: 0,
+      }
+
+      if (item.children) {
+        updatedItem.children = addDefaultPriceForAll(item.children)
+      }
+
+      return updatedItem
+    })
+  }
+
+  //~ generate grouped combinations on variants change
   useEffect(() => {
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
-      const finalData = data.map(item => ({
-        ...item,
-        sellPrice: salePrice,
-        costPrice: costPrice,
-        available: 0,
-      }))
-
+      const finalData = addDefaultPriceForAll(data)
       dispatch(setVariantsTable(finalData))
     } else {
       dispatch(setVariantsTable([]))
     }
-  }, [variantsArr, groupBy, costPrice, salePrice])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variantsArr, costPrice, salePrice, groupBy])
 
   // table columns
   const columns: TableColumnsType<VariantCombination> = [

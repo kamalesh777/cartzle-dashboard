@@ -29,7 +29,7 @@ export interface VariantCombination {
   sellPrice?: number
   costPrice?: number
   available?: number
-  children?: VariantItem[]
+  children?: VariantCombination[]
 }
 
 type VariantItem = {

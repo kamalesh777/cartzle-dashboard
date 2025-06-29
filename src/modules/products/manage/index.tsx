@@ -10,6 +10,7 @@ import type { ProductFormValueTypes } from '../types'
 import type { CategoryType } from './types'
 
 import { getRequest } from '@/api/preference/RequestService'
+import { InfoTooltip } from '@/components/Common'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import {
   CardWrapper,
@@ -158,7 +159,37 @@ const ProductManageComp = (): JSX.Element => {
 
           {/* Right side fields */}
           <ColWrapper md={9}>
+            <CardWrapper title={'Publishing'} className="mb-3">
+              <FormItemWrapper name="status" label="Status">
+                <SelectWrapper options={getSelectOption(['Active', 'Inactive'])} />
+              </FormItemWrapper>
+              <FormItemWrapper
+                name="showcase"
+                label={
+                  <SpaceWrapper>
+                    Showcase
+                    <InfoTooltip title="Select a page where this product will be shown" />
+                  </SpaceWrapper>
+                }
+              >
+                <SelectWrapper />
+              </FormItemWrapper>
+              <FormItemWrapper
+                name="collection"
+                label={
+                  <SpaceWrapper>
+                    Collection
+                    <InfoTooltip title="Select a section where this product will be shown" />
+                  </SpaceWrapper>
+                }
+              >
+                <SelectWrapper />
+              </FormItemWrapper>
+            </CardWrapper>
             <CardWrapper title={'Product organization'}>
+              <FormItemWrapper name="brand" label="Brand">
+                <SelectWrapper />
+              </FormItemWrapper>
               <FormItemWrapper name="party" label="Party's Name">
                 <SelectWrapper />
               </FormItemWrapper>
@@ -172,7 +203,7 @@ const ProductManageComp = (): JSX.Element => {
             </CardWrapper>
           </ColWrapper>
         </Row>
-        <Row gutter={COMMON_ROW_GUTTER}>
+        <Row gutter={COMMON_ROW_GUTTER} className="mt-3">
           <ColWrapper>
             <SpaceWrapper>
               <ButtonWrapper type="primary" htmlType="submit">
