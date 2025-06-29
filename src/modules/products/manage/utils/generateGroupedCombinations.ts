@@ -1,10 +1,10 @@
 import type { VariantCombination, VariantItem, VariantOptionTypes } from '../types'
 
 /**
- * Generate all possible combinations of variant values
+ *
  * @param options Array of options with their values
  * @param groupBy Key to group variants by
- * @param existingData Array of existing variants data
+ * @param existingData Array of existing variants data from redux state
  * @returns Array of grouped variants
  */
 export const generateGroupedCombinations = (

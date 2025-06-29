@@ -66,7 +66,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   //~ generate grouped combinations on variants change
   useEffect(() => {
     if (variantsArr?.length) {
+      // generate grouped combinations with variants and groupBy
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
+      // add default price for all variants
       const finalData = addDefaultPriceForAll(data)
       dispatch(setVariantsTable(finalData))
     } else {
