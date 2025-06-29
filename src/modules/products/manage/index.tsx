@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import React, { useEffect } from 'react'
 
@@ -5,6 +6,8 @@ import { FileImageOutlined } from '@ant-design/icons'
 import { Form, Input, Row, Upload } from 'antd'
 
 import type { ProductFormValueTypes } from '../types'
+
+import type { CategoryType } from './types'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import {
@@ -18,14 +21,16 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 import {
-  categoriesOptions,
   COMMON_ROW_GUTTER,
   EMPTY_PLACEHOLDER,
   PRODUCT_LIST_ROUTE,
   requiredFieldRules,
   requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
+import { useGetRequestHandler } from '@/hook/requestHandler'
 import { getCurrency, getProfitMargin } from '@/utils/currency'
+
+import { getSelectOption } from '@/utils/disableFunction'
 
 import VariantCardComp from './Components/VariantCard'
 import VariantsTable from './Components/VariantsTable'
@@ -35,6 +40,8 @@ const ProductManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
+
+  const { fetchData: fetchCategories, data: categoriesData } = useGetRequestHandler<CategoryType[]>()
 
   // Set profit and margin on cost price and sale price change
   useEffect(() => {
@@ -51,6 +58,18 @@ const ProductManageComp = (): JSX.Element => {
     }
   }, [costPrice, salePrice, form])
 
+  // fetch category
+  useEffect(() => {
+    const fetchCategory = async (): Promise<void> => {
+      try {
+        await fetchCategories('/api/category-list')
+      } catch (error) {
+        console.log('===error', error)
+      }
+    }
+    fetchCategory()
+  }, [])
+
   /** Form submit handler
    * @param formValue - Form values
    * @returns void
@@ -63,7 +82,7 @@ const ProductManageComp = (): JSX.Element => {
   /** Main component */
   const MAIN_COMP = (
     <>
-      <Form layout="vertical" form={form} onFinish={formSubmitHandler} initialValues={{ category: 'raw' }}>
+      <Form layout="vertical" form={form} onFinish={formSubmitHandler}>
         <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
           {/* Left side fields */}
           <ColWrapper md={15}>
@@ -75,7 +94,7 @@ const ProductManageComp = (): JSX.Element => {
                 <Input.TextArea rows={3} />
               </FormItemWrapper>
               <FormItemWrapper name="category" label="Category">
-                <SelectWrapper options={categoriesOptions} />
+                <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
               </FormItemWrapper>
               <FormItemWrapper name="media" label="Media">
                 <Upload.Dragger>

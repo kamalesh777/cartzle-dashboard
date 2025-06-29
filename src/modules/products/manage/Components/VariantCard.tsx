@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
 import { PlusOutlined } from '@ant-design/icons'
@@ -6,9 +7,15 @@ import { Form, type FormInstance } from 'antd'
 
 import { startCase } from 'lodash'
 
-import type { VariantOptionTypes } from '../types'
+import { useDispatch } from 'react-redux'
 
+import type { UnitGroupType, VariantOptionTypes } from '../types'
+
+import { getRequest } from '@/api/preference/RequestService'
+import { Toast } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, EmptyWrapper, FormItemWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
+
+import { setVariantOptions } from '@/store/slices/variantsSlice'
 
 import VariantFields from './VariantFields'
 
@@ -18,10 +25,36 @@ interface PropTypes {
 
 /** Variant card component */
 const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
+  const dispatch = useDispatch()
+
   const variantArr = Form.useWatch('variants', form)
+  const categoryId = Form.useWatch('category', form)
+
   const initialGroupBy = variantArr?.at(0)?.opName
 
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
+
+  const fetchVariant = async (): Promise<void> => {
+    try {
+      const res = await getRequest(`/api/category-details/${categoryId}`)
+      if (res.data.success) {
+        const result = res.data.result
+        const variantOptions = result?.unitGroups?.map((item: UnitGroupType) => ({
+          name: item?.name,
+          id: item?.id,
+          units: item?.units,
+        }))
+        dispatch(setVariantOptions(variantOptions))
+      }
+    } catch (error) {
+      Toast('error', (error as Error).message)
+    }
+  }
+  useEffect(() => {
+    if (categoryId) {
+      fetchVariant()
+    }
+  }, [categoryId])
 
   useEffect(() => {
     form.setFieldsValue({

@@ -16,7 +16,7 @@ export const generateGroupedCombinations = (
   const recurse = (depth = 0, current: string[] = [], optionMap: Record<string, string> = {}): void => {
     if (depth === options.length) {
       allCombinations.push({
-        label: current.join(', '),
+        label: current.join(' x '), // add x between options
         options: { ...optionMap },
       })
       return

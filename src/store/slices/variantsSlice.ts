@@ -1,16 +1,16 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { VariantCombination, VariantOptionTypes } from '@/modules/products/manage/types'
+import type { UnitGroupType, VariantCombination } from '@/modules/products/manage/types'
 
 interface VariantsState {
   variantsTable: VariantCombination[]
-  variants: VariantOptionTypes[]
+  options: UnitGroupType[]
   groupBy: string
 }
 
 const initialState: VariantsState = {
   variantsTable: [],
-  variants: [],
+  options: [],
   groupBy: '',
 }
 
@@ -18,8 +18,8 @@ const variantsSlice = createSlice({
   name: 'variants',
   initialState,
   reducers: {
-    setVariants: (state, action: PayloadAction<VariantOptionTypes[]>) => {
-      state.variants = action.payload
+    setVariantOptions: (state, action: PayloadAction<UnitGroupType[]>) => {
+      state.options = action.payload
     },
     setGroupBy: (state, action: PayloadAction<string>) => {
       state.groupBy = action.payload
@@ -30,6 +30,6 @@ const variantsSlice = createSlice({
   },
 })
 
-export const { setVariants, setGroupBy, setVariantsTable } = variantsSlice.actions
+export const { setVariantOptions, setGroupBy, setVariantsTable } = variantsSlice.actions
 
 export default variantsSlice.reducer

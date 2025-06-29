@@ -22,6 +22,7 @@ const routesObj = {
   // Create category
   'category-create': `${API_BASE_URL}/category/create`,
   'category-list': `${API_BASE_URL}/category/list`,
+  'category-details': `${API_BASE_URL}/category/details`,
 
   // Create unit type
   'unit-group-list': `${API_BASE_URL}/category/unit-group/list`,

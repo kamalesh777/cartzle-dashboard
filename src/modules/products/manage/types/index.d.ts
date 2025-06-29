@@ -40,3 +40,19 @@ type VariantItem = {
   available?: number
   options: Record<string, string>
 }
+export interface CategoryType {
+  name: string
+  id: string
+}
+
+export interface UnitGroupType {
+  name: string
+  id: string
+  units: {
+    name: string
+    id: string
+  }[]
+}
+export interface CategoryDetails extends CategoryType {
+  unitGroups: UnitGroupType[]
+}

@@ -3,6 +3,11 @@ import React from 'react'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Form, Tag, type FormInstance } from 'antd'
 
+import { useSelector } from 'react-redux'
+
+import type { UnitGroupType } from '../types'
+import type { RootState } from '@/store/index'
+
 import {
   CardWrapper,
   FormItemWrapper,
@@ -22,9 +27,9 @@ interface PropTypes {
   setInputEdit: (value: boolean | number) => void
 }
 const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
+  const variantOptions = useSelector((state: RootState) => state.variants?.options)
+  const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
-
-  const variantArr = Form.useWatch('variants', form)
 
   /** Save variant
    * @param name - variant name
@@ -43,9 +48,6 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     }
   }
 
-  // Variant placeholder options
-  const variantsPlaceHolder = ['Color', 'Size', 'Material']
-
   const removeFunc = (e: React.MouseEvent, name: number): void => {
     setInputEdit(false)
     remove(name)
@@ -57,11 +59,13 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     e.stopPropagation()
   }
 
+  const variantsArr = Form.useWatch('variants', form)
+
   return (
     <CardWrapper
       bodyStyle={{ padding: '15px' }}
       key={vKey}
-      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantArr?.length - 1 === vKey ? '' : 'mb-3'}`}
+      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantsArr?.length - 1 === vKey ? '' : 'mb-3'}`}
       onClick={e => editFunc(e, name)}
     >
       {inputEdit !== name ? (
@@ -91,7 +95,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             rules={[{ required: true, message: 'Option name is required' }]}
             {...restField}
           >
-            <InputWrapper placeholder={variantsPlaceHolder[variantArr?.length - 1]} />
+            <InputWrapper placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)} />
           </FormItemWrapper>
           <FormItemWrapper
             label="Option Value"
