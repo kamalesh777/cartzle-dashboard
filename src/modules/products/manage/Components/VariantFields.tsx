@@ -99,8 +99,12 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 validator(_, value) {
                   // eslint-disable-next-line prettier/prettier
                   const isSameOpName = variantsArr?.slice(1)?.some((item: VariantOptionTypes) => lowerCase(item.opName) === lowerCase(value))
-                  // check if value is true and isSameOpName is false
-                  if (value && isSameOpName) {
+                  // check if value is true
+                  if (!value) {
+                    return Promise.resolve()
+                  }
+                  // check if isSameOpName is false
+                  if (!isSameOpName) {
                     return Promise.resolve()
                   }
                   return Promise.reject(new Error(`${value} already exists!`))
