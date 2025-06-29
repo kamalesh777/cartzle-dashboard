@@ -3,9 +3,10 @@ import React from 'react'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Form, Tag, type FormInstance } from 'antd'
 
+import { lowerCase } from 'lodash'
 import { useSelector } from 'react-redux'
 
-import type { UnitGroupType } from '../types'
+import type { UnitGroupType, VariantOptionTypes } from '../types'
 import type { RootState } from '@/store/index'
 
 import {
@@ -65,7 +66,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     <CardWrapper
       bodyStyle={{ padding: '15px' }}
       key={vKey}
-      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantsArr?.length - 1 === vKey ? '' : 'mb-3'}`}
+      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantsArr?.length - 1 === name ? '' : 'mb-3'}`}
       onClick={e => editFunc(e, name)}
     >
       {inputEdit !== name ? (
@@ -92,7 +93,20 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
           <FormItemWrapper
             label="Option Name"
             name={[name, 'opName']}
-            rules={[{ required: true, message: 'Option name is required' }]}
+            rules={[
+              { required: true, message: 'Option name is required' },
+              () => ({
+                validator(_, value) {
+                  // eslint-disable-next-line prettier/prettier
+                  const isSameOpName = variantsArr?.slice(1)?.some((item: VariantOptionTypes) => lowerCase(item.opName) === lowerCase(value))
+                  // check if value is true and isSameOpName is false
+                  if (value && isSameOpName) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error(`${value} already exists!`))
+                },
+              }),
+            ]}
             {...restField}
           >
             <InputWrapper placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)} />
