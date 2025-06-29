@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FileImageOutlined } from '@ant-design/icons'
 import { Form, Input, Row, Upload } from 'antd'
@@ -9,6 +9,7 @@ import type { ProductFormValueTypes } from '../types'
 
 import type { CategoryType } from './types'
 
+import { getRequest } from '@/api/preference/RequestService'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import {
   CardWrapper,
@@ -27,7 +28,7 @@ import {
   requiredFieldRules,
   requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
-import { useGetRequestHandler } from '@/hook/requestHandler'
+
 import { getCurrency, getProfitMargin } from '@/utils/currency'
 
 import { getSelectOption } from '@/utils/disableFunction'
@@ -41,8 +42,7 @@ const ProductManageComp = (): JSX.Element => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
 
-  const { fetchData: fetchCategories, data: categoriesData } = useGetRequestHandler<CategoryType[]>()
-
+  const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
   // Set profit and margin on cost price and sale price change
   useEffect(() => {
     if (salePrice > costPrice) {
@@ -62,7 +62,10 @@ const ProductManageComp = (): JSX.Element => {
   useEffect(() => {
     const fetchCategory = async (): Promise<void> => {
       try {
-        await fetchCategories('/api/category-list')
+        const res = await getRequest('/api/category-list')
+        if (res.data.success) {
+          setCategoriesData(res.data.result)
+        }
       } catch (error) {
         console.log('===error', error)
       }
