@@ -39,6 +39,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const variantsArr = useMemo(() => {
     return variantsCard?.filter((variant: VariantOptionTypes) => variant?.opValue?.length > 0)
   }, [variantsCard])
+
   // generate grouped combinations on variants change
   useEffect(() => {
     if (variantsArr?.length) {

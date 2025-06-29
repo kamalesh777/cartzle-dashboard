@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { PlusOutlined } from '@ant-design/icons'
 
 import { Form, type FormInstance } from 'antd'
 
-import { startCase } from 'lodash'
-
 import { useDispatch } from 'react-redux'
 
-import type { UnitGroupType, VariantOptionTypes } from '../types'
+import type { UnitGroupType } from '../types'
 
 import { getRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
+import { TableContentLoaderWithProps, Toast } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, EmptyWrapper, FormItemWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { setVariantOptions } from '@/store/slices/variantsSlice'
+
+import { getSelectOption } from '@/utils/disableFunction'
 
 import VariantFields from './VariantFields'
 
@@ -27,12 +27,12 @@ interface PropTypes {
 const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
-  const variantArr = Form.useWatch('variants', form)
+  const variantsArr = Form.useWatch('variants', form)
   const categoryId = Form.useWatch('category', form)
 
-  const initialGroupBy = variantArr?.at(0)?.opName
-
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  // const [groupByOptions, setGroupByOptions] = useState<DefaultOptionType[] | null>([])
 
   const fetchVariant = async (): Promise<void> => {
     try {
@@ -56,11 +56,18 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
     }
   }, [categoryId])
 
+  const groupByOptions = useMemo(() => {
+    const data = getSelectOption(variantsArr, ['opName', 'opName'])
+    return data
+  }, [variantsArr])
+
   useEffect(() => {
+    setLoading(true)
     form.setFieldsValue({
-      groupBy: initialGroupBy,
+      groupBy: variantsArr?.at(-1)?.opName,
     })
-  }, [form, initialGroupBy, variantArr])
+    setTimeout(() => setLoading(false), 600)
+  }, [form, variantsArr])
 
   // const staticData = [
   //   {
@@ -81,6 +88,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
     setInputEdit(0)
     add(null, 0)
   }
+
   return (
     <>
       <Form.List name="variants">
@@ -104,19 +112,16 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
         )}
       </Form.List>
       {/* Group By variant */}
-      {variantArr?.length > 0 && (
+      {groupByOptions && groupByOptions?.length > 0 && (
         <CardWrapper bodyStyle={{ padding: '15px 20px' }}>
           <SpaceWrapper size={16} align="center">
             <span>Group By: </span>
             <FormItemWrapper name="groupBy" className="mb-0">
-              <SelectWrapper
-                style={{ width: '200px' }}
-                defaultActiveFirstOption
-                options={variantArr?.map((variant: VariantOptionTypes) => ({
-                  label: startCase(variant?.opName),
-                  value: variant?.opName,
-                }))}
-              />
+              {loading ? (
+                <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
+              ) : (
+                <SelectWrapper style={{ width: '200px' }} options={groupByOptions || []} />
+              )}
             </FormItemWrapper>
           </SpaceWrapper>
         </CardWrapper>

@@ -67,7 +67,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       bodyStyle={{ padding: '15px' }}
       key={vKey}
       className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantsArr?.length - 1 === name ? '' : 'mb-3'}`}
-      onClick={e => editFunc(e, name)}
+      onClick={e => inputEdit === false && editFunc(e, name)}
     >
       {inputEdit !== name ? (
         <>
