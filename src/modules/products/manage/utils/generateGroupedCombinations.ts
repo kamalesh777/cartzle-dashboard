@@ -71,14 +71,17 @@ export const generateGroupedCombinations = (
       }
     })
 
-    // if options length is 1 then return the existing data
+    // If there's only one variant option, return the first child directly
+    if (options?.length === 1) {
+      return childrenData[0]
+    }
+
     return {
       ...(existingParent || {}), // keep sellPrice, costPrice, available
       label,
       parent: true,
       key: label,
-      // children: childrenData,
-      ...(options?.length > 1 ? { children: childrenData } : {}),
+      children: childrenData,
     }
   })
 

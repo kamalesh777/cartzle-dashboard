@@ -41,7 +41,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }, [variantsCard])
   // generate grouped combinations on variants change
   useEffect(() => {
-    console.log('==variantsCard', variantsArr)
     if (variantsArr?.length) {
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
       const finalData = data.map(item => ({
