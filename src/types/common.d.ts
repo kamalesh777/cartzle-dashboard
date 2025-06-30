@@ -2,7 +2,7 @@ import type { AxiosResponse } from 'axios'
 
 export interface ModalPropTypes<T> {
   openModal: boolean
-  setOpenModal: (parama: boolean) => void
+  setOpenModal: (param: boolean) => void
   selectedList?: T
   selectedId?: string
   afterSubmit?: () => void

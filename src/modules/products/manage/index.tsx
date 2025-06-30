@@ -2,8 +2,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 
-import { FileImageOutlined } from '@ant-design/icons'
-import { Form, Input, Row, Upload } from 'antd'
+import { Form, Input, Row } from 'antd'
 
 import type { ProductFormValueTypes } from '../types'
 
@@ -22,6 +21,7 @@ import {
   ButtonWrapper,
   SpaceWrapper,
 } from '@/components/Wrapper'
+import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 import {
   COMMON_ROW_GUTTER,
   EMPTY_PLACEHOLDER,
@@ -104,13 +104,7 @@ const ProductManageComp = (): JSX.Element => {
                 <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
               </FormItemWrapper>
               <FormItemWrapper name="media" label="Media">
-                <Upload.Dragger>
-                  <p className="fs-1">
-                    <FileImageOutlined className="text-secondary" />
-                  </p>
-                  <p>Click or drag file to this area to upload</p>
-                  <p className="ant-upload-hint mb-3 fs-7">Only Accept images are .jpeg, .jpg, .png, .webp, .svg</p>
-                </Upload.Dragger>
+                <UploadWrapper />
               </FormItemWrapper>
             </CardWrapper>
             <CardWrapper title={'Pricing'} className="mb-3">

@@ -207,7 +207,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         />
       )}
 
-      {openModal && <VariantsGroupModal openModal={openModal} setOpenModal={setOpenModal} selectedList={selectedList} />}
+      {openModal && <VariantsGroupModal {...{ form, openModal, setOpenModal, selectedList }} />}
     </>
   )
 }
