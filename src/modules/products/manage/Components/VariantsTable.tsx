@@ -146,8 +146,12 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     },
   ]
 
+  // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
+    onChange: (_selectedRowKeys, selectedRows) => {
+      form.setFieldValue('variantCombinations', selectedRows)
+    },
   }
 
   /**
@@ -178,7 +182,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     })
 
     dispatch(setVariantsTable(finalData))
-    form.setFieldValue('variantsTable', finalData)
   }
 
   // edit row handler
@@ -189,7 +192,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   return (
     <>
-      <FormItemWrapper name="variantsTable" hidden />
+      <FormItemWrapper name="variantCombinations" hidden />
 
       {variantsTableState?.length > 0 && (
         <TableWrapper
