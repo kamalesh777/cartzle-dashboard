@@ -49,9 +49,9 @@ export interface UnitGroupType {
   name: string
   id: string
   units: {
-    name: string
+    value: string
     id: string
-  }[]
+  }
 }
 export interface CategoryDetails extends CategoryType {
   unitGroups: UnitGroupType[]

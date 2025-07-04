@@ -84,9 +84,15 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   //   },
   // ]
 
-  const addFunc = (add: (index?: number | null, position?: number) => void): void => {
-    setInputEdit(0)
-    add(null, 0)
+  const addFunc = async (add: (index?: number | null, position?: number) => void): Promise<void> => {
+    try {
+      await form.validateFields([['variants']], { recursive: true })
+      setInputEdit(0)
+      add(null, 0)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('===error', error)
+    }
   }
 
   return (

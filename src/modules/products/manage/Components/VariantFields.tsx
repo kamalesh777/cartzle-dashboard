@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { DeleteOutlined } from '@ant-design/icons'
-import { Form, Tag, type FormInstance } from 'antd'
+import { AutoComplete, Form, Tag, type FormInstance } from 'antd'
 
 import { lowerCase } from 'lodash'
 import { useSelector } from 'react-redux'
@@ -9,15 +9,8 @@ import { useSelector } from 'react-redux'
 import type { UnitGroupType, VariantOptionTypes } from '../types'
 import type { RootState } from '@/store/index'
 
-import {
-  CardWrapper,
-  FormItemWrapper,
-  InputWrapper,
-  SelectWrapper,
-  SpaceWrapper,
-  ButtonWrapper,
-  TooltipWrapper,
-} from '@/components/Wrapper'
+import { CardWrapper, FormItemWrapper, SpaceWrapper, ButtonWrapper, TooltipWrapper, SelectWrapper } from '@/components/Wrapper'
+import { getSelectOption } from '@/utils/disableFunction'
 
 interface PropTypes {
   field: { name: number; key: React.Key }
@@ -31,6 +24,10 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
   const variantOptions = useSelector((state: RootState) => state.variants?.options)
   const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
+
+  const variantsArr = Form.useWatch('variants', form)
+
+  const [unitOptions, setUnitOptions] = useState<UnitGroupType['units'][]>([])
 
   /** Save variant
    * @param name - variant name
@@ -60,7 +57,28 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     e.stopPropagation()
   }
 
-  const variantsArr = Form.useWatch('variants', form)
+  // search result function for unit options
+  const searchResult = (query: string): UnitGroupType['units'][] => {
+    const result = unitOptions?.map((item: UnitGroupType['units']) => {
+      const unitValue = `${query}${item?.value}`
+      return {
+        value: unitValue,
+        id: unitValue,
+      }
+    })
+    return result as unknown as UnitGroupType['units'][]
+  }
+
+  // handle search function for unit options
+  const handleSearch = (value: string): void => {
+    setUnitOptions(value != null ? searchResult(value) : [])
+  }
+
+  // on unit group select function
+  const onUnitGroupSelect = (value: string): void => {
+    const unitGroup = variantOptions?.find((item: UnitGroupType) => item?.name === value)?.units || []
+    setUnitOptions(unitGroup as unknown as UnitGroupType['units'][])
+  }
 
   return (
     <CardWrapper
@@ -113,7 +131,12 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             ]}
             {...restField}
           >
-            <InputWrapper placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)} />
+            <AutoComplete
+              options={getSelectOption(variantOptions, ['name', 'name'])}
+              // onSearch={(text) => }
+              placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)}
+              onSelect={onUnitGroupSelect}
+            />
           </FormItemWrapper>
           <FormItemWrapper
             label="Option Value"
@@ -121,7 +144,14 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             rules={[{ required: true, message: 'Option value is required' }]}
             {...restField}
           >
-            <SelectWrapper mode="tags" tokenSeparators={[',', ' ']} showArrow={false} notFoundContent={null} />
+            <SelectWrapper
+              options={getSelectOption(unitOptions, ['value', 'id'])}
+              // onSelect={onSelect}
+              optionFilterProp="label"
+              onSearch={text => handleSearch(text)}
+              placeholder={'Select Units'}
+              mode="tags"
+            />
           </FormItemWrapper>
           <SpaceWrapper className="w-100 justify-content-between">
             <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)}>
