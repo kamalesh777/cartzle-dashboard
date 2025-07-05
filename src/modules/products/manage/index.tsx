@@ -86,6 +86,7 @@ const ProductManageComp = (): JSX.Element => {
     console.log('===formValue', payload)
   }
 
+  console.log('===', Form.useWatch('media', form))
   /** Main component */
   const MAIN_COMP = (
     <>
@@ -103,8 +104,8 @@ const ProductManageComp = (): JSX.Element => {
               <FormItemWrapper name="category" label="Category">
                 <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
               </FormItemWrapper>
-              <FormItemWrapper name="media" label="Media">
-                <UploadWrapper />
+              <FormItemWrapper name="media" label="Media" className="mb-1">
+                <UploadWrapper multiple listType="picture-card" />
               </FormItemWrapper>
             </CardWrapper>
             <CardWrapper title={'Pricing'} className="mb-3">

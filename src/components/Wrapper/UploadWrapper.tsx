@@ -11,7 +11,7 @@ interface UploadWrapperProps extends UploadProps {
 
 const UploadWrapper = ({ icons, text, helperText, ...props }: UploadWrapperProps): JSX.Element => {
   return (
-    <Upload.Dragger {...props}>
+    <Upload.Dragger {...props} className="common-uploader">
       {icons ? (
         icons
       ) : (
