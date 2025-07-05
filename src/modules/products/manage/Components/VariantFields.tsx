@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 
-import { DeleteOutlined } from '@ant-design/icons'
-import { AutoComplete, Form, Tag, type FormInstance } from 'antd'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { Divider, Form, Space, Tag, type FormInstance } from 'antd'
 
 import { lowerCase } from 'lodash'
+
 import { useSelector } from 'react-redux'
 
 import type { UnitGroupType, VariantOptionTypes } from '../types'
 import type { RootState } from '@/store/index'
 
-import { CardWrapper, FormItemWrapper, SpaceWrapper, ButtonWrapper, TooltipWrapper, SelectWrapper } from '@/components/Wrapper'
+import {
+  CardWrapper,
+  FormItemWrapper,
+  SpaceWrapper,
+  ButtonWrapper,
+  TooltipWrapper,
+  SelectWrapper,
+  InputWrapper,
+} from '@/components/Wrapper'
 import { getSelectOption } from '@/utils/disableFunction'
 
 interface PropTypes {
@@ -28,6 +37,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
   const variantsArr = Form.useWatch('variants', form)
 
   const [unitOptions, setUnitOptions] = useState<UnitGroupType['units'][]>([])
+  const [selectedUnitGroup, setSelectedUnitGroup] = useState<string>('')
 
   /** Save variant
    * @param name - variant name
@@ -57,27 +67,34 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     e.stopPropagation()
   }
 
-  // search result function for unit options
-  const searchResult = (query: string): UnitGroupType['units'][] => {
-    const result = unitOptions?.map((item: UnitGroupType['units']) => {
-      const unitValue = `${query}${item?.value}`
-      return {
-        value: unitValue,
-        id: unitValue,
-      }
-    })
-    return result as unknown as UnitGroupType['units'][]
+  const getSelectedUnitGroup = (v?: string): UnitGroupType['units'][] => {
+    const unitGroup = variantOptions?.find((item: UnitGroupType) => item?.name === v)
+    const unitGroupUnits = (unitGroup?.units || []) as unknown as UnitGroupType['units'][]
+    return unitGroupUnits
   }
 
   // handle search function for unit options
   const handleSearch = (value: string): void => {
-    setUnitOptions(value != null ? searchResult(value) : [])
+    const unitGroupUnits = getSelectedUnitGroup(selectedUnitGroup)
+    if (!value) {
+      setUnitOptions(unitGroupUnits)
+    } else {
+      const result = unitGroupUnits?.map((item: UnitGroupType['units']) => {
+        const unitValue = `${value}${item?.value}`
+        return {
+          value: unitValue,
+          id: unitValue,
+        }
+      })
+      setUnitOptions(result)
+    }
   }
 
   // on unit group select function
   const onUnitGroupSelect = (value: string): void => {
-    const unitGroup = variantOptions?.find((item: UnitGroupType) => item?.name === value)?.units || []
-    setUnitOptions(unitGroup as unknown as UnitGroupType['units'][])
+    setSelectedUnitGroup(value)
+    const unitGroupUnits = getSelectedUnitGroup(value)
+    setUnitOptions(unitGroupUnits)
   }
 
   return (
@@ -131,11 +148,20 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             ]}
             {...restField}
           >
-            <AutoComplete
+            <SelectWrapper
               options={getSelectOption(variantOptions, ['name', 'name'])}
-              // onSearch={(text) => }
               placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)}
-              onSelect={onUnitGroupSelect}
+              onChange={onUnitGroupSelect}
+              popupRender={menu => (
+                <div>
+                  {menu}
+                  <Divider className="my-2" />
+                  <Space.Compact className="w-100 mb-2 px-2" block>
+                    <InputWrapper className="w-100" />
+                    <ButtonWrapper icon={<PlusOutlined />}>Add</ButtonWrapper>
+                  </Space.Compact>
+                </div>
+              )}
             />
           </FormItemWrapper>
           <FormItemWrapper
@@ -150,7 +176,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
               optionFilterProp="label"
               onSearch={text => handleSearch(text)}
               placeholder={'Select Units'}
-              mode="tags"
+              mode="multiple"
             />
           </FormItemWrapper>
           <SpaceWrapper className="w-100 justify-content-between">

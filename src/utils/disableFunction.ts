@@ -29,15 +29,22 @@ export const getDisabledDate = (direction: 'before' | 'after', days = 0): RangeP
 type ParseOption = [string, string] | null
 export type ArrOptions = DefaultOptionType[] | string[]
 
-export const getSelectOption = (arr: ArrOptions | null, option?: ParseOption): Array<{ label: string; value: string }> => {
+export const getSelectOption = (
+  arr: ArrOptions | null,
+  option?: ParseOption,
+): Array<{ label: string; value: string; title?: string; key?: string }> => {
   if (!arr) return []
   return arr.map(item => {
     if (Array.isArray(option) && typeof item === 'object' && item !== null) {
       const labelValue = item[option[0]]
       const valueValue = item[option[1]]
+      const titleValue = option.at(2) ? item[option.at(2) as string] : ''
+      const keyValue = option.at(3) ? item[option.at(3) as string] : ''
       return {
         label: startCase(labelValue),
         value: valueValue,
+        title: titleValue,
+        key: keyValue,
       }
     }
 
@@ -46,6 +53,8 @@ export const getSelectOption = (arr: ArrOptions | null, option?: ParseOption): A
     return {
       label: startCase(strItem),
       value: strItem,
+      title: strItem,
+      key: strItem,
     }
   })
 }
