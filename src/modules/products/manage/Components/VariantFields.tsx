@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
 
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { Divider, Form, Space, Tag, type FormInstance } from 'antd'
@@ -90,6 +91,15 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     }
   }
 
+  // at the time of edit variant
+  useEffect(() => {
+    if (inputEdit) {
+      const variant = form.getFieldValue(['variants', inputEdit])
+      const unitGroupUnits = getSelectedUnitGroup(variant.opName)
+      setUnitOptions(unitGroupUnits)
+    }
+  }, [inputEdit])
+
   // on unit group select function
   const onUnitGroupSelect = (value: string): void => {
     setSelectedUnitGroup(value)
@@ -171,7 +181,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             {...restField}
           >
             <SelectWrapper
-              options={getSelectOption(unitOptions, ['value', 'id'])}
+              options={getSelectOption(unitOptions, ['value', 'value'])}
               // onSelect={onSelect}
               optionFilterProp="label"
               onSearch={text => handleSearch(text)}

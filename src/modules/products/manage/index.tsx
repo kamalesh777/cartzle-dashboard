@@ -42,6 +42,7 @@ const ProductManageComp = (): JSX.Element => {
   const [form] = Form.useForm()
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
+  const category = Form.useWatch('category', form)
 
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
   // Set profit and margin on cost price and sale price change
@@ -86,7 +87,7 @@ const ProductManageComp = (): JSX.Element => {
     console.log('===formValue', payload)
   }
 
-  console.log('===', Form.useWatch('media', form))
+  console.log('===', Form.useWatch([], form))
   /** Main component */
   const MAIN_COMP = (
     <>
@@ -101,10 +102,10 @@ const ProductManageComp = (): JSX.Element => {
               <FormItemWrapper name="description" label="Description">
                 <Input.TextArea rows={3} />
               </FormItemWrapper>
-              <FormItemWrapper name="category" label="Category">
+              <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>
                 <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
               </FormItemWrapper>
-              <FormItemWrapper name="media" label="Media" className="mb-1">
+              <FormItemWrapper name="media" label="Media" className="mb-1" getValueFromEvent={obj => obj.fileList}>
                 <UploadWrapper multiple listType="picture-card" />
               </FormItemWrapper>
             </CardWrapper>
@@ -150,9 +151,13 @@ const ProductManageComp = (): JSX.Element => {
                 </ColWrapper>
               </Row>
             </CardWrapper>
-            <VariantCardComp form={form} />
-            {/* Variants table */}
-            <VariantsTable form={form} />
+            {category != null ? (
+              <>
+                <VariantCardComp form={form} />
+                {/* Variants table */}
+                <VariantsTable form={form} />
+              </>
+            ) : null}
           </ColWrapper>
 
           {/* Right side fields */}

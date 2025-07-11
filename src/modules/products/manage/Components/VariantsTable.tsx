@@ -95,7 +95,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         }),
     },
     {
-      title: <InfoTooltip title="Cost Price">Price</InfoTooltip>,
+      title: <InfoTooltip title="Purchase price">Cost</InfoTooltip>,
       dataIndex: 'costPrice',
       width: '20%',
       render: (_, record) => (
@@ -108,7 +108,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: <InfoTooltip title="Sell Price">Price</InfoTooltip>,
+      title: <InfoTooltip title="Sell price">Sell</InfoTooltip>,
       dataIndex: 'sellPrice',
       width: '20%',
       render: (_, record) => (

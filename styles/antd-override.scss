@@ -80,7 +80,7 @@
 }
 .common-uploader .ant-upload-list.ant-upload-list-picture-card:not(:empty) {
     margin-top: 15px;
-    height: 150px;
+    max-height: 150px;
     overflow-y: scroll;
 }
 .common-uploader .ant-upload-list-item-container {
