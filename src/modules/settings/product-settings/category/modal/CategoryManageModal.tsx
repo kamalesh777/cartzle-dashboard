@@ -4,7 +4,7 @@ import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 
 import { Form } from 'antd'
 
-import type { UnitTypePayload, UnitsPayload, CategoryList, CategoryPayload } from '../../types'
+import type { UnitsPayload, CategoryList, UnitGroupExpand } from '../../types'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -31,21 +31,21 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
   const { submit, buttonLoading } = usePostRequestHandler<CategoryList>()
 
   // fetch all unit types
-  const { fetchData: fetchUnitTypes, data: unitTypes, isLoading: unitTypesLoading } = useGetRequestHandler<UnitTypePayload[]>()
+  const { fetchData: fetchUnitTypes, data: unitTypes, isLoading: unitTypesLoading } = useGetRequestHandler<UnitGroupExpand[]>()
   // fetch all units
   const { fetchData: fetchUnits, data: units } = useGetRequestHandler<UnitsPayload[]>()
 
   // fetch unit types
   useEffect(() => {
     fetchUnitTypes('/api/unit-group-list')
-  }, [fetchUnitTypes])
+  }, [])
 
   // fetch units
   useEffect(() => {
     fetchUnits(`/api/unit-list/${selectedId}`)
-  }, [fetchUnits, selectedId])
+  }, [selectedId])
 
-  const onFinish = async (values: CategoryPayload): Promise<void> => {
+  const onFinish = async (values: CategoryList): Promise<void> => {
     await submit('create-category', values, null, () => {
       form.resetFields()
       setOpenModal(false)
