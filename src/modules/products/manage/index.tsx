@@ -30,6 +30,7 @@ import {
   requiredWithWhitspcFieldRules,
 } from '@/constants/AppConstant'
 
+import { useUnwantedReload } from '@/hook/useUnwantedReload'
 import { getCurrency, getProfitMargin } from '@/utils/currency'
 
 import { getSelectOption } from '@/utils/disableFunction'
@@ -39,10 +40,14 @@ import VariantsTable from './Components/VariantsTable'
 
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
+  const { isValueChanged, setIsValueChanged } = useUnwantedReload()
+
   const [form] = Form.useForm()
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const category = Form.useWatch('category', form)
+
+  console.log('===hhadjad', isValueChanged)
 
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
   // Set profit and margin on cost price and sale price change
@@ -91,7 +96,7 @@ const ProductManageComp = (): JSX.Element => {
   /** Main component */
   const MAIN_COMP = (
     <>
-      <Form layout="vertical" form={form} onFinish={formSubmitHandler}>
+      <Form layout="vertical" form={form} onFinish={formSubmitHandler} onValuesChange={() => setIsValueChanged(true)}>
         <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
           {/* Left side fields */}
           <ColWrapper md={15}>

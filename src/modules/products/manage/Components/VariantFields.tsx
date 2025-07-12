@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { Divider, Form, Space, Tag, type FormInstance } from 'antd'
+import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
+import { Divider, Form, Tag, type FormInstance } from 'antd'
 
+import Cookies from 'js-cookie'
 import { lowerCase } from 'lodash'
 
 import { useSelector } from 'react-redux'
@@ -11,15 +12,9 @@ import { useSelector } from 'react-redux'
 import type { UnitGroupType, VariantOptionTypes } from '../types'
 import type { RootState } from '@/store/index'
 
-import {
-  CardWrapper,
-  FormItemWrapper,
-  SpaceWrapper,
-  ButtonWrapper,
-  TooltipWrapper,
-  SelectWrapper,
-  InputWrapper,
-} from '@/components/Wrapper'
+import { CardWrapper, FormItemWrapper, SpaceWrapper, ButtonWrapper, TooltipWrapper, SelectWrapper } from '@/components/Wrapper'
+import { LinkWrapper } from '@/components/Wrapper/LinkWrapper'
+
 import { getSelectOption } from '@/utils/disableFunction'
 
 interface PropTypes {
@@ -31,6 +26,8 @@ interface PropTypes {
   setInputEdit: (value: boolean | number) => void
 }
 const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
+  const isValueChanged = Cookies.get('isValueChanged')
+
   const variantOptions = useSelector((state: RootState) => state.variants?.options)
   const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
@@ -166,10 +163,15 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 <div>
                   {menu}
                   <Divider className="my-2" />
-                  <Space.Compact className="w-100 mb-2 px-2" block>
-                    <InputWrapper className="w-100" />
-                    <ButtonWrapper icon={<PlusOutlined />}>Add</ButtonWrapper>
-                  </Space.Compact>
+                  <LinkWrapper
+                    href="/settings/product-settings#unit-groups"
+                    className="primary-color d-block px-2 pb-2"
+                    isValueChanged={Boolean(isValueChanged)}
+                  >
+                    <>
+                      <SettingOutlined /> Manage Group
+                    </>
+                  </LinkWrapper>
                 </div>
               )}
             />

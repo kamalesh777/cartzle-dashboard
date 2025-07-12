@@ -15,7 +15,7 @@ import { metaTitle } from '@/utils/commonFunctions'
 
 export const metadata = {
   title: metaTitle('Home'),
-  generator: 'A Ecommerce platform for daily shopping',
+  generator: 'An E-commerce platform for daily shopping',
   applicationName: process.env.NEXT_PUBLIC_BRAND_NAME,
   keywords: ['Next.js', 'React', 'JavaScript'],
   authors: [{ name: 'Kamalesh Maity' }, { name: 'Kamalesh' }],
