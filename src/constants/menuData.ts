@@ -105,9 +105,9 @@ const menuData = [
             icon: '',
           },
           {
-            key: 'product-settings-unit-types',
-            href: '#unit-types',
-            title: 'Unit Types',
+            key: 'product-settings-unit-groups',
+            href: '#unit-groups',
+            title: 'Unit Groups',
             icon: '',
           },
           {

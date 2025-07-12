@@ -31,7 +31,6 @@ interface Props extends ModalPropTypes<VariantCombination> {
 }
 
 const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
-  const product = Form.useWatch([], form)
   const closeModal = (): void => modalCloseHandler(setOpenModal)
   const renderPrefix = (name: string): string => {
     if (name === 'sellPrice' || name === 'costPrice') {

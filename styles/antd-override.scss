@@ -87,6 +87,9 @@
     width: calc(20% - 7px) !important;
     height: 70px !important;
 }
+tr.ant-table-expanded-row .ant-table-wrapper {
+    margin: 15px 15px 20px 0;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

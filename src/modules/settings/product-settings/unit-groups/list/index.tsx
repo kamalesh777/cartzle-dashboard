@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import { Row, type MenuProps } from 'antd'
 
-import type { BrandTypePayload, UnitTypePayload } from '../../types'
+import type { BrandTypePayload, CategoryList } from '../../types'
 
 import { TableActionButton } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
@@ -14,19 +14,24 @@ import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import UnitTypeManageModal from '../modal/UnitTypeManageModal'
 
-const UnitTypeCard = (): JSX.Element => {
-  const { fetchData, data, isLoading } = useGetRequestHandler<UnitTypePayload[]>()
+const UnitGroupsCard = (): JSX.Element => {
+  const { fetchData, data, isLoading } = useGetRequestHandler<CategoryList[]>()
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
 
-  const fetchUnitTypes = async (): Promise<void> => {
+  const fetchUnitGroups = async (): Promise<void> => {
     fetchData('/api/unit-group-list')
   }
 
   useEffect(() => {
-    fetchUnitTypes()
+    fetchUnitGroups()
   }, [])
 
+  /**
+   * Creates a menu for more actions on a unit group.
+   * @param {BrandTypePayload} record The unit group data.
+   * @returns {MenuProps['items']} The menu items.
+   */
   const getMoreMenus = (record: BrandTypePayload): MenuProps['items'] => [
     {
       key: 'edit',
@@ -47,9 +52,9 @@ const UnitTypeCard = (): JSX.Element => {
 
   return (
     <>
-      <div id="unit-types" className="mb-3">
+      <div id="unit-groups" className="mb-3">
         <CardWrapper
-          title={'Unit Types'}
+          title={'Unit Groups'}
           extra={
             <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>
               New
@@ -57,7 +62,7 @@ const UnitTypeCard = (): JSX.Element => {
           }
         >
           <Row gutter={COMMON_ROW_GUTTER}>
-            {data?.map((item: UnitTypePayload) => (
+            {data?.map((item: CategoryList) => (
               <ColWrapper md={6} span={12} key={item.name}>
                 <CardWrapper styles={{ body: { padding: '10px' } }} loading={isLoading} className="mb-3">
                   <SpaceWrapper className="w-100 justify-content-between">
@@ -75,4 +80,4 @@ const UnitTypeCard = (): JSX.Element => {
   )
 }
 
-export default UnitTypeCard
+export default UnitGroupsCard

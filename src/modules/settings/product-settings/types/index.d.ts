@@ -1,19 +1,21 @@
 export interface CategoryList {
   id: string
   name: string
-  unitType: string
-  units: string
+  unitGroups: UnitGroupExpand[]
 }
 
-export interface CategoryPayload {
+export interface UnitsTypes {
+  value: string
+  id: string
+}
+
+export interface UnitGroupExpand {
+  id: string
   name: string
-  unitType: {
-    id: string
-    units: string[]
-  }[]
+  units: UnitsTypes[]
 }
 
-export interface UnitTypePayload {
+export interface UnitGroupPayload {
   id?: string
   name: string
 }

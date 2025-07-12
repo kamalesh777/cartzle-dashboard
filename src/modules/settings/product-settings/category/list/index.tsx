@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 
-import type { CategoryList } from '../../types'
-import type { MenuProps } from 'antd'
+import { type MenuProps } from 'antd'
+
+import type { CategoryList, UnitsTypes } from '../../types'
 
 import { TableActionButton } from '@/components/Common'
 import EmptyContentWithLoading from '@/components/Common/EmptyContentTableLoading'
@@ -20,7 +21,7 @@ const CategoryCard = (): JSX.Element => {
   const [selectedId, setSelectedId] = React.useState('')
 
   const fetchCategories = async (): Promise<void> => {
-    fetchData('/api/category-list?include=false')
+    fetchData('/api/category-list?include=true')
   }
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const CategoryCard = (): JSX.Element => {
   const getMoreMenus = (record: CategoryList): MenuProps['items'] => [
     {
       key: 'edit',
-      title: 'Edit',
+      label: 'Edit',
       onClick: () => {
         setSelectedId(record.id)
         setOpenModal(true)
@@ -38,7 +39,7 @@ const CategoryCard = (): JSX.Element => {
     },
     {
       key: 'delete',
-      title: 'Delete',
+      label: 'Delete',
       onClick: () => {
         // Handle delete action
       },
@@ -51,20 +52,31 @@ const CategoryCard = (): JSX.Element => {
       key: 'name',
     },
     {
-      title: 'Unit Type',
-      dataIndex: 'unitType',
-    },
-    {
-      title: 'Units',
-      dataIndex: 'units',
-    },
-    {
       title: '',
       key: 'action',
       className: 'text-right',
       render: (record: CategoryList) => <TableActionButton items={getMoreMenus(record)} />,
     },
   ]
+
+  // expanded data source for unit groups
+  const expandDataSource = data?.map((item: CategoryList) => item.unitGroups).flat()
+
+  // expanded columns for unit groups
+  const expandColumns = [
+    { title: 'Unit Group', dataIndex: 'name', key: 'name' },
+    {
+      title: 'Units',
+      dataIndex: 'units',
+      key: 'units',
+      render: (units: UnitsTypes[]) => units.map(obj => obj.value).join(', '),
+    },
+  ]
+
+  // expanded row render function
+  const expandedRowRender = (): JSX.Element => (
+    <TableWrapper columns={expandColumns} dataSource={expandDataSource} pagination={false} />
+  )
 
   const ACTION_COMP = (
     <SpaceWrapper className="w-100 justify-content-between">
@@ -85,6 +97,7 @@ const CategoryCard = (): JSX.Element => {
           locale={{
             emptyText: <EmptyContentWithLoading isLoading={isLoading} columns={[30, 30, 30, 10]} />,
           }}
+          expandedRowRender={expandedRowRender}
         />
       </div>
       {openModal && <CategoryManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
