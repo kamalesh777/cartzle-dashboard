@@ -58,7 +58,7 @@ const UnitsList = (): JSX.Element => {
               <ColWrapper md={4} span={8} key={item.id}>
                 <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
                   <SpaceWrapper className="w-100 justify-content-between">
-                    <p>{item.value}</p>
+                    <p>{item.name}</p>
                     <TableActionButton tooltipTitle="" items={getMoreMenus(item as UnitsPayload)} />
                   </SpaceWrapper>
                 </CardWrapper>

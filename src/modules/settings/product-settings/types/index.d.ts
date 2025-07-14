@@ -5,7 +5,7 @@ export interface CategoryList {
 }
 
 export interface UnitsTypes {
-  value: string
+  name: string
   id: string
 }
 
@@ -22,7 +22,7 @@ export interface UnitGroupPayload {
 
 export interface UnitsPayload {
   id?: string
-  value: string
+  name: string
 }
 
 export interface BrandTypePayload {

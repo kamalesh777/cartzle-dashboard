@@ -69,7 +69,7 @@ const CategoryCard = (): JSX.Element => {
       title: 'Units',
       dataIndex: 'units',
       key: 'units',
-      render: (units: UnitsTypes[]) => units.map(obj => obj.value).join(', '),
+      render: (units: UnitsTypes[]) => units.map(obj => obj.name).join(', '),
     },
   ]
 
