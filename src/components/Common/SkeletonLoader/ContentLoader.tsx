@@ -12,20 +12,22 @@ interface PropTypes {
 }
 
 export function TableContentLoaderWithProps(
-  { columnWidth, rowCounts, rowHeight, className, radius = 15, verticalGap }: PropTypes,
+  { columnWidth, rowCounts, rowHeight = 60, className, radius = 8, verticalGap = 25 }: PropTypes,
   props: React.PropsWithChildren,
 ): JSX.Element {
   const rows = rowCounts || 5
-  const height = rowHeight || 50
+  const height = rowCounts === 1 ? 120 : rowHeight
   let spaceValue = 0
 
   /* it will store an array with the sum of the columnWidth array elements one by one like
     const arr = [1, 2, 3, 6];
     then the array will be [0, 3, 6, 12]
     */
-  const spaceArray = columnWidth.map(item => {
-    spaceValue += Number(item) + 0.1
-    return spaceValue - Number(item)
+  const spaceArray = columnWidth.map((item, idx) => {
+    if (idx !== 0) {
+      spaceValue += Number(columnWidth[idx - 1]) + 2
+    }
+    return spaceValue
   })
 
   return (
@@ -36,11 +38,11 @@ export function TableContentLoaderWithProps(
             <React.Fragment key={index}>
               <rect
                 x={typeof column === 'string' ? `${Number(column)}%` : `${spaceArray[index]}%`}
-                y={height > 80 ? verticalGap || 30 : verticalGap || 20}
+                y={height > 80 ? verticalGap || 30 : verticalGap}
                 rx={radius}
                 ry={radius}
                 width={typeof column === 'string' ? `0%` : `${column}%`}
-                height={height - (verticalGap ?? 30)}
+                height={height - verticalGap}
               />
             </React.Fragment>
           ))}

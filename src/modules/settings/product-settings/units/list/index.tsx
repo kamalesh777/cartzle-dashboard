@@ -4,7 +4,7 @@ import { Row, type MenuProps } from 'antd'
 
 import type { UnitsPayload } from '../../types'
 
-import { TableActionButton } from '@/components/Common'
+import { TableActionButton, TableContentLoaderWithProps } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
@@ -14,7 +14,7 @@ import { useGetRequestHandler } from '@/hook/requestHandler'
 import UnitsManagemodal from '../modal/UnitsManagemodal'
 
 const UnitsList = (): JSX.Element => {
-  const { fetchData, data } = useGetRequestHandler<UnitsPayload[]>()
+  const { fetchData, data, isLoading } = useGetRequestHandler<UnitsPayload[]>()
 
   const [openModal, setOpenModal] = React.useState(false)
   const [selectedId, setSelectedId] = React.useState('')
@@ -48,22 +48,31 @@ const UnitsList = (): JSX.Element => {
         <CardWrapper
           title={'Units'}
           extra={
-            <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>
+            <ButtonWrapper type="primary" onClick={() => {
+              setOpenModal(true)
+              setSelectedId('')
+            }}>
               New
             </ButtonWrapper>
           }
         >
           <Row gutter={COMMON_ROW_GUTTER}>
-            {data?.map((item: UnitsPayload) => (
-              <ColWrapper md={4} span={8} key={item.id}>
-                <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
-                  <SpaceWrapper className="w-100 justify-content-between">
-                    <p>{item.name}</p>
-                    <TableActionButton tooltipTitle="" items={getMoreMenus(item as UnitsPayload)} />
-                  </SpaceWrapper>
-                </CardWrapper>
-              </ColWrapper>
-            ))}
+            {isLoading ? (
+              <div className="w-100">
+                <TableContentLoaderWithProps columnWidth={[15, 15, 15, 15, 15, 15]} rowCounts={2} />
+              </div>
+            ) : (
+              data?.map((item: UnitsPayload) => (
+                <ColWrapper md={4} span={8} key={item.id}>
+                  <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
+                    <SpaceWrapper className="w-100 justify-content-between">
+                      <p>{item.name}</p>
+                      <TableActionButton tooltipTitle="" items={getMoreMenus(item as UnitsPayload)} />
+                    </SpaceWrapper>
+                  </CardWrapper>
+                </ColWrapper>
+              ))
+            )}
           </Row>
         </CardWrapper>
       </div>

@@ -5,14 +5,14 @@ import { Row, type MenuProps } from 'antd'
 
 import type { BrandTypePayload, CategoryList } from '../../types'
 
-import { TableActionButton } from '@/components/Common'
+import { TableActionButton, TableContentLoaderWithProps } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
-import UnitTypeManageModal from '../modal/UnitTypeManageModal'
+import UnitTypeManageModal from '../modal/UnitGroupManageModal'
 
 const UnitGroupsCard = (): JSX.Element => {
   const { fetchData, data, isLoading } = useGetRequestHandler<CategoryList[]>()
@@ -56,22 +56,31 @@ const UnitGroupsCard = (): JSX.Element => {
         <CardWrapper
           title={'Unit Groups'}
           extra={
-            <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>
+            <ButtonWrapper type="primary" onClick={() => {
+              setOpenModal(true)
+              setSelectedId('')
+            }}>
               New
             </ButtonWrapper>
           }
         >
           <Row gutter={COMMON_ROW_GUTTER}>
-            {data?.map((item: CategoryList) => (
-              <ColWrapper md={6} span={12} key={item.name}>
-                <CardWrapper styles={{ body: { padding: '10px' } }} loading={isLoading} className="mb-3">
-                  <SpaceWrapper className="w-100 justify-content-between">
-                    <p>{item.name}</p>
-                    <TableActionButton tooltipTitle="" items={getMoreMenus(item as BrandTypePayload)} />
-                  </SpaceWrapper>
-                </CardWrapper>
-              </ColWrapper>
-            ))}
+            {isLoading ? (
+              <div className="w-100">
+                <TableContentLoaderWithProps columnWidth={[23, 23, 23, 23]} rowCounts={2} />
+              </div>
+            ) : (
+              data?.map((item: CategoryList) => (
+                <ColWrapper md={6} span={12} key={item.name}>
+                  <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
+                    <SpaceWrapper className="w-100 justify-content-between">
+                      <p>{item.name}</p>
+                      <TableActionButton tooltipTitle="" items={getMoreMenus(item as BrandTypePayload)} />
+                    </SpaceWrapper>
+                  </CardWrapper>
+                </ColWrapper>
+              ))
+            )}
           </Row>
         </CardWrapper>
       </div>

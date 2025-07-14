@@ -32,26 +32,31 @@ export type ArrOptions = DefaultOptionType[] | string[]
 export const getSelectOption = (
   arr: ArrOptions | null,
   option?: ParseOption,
+  startCaseLabel = true,
 ): Array<{ label: string; value: string; title?: string; key?: string }> => {
   if (!arr) return []
   return arr.map(item => {
     if (Array.isArray(option) && typeof item === 'object' && item !== null) {
       const labelValue = item[option[0]]
       const valueValue = item[option[1]]
+
       const titleValue = option.at(2) ? item[option.at(2) as string] : ''
       const keyValue = option.at(3) ? item[option.at(3) as string] : ''
+      const title = titleValue ? {title: titleValue} : {}
+      const key = keyValue ? {key: keyValue} : {}
+
       return {
-        label: startCase(labelValue),
+        label: startCaseLabel ? startCase(labelValue) : labelValue,
         value: valueValue,
-        title: titleValue,
-        key: keyValue,
+        ...title,
+        ...key,
       }
     }
 
     // fallback if item is a string
     const strItem = item as string
     return {
-      label: startCase(strItem),
+      label: startCaseLabel ? startCase(strItem) : strItem,
       value: strItem,
       title: strItem,
       key: strItem,

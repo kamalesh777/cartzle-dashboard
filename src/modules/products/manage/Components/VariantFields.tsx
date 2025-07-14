@@ -183,7 +183,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             {...restField}
           >
             <SelectWrapper
-              options={getSelectOption(unitOptions, ['value', 'value'])}
+              options={getSelectOption(unitOptions, ['name', 'name'])}
               // onSelect={onSelect}
               optionFilterProp="label"
               onSearch={text => handleSearch(text)}

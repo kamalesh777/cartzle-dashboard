@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { Form } from 'antd'
 
-import type { CategoryList, UnitGroupExpand } from '../../types'
-
+import type { UnitsPayload } from '../../types'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { getRequest } from '@/api/preference/RequestService'
@@ -12,34 +11,31 @@ import { FormItemWrapper, InputWrapper, ModalWrapper, SelectWrapper, SubmitButto
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
-import { getSelectOption, type ArrOptions } from '@/utils/disableFunction'
+import { getSelectOption } from '@/utils/disableFunction'
 
-const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const UnitGroupManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+  const { fetchData: fetchUnits, data: units, isLoading } = useGetRequestHandler<UnitsPayload[]>()
+  const { submit } = usePostRequestHandler()
   const [form] = Form.useForm()
 
-  const { submit, buttonLoading } = usePostRequestHandler<CategoryList>()
+  const [loading, setLoading] = React.useState(false)
 
-  // fetch all unit types
-  const { fetchData: fetchUnitGroups, data: unitTypes } = useGetRequestHandler<UnitGroupExpand[]>()
-  const [loading, setLoading] = useState<boolean>(false)
-
-  // fetch unit types
   useEffect(() => {
-    fetchUnitGroups('/api/unit-group-list')
+    fetchUnits('/api/unit-list')
     if (selectedId) {
-      fetchCategoryDetails(selectedId)
+      fetchUnitGroupdetails(selectedId)
     }
   }, [selectedId])
 
-  const fetchCategoryDetails = async (id: string): Promise<void> => {
+  // fetch unit group details by id
+  const fetchUnitGroupdetails = async (id: string): Promise<void> => {
     try {
       setLoading(true)
-      const resp = await getRequest(`/api/category-details/${id}`)
+      const resp = await getRequest(`/api/unit-group-details/${id}`)
       const result = resp.data.result
-      const unitGroupIds = result.unitGroups.map((item: UnitGroupExpand) => item.id)
       form.setFieldsValue({
         name: result.name,
-        unitGroupIds,
+        unitIds: result.units.map((item: UnitsPayload) => item.id),
       })
     } catch (err) {
       Toast('error', (err as Error).message)
@@ -48,11 +44,9 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
     }
   }
 
-  const onFinish = async (values: CategoryList): Promise<void> => {
-    await submit('create-category', values, null, () => {
-      form.resetFields()
-      setOpenModal(false)
-    })
+  // handle form submit
+  const onFinish = (values: any): void => {
+    submit('create-unit-type', values, null)
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
@@ -64,35 +58,36 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
       footer={
         <SubmitButtonWrapper
           okText={'Save'}
-          okButtonProps={{ loading: buttonLoading, onClick: () => form.submit() }}
+          okButtonProps={{ loading: false, onClick: () => form.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
           }}
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={onFinish} initialValues={{ unitTypes: [{ id: '', units: [] }] }}>
+      <Form layout="vertical" form={form} onFinish={onFinish}>
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
-          {loading ? (
+          {(isLoading || loading) ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
           ) : (
-            <InputWrapper placeholder="eg. Furniture, groceries, etc." />
+            <InputWrapper placeholder="Enter name eg. width, height, length" />
           )}
         </FormItemWrapper>
-        <Form.Item name="unitGroupIds" label="Unit Group" rules={requiredFieldRules}>
-          {loading ? (
+        <FormItemWrapper name="unitIds" label="Units" rules={requiredFieldRules}>
+          {(isLoading || loading) ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
           ) : (
             <SelectWrapper
               mode="multiple"
-              placeholder="Select unit types"
-              options={getSelectOption(unitTypes as unknown as ArrOptions, ['name', 'id'])}
+              placeholder="Enter name eg. cm, m, kg, g"
+              options={getSelectOption(units, ['name', 'id'])}
+              // optionFilterProp="label"
             />
           )}
-        </Form.Item>
+        </FormItemWrapper>
       </Form>
     </ModalWrapper>
   )
 }
 
-export default CategoryManageModal
+export default UnitGroupManageModal

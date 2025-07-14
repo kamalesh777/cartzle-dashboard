@@ -81,7 +81,10 @@ const CategoryCard = (): JSX.Element => {
   const ACTION_COMP = (
     <SpaceWrapper className="w-100 justify-content-between">
       <h4 className="ant-card-head-title">Categories</h4>
-      <ButtonWrapper type="primary" onClick={() => setOpenModal(true)}>
+      <ButtonWrapper type="primary" onClick={() => {
+        setOpenModal(true)
+        setSelectedId('')
+      }}>
         New
       </ButtonWrapper>
     </SpaceWrapper>
@@ -95,7 +98,7 @@ const CategoryCard = (): JSX.Element => {
           columns={columns}
           dataSource={data || []}
           locale={{
-            emptyText: <EmptyContentWithLoading isLoading={isLoading} columns={[30, 30, 30, 10]} />,
+            emptyText: <EmptyContentWithLoading entity="Categories" isLoading={isLoading} columns={[30, 40, 30]} />,
           }}
           expandedRowRender={expandedRowRender}
         />

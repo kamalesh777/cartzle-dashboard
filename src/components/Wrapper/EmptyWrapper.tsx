@@ -5,7 +5,7 @@ import { Empty, type EmptyProps } from 'antd'
 export interface EmptyWrapperProps extends EmptyProps {
   onClick?: () => void
   content?: React.ReactNode
-  entity?: string
+  entity: string
 }
 
 /** Empty wrapper component
