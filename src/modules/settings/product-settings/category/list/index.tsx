@@ -64,19 +64,22 @@ const CategoryCard = (): JSX.Element => {
 
   // expanded columns for unit groups
   const expandColumns = [
-    { title: 'Unit Group', dataIndex: 'name', key: 'name' },
+    { title: 'Unit Group', dataIndex: 'name', key: 'name', className: 'small-size' },
     {
       title: 'Units',
       dataIndex: 'units',
       key: 'units',
+      className: 'small-size',
       render: (units: UnitsTypes[]) => units.map(obj => obj.name).join(', '),
     },
   ]
 
   // expanded row render function
-  const expandedRowRender = (): JSX.Element => (
-    <TableWrapper columns={expandColumns} dataSource={expandDataSource} pagination={false} />
-  )
+  const expandedRowRender = (record: CategoryList): JSX.Element => {
+    return (
+      <TableWrapper columns={expandColumns} dataSource={record?.unitGroups} pagination={false} />
+    )
+  }
 
   const ACTION_COMP = (
     <SpaceWrapper className="w-100 justify-content-between">

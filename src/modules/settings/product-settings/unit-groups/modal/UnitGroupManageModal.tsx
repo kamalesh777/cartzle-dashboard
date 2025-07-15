@@ -46,7 +46,7 @@ const UnitGroupManageModal = ({ openModal, setOpenModal, selectedId }: ModalProp
 
   // handle form submit
   const onFinish = (values: any): void => {
-    submit('create-unit-type', values, null)
+    submit('/api/unit-group-create', values, null)
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 

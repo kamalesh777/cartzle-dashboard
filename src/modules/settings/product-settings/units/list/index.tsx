@@ -12,6 +12,7 @@ import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import UnitsManagemodal from '../modal/UnitsManagemodal'
+import { DeleteOutlined } from '@ant-design/icons'
 
 const UnitsList = (): JSX.Element => {
   const { fetchData, data, isLoading } = useGetRequestHandler<UnitsPayload[]>()
@@ -26,21 +27,6 @@ const UnitsList = (): JSX.Element => {
   useEffect(() => {
     fetchUnits()
   }, [])
-
-  const getMoreMenus = (record: UnitsPayload): MenuProps['items'] => [
-    {
-      key: 'edit',
-      label: 'Edit',
-      onClick: () => {
-        setSelectedId(record.id as string)
-        setOpenModal(true)
-      },
-    },
-    {
-      key: 'delete',
-      label: 'Delete',
-    },
-  ]
 
   return (
     <>
@@ -64,10 +50,10 @@ const UnitsList = (): JSX.Element => {
             ) : (
               data?.map((item: UnitsPayload) => (
                 <ColWrapper md={4} span={8} key={item.id}>
-                  <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
+                  <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3 show">
                     <SpaceWrapper className="w-100 justify-content-between">
                       <p>{item.name}</p>
-                      <TableActionButton tooltipTitle="" items={getMoreMenus(item as UnitsPayload)} />
+                      <DeleteOutlined className='on-hover cursor-pointer error-color'/>
                     </SpaceWrapper>
                   </CardWrapper>
                 </ColWrapper>

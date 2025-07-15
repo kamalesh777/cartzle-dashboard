@@ -226,6 +226,13 @@ header.ant-layout-header.fix-header {
     bottom: 20px;
     left: 0;
 }
+.on-hover {
+	opacity: 0;
+	transition: 0.3s ease-in-out all;
+}
+.show:hover .on-hover {
+	opacity: 1;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
