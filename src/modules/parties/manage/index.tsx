@@ -25,7 +25,7 @@ const PartiesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTyp
   const { submit, buttonLoading } = usePostRequestHandler()
 
   const formSubmitHandler = async (): Promise<void> => {
-    await submit('/parties', {})
+    await submit(selectedId, '/parties', {})
   }
 
   // close modal handler

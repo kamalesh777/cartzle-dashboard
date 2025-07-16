@@ -26,7 +26,7 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
 
   const formSubmitHandler = async (): Promise<void> => {
     const formValues = await form?.getFieldsValue()
-    await submit('/api/company-create', formValues, null, () => {
+    await submit('post', '/api/company-create', formValues, null, () => {
       setCurrentStep(2)
     })
   }

@@ -49,7 +49,7 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
   }
 
   const onFinish = async (values: CategoryList): Promise<void> => {
-    await submit('/api/category-create', values, null, () => {
+    await submit(selectedId, '/api/category-create', values, null, () => {
       form.resetFields()
       setOpenModal(false)
     })

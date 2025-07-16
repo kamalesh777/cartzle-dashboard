@@ -14,7 +14,7 @@ const BrandManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropType
   const [form] = Form.useForm()
   // TODO: Add brand type
   const onFinish = async (values: any): Promise<void> => {
-    await submit('brand', values)
+    await submit(selectedId, '/api/brand-create', values)
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 

@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation'
 import { getRequest, postRequest, putRequest } from '@/api/preference/RequestService'
 import Toast from '@/components/common/Toast'
 
-type RequestMethod = 'post' | 'put'
+type RequestMethod = string | undefined | 'post' | 'put'
 type Callback = () => void
 
 interface PostRequestHandlerReturn<T, P> {
   data: T | null
   isSuccess: boolean
   buttonLoading: boolean
-  submit: (endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback) => Promise<T | null>
+  submit: (method: RequestMethod, endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback) => Promise<T | null>
 }
 
 /**
@@ -23,10 +23,9 @@ interface PostRequestHandlerReturn<T, P> {
  * @param method The HTTP method to use ('post' or 'put'). Default is 'post'.
  * @param successToast Whether to show a success toast. Default is true.
  * @param failToast Whether to show a failure toast. Default is true.
- * @returns An object containing `data`, `isSuccess`, `buttonLoading`, and the `submit` function.
+ * @returns An object containing `data`, `isSuccess`, `buttonLoading`, `method`, and the `submit` function.
  */
 export const usePostRequestHandler = <T = unknown, P = unknown>(
-  method: RequestMethod = 'post',
   successToast = true,
   failToast = true,
 ): PostRequestHandlerReturn<T, P> => {
@@ -35,14 +34,22 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
   const [isSuccess, setIsSuccess] = useState(false)
   const [data, setData] = useState<T | null>(null)
 
-  const submit = async (endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback): Promise<T | null> => {
+  const submit = async (
+    method: RequestMethod,
+    endPoint: string,
+    payload?: P,
+    goBack?: string | null,
+    callBack?: Callback
+  ): Promise<T | null> => {
     if (buttonLoading) return null
 
     setButtonLoading(true)
     let response: T | null = null
 
     try {
-      const res = method === 'post' ? await postRequest(endPoint, payload || {}) : await putRequest(endPoint, payload || {})
+      const res = (!method || method === 'post')
+        ? await postRequest(endPoint, payload || {})
+        : await putRequest(endPoint, payload || {})
 
       if (res.data.success) {
         setData(res.data as T)
@@ -56,8 +63,10 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
       } else {
         setData(res.data as T)
         setIsSuccess(false)
-        // if the message is an object, then we need to get the message from the object
-        const message = typeof res.data.message === 'string' ? res.data.message : 'An error occurred'
+        const message = typeof res.data.message === 'string'
+          ? res.data.message
+          : 'An error occurred'
+
         response = res.data as T
 
         if (failToast) Toast('error', message)
@@ -78,6 +87,7 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
     submit,
   }
 }
+
 
 interface GetRequestHandlerReturn<T> {
   data: T | null

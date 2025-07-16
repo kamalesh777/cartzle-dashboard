@@ -28,7 +28,7 @@ const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
   const { submit, buttonLoading } = usePostRequestHandler()
 
   const formSubmitHandler = async (): Promise<void> => {
-    await submit('/employees', {})
+    await submit(selectedId, '/employees', {})
   }
 
   // close modal handler

@@ -23,13 +23,12 @@ interface ResultTypes {
 const LoginComp = (): JSX.Element => {
   const router = useRouter()
   const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>(
-    'post',
     false,
     false,
   )
 
   const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
-    const resp = await submit('/api/login', formValues, null)
+    const resp = await submit('post', '/api/login', formValues, null)
 
     if (resp?.success) {
       router.push('/') // go to home page
