@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 
-import { Row, type MenuProps } from 'antd'
+import { DeleteOutlined } from '@ant-design/icons'
+import { Row } from 'antd'
 
 import type { UnitsPayload } from '../../types'
 
-import { TableActionButton, TableContentLoaderWithProps } from '@/components/Common'
+import { TableContentLoaderWithProps } from '@/components/Common'
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
@@ -12,7 +13,6 @@ import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
 import UnitsManagemodal from '../modal/UnitsManagemodal'
-import { DeleteOutlined } from '@ant-design/icons'
 
 const UnitsList = (): JSX.Element => {
   const { fetchData, data, isLoading } = useGetRequestHandler<UnitsPayload[]>()
@@ -34,10 +34,13 @@ const UnitsList = (): JSX.Element => {
         <CardWrapper
           title={'Units'}
           extra={
-            <ButtonWrapper type="primary" onClick={() => {
-              setOpenModal(true)
-              setSelectedId('')
-            }}>
+            <ButtonWrapper
+              type="primary"
+              onClick={() => {
+                setOpenModal(true)
+                setSelectedId('')
+              }}
+            >
               New
             </ButtonWrapper>
           }
@@ -53,7 +56,7 @@ const UnitsList = (): JSX.Element => {
                   <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3 show">
                     <SpaceWrapper className="w-100 justify-content-between">
                       <p>{item.name}</p>
-                      <DeleteOutlined className='on-hover cursor-pointer error-color'/>
+                      <DeleteOutlined className="on-hover cursor-pointer error-color" />
                     </SpaceWrapper>
                   </CardWrapper>
                 </ColWrapper>

@@ -42,8 +42,8 @@ export const getSelectOption = (
 
       const titleValue = option.at(2) ? item[option.at(2) as string] : ''
       const keyValue = option.at(3) ? item[option.at(3) as string] : ''
-      const title = titleValue ? {title: titleValue} : {}
-      const key = keyValue ? {key: keyValue} : {}
+      const title = titleValue ? { title: titleValue } : {}
+      const key = keyValue ? { key: keyValue } : {}
 
       return {
         label: startCaseLabel ? startCase(labelValue) : labelValue,

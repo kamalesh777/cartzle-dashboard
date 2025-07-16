@@ -56,10 +56,13 @@ const UnitGroupsCard = (): JSX.Element => {
         <CardWrapper
           title={'Unit Groups'}
           extra={
-            <ButtonWrapper type="primary" onClick={() => {
-              setOpenModal(true)
-              setSelectedId('')
-            }}>
+            <ButtonWrapper
+              type="primary"
+              onClick={() => {
+                setOpenModal(true)
+                setSelectedId('')
+              }}
+            >
               New
             </ButtonWrapper>
           }

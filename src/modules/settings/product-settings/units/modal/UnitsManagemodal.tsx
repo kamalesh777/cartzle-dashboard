@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Form, Select } from 'antd'
+import { Form } from 'antd'
 
 import type { UnitsTypes } from '../../types'
 import type { ModalPropTypes } from 'src/types/common'

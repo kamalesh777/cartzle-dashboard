@@ -39,7 +39,7 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
     endPoint: string,
     payload?: P,
     goBack?: string | null,
-    callBack?: Callback
+    callBack?: Callback,
   ): Promise<T | null> => {
     if (buttonLoading) return null
 
@@ -47,9 +47,8 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
     let response: T | null = null
 
     try {
-      const res = (!method || method === 'post')
-        ? await postRequest(endPoint, payload || {})
-        : await putRequest(endPoint, payload || {})
+      const res =
+        !method || method === 'post' ? await postRequest(endPoint, payload || {}) : await putRequest(endPoint, payload || {})
 
       if (res.data.success) {
         setData(res.data as T)
@@ -63,9 +62,7 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
       } else {
         setData(res.data as T)
         setIsSuccess(false)
-        const message = typeof res.data.message === 'string'
-          ? res.data.message
-          : 'An error occurred'
+        const message = typeof res.data.message === 'string' ? res.data.message : 'An error occurred'
 
         response = res.data as T
 
@@ -87,7 +84,6 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
     submit,
   }
 }
-
 
 interface GetRequestHandlerReturn<T> {
   data: T | null

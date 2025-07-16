@@ -60,7 +60,6 @@ const CategoryCard = (): JSX.Element => {
   ]
 
   // expanded data source for unit groups
-  const expandDataSource = data?.map((item: CategoryList) => item.unitGroups).flat()
 
   // expanded columns for unit groups
   const expandColumns = [
@@ -76,18 +75,19 @@ const CategoryCard = (): JSX.Element => {
 
   // expanded row render function
   const expandedRowRender = (record: CategoryList): JSX.Element => {
-    return (
-      <TableWrapper columns={expandColumns} dataSource={record?.unitGroups} pagination={false} />
-    )
+    return <TableWrapper columns={expandColumns} dataSource={record?.unitGroups} pagination={false} />
   }
 
   const ACTION_COMP = (
     <SpaceWrapper className="w-100 justify-content-between">
       <h4 className="ant-card-head-title">Categories</h4>
-      <ButtonWrapper type="primary" onClick={() => {
-        setOpenModal(true)
-        setSelectedId('')
-      }}>
+      <ButtonWrapper
+        type="primary"
+        onClick={() => {
+          setOpenModal(true)
+          setSelectedId('')
+        }}
+      >
         New
       </ButtonWrapper>
     </SpaceWrapper>

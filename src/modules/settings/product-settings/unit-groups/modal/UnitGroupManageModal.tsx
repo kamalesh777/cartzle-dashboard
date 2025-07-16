@@ -67,14 +67,14 @@ const UnitGroupManageModal = ({ openModal, setOpenModal, selectedId }: ModalProp
     >
       <Form layout="vertical" form={form} onFinish={onFinish}>
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
-          {(isLoading || loading) ? (
+          {isLoading || loading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
           ) : (
             <InputWrapper placeholder="Enter name eg. width, height, length" />
           )}
         </FormItemWrapper>
         <FormItemWrapper name="unitIds" label="Units" rules={requiredFieldRules}>
-          {(isLoading || loading) ? (
+          {isLoading || loading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
           ) : (
             <SelectWrapper
