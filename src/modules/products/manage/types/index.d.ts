@@ -49,7 +49,7 @@ export interface UnitGroupType {
   name: string
   id: string
   units: {
-    value: string
+    name: string
     id: string
   }
 }

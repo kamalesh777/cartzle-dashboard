@@ -78,9 +78,9 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       setUnitOptions(unitGroupUnits)
     } else {
       const result = unitGroupUnits?.map((item: UnitGroupType['units']) => {
-        const unitValue = `${value}${item?.value}`
+        const unitValue = `${value}${item?.name}`
         return {
-          value: unitValue,
+          name: unitValue,
           id: unitValue,
         }
       })
