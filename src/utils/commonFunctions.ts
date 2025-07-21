@@ -1,22 +1,49 @@
 import type { FormInstance } from 'antd'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const getBase64 = (file: File, cb: (result: string | ArrayBuffer | null) => void): void => {
-  const reader = new FileReader()
-  reader.onload = function (): void {
-    if (reader.result != null) {
-      cb(reader.result)
-    } else {
-      // Handle the case where the result is null
-      // You can throw an error or handle it as needed.
-      // For example, you can use cb('') or cb(null) depending on your use case.
+/**
+ * Convert an image to base64 Data URL with format and quality options.
+ *
+ * @param {File|String} imgSource - File object or image URL.
+ * @param {String} format - Output format: 'webp', 'png', 'jpeg', 'jpg'.
+ * @param {Number} quality - Number between 0 and 1 (e.g. 0.5 for 50%).
+ * @returns {Promise<String>} Base64 Data URL.
+ */
+export const imageToBase64 = (imgSource: string | File, format = 'webp', quality?: number): Promise<string> => {
+  format = format.toLowerCase() === 'jpg' ? 'jpeg' : format.toLowerCase()
+
+  return new Promise((resolve, reject) => {
+    const img = new window.Image()
+    img.crossOrigin = 'Anonymous'
+
+    const handleLoad = (): void => {
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      const ctx = canvas.getContext('2d')
+      ctx?.drawImage(img, 0, 0)
+
+      // toDataURL supports 'image/png', 'image/jpeg', 'image/webp'
+      const mimeType = `image/${format}`
+      try {
+        const dataUrl = canvas.toDataURL(mimeType, quality)
+        resolve(dataUrl)
+      } catch (e) {
+        reject(e)
+      }
     }
-  }
-  reader.onerror = function (error): void {
-    // eslint-disable-next-line no-console
-    console.log('Error: ', error)
-  }
-  reader.readAsDataURL(file)
+
+    img.onload = handleLoad
+
+    img.onerror = reject
+
+    if (typeof imgSource === 'string') {
+      img.src = imgSource
+    } else {
+      // File object: must create a local URL
+      img.src = URL.createObjectURL(imgSource)
+    }
+  })
 }
 
 export const hexToRGBA = (hexOrName: string, alpha = 1): string | null => {

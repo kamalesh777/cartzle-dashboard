@@ -9,6 +9,10 @@ const API_COMMON_SRV = `${API_BASE_URL}/common-srv`
 const routesObj = {
   'api-testing': `${API_BASE_URL}`,
 
+  // FILE OR MEDIA
+  'product-media-upload': `${API_BASE_URL}/media-srv/upload`,
+  'brand-media-upload': `${API_BASE_URL}/media-srv/upload-brand-media`,
+
   // generate new token
   'generate-token': `${API_BASE_URL}/token/generate-new-token`,
 
