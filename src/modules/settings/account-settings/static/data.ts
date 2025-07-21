@@ -117,7 +117,7 @@ export const PaymentHistoryData = [
     type: 'rent',
     amount: 12000,
     method: 'Bank',
-    notes: 'Shop rent',
+    notes: 'Company rent',
   },
   {
     key: '5',

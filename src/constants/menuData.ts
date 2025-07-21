@@ -60,27 +60,27 @@ const menuData = [
   // Settings
   {
     key: 'settings',
-    path: '/settings/shop-info',
+    path: '/settings/manage-company',
     title: 'Settings',
     icon: 'SettingOutlined',
     children: [
-      // Shop Info
+      // Company Info
       {
-        key: 'shop-info',
-        path: '/settings/shop-info',
-        title: 'Shop Info',
+        key: 'manage-company',
+        path: '/settings/manage-company',
+        title: 'Manage Company',
         icon: 'ShopOutlined',
         pagemenu: [
           {
-            key: 'shop-info-theme',
+            key: 'manage-company-theme',
             href: '#theme-config',
             title: 'Theme Config',
             icon: '',
           },
           {
-            key: 'shop-info-config',
-            href: '#shop-config',
-            title: 'Shop Config',
+            key: 'manage-company-profile',
+            href: '#company-profile',
+            title: 'Company Profile',
             icon: '',
           },
         ],

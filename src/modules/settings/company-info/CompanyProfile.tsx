@@ -5,18 +5,18 @@ import { Form, Input, Row } from 'antd'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
 
-const ShopDetailsComp = (): JSX.Element => {
+const CompanyProfileComp = (): JSX.Element => {
   const [form] = Form.useForm()
 
   const onFinish = (values: any): void => {
-    console.log('===Shop Info Submitted:', values)
+    console.log('===Company Info Submitted:', values)
   }
   return (
-    <CardWrapper title="Shop Information" id="shop-config" className="mb-3">
+    <CardWrapper title="Company Profile" id="company-profile" className="mb-3">
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Row>
           <ColWrapper span={16}>
-            <FormItemWrapper name="name" label="Shop Name" rules={[{ required: true }]}>
+            <FormItemWrapper name="name" label="Company Name" rules={[{ required: true }]}>
               <InputWrapper />
             </FormItemWrapper>
 
@@ -69,4 +69,4 @@ const ShopDetailsComp = (): JSX.Element => {
   )
 }
 
-export default ShopDetailsComp
+export default CompanyProfileComp

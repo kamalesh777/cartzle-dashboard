@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { type FormInstance, Input, Space } from 'antd'
+import { Form, type FormInstance, Input, Row } from 'antd'
+
+import { kebabCase, lowerCase } from 'lodash'
 
 import {
   FormItemWrapper,
@@ -10,7 +12,7 @@ import {
   SubmitButtonWrapper,
   ButtonWrapper,
 } from '@/components/Wrapper'
-import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/AppConstant'
+import { requiredWithWhitspcFieldRules, requiredFieldRules, COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
 interface PropTypes {
@@ -20,9 +22,9 @@ interface PropTypes {
 }
 
 const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
+  const company = Form.useWatch(['company'], form)
   const { submit, buttonLoading } = usePostRequestHandler()
   const domainSuffix = process.env.NEXT_PUBLIC_DOMAIN_SUFFIX
-  const domainName = process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME
 
   const formSubmitHandler = async (): Promise<void> => {
     const formValues = await form?.getFieldsValue()
@@ -32,20 +34,37 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
   }
   return (
     <>
-      <FormItemWrapper label="Name" noStyle>
-        <Space.Compact block>
-          <FormItemWrapper className="w-75" name={['company', 'name']} rules={requiredWithWhitspcFieldRules}>
+      <Row gutter={COMMON_ROW_GUTTER}>
+        <ColWrapper md={18}>
+          <FormItemWrapper
+            label="Name"
+            name={['company', 'name']}
+            rules={requiredWithWhitspcFieldRules}
+            normalize={value => kebabCase(value)}
+          >
             <InputWrapper />
           </FormItemWrapper>
+        </ColWrapper>
+        <ColWrapper md={6}>
           <FormItemWrapper
+            label="Suffix"
             name={['company', 'suffixDomain']}
             initialValue={domainSuffix}
-            label=""
             rules={requiredWithWhitspcFieldRules}
+            normalize={value => lowerCase(value)}
           >
-            <InputWrapper addonAfter={domainName} readOnly />
+            <InputWrapper />
           </FormItemWrapper>
-        </Space.Compact>
+        </ColWrapper>
+      </Row>
+
+      <FormItemWrapper label="Website">
+        <InputWrapper
+          value={company?.name}
+          prefix="https://"
+          readOnly
+          suffix={`.${company?.suffixDomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`}
+        />
       </FormItemWrapper>
       <ColWrapper>
         <FormItemWrapper name={['company', 'supportNumber']} label="Support Number" rules={[...requiredFieldRules]}>

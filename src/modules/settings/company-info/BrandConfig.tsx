@@ -44,7 +44,7 @@ const BrandConfigComp = (): JSX.Element => {
   )
 
   return (
-    <CardWrapper title="Shop Information" id="theme-config" className="mb-3">
+    <CardWrapper title="Theme Config" id="theme-config" className="mb-3">
       <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
         <Row>
           <ColWrapper span={16}>
