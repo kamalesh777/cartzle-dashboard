@@ -9,33 +9,35 @@ const API_COMMON_SRV = `${API_BASE_URL}/common-srv`
 const routesObj = {
   'api-testing': `${API_BASE_URL}`,
 
+  // COMPANY INFO
+  'company-create': `${API_BASE_URL}/company/create`,
+  'company-list': `${API_BASE_URL}/company/list`,
+  'company-details': `${API_BASE_URL}/company/details`,
+
   // FILE OR MEDIA
   'product-media-upload': `${API_BASE_URL}/media-srv/upload`,
   'brand-media-upload': `${API_BASE_URL}/media-srv/upload-brand-media`,
 
-  // generate new token
+  // GENERATE NEW TOKEN
   'generate-token': `${API_BASE_URL}/token/generate-new-token`,
 
-  // User login
+  // USER LOGIN
   login: `${API_BASE_URL}/user/login`,
 
-  // Create company
-  'company-create': `${API_BASE_URL}/company/create`,
-
-  // Create brand
+  // CREATE BRAND
   'brand-create': `${API_BASE_URL}/brand/create`,
 
-  // Create category
+  // CREATE CATEGORY
   'category-create': `${API_COMMON_SRV}/category/create`,
   'category-list': `${API_COMMON_SRV}/category/list`,
   'category-details': `${API_COMMON_SRV}/category/details`,
 
-  // Create unit type
+  // CREATE UNIT TYPE
   'unit-group-list': `${API_COMMON_SRV}/unit-group/list`,
   'unit-group-create': `${API_COMMON_SRV}/unit-group/create`,
   'unit-group-details': `${API_COMMON_SRV}/unit-group/details`,
 
-  // units list
+  // UNITS LIST
   'unit-list': `${API_COMMON_SRV}/unit/list`,
   'unit-create': `${API_COMMON_SRV}/unit/create`,
 }

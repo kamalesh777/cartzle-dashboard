@@ -5,11 +5,15 @@ export interface UserFormValues {
   password: string
 }
 
-interface CompanyFormValues {
+export interface CompanyFormValues {
   name: string
-  support_number: string
-  support_email: string
+  supportNumber: string
+  supportEmail: string
   address: string
+  gstin: string
+  suffixDomain: string
+  workspaceUrl: string
+  subdomain?: string
 }
 
 export interface MainFormValues {
