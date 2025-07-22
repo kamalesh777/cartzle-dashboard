@@ -73,14 +73,20 @@ const menuData = [
         pagemenu: [
           {
             key: 'manage-company-theme',
-            href: '#theme-config',
-            title: 'Theme Config',
+            href: '#theme',
+            title: 'Theme',
+            icon: '',
+          },
+          {
+            key: 'manage-company-domain',
+            href: '#domain',
+            title: 'Domain',
             icon: '',
           },
           {
             key: 'manage-company-profile',
-            href: '#company-profile',
-            title: 'Company Profile',
+            href: '#company',
+            title: 'Company',
             icon: '',
           },
         ],

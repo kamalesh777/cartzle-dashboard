@@ -1,12 +1,14 @@
 import React from 'react'
 
-import BrandConfigComp from './BrandConfig'
 import CompanyProfileComp from './CompanyProfile'
+import DomainConfig from './DomainConfig'
+import ThemeConfig from './ThemeConfig'
 
 const CompanyInfoComp = (): JSX.Element => {
   return (
     <>
-      <BrandConfigComp />
+      <ThemeConfig />
+      <DomainConfig />
       <CompanyProfileComp />
     </>
   )
