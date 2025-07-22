@@ -29,6 +29,7 @@ const DomainConfig = (): JSX.Element => {
   }, [data])
 
   const onFinish = (values: any): void => {
+    // eslint-disable-next-line no-console
     console.log('===Company Info Submitted:', values)
   }
 
