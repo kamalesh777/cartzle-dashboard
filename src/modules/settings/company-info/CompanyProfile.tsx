@@ -5,11 +5,11 @@ import { Form, Input, Row } from 'antd'
 
 import type { CompanyFormValues } from '../account-settings/types'
 
-import { ButtonWrapper, CardWrapper, ColWrapper, InputWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { ColWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
+import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
 import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler } from '@/hook/requestHandler'
-import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 
 const CompanyProfileComp = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -36,7 +36,7 @@ const CompanyProfileComp = (): JSX.Element => {
   }
 
   return (
-    <EditCardWrapper title="Company Details" id="company" {...{editMode, setEditMode, form}}>
+    <EditCardWrapper title="Company Details" id="company" {...{ editMode, setEditMode, form }}>
       <Form
         form={form}
         onFinish={onFinish}
@@ -51,13 +51,7 @@ const CompanyProfileComp = (): JSX.Element => {
               <InputWrapper />
             </EditableFormWrapper>
 
-            <EditableFormWrapper
-              name="gstin"
-              label="GSTIN Number"
-              editMode={editMode}
-              form={form}
-              isLoading={isLoading}
-            >
+            <EditableFormWrapper name="gstin" label="GSTIN Number" editMode={editMode} form={form} isLoading={isLoading}>
               <InputWrapper />
             </EditableFormWrapper>
 
