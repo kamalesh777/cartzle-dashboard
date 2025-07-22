@@ -9,6 +9,7 @@ import { ButtonWrapper, CardWrapper, ColWrapper, InputWrapper, SelectWrapper, Sp
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
 import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler } from '@/hook/requestHandler'
+import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 
 const CompanyProfileComp = (): JSX.Element => {
   const [form] = Form.useForm()
@@ -34,30 +35,15 @@ const CompanyProfileComp = (): JSX.Element => {
     console.log('===Company Info Submitted:', values)
   }
 
-  const extraContent = editMode ? (
-    <SpaceWrapper>
-      <ButtonWrapper type="primary" onClick={() => setEditMode(false)}>
-        Save
-      </ButtonWrapper>
-      <ButtonWrapper type="default" onClick={() => setEditMode(false)}>
-        Cancel
-      </ButtonWrapper>
-    </SpaceWrapper>
-  ) : (
-    <ButtonWrapper type="primary" onClick={() => setEditMode(true)}>
-      Edit
-    </ButtonWrapper>
-  )
-
   return (
-    <CardWrapper title="Company Details" id="company" className="mb-3" extra={extraContent}>
+    <EditCardWrapper title="Company Details" id="company" {...{editMode, setEditMode, form}}>
       <Form
         form={form}
         onFinish={onFinish}
         colon={false}
         labelAlign="left"
         labelCol={{ span: 5, md: 9, lg: 5 }}
-        wrapperCol={{ span: 15, md: 11, lg: 15 }}
+        wrapperCol={{ span: 13, md: 11, lg: 13 }}
       >
         <Row>
           <ColWrapper span={24}>
@@ -70,7 +56,6 @@ const CompanyProfileComp = (): JSX.Element => {
               label="GSTIN Number"
               editMode={editMode}
               form={form}
-              rules={requiredWithWhitspcFieldRules}
               isLoading={isLoading}
             >
               <InputWrapper />
@@ -131,7 +116,7 @@ const CompanyProfileComp = (): JSX.Element => {
           </ColWrapper>
         </Row>
       </Form>
-    </CardWrapper>
+    </EditCardWrapper>
   )
 }
 
