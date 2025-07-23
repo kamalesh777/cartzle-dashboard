@@ -4,14 +4,17 @@ import { Form, Row } from 'antd'
 
 import type { CompanyFormValues } from '../account-settings/types'
 
-import { TableContentLoaderWithProps } from '@/components/Common'
-import { CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import { ColWrapper, InputWrapper } from '@/components/Wrapper'
+import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
+import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
 import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
 const DomainConfig = (): JSX.Element => {
   const [form] = Form.useForm()
+
+  const [editMode, setEditMode] = React.useState(false)
 
   const { fetchData, isLoading, data } = useGetRequestHandler<CompanyFormValues>()
 
@@ -34,29 +37,36 @@ const DomainConfig = (): JSX.Element => {
   }
 
   return (
-    <CardWrapper title="Domain Config" id="domain" className="mb-3">
-      <Form form={form} onFinish={onFinish} labelAlign="left" labelCol={{ span: 6 }} wrapperCol={{ span: 12 }}>
+    <EditCardWrapper title="Domain Config" id="domain" {...{ editMode, setEditMode, form }}>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        labelAlign="left"
+        labelCol={{ span: 5, md: 9, lg: 5 }}
+        wrapperCol={{ span: 13, md: 11, lg: 13 }}
+      >
         <Row>
-          {isLoading ? (
-            <ColWrapper span={16}>
-              <TableContentLoaderWithProps columnWidth={[100]} rowCounts={9} verticalGap={20} rowHeight={100} />
-            </ColWrapper>
-          ) : (
-            <ColWrapper span={16}>
-              <FormItemWrapper name="name" label="Company Name" rules={requiredWithWhitspcFieldRules}>
-                <InputWrapper />
-              </FormItemWrapper>
-              <FormItemWrapper name="suffixDomain" label="Suffix Domain">
-                <InputWrapper readOnly />
-              </FormItemWrapper>
-              <FormItemWrapper name="workspaceUrl" label="Website">
-                <InputWrapper readOnly />
-              </FormItemWrapper>
-            </ColWrapper>
-          )}
+          <ColWrapper span={24}>
+            <EditableFormWrapper
+              isLoading={isLoading}
+              form={form}
+              editMode={editMode}
+              name="name"
+              label="Company Name"
+              rules={requiredWithWhitspcFieldRules}
+            >
+              <InputWrapper />
+            </EditableFormWrapper>
+            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="suffixDomain" label="Suffix Domain">
+              <InputWrapper readOnly />
+            </EditableFormWrapper>
+            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="workspaceUrl" label="Website">
+              <InputWrapper readOnly />
+            </EditableFormWrapper>
+          </ColWrapper>
         </Row>
       </Form>
-    </CardWrapper>
+    </EditCardWrapper>
   )
 }
 
