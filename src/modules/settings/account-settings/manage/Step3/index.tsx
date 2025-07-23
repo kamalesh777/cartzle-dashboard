@@ -8,7 +8,6 @@ import Link from 'next/link'
 import type { FormInstance } from 'antd/es/form/Form'
 
 import { ButtonWrapper } from '@/components/Wrapper'
-import { generateSubdomain } from '@/utils/commonFunctions'
 
 interface PropTypes {
   form?: FormInstance
@@ -17,9 +16,8 @@ interface PropTypes {
 
 const Step3Content = ({ form, currentStep }: PropTypes): JSX.Element => {
   const { company } = form?.getFieldsValue()
-  const subdomain = company?.name ? generateSubdomain(company.name) : ''
-  const domainSuffix = company?.suffixDomain ? company.suffixDomain : ''
-  const finalDomain = `https://${subdomain}.${domainSuffix}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`
+  const subdomain = company?.subdomain ? company.subdomain : ''
+  const finalDomain = `https://${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`
 
   const [progress, setProgress] = useState(0)
 

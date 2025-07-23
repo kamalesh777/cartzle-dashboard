@@ -11,5 +11,13 @@ const nextConfig = {
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'logosbynick.com',
+      },
+    ],
+  },
 }
 module.exports = nextConfig

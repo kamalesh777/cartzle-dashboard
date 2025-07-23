@@ -26,7 +26,7 @@ const DomainConfig = (): JSX.Element => {
     if (data) {
       form.setFieldsValue({
         ...data,
-        suffixDomain: data?.subdomain?.replace(`${data.name}.`, ''),
+        subdomain: data?.subdomain?.replace(`${data.name}.`, ''),
       })
     }
   }, [data])
@@ -57,10 +57,10 @@ const DomainConfig = (): JSX.Element => {
             >
               <InputWrapper />
             </EditableFormWrapper>
-            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="suffixDomain" label="Suffix Domain">
+            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="subdomain" label="Subdomain">
               <InputWrapper readOnly />
             </EditableFormWrapper>
-            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="workspaceUrl" label="Website">
+            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="workspaceUrl" label="Website URL">
               <InputWrapper readOnly />
             </EditableFormWrapper>
           </ColWrapper>

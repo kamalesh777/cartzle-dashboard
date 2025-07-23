@@ -26,7 +26,7 @@ const CompanyProfileComp = (): JSX.Element => {
     if (data) {
       form.setFieldsValue({
         ...data,
-        suffixDomain: data?.subdomain?.replace(`${data.name}.`, ''),
+        subdomain: data?.subdomain?.replace(`${data.name}.`, ''),
       })
     }
   }, [data])

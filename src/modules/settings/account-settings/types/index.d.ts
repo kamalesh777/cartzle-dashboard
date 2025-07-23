@@ -11,7 +11,7 @@ export interface CompanyFormValues {
   supportEmail: string
   address: string
   gstin: string
-  suffixDomain: string
+  subdomain: string
   workspaceUrl: string
   subdomain?: string
 }

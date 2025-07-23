@@ -3,6 +3,7 @@ import React, { useState, type ReactNode } from 'react'
 
 import { Drawer } from 'antd'
 
+import PageLoader from '@/components/Common/PageLoader'
 import HeaderNav from '@/components/Header/HeaderNav'
 import SideNav from '@/components/Sidenav/SideNav'
 import useDevice from '@/hook/useDevice'
@@ -11,9 +12,9 @@ interface LayoutProps {
   children: ReactNode
 }
 const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
-  const { isMobileDevice } = useDevice()
+  const { isLoading, isMobileDevice } = useDevice()
   const [collapsed, setCollapsed] = useState(false)
-  const [openDrwaer, setOpenDrawer] = useState(false)
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   const onClose = (): void => {
     setOpenDrawer(false)
@@ -24,6 +25,9 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
   // if it is mobile device then margin width will be 0 otherwise it will check for collapsed value and return respective value
   const marginWidth = isMobileDevice ? 0 : collapsed ? collapseWidth : sidenavWidth
 
+  if (isLoading) {
+    return <PageLoader />
+  }
   return (
     <>
       <HeaderNav {...{ collapsed, setCollapsed, marginWidth, setOpenDrawer }} />
@@ -32,7 +36,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
       </main>
       {/* Side Nav according to the mobile device responsive */}
       {isMobileDevice ? (
-        <Drawer width={collapsed ? collapseWidth : sidenavWidth} onClose={onClose} placement="left" open={openDrwaer}>
+        <Drawer width={collapsed ? collapseWidth : sidenavWidth} onClose={onClose} placement="left" open={openDrawer}>
           <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth, setOpenDrawer }} />
         </Drawer>
       ) : (

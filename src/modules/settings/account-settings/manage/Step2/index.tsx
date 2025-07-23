@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Form, type FormInstance, Input, Row } from 'antd'
 
-import { kebabCase, lowerCase } from 'lodash'
+import { lowerCase } from 'lodash'
 
 import {
   FormItemWrapper,
@@ -35,37 +35,32 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
   return (
     <>
       <Row gutter={COMMON_ROW_GUTTER}>
-        <ColWrapper md={18}>
-          <FormItemWrapper
-            label="Name"
-            name={['company', 'name']}
-            rules={requiredWithWhitspcFieldRules}
-            normalize={value => kebabCase(value)}
-          >
+        <ColWrapper>
+          <FormItemWrapper label="Name" name={['company', 'name']} rules={requiredWithWhitspcFieldRules}>
             <InputWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={6}>
+        <ColWrapper>
           <FormItemWrapper
-            label="Suffix"
-            name={['company', 'suffixDomain']}
+            label="Subdomain"
+            name={['company', 'subdomain']}
             initialValue={domainSuffix}
             rules={requiredWithWhitspcFieldRules}
-            normalize={value => lowerCase(value)}
+            normalize={value => lowerCase(value)?.split(' ').join('.')}
+            extra={
+              company?.subdomain ? (
+                <span>
+                  Website URL:
+                  <i className="ms-2">{`https://${company?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`}</i>
+                </span>
+              ) : null
+            }
           >
             <InputWrapper />
           </FormItemWrapper>
         </ColWrapper>
       </Row>
 
-      <FormItemWrapper label="Website">
-        <InputWrapper
-          value={company?.name}
-          prefix="https://"
-          readOnly
-          suffix={`.${company?.suffixDomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN_NAME}`}
-        />
-      </FormItemWrapper>
       <ColWrapper>
         <FormItemWrapper name={['company', 'supportNumber']} label="Support Number" rules={[...requiredFieldRules]}>
           <InputNumberWrapper maxLength={10} />
@@ -76,7 +71,7 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
           <InputWrapper />
         </FormItemWrapper>
       </ColWrapper>
-      <ColWrapper md={24}>
+      <ColWrapper>
         <FormItemWrapper name={['company', 'address']} label="Company Address" rules={[...requiredFieldRules]}>
           <Input.TextArea rows={3} />
         </FormItemWrapper>

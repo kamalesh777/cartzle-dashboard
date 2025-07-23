@@ -15,6 +15,7 @@ import { getCurrentPath } from '@/utils/commonFunctions'
 
 import { NavLink } from '../Common'
 import { CircleRect } from '../Common/SkeletonLoader/ContentLoader'
+import LogoWrapper from '../Wrapper/LogoWrapper'
 
 const { Sider } = Layout
 
@@ -39,16 +40,6 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
   }, [dispatch])
 
   // console.log("menu==", menuState)
-
-  const LOGO_ICON = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON
-  const BRAND_LOGO = process.env.NEXT_PUBLIC_BRAND_LOGO
-
-  const logoObj = {
-    url: collapsed ? LOGO_ICON : BRAND_LOGO,
-    width: collapsed ? 50 : 340,
-    height: collapsed ? 50 : 70,
-    alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
-  }
 
   interface MenuObject {
     path: string
@@ -100,7 +91,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
       className="min-height-100vh fix-sidebar border-right"
     >
       <div className="logo justify-content-center">
-        <img src={logoObj.url} alt={logoObj.alt} width={logoObj.width} height={logoObj.height} />
+        <LogoWrapper collapsed={collapsed} />
         {/* <div style={{background: '#ddd', height: '60px', margin: '15px'}}></div> */}
       </div>
       {menuState.loading ? (
