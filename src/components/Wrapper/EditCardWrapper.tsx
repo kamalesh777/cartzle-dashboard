@@ -25,20 +25,26 @@ interface EditCardWrapperProps extends CardProps {
  * @returns JSX.Element
  */
 const EditCardWrapper = ({ children, footer, editMode, form, setEditMode, ...restProps }: EditCardWrapperProps): JSX.Element => {
+  // keep the form data for cancel
+  const formData = form.getFieldsValue()
+
   // extra content for edit mode
   const editExtraContent = (
     <ButtonWrapper type="link" className="px-0" onClick={() => setEditMode(true)}>
       <EditOutlined /> Edit
     </ButtonWrapper>
   )
-
+  const cancelHandler = (): void => {
+    form.setFieldsValue(formData)
+    setEditMode(false)
+  }
   // footer content for edit mode
   const footerContent = (
     <SpaceWrapper>
       <ButtonWrapper type="primary" onClick={() => form.submit()}>
         Save
       </ButtonWrapper>
-      <ButtonWrapper type="default" onClick={() => setEditMode(false)}>
+      <ButtonWrapper type="default" onClick={cancelHandler}>
         Cancel
       </ButtonWrapper>
     </SpaceWrapper>
