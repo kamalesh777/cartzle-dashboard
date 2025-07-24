@@ -6,6 +6,7 @@ import { Form, Row, Upload } from 'antd'
 
 import { useDispatch, useSelector } from 'react-redux'
 
+import type { PropTypes } from './types'
 import type { RootState } from '@/store/index'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
@@ -20,7 +21,7 @@ import {
 } from '@/components/Wrapper'
 import { applyThemeColor } from '@/store/slices/themeSlice'
 
-const BrandConfigComp = (): JSX.Element => {
+const BrandConfigComp = ({ isLoading, data }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
 
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ const BrandConfigComp = (): JSX.Element => {
             </FormItemWrapper>
             <FormItemWrapper name="logo_url" label="Logo">
               <InputWrapper
+                className="h-100"
                 addonAfter={
                   <Upload maxCount={1} className="mx-n3" showUploadList={false}>
                     {uploadButton}
@@ -67,6 +69,7 @@ const BrandConfigComp = (): JSX.Element => {
             </FormItemWrapper>
             <FormItemWrapper name="favicon_url" label="Favicon">
               <InputWrapper
+                className="h-100"
                 addonAfter={
                   <Upload maxCount={1} className="mx-n3" showUploadList={false}>
                     {uploadButton}

@@ -11,6 +11,8 @@ import { data } from '../static/data'
 
 const DashboardComponent = (): JSX.Element => {
   const { fetchData } = useGetRequestHandler()
+
+  // fetch data from api
   useEffect(() => {
     fetchData('/api/api-testing?hello=world')
   }, [])

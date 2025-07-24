@@ -2,13 +2,19 @@ import React from 'react'
 
 import Image from 'next/image'
 
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+
 interface PropTypes {
   collapsed?: boolean
 }
 
+// brand logo and icon
+const LOGO_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ID
+const LOGO_ICON_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
+
 const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
-  const LOGO_ICON = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON
-  const BRAND_LOGO = process.env.NEXT_PUBLIC_BRAND_LOGO
+  const LOGO_ICON = `${MEDIA_BASE_URL}/${LOGO_ICON_ID}?preview=true`
+  const BRAND_LOGO = `${MEDIA_BASE_URL}/${LOGO_ID}?preview=true`
 
   const logoObj = {
     url: collapsed ? LOGO_ICON : BRAND_LOGO,

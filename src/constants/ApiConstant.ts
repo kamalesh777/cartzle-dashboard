@@ -4,13 +4,20 @@ const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1'
 // Base URL for API requests eg. http://localhost:5000/api/v1
 const API_BASE_URL = `${BACKEND_API_SERVICE}/${API_VERSION}`
 
+// MEDIA BASE URL
+export const MEDIA_BASE_URL = `${API_BASE_URL}/media-srv`
+
 const API_COMMON_SRV = `${API_BASE_URL}/common-srv`
 
 const routesObj = {
   'api-testing': `${API_BASE_URL}`,
 
+  // MEDIA SERVICE
+  'media-service': `${MEDIA_BASE_URL}`,
+
   // COMPANY INFO
   'company-create': `${API_BASE_URL}/company/create`,
+  'company-update': `${API_BASE_URL}/company/update`,
   'company-list': `${API_BASE_URL}/company/list`,
   'company-details': `${API_BASE_URL}/company/details`,
 

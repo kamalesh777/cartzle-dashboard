@@ -42,7 +42,7 @@ const getDisplayContent = ({
       return <pre>{JSON.stringify(value)}</pre>
 
     default:
-      return <p style={{ margin: 0 }}>{(value ?? EMPTY_PLACEHOLDER) as string}</p>
+      return <p style={{ margin: 0 }}>{(value || EMPTY_PLACEHOLDER) as string}</p>
   }
 }
 

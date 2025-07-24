@@ -3,36 +3,31 @@ import React, { useEffect } from 'react'
 
 import { Form, Input, Row } from 'antd'
 
+import type { PropTypes } from './types'
+
 import type { CompanyFormValues } from '../account-settings/types'
 
 import { ColWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
 import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
 import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
-import { useGetRequestHandler } from '@/hook/requestHandler'
+import { usePostRequestHandler } from '@/hook/requestHandler'
 
-const CompanyProfileComp = (): JSX.Element => {
+const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
+
+  const { submit } = usePostRequestHandler()
 
   const [editMode, setEditMode] = React.useState(false)
 
-  const { fetchData, isLoading, data } = useGetRequestHandler<CompanyFormValues>()
-
-  useEffect(() => {
-    fetchData('/api/company-details')
-  }, [])
-
   useEffect(() => {
     if (data) {
-      form.setFieldsValue({
-        ...data,
-        subdomain: data?.subdomain?.replace(`${data.name}.`, ''),
-      })
+      form.setFieldsValue(data)
     }
   }, [data])
 
-  const onFinish = (values: any): void => {
-    console.log('===Company Info Submitted:', values)
+  const onFinish = async (values: CompanyFormValues): Promise<void> => {
+    await submit('put', '/api/company-update', values, null, () => setEditMode(false))
   }
 
   return (
@@ -47,7 +42,14 @@ const CompanyProfileComp = (): JSX.Element => {
       >
         <Row>
           <ColWrapper span={24}>
-            <EditableFormWrapper name="name" label="Company Name" editMode={editMode} form={form} isLoading={isLoading}>
+            <EditableFormWrapper
+              name="name"
+              label="Company Name"
+              editMode={editMode}
+              form={form}
+              isLoading={isLoading}
+              rules={requiredWithWhitspcFieldRules}
+            >
               <InputWrapper />
             </EditableFormWrapper>
 

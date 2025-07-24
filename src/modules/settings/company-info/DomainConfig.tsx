@@ -2,32 +2,20 @@ import React, { useEffect } from 'react'
 
 import { Form, Row } from 'antd'
 
-import type { CompanyFormValues } from '../account-settings/types'
+import type { PropTypes } from './types'
 
 import { ColWrapper, InputWrapper } from '@/components/Wrapper'
 import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
-import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 
-import { useGetRequestHandler } from '@/hook/requestHandler'
-
-const DomainConfig = (): JSX.Element => {
+const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
 
   const [editMode, setEditMode] = React.useState(false)
 
-  const { fetchData, isLoading, data } = useGetRequestHandler<CompanyFormValues>()
-
-  useEffect(() => {
-    fetchData('/api/company-details')
-  }, [])
-
   useEffect(() => {
     if (data) {
-      form.setFieldsValue({
-        ...data,
-        subdomain: data?.subdomain?.replace(`${data.name}.`, ''),
-      })
+      form.setFieldsValue(data)
     }
   }, [data])
 
@@ -47,16 +35,6 @@ const DomainConfig = (): JSX.Element => {
       >
         <Row>
           <ColWrapper span={24}>
-            <EditableFormWrapper
-              isLoading={isLoading}
-              form={form}
-              editMode={editMode}
-              name="name"
-              label="Company Name"
-              rules={requiredWithWhitspcFieldRules}
-            >
-              <InputWrapper />
-            </EditableFormWrapper>
             <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="subdomain" label="Subdomain">
               <InputWrapper readOnly />
             </EditableFormWrapper>

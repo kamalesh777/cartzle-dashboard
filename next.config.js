@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const url = new URL(process.env.NEXT_PUBLIC_API_SERVICE)
+
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
@@ -14,8 +17,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'logosbynick.com',
+        protocol: url.protocol.replace(':', ''),
+        hostname: url.hostname,
+        port: url.port,
       },
     ],
   },
