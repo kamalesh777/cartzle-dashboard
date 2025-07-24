@@ -1,3 +1,5 @@
+import { MEDIA_BASE_URL } from "./ApiConstant"
+
 export const PRIMARY_DOMAIN = process.env.NEXT_PUBLIC_PRIMARY_DOMAIN
 export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT
 
@@ -19,6 +21,8 @@ export const SALE_LIST_ROUTE = '/orders/sales'
 export const ERROR_MSG = 'Field is required.'
 export const WHITESPACE_MSG = 'Enter a vaild input'
 export const COMMON_ROW_GUTTER = 16
+
+export const IMAGE_PLACEHOLDER = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&type=url`
 
 // common required rules
 export const requiredFieldRules = [

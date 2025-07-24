@@ -1,24 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import type { CompanyFormValues } from '../account-settings/types'
+import { useSelector } from 'react-redux'
 
-import { useGetRequestHandler } from '@/hook/requestHandler'
+import type { RootState } from '@/store/index'
 
+import BrandConfig from './BrandConfig'
 import CompanyProfileComp from './CompanyProfile'
 import DomainConfig from './DomainConfig'
-import ThemeConfig from './ThemeConfig'
 
 const CompanyInfoComp = (): JSX.Element => {
-  const { fetchData, isLoading, data } = useGetRequestHandler<CompanyFormValues>()
-
-  // fetch company details
-  useEffect(() => {
-    fetchData('/api/company-details')
-  }, [])
+  const { details: data, isLoading } = useSelector((state: RootState) => state.company)
 
   return (
     <>
-      <ThemeConfig isLoading={isLoading} data={data} />
+      <BrandConfig isLoading={isLoading} data={data} />
       <DomainConfig isLoading={isLoading} data={data} />
       <CompanyProfileComp isLoading={isLoading} data={data} />
     </>

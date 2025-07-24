@@ -13,7 +13,10 @@ import { postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
 import { FormItemWrapper, SpaceWrapper, TooltipWrapper } from '@/components/Wrapper'
 import BrowseFile from '@/components/Wrapper/BrowseFile'
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
+import { IMAGE_PLACEHOLDER } from '@/constants/AppConstant'
+import NextImage from '@/components/NextImage'
 
 interface PropTypes {
   name: string
@@ -27,18 +30,17 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
   const mediUrl = Form.useWatch(name, form) || ''
 
   const [imgLoading, setImgLoading] = useState<boolean>(false)
-  const [imgUrl, setImgUrl] = useState<string>('')
+  const [imgId, setImgId] = useState<string>('')
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
 
-  // set image url based on form value
+  // Sync form value with local state
   useLayoutEffect(() => {
-    setImgUrl(mediUrl)
+    setImgId(mediUrl)
   }, [mediUrl])
 
-  // file upload handler
+  // Upload handler
   const uploadHandler = async ({ file }: UploadChangeParam<UploadFile<any>>): Promise<void> => {
     setImgLoading(true)
-    // setImgUrl('')
     try {
       if (file.status === 'done') {
         const base64 = await imageToBase64(file.originFileObj as unknown as File)
@@ -51,9 +53,8 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
         const data = resp.data
         if (data.success) {
           Toast('success', data.message)
-          // after upload set that value inside of logo input
-          setImgUrl(data.result.url)
-          form.setFieldValue(name, data.result.url)
+          setImgId(data.result.fileId)
+          form.setFieldValue(name, data.result.fileId)
         } else {
           Toast('error', resp.data.message)
         }
@@ -65,7 +66,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
     }
   }
 
-  // file change handler
+  // File change handler
   const changeHandler = (info: UploadChangeParam<UploadFile<any>>): void => {
     setPreviewVisible(false)
     uploadHandler(info)
@@ -73,13 +74,20 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
 
   return (
     <FormItemWrapper name={name} label={label}>
-      {imgUrl ? (
+      {/* If uploading or no image yet, show BrowseFile */}
+      {imgLoading || !imgId ? (
+        <BrowseFile loading={imgLoading} onChange={uploadHandler} />
+      ) : (
         <Image
-          src={`${imgUrl}?${Date.now()}`}
+          src={`${MEDIA_BASE_URL}/${imgId}?${Date.now()}&preview=true&type=thumbnail`}
+          width={170}
+          height={100}
           alt={label}
           className="logo-favicon-preview"
+          fallback={IMAGE_PLACEHOLDER}
           preview={{
             visible: previewVisible,
+            src: `${MEDIA_BASE_URL}/${imgId}?${Date.now()}&preview=true&type=url`,
             closeIcon: <CloseOutlined onClick={() => setPreviewVisible(false)} />,
             mask: (
               <SpaceWrapper size={12}>
@@ -95,8 +103,6 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
             ),
           }}
         />
-      ) : (
-        <BrowseFile loading={imgLoading} onChange={uploadHandler} />
       )}
     </FormItemWrapper>
   )

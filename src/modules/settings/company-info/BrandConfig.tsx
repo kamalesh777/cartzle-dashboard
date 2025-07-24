@@ -35,21 +35,20 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   }
 
   return (
-    <CardWrapper title="Theme Config" id="theme" className="mb-3">
+    <CardWrapper title="Brand Config" id="brand" className="mb-3">
       <Form form={form} layout="vertical" onFinish={onFinish} onValuesChange={() => setIsValueChanged(true)}>
         <Row>
           <ColWrapper span={16}>
             <FormItemWrapper
               name="themeColor"
-              label="Select theme color"
+              label="Theme Color"
               className="theme-color"
-              // initialValue={companyState?.token?.colorPrimary}
               getValueFromEvent={v => v.toHexString()}
             >
               <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
             </FormItemWrapper>
-            <LogoFaviconUpload name="logoUrl" label="Logo" type="logo" form={form} />
-            <LogoFaviconUpload name="faviconUrl" label="Favicon" type="favicon" form={form} />
+            <LogoFaviconUpload name="logoId" label="Logo" type="logo" form={form} />
+            <LogoFaviconUpload name="faviconId" label="Favicon" type="favicon" form={form} />
             {isValueChanged && (
               <SubmitButtonWrapper
                 okButtonProps={{

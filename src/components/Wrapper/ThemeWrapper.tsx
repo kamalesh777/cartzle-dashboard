@@ -14,18 +14,20 @@ import type { RootState } from 'src/store'
 
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
-import { applyThemeColor } from '@/store/slices/companySlice'
+import { applyCompanyData, applyThemeColor } from '@/store/slices/companySlice'
 
 import LayoutWrapper from './LayoutWrapper'
 
 const ThemeWrapper = ({ children }: PropsWithChildren): JSX.Element => {
   const dispatch = useDispatch()
-  const companyState = useSelector((state: RootState) => state.company)
+  const companyState = useSelector((state: RootState) => state?.company)
+
   const pathname = usePathname()
   const isAuth = pathname.startsWith('/auth')
 
   const { fetchData, data: companyData } = useGetRequestHandler<CompanyFormValues>()
 
+  // fetch company details on every app load or page refresh
   const fetchCompanyDetails = async (): Promise<void> => {
     await fetchData('/api/company-details')
   }
@@ -37,6 +39,7 @@ const ThemeWrapper = ({ children }: PropsWithChildren): JSX.Element => {
 
   useEffect(() => {
     if (companyData) {
+      dispatch(applyCompanyData(companyData))
       dispatch(applyThemeColor(companyData.themeColor))
     }
   }, [companyData])

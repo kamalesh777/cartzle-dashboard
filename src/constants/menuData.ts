@@ -72,9 +72,9 @@ const menuData = [
         icon: 'ShopOutlined',
         pagemenu: [
           {
-            key: 'manage-company-theme',
-            href: '#theme',
-            title: 'Theme',
+            key: 'manage-company-brand',
+            href: '#brand',
+            title: 'Brand',
             icon: '',
           },
           {

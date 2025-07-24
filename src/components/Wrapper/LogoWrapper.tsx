@@ -2,6 +2,10 @@ import React from 'react'
 
 import Image from 'next/image'
 
+import { useSelector } from 'react-redux'
+
+import type { RootState } from '@/store/index'
+
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
 interface PropTypes {
@@ -9,12 +13,15 @@ interface PropTypes {
 }
 
 const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
-  // brand logo and icon
-  const LOGO_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ID
-  const LOGO_ICON_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
+  const { details: companyData } = useSelector((state: RootState) => state.company)
 
-  const LOGO_ICON = `${MEDIA_BASE_URL}/${LOGO_ICON_ID}?preview=true`
-  const BRAND_LOGO = `${MEDIA_BASE_URL}/${LOGO_ID}?preview=true`
+  console.log("==companyData", companyData)
+  // brand logo and icon
+  const LOGO_ID = companyData?.logoId || process.env.NEXT_PUBLIC_BRAND_LOGO_ID
+  const LOGO_ICON_ID = companyData?.faviconId || process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
+
+  const LOGO_ICON = `${MEDIA_BASE_URL}/${LOGO_ICON_ID}?v=${Date.now()}&preview=true`
+  const BRAND_LOGO = `${MEDIA_BASE_URL}/${LOGO_ID}?v=${Date.now()}&preview=true`
 
   const logoObj = {
     url: collapsed ? LOGO_ICON : BRAND_LOGO,

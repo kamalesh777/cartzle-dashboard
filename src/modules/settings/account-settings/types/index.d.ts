@@ -7,8 +7,8 @@ export interface UserFormValues {
 
 export interface CompanyFormValues {
   themeColor: string
-  logoUrl: string
-  faviconUrl: string
+  logoId: string
+  faviconId: string
   name: string
   supportNumber: string
   supportEmail: string
