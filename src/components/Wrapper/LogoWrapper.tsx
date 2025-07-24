@@ -8,11 +8,11 @@ interface PropTypes {
   collapsed?: boolean
 }
 
-// brand logo and icon
-const LOGO_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ID
-const LOGO_ICON_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
-
 const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
+  // brand logo and icon
+  const LOGO_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ID
+  const LOGO_ICON_ID = process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
+
   const LOGO_ICON = `${MEDIA_BASE_URL}/${LOGO_ICON_ID}?preview=true`
   const BRAND_LOGO = `${MEDIA_BASE_URL}/${LOGO_ID}?preview=true`
 

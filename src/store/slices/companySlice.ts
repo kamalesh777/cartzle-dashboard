@@ -7,8 +7,8 @@ import initialThemeConfig from '@/configs/ThemeConfig'
 // Define the initial state using that type
 const initialState: ThemeConfig = initialThemeConfig
 
-export const themeSlice = createSlice({
-  name: 'theme',
+export const companySlice = createSlice({
+  name: 'company',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -22,6 +22,6 @@ export const themeSlice = createSlice({
   },
 })
 
-export const { applyThemeColor } = themeSlice.actions
+export const { applyThemeColor } = companySlice.actions
 
-export default themeSlice.reducer
+export default companySlice.reducer

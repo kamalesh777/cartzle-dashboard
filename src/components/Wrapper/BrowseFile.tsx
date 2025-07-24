@@ -8,7 +8,6 @@ import type { UploadChangeParam, UploadFile } from 'antd/es/upload'
 
 import ButtonWrapper from './ButtonWrapper'
 
-import InputWrapper from './InputWrapper'
 import SpaceWrapper from './SpaceWrapper'
 
 interface Props {
@@ -19,21 +18,17 @@ interface Props {
 const BrowseFile = ({ loading, onChange }: Props): JSX.Element => {
   const uploadButton = (
     <ButtonWrapper style={{ border: 0, background: 'none' }}>
-      <SpaceWrapper align="center">
+      <SpaceWrapper align="center" direction="vertical" size={0}>
         {loading ? <LoadingOutlined /> : <UploadOutlined />}
-        Browse
+        Upload
       </SpaceWrapper>
     </ButtonWrapper>
   )
 
   return (
-    <InputWrapper
-      addonAfter={
-        <Upload maxCount={1} className="mx-n3" showUploadList={false} onChange={onChange}>
-          {uploadButton}
-        </Upload>
-      }
-    />
+    <Upload maxCount={1} className="logo-favicon-preview " listType="picture-card" showUploadList={false} onChange={onChange}>
+      {uploadButton}
+    </Upload>
   )
 }
 

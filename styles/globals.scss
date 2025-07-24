@@ -233,6 +233,20 @@ header.ant-layout-header.fix-header {
 .show:hover .on-hover {
 	opacity: 1;
 }
+.logo-favicon-preview .ant-upload,
+.logo-favicon-preview {
+    width: 170px !important;
+    height: 100px !important;
+    border-radius: 8px;
+    object-fit: contain;
+}
+.logo-favicon-preview {
+	border: 1px dashed #d9d9d9;
+	padding: 6px;
+}
+.logo-favicon-preview ~ .ant-image-mask {
+    border-radius: 6px !important;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;

@@ -1,83 +1,66 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
-
-import { Form, Row, Upload } from 'antd'
+import { Form, Row } from 'antd'
 
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { PropTypes } from './types'
+import type { CompanyFormValues } from '../account-settings/types'
 import type { RootState } from '@/store/index'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
-import {
-  FormItemWrapper,
-  CardWrapper,
-  InputWrapper,
-  SpaceWrapper,
-  ButtonWrapper,
-  ColWrapper,
-  SubmitButtonWrapper,
-} from '@/components/Wrapper'
-import { applyThemeColor } from '@/store/slices/themeSlice'
+import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import { usePostRequestHandler } from '@/hook/requestHandler'
+import { applyThemeColor } from '@/store/slices/companySlice'
 
-const BrandConfigComp = ({ isLoading, data }: PropTypes): JSX.Element => {
-  const [form] = Form.useForm()
+import LogoFaviconUpload from './LogoFaviconUpload'
 
+const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
-  const themeState = useSelector((state: RootState) => state.theme.token)
-  // const imageUrl = Form.useWatch('logo_url', form)
+  const companyState = useSelector((state: RootState) => state.company)
 
-  const [imgLoading] = useState<boolean>(false)
+  const [form] = Form.useForm()
+  const { submit } = usePostRequestHandler()
 
-  const formSubmitHandler = (formVal: any): void => {
-    // eslint-disable-next-line prettier/prettier, no-console
-    console.log("==formVal", formVal)
+  const [isValueChanged, setIsValueChanged] = React.useState(false)
+
+  // on submit handler
+  const onFinish = async (values: CompanyFormValues): Promise<void> => {
+    await submit('put', '/api/company-update', values, null, () => setIsValueChanged(false))
   }
-
-  const uploadButton = (
-    <ButtonWrapper style={{ border: 0, background: 'none' }}>
-      <SpaceWrapper align="center">
-        {imgLoading ? <LoadingOutlined /> : <UploadOutlined />}
-        Browse
-      </SpaceWrapper>
-    </ButtonWrapper>
-  )
 
   return (
     <CardWrapper title="Theme Config" id="theme" className="mb-3">
-      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+      <Form form={form} layout="vertical" onFinish={onFinish} onValuesChange={() => setIsValueChanged(true)}>
         <Row>
           <ColWrapper span={16}>
             <FormItemWrapper
-              name="theme_color"
+              name="themeColor"
               label="Select theme color"
               className="theme-color"
-              initialValue={themeState?.colorPrimary}
+              initialValue={companyState?.token?.colorPrimary}
+              getValueFromEvent={v => v.toHexString()}
             >
               <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
             </FormItemWrapper>
-            <FormItemWrapper name="logo_url" label="Logo">
-              <InputWrapper
-                className="h-100"
-                addonAfter={
-                  <Upload maxCount={1} className="mx-n3" showUploadList={false}>
-                    {uploadButton}
-                  </Upload>
-                }
+            <LogoFaviconUpload name="logoUrl" label="Logo" type="logo" form={form} />
+            <LogoFaviconUpload name="faviconUrl" label="Favicon" type="favicon" form={form} />
+            {isValueChanged && (
+              <SubmitButtonWrapper
+                okButtonProps={{
+                  onClick: () => {
+                    form.submit()
+                    setIsValueChanged(false)
+                  },
+                }}
+                cancelButtonProps={{
+                  onClick: () => {
+                    form.setFieldsValue(data)
+                    setIsValueChanged(false)
+                  },
+                }}
               />
-            </FormItemWrapper>
-            <FormItemWrapper name="favicon_url" label="Favicon">
-              <InputWrapper
-                className="h-100"
-                addonAfter={
-                  <Upload maxCount={1} className="mx-n3" showUploadList={false}>
-                    {uploadButton}
-                  </Upload>
-                }
-              />
-            </FormItemWrapper>
-            <SubmitButtonWrapper />
+            )}
           </ColWrapper>
         </Row>
       </Form>
