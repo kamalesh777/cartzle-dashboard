@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Form, Row } from 'antd'
 
@@ -24,6 +24,13 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
 
   const [isValueChanged, setIsValueChanged] = React.useState(false)
 
+  useEffect(() => {
+    if (data) {
+      form.setFieldsValue(data)
+      dispatch(applyThemeColor(data.themeColor))
+    }
+  }, [data])
+
   // on submit handler
   const onFinish = async (values: CompanyFormValues): Promise<void> => {
     await submit('put', '/api/company-update', values, null, () => setIsValueChanged(false))
@@ -38,7 +45,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
               name="themeColor"
               label="Select theme color"
               className="theme-color"
-              initialValue={companyState?.token?.colorPrimary}
+              // initialValue={companyState?.token?.colorPrimary}
               getValueFromEvent={v => v.toHexString()}
             >
               <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />

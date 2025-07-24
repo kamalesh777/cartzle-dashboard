@@ -6,6 +6,9 @@ export interface UserFormValues {
 }
 
 export interface CompanyFormValues {
+  themeColor: string
+  logoUrl: string
+  faviconUrl: string
   name: string
   supportNumber: string
   supportEmail: string

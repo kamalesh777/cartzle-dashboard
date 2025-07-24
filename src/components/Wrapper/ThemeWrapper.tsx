@@ -6,6 +6,9 @@ import { usePathname } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
+import type { ThemeConfig } from 'antd'
+
+// eslint-disable-next-line no-duplicate-imports
 
 // eslint-disable-next-line no-duplicate-imports
 
@@ -14,12 +17,12 @@ import type { RootState } from 'src/store'
 import LayoutWrapper from './LayoutWrapper'
 
 const ThemeWrapper = ({ children }: PropsWithChildren): JSX.Element => {
-  const theme = useSelector((state: RootState) => state.theme)
+  const companyState = useSelector((state: RootState) => state.company)
   const pathname = usePathname()
   const isAuth = pathname.startsWith('/auth')
 
   return (
-    <ConfigProvider theme={theme}>
+    <ConfigProvider theme={companyState as ThemeConfig}>
       <ThemeToken>{!isAuth ? <LayoutWrapper>{children}</LayoutWrapper> : children}</ThemeToken>
     </ConfigProvider>
   )
