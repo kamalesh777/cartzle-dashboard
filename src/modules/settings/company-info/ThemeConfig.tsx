@@ -2,11 +2,10 @@ import React, { useEffect } from 'react'
 
 import { Form, Row } from 'antd'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import type { PropTypes } from './types'
 import type { CompanyFormValues } from '../account-settings/types'
-import type { RootState } from '@/store/index'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
 import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
@@ -17,7 +16,6 @@ import LogoFaviconUpload from './LogoFaviconUpload'
 
 const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
-  const companyState = useSelector((state: RootState) => state.company)
 
   const [form] = Form.useForm()
   const { submit } = usePostRequestHandler()

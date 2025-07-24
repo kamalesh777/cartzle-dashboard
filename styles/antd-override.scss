@@ -97,6 +97,13 @@
 tr.ant-table-expanded-row .ant-table-wrapper {
     margin: 15px 15px 20px 0;
 }
+.ant-image-preview-img {
+    background: #fcfcfc;
+    border-radius: 6px;
+}
+.ant-image-preview-root .ant-image-preview-mask {
+    background-color: rgb(0 0 0 / 79%);
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
-import { CloseOutlined, EditOutlined, EyeOutlined, LoadingOutlined } from '@ant-design/icons'
+import { CloseOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons'
 
-import { Image, Upload, type UploadFile } from 'antd'
+import { Form, Image, Upload, type UploadFile } from 'antd'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { FormInstance } from 'antd'
@@ -24,10 +24,18 @@ interface PropTypes {
 }
 
 const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element => {
+  const mediUrl = Form.useWatch(name, form) || ''
+
   const [imgLoading, setImgLoading] = useState<boolean>(false)
   const [imgUrl, setImgUrl] = useState<string>('')
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
 
+  // set image url based on form value
+  useLayoutEffect(() => {
+    setImgUrl(mediUrl)
+  }, [mediUrl])
+
+  // file upload handler
   const uploadHandler = async ({ file }: UploadChangeParam<UploadFile<any>>): Promise<void> => {
     setImgLoading(true)
     // setImgUrl('')
@@ -57,6 +65,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
     }
   }
 
+  // file change handler
   const changeHandler = (info: UploadChangeParam<UploadFile<any>>): void => {
     setPreviewVisible(false)
     uploadHandler(info)
@@ -74,20 +83,14 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
             closeIcon: <CloseOutlined onClick={() => setPreviewVisible(false)} />,
             mask: (
               <SpaceWrapper size={12}>
-                {imgLoading ? (
-                  <LoadingOutlined />
-                ) : (
-                  <>
-                    <TooltipWrapper title="Preview">
-                      <EyeOutlined onClick={() => setPreviewVisible(true)} />
-                    </TooltipWrapper>
-                    <TooltipWrapper title="Change">
-                      <Upload onChange={changeHandler} showUploadList={false}>
-                        <EditOutlined className="text-white" />
-                      </Upload>
-                    </TooltipWrapper>
-                  </>
-                )}
+                <TooltipWrapper title="Preview">
+                  <EyeOutlined onClick={() => setPreviewVisible(true)} />
+                </TooltipWrapper>
+                <TooltipWrapper title="Change">
+                  <Upload onChange={changeHandler} showUploadList={false}>
+                    <EditOutlined className="text-white" />
+                  </Upload>
+                </TooltipWrapper>
               </SpaceWrapper>
             ),
           }}

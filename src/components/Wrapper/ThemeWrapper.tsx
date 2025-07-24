@@ -1,25 +1,45 @@
 'use client'
-import React, { type PropsWithChildren } from 'react'
+import React, { useEffect, type PropsWithChildren } from 'react'
 
 import { ConfigProvider, theme } from 'antd'
 import { usePathname } from 'next/navigation'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import type { CompanyFormValues } from '@/modules/settings/account-settings/types'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { ThemeConfig } from 'antd'
 
-// eslint-disable-next-line no-duplicate-imports
-
-// eslint-disable-next-line no-duplicate-imports
-
 import type { RootState } from 'src/store'
+
+import { useGetRequestHandler } from '@/hook/requestHandler'
+
+import { applyThemeColor } from '@/store/slices/companySlice'
 
 import LayoutWrapper from './LayoutWrapper'
 
 const ThemeWrapper = ({ children }: PropsWithChildren): JSX.Element => {
+  const dispatch = useDispatch()
   const companyState = useSelector((state: RootState) => state.company)
   const pathname = usePathname()
   const isAuth = pathname.startsWith('/auth')
+
+  const { fetchData, data: companyData } = useGetRequestHandler<CompanyFormValues>()
+
+  const fetchCompanyDetails = async (): Promise<void> => {
+    await fetchData('/api/company-details')
+  }
+
+  // fetch company details
+  useEffect(() => {
+    fetchCompanyDetails()
+  }, [])
+
+  useEffect(() => {
+    if (companyData) {
+      dispatch(applyThemeColor(companyData.themeColor))
+    }
+  }, [companyData])
 
   return (
     <ConfigProvider theme={companyState as ThemeConfig}>
