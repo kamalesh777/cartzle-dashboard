@@ -32,8 +32,10 @@ const BrowseFile = ({ name, loading, onChange, children, className }: Props): JS
   return (
     <ImgCrop
       onModalOk={file => onChange?.(file as unknown as UploadChangeParam<UploadFile<any>>)}
+      modalOk="Crop"
       rotationSlider
       aspectSlider
+      showGrid={true}
       showReset
       zoomSlider
       maxAspect={name.startsWith('logo') ? 8 : 2}

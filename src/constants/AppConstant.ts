@@ -1,4 +1,4 @@
-import { MEDIA_BASE_URL } from "./ApiConstant"
+import { MEDIA_BASE_URL } from './ApiConstant'
 
 export const PRIMARY_DOMAIN = process.env.NEXT_PUBLIC_PRIMARY_DOMAIN
 export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT

@@ -5,6 +5,10 @@ import { CloseOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons'
 import { Form, Image, type UploadFile } from 'antd'
 
 // eslint-disable-next-line no-duplicate-imports
+import { useDispatch, useSelector } from 'react-redux'
+
+import type { RootState } from '@/store/index'
+// eslint-disable-next-line no-duplicate-imports
 import type { FormInstance } from 'antd'
 
 import type { UploadChangeParam } from 'antd/es/upload'
@@ -16,6 +20,7 @@ import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 import BrowseFile from '@/components/Wrapper/BrowseFile'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { IMAGE_PLACEHOLDER } from '@/constants/AppConstant'
+import { applyCompanyData } from '@/store/slices/companySlice'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
 interface PropTypes {
@@ -27,6 +32,8 @@ interface PropTypes {
 }
 
 const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element => {
+  const dispatch = useDispatch()
+  const { details: companyData } = useSelector((state: RootState) => state.company)
   const mediUrl = Form.useWatch(name, form) || ''
 
   const [imgLoading, setImgLoading] = useState<boolean>(false)
@@ -53,12 +60,12 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
       if (data.success) {
         Toast('success', data.message)
         setImgId(data.result.fileId)
-        form.setFieldValue(name, data.result.fileId)
+        dispatch(applyCompanyData({ ...companyData, [name]: data.result.fileId }))
       } else {
-        Toast('error', resp.data.message)
+        Toast('error', resp.data.message || 'Something went wrong')
       }
     } catch (err) {
-      Toast('error', (err as Error).message)
+      Toast('error', (err as Error)?.message || 'Something went wrong')
     } finally {
       setImgLoading(false)
     }

@@ -10,9 +10,10 @@ import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
 interface PropTypes {
   collapsed?: boolean
+  objectPosition: string
 }
 
-const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
+const LogoWrapper = ({ collapsed, objectPosition }: PropTypes): JSX.Element => {
   const { details: companyData } = useSelector((state: RootState) => state.company)
 
   // brand logo and icon
@@ -30,7 +31,7 @@ const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
   }
   return (
     <div className="logo-box">
-      <Image src={logoObj.url as string} alt={logoObj.alt} layout="fill" objectFit="contain" objectPosition="center" />
+      <Image src={logoObj.url as string} alt={logoObj.alt} layout="fill" objectFit="contain" objectPosition={objectPosition} />
     </div>
   )
 }

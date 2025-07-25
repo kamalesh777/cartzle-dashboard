@@ -24,7 +24,7 @@ const PageLoader = (): JSX.Element | null => {
 
   return (
     <div className="min-vh-100 d-flex justify-content-center align-items-center flex-column" style={{ marginTop: '-50px' }}>
-      <LogoWrapper collapsed={false} />
+      <LogoWrapper collapsed={false} objectPosition="center" />
       <Progress
         className="w-50 mt-2"
         percent={progress}
