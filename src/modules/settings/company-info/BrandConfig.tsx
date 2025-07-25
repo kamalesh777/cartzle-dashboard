@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Form, Row } from 'antd'
+import { Form, Row, Slider } from 'antd'
 
 import { useDispatch } from 'react-redux'
 
@@ -9,6 +9,7 @@ import type { CompanyFormValues } from '../account-settings/types'
 
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
 import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { applyThemeColor } from '@/store/slices/companySlice'
 
@@ -47,8 +48,15 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
             >
               <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
             </FormItemWrapper>
-            <LogoFaviconUpload name="logoId" label="Logo" type="logo" form={form} />
-            <LogoFaviconUpload name="faviconId" label="Favicon" type="favicon" form={form} />
+            <Row gutter={COMMON_ROW_GUTTER}>
+              <ColWrapper span={12}>
+                <LogoFaviconUpload name="logoId" label="Logo" type="logo" form={form} />
+              </ColWrapper>
+              <ColWrapper span={12}>
+                <LogoFaviconUpload name="faviconId" label="Favicon" type="favicon" form={form} />
+              </ColWrapper>
+            </Row>
+
             {isValueChanged && (
               <SubmitButtonWrapper
                 okButtonProps={{

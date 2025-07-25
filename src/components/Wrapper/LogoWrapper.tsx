@@ -15,7 +15,6 @@ interface PropTypes {
 const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
   const { details: companyData } = useSelector((state: RootState) => state.company)
 
-  console.log("==companyData", companyData)
   // brand logo and icon
   const LOGO_ID = companyData?.logoId || process.env.NEXT_PUBLIC_BRAND_LOGO_ID
   const LOGO_ICON_ID = companyData?.faviconId || process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
@@ -30,8 +29,8 @@ const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
     alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
   }
   return (
-    <div>
-      <Image src={logoObj.url as string} alt={logoObj.alt} width={logoObj.width} height={logoObj.height} />
+    <div className="logo-box">
+      <Image src={logoObj.url as string} alt={logoObj.alt} layout="fill" objectFit="contain" objectPosition="center" />
     </div>
   )
 }
