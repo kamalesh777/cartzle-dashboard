@@ -1,5 +1,11 @@
 import type { FormInstance } from 'antd'
 
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+
+import { store } from '../store'
+
+const storeData = store?.getState()
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 /**
  * Convert an image to base64 Data URL with format and quality options.
@@ -132,6 +138,11 @@ interface errTypes {
 export const errorMsg = (err: errTypes) => err.response.data
 
 export const metaTitle = (title: string): string => `${title} | ${process.env.NEXT_PUBLIC_BRAND_NAME}`
+
+export const getFavicon = (): string => {
+  const faviconId = storeData?.company?.details?.faviconId
+  return `${MEDIA_BASE_URL}/${faviconId}?preview=true&tr=w-400`
+}
 
 // get current path name without slash or include slash based on second param passed
 export const getCurrentPath = (path: string, sliceStart: number, sliceEnd: number): string => {

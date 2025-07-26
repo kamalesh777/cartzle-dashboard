@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { CloseOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons'
 
 import { Form, Image, type UploadFile } from 'antd'
 
 // eslint-disable-next-line no-duplicate-imports
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import type { RootState } from '@/store/index'
 // eslint-disable-next-line no-duplicate-imports
@@ -13,14 +13,11 @@ import type { FormInstance } from 'antd'
 
 import type { UploadChangeParam } from 'antd/es/upload'
 
-import { postRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
-
 import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 import BrowseFile from '@/components/Wrapper/BrowseFile'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { IMAGE_PLACEHOLDER } from '@/constants/AppConstant'
-import { applyCompanyData } from '@/store/slices/companySlice'
+
 import { imageToBase64 } from '@/utils/commonFunctions'
 
 interface PropTypes {
@@ -32,63 +29,34 @@ interface PropTypes {
 }
 
 const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element => {
-  const dispatch = useDispatch()
   const { details: companyData } = useSelector((state: RootState) => state.company)
-  const mediUrl = Form.useWatch(name, form) || ''
+  const mediaData = Form.useWatch(name, form) || ''
 
-  const [imgLoading, setImgLoading] = useState<boolean>(false)
-  const [imgId, setImgId] = useState<string>('')
+  const [imgLoading] = useState<boolean>(false)
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
 
-  // Sync form value with local state
-  useLayoutEffect(() => {
-    setImgId(mediUrl)
-  }, [mediUrl])
-
-  // Upload handler
-  const uploadHandler = async (file: UploadChangeParam<UploadFile<any>>): Promise<void> => {
-    setImgLoading(true)
-    try {
-      const base64 = await imageToBase64(file as unknown as File)
-      const payload = {
-        base64,
-        name: `${type}.webp`,
-        type,
-      }
-      const resp = await postRequest('/api/brand-media-upload', payload)
-      const data = resp.data
-      if (data.success) {
-        Toast('success', data.message)
-        setImgId(data.result.fileId)
-
-        const versionName = data.result.versionInfo.name
-        dispatch(applyCompanyData({ ...companyData, [name]: `${data.result.fileId}`, versionName }))
-      } else {
-        Toast('error', resp.data.message || 'Something went wrong')
-      }
-    } catch (err) {
-      Toast('error', (err as Error)?.message || 'Something went wrong')
-    } finally {
-      setImgLoading(false)
-    }
-  }
-
   // File change handler
-  const changeHandler = (info: UploadChangeParam<UploadFile<any>>): void => {
+  const changeHandler = async (file: UploadChangeParam<UploadFile<any>>): Promise<void> => {
     setPreviewVisible(false)
-    uploadHandler(info)
+    const base64 = await imageToBase64(file as unknown as File)
+
+    form.setFieldsValue({ [name]: base64 })
   }
+
+  // Image data based on base64 or media id
+  const imageData =
+    typeof mediaData === 'string' && mediaData != null && mediaData?.startsWith('data:image')
+      ? mediaData
+      : `${MEDIA_BASE_URL}/${mediaData}?preview=true&tr=w-400${companyData.versionName ? `&v=${companyData.versionName}` : ''}`
 
   return (
-    <FormItemWrapper name={name} label={label} tooltip={`Hover on image to view or upload brand ${type}`}>
+    <FormItemWrapper name={name} label={label} tooltip={`Hover on image to view or update brand ${type}`}>
       {/* If uploading or no image yet, show BrowseFile */}
-      {imgLoading || !imgId ? (
+      {imgLoading || !mediaData ? (
         <BrowseFile name={name} loading={imgLoading} onChange={changeHandler} />
       ) : (
         <Image
-          src={`${MEDIA_BASE_URL}/${imgId}?preview=true&tr=w-400${
-            companyData.versionName ? `&v=${companyData.versionName}` : ''
-          }`}
+          src={imageData}
           width={'100%'}
           height={100}
           alt={label}
@@ -96,7 +64,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
           fallback={IMAGE_PLACEHOLDER}
           preview={{
             visible: previewVisible,
-            src: `${MEDIA_BASE_URL}/${imgId}?preview=true&tr=700`,
+            src: `${imageData}?preview=true&tr=700`,
             closeIcon: <CloseOutlined onClick={() => setPreviewVisible(false)} />,
             mask: (
               <SpaceWrapper size={16}>
