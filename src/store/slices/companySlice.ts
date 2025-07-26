@@ -37,9 +37,14 @@ export const companySlice = createSlice({
         // state.token.colorLink = isLightColor(action.payload) ? action.payload : '#fff'
       }
     },
+    // update partial company data
+    updateCompanyData: (state, action: PayloadAction<Partial<CompanyState['details']>>) => {
+      state.details = { ...state.details, ...action.payload }
+      state.isLoading = false
+    },
   },
 })
 
-export const { applyThemeColor, applyCompanyData } = companySlice.actions
+export const { applyThemeColor, applyCompanyData, updateCompanyData } = companySlice.actions
 
 export default companySlice.reducer
