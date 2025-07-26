@@ -18,6 +18,7 @@ import { Toast } from '@/components/Common'
 
 import { FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 import BrowseFile from '@/components/Wrapper/BrowseFile'
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { IMAGE_PLACEHOLDER } from '@/constants/AppConstant'
 import { applyCompanyData } from '@/store/slices/companySlice'
 import { imageToBase64 } from '@/utils/commonFunctions'
@@ -61,7 +62,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
         setImgId(data.result.fileId)
 
         const versionName = data.result.versionInfo.name
-        dispatch(applyCompanyData({ ...companyData, [name]: `${data.result.fileId}?v=${versionName}` }))
+        dispatch(applyCompanyData({ ...companyData, [name]: `${data.result.fileId}`, versionName }))
       } else {
         Toast('error', resp.data.message || 'Something went wrong')
       }
@@ -85,7 +86,9 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
         <BrowseFile name={name} loading={imgLoading} onChange={changeHandler} />
       ) : (
         <Image
-          src={`/api/public-media/${imgId}`}
+          src={`${MEDIA_BASE_URL}/${imgId}?preview=true&tr=w-400${
+            companyData.versionName ? `&v=${companyData.versionName}` : ''
+          }`}
           width={'100%'}
           height={100}
           alt={label}
@@ -93,7 +96,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
           fallback={IMAGE_PLACEHOLDER}
           preview={{
             visible: previewVisible,
-            src: `/api/public-media/${imgId}?${Date.now()}`,
+            src: `${MEDIA_BASE_URL}/${imgId}?preview=true&tr=700`,
             closeIcon: <CloseOutlined onClick={() => setPreviewVisible(false)} />,
             mask: (
               <SpaceWrapper size={16}>

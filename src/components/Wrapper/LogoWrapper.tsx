@@ -1,34 +1,52 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 
 import type { RootState } from '@/store/index'
 
-interface PropTypes {
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+
+interface LogoWrapperProps {
   collapsed?: boolean
-  objectPosition: string
+  className?: string
 }
 
-const LogoWrapper = ({ collapsed }: PropTypes): JSX.Element => {
-  const { details: companyData } = useSelector((state: RootState) => state.company)
+const LogoWrapper: React.FC<LogoWrapperProps> = ({ collapsed, className = '' }) => {
+  const { details: company } = useSelector((state: RootState) => state.company)
 
-  // brand logo and icon
-  const LOGO_ID = companyData?.logoId || process.env.NEXT_PUBLIC_BRAND_LOGO_ID
-  const LOGO_ICON_ID = companyData?.faviconId || process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID
+  const [logoId, setLogoId] = useState('')
+  const [faviconId, setFaviconId] = useState('')
 
-  const LOGO_ICON = `/api/public-media/${LOGO_ICON_ID}`
-  const BRAND_LOGO = `/api/public-media/${LOGO_ID}`
+  useEffect(() => {
+    if (company) {
+      setLogoId(company.logoId || process.env.NEXT_PUBLIC_BRAND_LOGO_ID || '')
+      setFaviconId(company.faviconId || process.env.NEXT_PUBLIC_BRAND_LOGO_ICON_ID || '')
+    }
+  }, [company])
 
-  const logoObj = {
-    url: collapsed ? LOGO_ICON : BRAND_LOGO,
-    width: collapsed ? 50 : 320,
-    height: collapsed ? 50 : 80,
-    alt: collapsed ? 'Brand Image Icon' : 'Brand Logo',
-  }
+  const versionQuery = company?.versionName ? `&v=${company.versionName}` : ''
+
+  const FAVICON_URL = `${MEDIA_BASE_URL}/${faviconId}?preview=true${versionQuery}`
+  const LOGO_URL = `${MEDIA_BASE_URL}/${logoId}?preview=true${versionQuery}&tr=w-400`
+
+  const imageProps = collapsed
+    ? {
+        src: FAVICON_URL,
+        width: 50,
+        height: 50,
+        alt: 'Brand Image Icon',
+      }
+    : {
+        src: LOGO_URL,
+        width: 320,
+        height: 80,
+        alt: 'Brand Logo',
+      }
+
   return (
-    <div className="logo-box">
-      <img src={`${logoObj.url}` as string} alt={logoObj.alt} />
+    <div className={`logo-box ${className}`}>
+      <img src={imageProps.src} alt={imageProps.alt} width={imageProps.width} height={imageProps.height} />
     </div>
   )
 }

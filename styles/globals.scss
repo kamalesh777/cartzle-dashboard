@@ -142,6 +142,7 @@ li {
 	position: relative;
 	height: 70px;
 	width: calc(100% - 24px);
+	overflow: hidden;
 }
 
 .menu-height {
@@ -248,9 +249,7 @@ header.ant-layout-header.fix-header {
     border-radius: 8px;
 	object-fit: contain;
 }
-.logo-favicon-preview.logoId {
-	object-fit: cover;
-}
+
 .logo-favicon-preview {
 	border: 1px dashed #d9d9d9;
 	padding: 10px;

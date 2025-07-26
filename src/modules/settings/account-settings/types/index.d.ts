@@ -17,6 +17,7 @@ export interface CompanyFormValues {
   subdomain: string
   workspaceUrl: string
   subdomain?: string
+  versionName?: string
 }
 
 export interface MainFormValues {

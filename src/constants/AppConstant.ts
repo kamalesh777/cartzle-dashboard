@@ -22,7 +22,7 @@ export const ERROR_MSG = 'Field is required.'
 export const WHITESPACE_MSG = 'Enter a vaild input'
 export const COMMON_ROW_GUTTER = 16
 
-export const IMAGE_PLACEHOLDER = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&type=url`
+export const IMAGE_PLACEHOLDER = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&type=thumbnail`
 
 // common required rules
 export const requiredFieldRules = [
