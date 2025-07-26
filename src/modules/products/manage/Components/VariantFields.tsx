@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SaveOutlined, SettingOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons'
 import { Divider, Form, Row, Space, Tag, type FormInstance } from 'antd'
 
 import Cookies from 'js-cookie'
@@ -134,11 +134,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
           </span>
           <Space.Compact>
             <TooltipWrapper title="Edit variant">
-              <ButtonWrapper
-                type="link"
-                icon={<EditOutlined />}
-                onClick={event => editFunc(event, name)}
-              />
+              <ButtonWrapper type="link" icon={<EditOutlined />} onClick={event => editFunc(event, name)} />
             </TooltipWrapper>
             <TooltipWrapper title="Delete variant">
               <ButtonWrapper
@@ -148,9 +144,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 onClick={event => removeFunc(event, name)}
               />
             </TooltipWrapper>
-
           </Space.Compact>
-
         </SpaceWrapper>
       ) : (
         <Row gutter={COMMON_ROW_GUTTER}>
@@ -159,7 +153,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
               validateFirst
               label="Option Name"
               name={[name, 'opName']}
-              className='mb-2'
+              className="mb-2"
               rules={[
                 { required: true, message: 'Option name is required' },
                 () => ({
@@ -206,7 +200,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             <FormItemWrapper
               label="Option Value"
               name={[name, 'opValue']}
-              className='mb-2'
+              className="mb-2"
               rules={[{ required: true, message: 'Option value is required' }]}
               {...restField}
             >
@@ -221,7 +215,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
             </FormItemWrapper>
           </ColWrapper>
           <ColWrapper lg={2} sm={4}>
-            <FormItemWrapper label=" " className='mb-2'>
+            <FormItemWrapper label=" " className="mb-2">
               <Space.Compact>
                 <ButtonWrapper className="text-success" onClick={event => saveVariant(event, name)} icon={<CheckOutlined />} />
                 <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)} icon={<CloseOutlined />} />

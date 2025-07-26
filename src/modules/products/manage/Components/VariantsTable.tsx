@@ -10,14 +10,13 @@ import type { RootState } from '@/store/index'
 import type { TableRowSelection } from 'antd/es/table/interface'
 
 import { InfoTooltip, TableActionButton } from '@/components/Common'
-import { FormItemWrapper, InputNumberWrapper, InputWrapper, TableWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
+
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { getCurrency } from '@/utils/currency'
 
 import VariantsGroupModal from '../modal/VariantsGroupModal'
 import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
-import { generateSku } from '@/utils/productUtils'
-import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 interface PropTypes {
   form: FormInstance
@@ -33,8 +32,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const groupBy = Form.useWatch('groupBy', form)
-  const title = Form.useWatch('title', form)
-  const category = Form.useWatch('category', form)
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
@@ -211,7 +208,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   return (
-    <div className='mt-3'>
+    <div className="mt-3">
       <FormItemWrapper name="variantCombinations" hidden />
 
       {variantsTableState?.length > 0 && (

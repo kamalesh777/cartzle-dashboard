@@ -13,7 +13,7 @@ import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
-import { applyCompanyData, applyThemeColor, updateCompanyData } from '@/store/slices/companySlice'
+import { applyThemeColor, updateCompanyData } from '@/store/slices/companySlice'
 
 import LogoFaviconUpload from './LogoFaviconUpload'
 
@@ -35,7 +35,6 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
 
   // Update handler
   const updateHandler = async (values: CompanyFormValues): Promise<void> => {
-    
     if (values?.hasOwnProperty('logoId') || values?.hasOwnProperty('faviconId')) {
       const keys = Object.keys(values)
 
@@ -63,13 +62,14 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
     await submit('put', '/api/company-update', formValues, null)
 
     // after update show the latest data in the app
-    dispatch(updateCompanyData({
-      company: {
-        ...data,
-        ...formValues,
-        
-      },
-    }))
+    dispatch(
+      updateCompanyData({
+        company: {
+          ...data,
+          ...formValues,
+        },
+      }),
+    )
     dispatch(applyThemeColor(formValues.themeColor))
     setIsValueChanged(false)
     setButtonLoading(false)

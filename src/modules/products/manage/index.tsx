@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 
-import { Form, Row, Tabs } from 'antd'
+import { Form, Tabs } from 'antd'
 
 import type { ProductFormValueTypes } from '../types'
 
 import type { PositionType } from './types'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { ColWrapper, ButtonWrapper, SpaceWrapper, CardWrapper } from '@/components/Wrapper'
-import { COMMON_ROW_GUTTER, PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
+import { ButtonWrapper, CardWrapper } from '@/components/Wrapper'
+import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
 import { useUnwantedReload } from '@/hook/useUnwantedReload'
 
