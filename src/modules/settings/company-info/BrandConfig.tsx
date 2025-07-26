@@ -26,7 +26,6 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   useEffect(() => {
     if (data) {
       form.setFieldsValue(data)
-      dispatch(applyThemeColor(data.themeColor))
     }
   }, [data])
 
