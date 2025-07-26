@@ -25,7 +25,7 @@ type Props = {
 
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
-  const resp = await fetchServerSide(`/company/details?page=1&name=hello&num=2`)
+  const resp = await fetchServerSide('/company/details')
   const companyDetails = resp.result
 
   // optionally access and extend (rather than replace) parent metadata

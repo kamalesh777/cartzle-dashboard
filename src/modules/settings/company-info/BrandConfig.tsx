@@ -21,7 +21,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
   const [form] = Form.useForm()
-  const { submit } = usePostRequestHandler()
+  const { submit, buttonLoading } = usePostRequestHandler()
   const [isValueChanged, setIsValueChanged] = useState(false)
 
   // Set form values initially
@@ -83,6 +83,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
           {isValueChanged && (
             <SubmitButtonWrapper
               okButtonProps={{
+                loading: buttonLoading,
                 onClick: () => {
                   form.submit()
                   setIsValueChanged(false)
