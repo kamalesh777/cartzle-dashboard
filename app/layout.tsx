@@ -26,7 +26,7 @@ type Props = {
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
   const resp = await fetchServerSide('/company/details')
-  const companyDetails = resp.result
+  const result = resp.result
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
@@ -34,9 +34,9 @@ export async function generateMetadata({}: Props, parent: ResolvingMetadata): Pr
   return {
     title: metaTitle(upperFirst('home')),
     // favicon
-    icons: `${API_BASE_URL}/media-srv/${companyDetails?.faviconId}?preview=true&tr=w-32`,
+    icons: `${API_BASE_URL}/media-srv/${result?.company?.faviconId}?preview=true&tr=w-32`,
     openGraph: {
-      images: [companyDetails?.logoId, ...previousImages],
+      images: [result?.company?.logoId, ...previousImages],
     },
   }
 }

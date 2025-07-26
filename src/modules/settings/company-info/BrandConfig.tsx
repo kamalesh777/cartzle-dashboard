@@ -8,6 +8,7 @@ import type { PropTypes } from './types'
 import type { CompanyFormValues } from '../account-settings/types'
 
 import { postRequest } from '@/api/preference/RequestService'
+import { Toast } from '@/components/Common'
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
 import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
@@ -35,44 +36,49 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
 
   // Update handler
   const updateHandler = async (values: CompanyFormValues): Promise<void> => {
-    if (values?.hasOwnProperty('logoId') || values?.hasOwnProperty('faviconId')) {
-      const keys = Object.keys(values)
+    try {
+      if (values?.hasOwnProperty('logoId') || values?.hasOwnProperty('faviconId')) {
+        const keys = Object.keys(values)
 
-      for (const key of keys) {
-        const value = values[key as keyof CompanyFormValues]
+        for (const key of keys) {
+          const value = values[key as keyof CompanyFormValues]
 
-        if (typeof value === 'string' && value?.startsWith('data:image')) {
-          const type = key === 'logoId' ? 'logo' : 'favicon'
-          const payload = {
-            base64: value,
-            name: `${type}.webp`,
-            type,
+          if (typeof value === 'string' && value?.startsWith('data:image')) {
+            const type = key === 'logoId' ? 'logo' : 'favicon'
+            const payload = {
+              base64: value,
+              name: `${type}.webp`,
+              type,
+            }
+            setButtonLoading(true)
+            const resp = await postRequest('/api/brand-media-upload', payload)
+            const data = resp.data.result
+            form.setFieldsValue({ [key]: data.fileId, versionName: data.versionInfo.name })
           }
-          setButtonLoading(true)
-          const resp = await postRequest('/api/brand-media-upload', payload)
-          const data = resp.data.result
-          form.setFieldsValue({ [key]: data.fileId, versionName: data.versionInfo.name })
         }
       }
+      // get the latest form value after media upload
+      const formValues = form.getFieldsValue()
+
+      // ✅ Always submit updated company data
+      await submit('put', '/api/company-update', formValues, null)
+
+      // after update show the latest data in the app
+      dispatch(
+        updateCompanyData({
+          company: {
+            ...data,
+            ...formValues,
+          },
+        }),
+      )
+      dispatch(applyThemeColor(formValues.themeColor))
+      setIsValueChanged(false)
+    } catch (err) {
+      Toast('error', (err as Error).message)
+    } finally {
+      setButtonLoading(false)
     }
-    // get the latest form value after media upload
-    const formValues = form.getFieldsValue()
-
-    // ✅ Always submit updated company data
-    await submit('put', '/api/company-update', formValues, null)
-
-    // after update show the latest data in the app
-    dispatch(
-      updateCompanyData({
-        company: {
-          ...data,
-          ...formValues,
-        },
-      }),
-    )
-    dispatch(applyThemeColor(formValues.themeColor))
-    setIsValueChanged(false)
-    setButtonLoading(false)
   }
 
   return (
