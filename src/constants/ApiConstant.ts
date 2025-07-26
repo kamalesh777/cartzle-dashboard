@@ -2,8 +2,9 @@ const BACKEND_API_SERVICE = process.env.NEXT_PUBLIC_API_SERVICE || 'http://local
 const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1'
 
 // Base URL for API requests eg. http://localhost:5000/api/v1
-const API_BASE_URL = `${BACKEND_API_SERVICE}/${API_VERSION}`
+export const API_BASE_URL = `${BACKEND_API_SERVICE}/${API_VERSION}`
 
+export const IMAGEKIT_URL = process.env.NEXT_PUBLIC_IMAGEKIT_URL || 'https://ik.imagekit.io/g5zld5ryd'
 // MEDIA BASE URL
 export const MEDIA_BASE_URL = `${API_BASE_URL}/media-srv`
 

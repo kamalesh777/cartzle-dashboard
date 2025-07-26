@@ -91,7 +91,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
       className="min-height-100vh fix-sidebar border-right"
     >
       <div className="logo justify-content-center">
-        <LogoWrapper collapsed={collapsed} objectPosition="center left" />
+        <LogoWrapper collapsed={collapsed} />
         {/* <div style={{background: '#ddd', height: '60px', margin: '15px'}}></div> */}
       </div>
       {menuState.loading ? (
