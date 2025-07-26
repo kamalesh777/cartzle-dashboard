@@ -62,6 +62,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
     // after update show the latest data in the app
     dispatch(applyCompanyData(formValues))
     dispatch(applyThemeColor(formValues.themeColor))
+    setIsValueChanged(false)
   }
 
   return (
@@ -86,7 +87,6 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
                 loading: buttonLoading,
                 onClick: () => {
                   form.submit()
-                  setIsValueChanged(false)
                 },
               }}
               cancelButtonProps={{

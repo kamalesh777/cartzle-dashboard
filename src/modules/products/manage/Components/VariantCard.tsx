@@ -69,21 +69,6 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
     setTimeout(() => setLoading(false), 600)
   }, [form, variantsArr])
 
-  // const staticData = [
-  //   {
-  //     opName: 'color',
-  //     opValue: ['red', 'green', 'blue'],
-  //   },
-  //   {
-  //     opName: 'size',
-  //     opValue: ['4gb', '6gb'],
-  //   },
-  //   {
-  //     opName: 'rom',
-  //     opValue: ['64gb', '128gb'],
-  //   },
-  // ]
-
   const addFunc = async (add: (index?: number | null, position?: number) => void): Promise<void> => {
     try {
       await form.validateFields([['variants']], { recursive: true })
@@ -119,9 +104,9 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
       </Form.List>
       {/* Group By variant */}
       {groupByOptions && groupByOptions?.length > 0 && (
-        <CardWrapper bodyStyle={{ padding: '15px 20px' }}>
+        <CardWrapper bodyStyle={{ padding: '15px 20px' }} style={{ margin: '20px 0 0' }}>
           <SpaceWrapper size={16} align="center">
-            <span>Group By: </span>
+            <span className="fw-bold">Group By: </span>
             <FormItemWrapper name="groupBy" className="mb-0">
               {loading ? (
                 <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
-import { Divider, Form, Tag, type FormInstance } from 'antd'
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SaveOutlined, SettingOutlined } from '@ant-design/icons'
+import { Divider, Form, Row, Space, Tag, type FormInstance } from 'antd'
 
 import Cookies from 'js-cookie'
 import { lowerCase } from 'lodash'
@@ -12,9 +12,18 @@ import { useSelector } from 'react-redux'
 import type { UnitGroupType, VariantOptionTypes } from '../types'
 import type { RootState } from '@/store/index'
 
-import { CardWrapper, FormItemWrapper, SpaceWrapper, ButtonWrapper, TooltipWrapper, SelectWrapper } from '@/components/Wrapper'
+import {
+  CardWrapper,
+  FormItemWrapper,
+  SpaceWrapper,
+  ButtonWrapper,
+  TooltipWrapper,
+  SelectWrapper,
+  ColWrapper,
+} from '@/components/Wrapper'
 import { LinkWrapper } from '@/components/Wrapper/LinkWrapper'
 
+import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
 
 interface PropTypes {
@@ -102,6 +111,8 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     setSelectedUnitGroup(value)
     const unitGroupUnits = getSelectedUnitGroup(value)
     setUnitOptions(unitGroupUnits)
+    // reset the opValue when unit group changes
+    form.setFieldValue(['variants', name, 'opValue'], [])
   }
 
   return (
@@ -112,9 +123,23 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       onClick={e => inputEdit === false && editFunc(e, name)}
     >
       {inputEdit !== name ? (
-        <>
-          <SpaceWrapper className="w-100 justify-content-between">
-            <p className="fw-bold mb-2">{form.getFieldValue(['variants', name, 'opName'])}</p>
+        <SpaceWrapper size={16} className="w-100 justify-content-between">
+          <span className="d-flex align-items-center">
+            <p className="fw-bold me-2">{form.getFieldValue(['variants', name, 'opName'])}:</p>
+            {form.getFieldValue(['variants', name, 'opValue'])?.map((item: string, index: number) => (
+              <Tag key={index} color="processing">
+                {item}
+              </Tag>
+            ))}
+          </span>
+          <Space.Compact>
+            <TooltipWrapper title="Edit variant">
+              <ButtonWrapper
+                type="link"
+                icon={<EditOutlined />}
+                onClick={event => editFunc(event, name)}
+              />
+            </TooltipWrapper>
             <TooltipWrapper title="Delete variant">
               <ButtonWrapper
                 type="link"
@@ -123,83 +148,87 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 onClick={event => removeFunc(event, name)}
               />
             </TooltipWrapper>
-          </SpaceWrapper>
-          {form.getFieldValue(['variants', name, 'opValue'])?.map((item: string, index: number) => (
-            <Tag key={index} color="processing">
-              {item}
-            </Tag>
-          ))}
-        </>
+
+          </Space.Compact>
+
+        </SpaceWrapper>
       ) : (
-        <>
-          <FormItemWrapper
-            label="Option Name"
-            name={[name, 'opName']}
-            rules={[
-              { required: true, message: 'Option name is required' },
-              () => ({
-                validator(_, value) {
-                  // eslint-disable-next-line prettier/prettier
-                  const isSameOpNameCount = variantsArr?.filter((item: VariantOptionTypes) => lowerCase(item.opName) === lowerCase(value))
-                  // check if value is true
-                  if (!value) {
-                    return Promise.resolve()
-                  }
-                  // check if isSameOpName is false
-                  if (isSameOpNameCount?.length <= 1) {
-                    return Promise.resolve()
-                  }
-                  return Promise.reject(new Error(`${value} already exists!`))
-                },
-              }),
-            ]}
-            {...restField}
-          >
-            <SelectWrapper
-              options={getSelectOption(variantOptions, ['name', 'name'])}
-              placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)}
-              onChange={onUnitGroupSelect}
-              popupRender={menu => (
-                <div>
-                  {menu}
-                  <Divider className="my-2" />
-                  <LinkWrapper
-                    href="/settings/product-settings#unit-groups"
-                    className="primary-color d-block px-2 pb-2"
-                    isValueChanged={Boolean(isValueChanged)}
-                  >
-                    <>
-                      <SettingOutlined /> Manage Group
-                    </>
-                  </LinkWrapper>
-                </div>
-              )}
-            />
-          </FormItemWrapper>
-          <FormItemWrapper
-            label="Option Value"
-            name={[name, 'opValue']}
-            rules={[{ required: true, message: 'Option value is required' }]}
-            {...restField}
-          >
-            <SelectWrapper
-              options={getSelectOption(unitOptions, ['name', 'name'])}
-              // onSelect={onSelect}
-              optionFilterProp="label"
-              onSearch={text => handleSearch(text)}
-              placeholder={'Select Units'}
-              mode="multiple"
-            />
-          </FormItemWrapper>
-          <SpaceWrapper className="w-100 justify-content-between">
-            <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)}>
-              Delete
-            </ButtonWrapper>
-            <ButtonWrapper className="bg-secondary text-white" onClick={event => saveVariant(event, name)}>
-              Save
-            </ButtonWrapper>
-          </SpaceWrapper>
-        </>
+        <Row gutter={COMMON_ROW_GUTTER}>
+          <ColWrapper lg={10} sm={9}>
+            <FormItemWrapper
+              validateFirst
+              label="Option Name"
+              name={[name, 'opName']}
+              className='mb-2'
+              rules={[
+                { required: true, message: 'Option name is required' },
+                () => ({
+                  validator(_, value) {
+                    // eslint-disable-next-line prettier/prettier
+                    const isSameOpNameCount = variantsArr?.filter((item: VariantOptionTypes) => lowerCase(item.opName) === lowerCase(value))
+                    // check if value is true
+                    if (!value) {
+                      return Promise.resolve()
+                    }
+                    // check if isSameOpName is false
+                    if (isSameOpNameCount?.length <= 1) {
+                      return Promise.resolve()
+                    }
+                    return Promise.reject(new Error(`${value} already exists!`))
+                  },
+                }),
+              ]}
+              {...restField}
+            >
+              <SelectWrapper
+                options={getSelectOption(variantOptions, ['name', 'name'])}
+                placeholder={variantsPlaceHolder?.at(variantsArr?.length - 1)}
+                onChange={onUnitGroupSelect}
+                popupRender={menu => (
+                  <div>
+                    {menu}
+                    <Divider className="my-2" />
+                    <LinkWrapper
+                      href="/settings/product-settings#unit-groups"
+                      className="primary-color d-block px-2 pb-2"
+                      isValueChanged={Boolean(isValueChanged)}
+                    >
+                      <>
+                        <SettingOutlined /> Manage Group
+                      </>
+                    </LinkWrapper>
+                  </div>
+                )}
+              />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper lg={12} sm={11}>
+            <FormItemWrapper
+              label="Option Value"
+              name={[name, 'opValue']}
+              className='mb-2'
+              rules={[{ required: true, message: 'Option value is required' }]}
+              {...restField}
+            >
+              <SelectWrapper
+                options={getSelectOption(unitOptions, ['name', 'name'])}
+                // onSelect={onSelect}
+                optionFilterProp="label"
+                onSearch={text => handleSearch(text)}
+                placeholder={'Select Units'}
+                mode="multiple"
+              />
+            </FormItemWrapper>
+          </ColWrapper>
+          <ColWrapper lg={2} sm={4}>
+            <FormItemWrapper label=" " className='mb-2'>
+              <Space.Compact>
+                <ButtonWrapper className="text-success" onClick={event => saveVariant(event, name)} icon={<CheckOutlined />} />
+                <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)} icon={<CloseOutlined />} />
+              </Space.Compact>
+            </FormItemWrapper>
+          </ColWrapper>
+        </Row>
       )}
     </CardWrapper>
   )

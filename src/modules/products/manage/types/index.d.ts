@@ -29,6 +29,7 @@ export interface VariantCombination {
   sellPrice?: number
   costPrice?: number
   available?: number
+  sku?: string
   children?: VariantCombination[]
 }
 
@@ -56,3 +57,9 @@ export interface UnitGroupType {
 export interface CategoryDetails extends CategoryType {
   unitGroups: UnitGroupType[]
 }
+
+export interface TabProps {
+  form: FormInstance
+}
+
+export type PositionType = 'left' | 'right'

@@ -105,6 +105,10 @@ tr.ant-table-expanded-row .ant-table-wrapper {
 .ant-image .ant-image-mask {
     background: rgb(0 0 0 / 60%) !important;
 }
+.ant-tabs.ant-tabs-top .ant-tabs-nav {
+    z-index: 2;
+    margin-bottom: 25px;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

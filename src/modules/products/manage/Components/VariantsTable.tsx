@@ -10,12 +10,14 @@ import type { RootState } from '@/store/index'
 import type { TableRowSelection } from 'antd/es/table/interface'
 
 import { InfoTooltip, TableActionButton } from '@/components/Common'
-import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, InputNumberWrapper, InputWrapper, TableWrapper } from '@/components/Wrapper'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { getCurrency } from '@/utils/currency'
 
 import VariantsGroupModal from '../modal/VariantsGroupModal'
 import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
+import { generateSku } from '@/utils/productUtils'
+import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 
 interface PropTypes {
   form: FormInstance
@@ -31,6 +33,8 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const groupBy = Form.useWatch('groupBy', form)
+  const title = Form.useWatch('title', form)
+  const category = Form.useWatch('category', form)
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
@@ -95,9 +99,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         }),
     },
     {
-      title: <InfoTooltip title="Purchase price">Cost</InfoTooltip>,
+      title: 'Cost Price',
       dataIndex: 'costPrice',
-      width: '20%',
+      width: '18%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
@@ -108,9 +112,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: <InfoTooltip title="Sell price">Sell</InfoTooltip>,
+      title: 'Sell Price',
       dataIndex: 'sellPrice',
-      width: '20%',
+      width: '18%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
@@ -121,19 +125,35 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: <InfoTooltip title="Available product in stock">SKU</InfoTooltip>,
+      title: <InfoTooltip title="Available product in stock">Stock</InfoTooltip>,
       dataIndex: 'available',
-      width: '20%',
+      width: '18%',
       render: (_, record) => (
         <InputNumberWrapper
-          prefix={getCurrency()}
           value={record.available}
           size="small"
-          disabled={record?.children && record?.children?.length > 0}
           onChange={value => rowChangeHandler({ ...record, available: value as number })}
+          disabled={record?.children && record?.children?.length > 0}
         />
       ),
     },
+    // {
+    //   title: <InfoTooltip title="Unique product code">SKU</InfoTooltip>,
+    //   dataIndex: 'sku',
+    //   width: '20%',
+    //   render: (_, record) => (
+    //     record?.children && record?.children?.length > 0 ? (
+    //       EMPTY_PLACEHOLDER
+    //     ) : (
+    //       <InputWrapper
+    //         value={generateSku(title, category, record.label)}
+    //         size="small"
+    //         readOnly
+    //         // onChange={value => rowChangeHandler({ ...record, sku:  })}
+    //       />
+    //     )
+    //   ),
+    // },
     {
       title: '',
       dataIndex: 'action',
@@ -191,7 +211,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   return (
-    <>
+    <div className='mt-3'>
       <FormItemWrapper name="variantCombinations" hidden />
 
       {variantsTableState?.length > 0 && (
@@ -201,6 +221,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           rowSelection={rowSelection}
           dataSource={variantsTableState}
           pagination={false}
+          bordered
           expandable={{
             indentSize: 0,
           }}
@@ -208,7 +229,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       )}
 
       {openModal && <VariantsGroupModal {...{ form, openModal, setOpenModal, selectedList }} />}
-    </>
+    </div>
   )
 }
 
