@@ -2,7 +2,9 @@ import { cookies } from 'next/headers'
 
 import { API_BASE_URL } from '@/constants/ApiConstant'
 
-export const requestServerSide = async (endpoint: string, method: string, body?: any): Promise<any> => {
+type Methods = 'get' | 'post' | 'put' | 'delete'
+
+export const requestServerSide = async (endpoint: string, method: Methods = 'get', body?: any): Promise<any> => {
   const Cookies = await cookies()
 
   // use params if present

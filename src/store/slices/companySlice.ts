@@ -1,13 +1,22 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { CompanyFormValues } from '@/modules/settings/account-settings/types'
+import type { CompanyFormValues, UserFormValues } from '@/modules/settings/account-settings/types'
 
 import initialThemeConfig from '@/configs/ThemeConfig'
 
+export interface CompanyState {
+  details: {
+    user: UserFormValues
+    company: CompanyFormValues
+  }
+}
 // Define the initial state using that type
 const initialState = {
   ...initialThemeConfig,
-  details: {} as CompanyFormValues,
+  details: {
+    user: {},
+    company: {},
+  } as CompanyState['details'],
   isLoading: true,
 }
 
@@ -16,7 +25,7 @@ export const companySlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    applyCompanyData: (state, action: PayloadAction<CompanyFormValues>) => {
+    applyCompanyData: (state, action: PayloadAction<CompanyState['details']>) => {
       state.details = action.payload
       state.isLoading = false
     },

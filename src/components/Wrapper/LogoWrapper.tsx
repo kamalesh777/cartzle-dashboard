@@ -13,7 +13,7 @@ interface LogoWrapperProps {
 }
 
 const LogoWrapper: React.FC<LogoWrapperProps> = ({ collapsed, className = '' }) => {
-  const { details: company } = useSelector((state: RootState) => state.company)
+  const { company } = useSelector((state: RootState) => state.company?.details)
 
   const [logoId, setLogoId] = useState('')
   const [faviconId, setFaviconId] = useState('')

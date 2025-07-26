@@ -69,7 +69,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
       <Form form={form} layout="vertical" onFinish={updateHandler} onValuesChange={() => setIsValueChanged(true)}>
         <ColWrapper span={16}>
           <FormItemWrapper name="themeColor" label="Theme Color" className="theme-color" getValueFromEvent={v => v.toHexString()}>
-            <CustomColorPicker disabledAlpha showText />
+            <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
           </FormItemWrapper>
           <Row gutter={COMMON_ROW_GUTTER}>
             <FormItemWrapper name="versionName" hidden />

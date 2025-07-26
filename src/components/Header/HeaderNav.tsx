@@ -8,6 +8,10 @@ import { capitalize } from 'lodash'
 
 import { useRouter } from 'next/navigation'
 
+import { useSelector } from 'react-redux'
+
+import type { RootState } from '@/store/index'
+
 import useDevice from 'src/hook/useDevice'
 
 import { ButtonWrapper, ColWrapper, DropdownWrapper, SpaceWrapper } from '../Wrapper'
@@ -21,6 +25,7 @@ interface PropTypes {
 }
 const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: PropTypes): JSX.Element => {
   const router = useRouter()
+  const { user } = useSelector((state: RootState) => state.company?.details)
   // const userInfo = useSelector((state: RootState) => state.userState.userInfo)
 
   const { isMobileDevice } = useDevice()
@@ -71,8 +76,8 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
             >
               <div className="cursor-pointer">
                 <SpaceWrapper className="profile-nav" align="center">
-                  <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${'Kamalesh'}`} size={26} />
-                  {capitalize('Kamalesh Maity')}
+                  <Avatar src={`https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`} size={32} />
+                  {capitalize(user?.name)}
                 </SpaceWrapper>
               </div>
             </DropdownWrapper>

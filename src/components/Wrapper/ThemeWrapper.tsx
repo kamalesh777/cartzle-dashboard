@@ -5,19 +5,18 @@ import { ConfigProvider, theme } from 'antd'
 import { usePathname } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
-import type { CompanyFormValues } from '@/modules/settings/account-settings/types'
-
+import type { RootState } from '@/store/index'
+import type { CompanyState } from '@/store/slices/companySlice'
 // eslint-disable-next-line no-duplicate-imports
 import type { ThemeConfig } from 'antd'
 
-import type { RootState } from 'src/store'
-
+// eslint-disable-next-line no-duplicate-imports
 import { applyCompanyData, applyThemeColor } from '@/store/slices/companySlice'
 
 import LayoutWrapper from './LayoutWrapper'
 
 interface PropTypes {
-  companyDetails: CompanyFormValues
+  companyDetails: CompanyState['details']
   children: React.ReactNode
 }
 const ThemeWrapper = ({ children, companyDetails }: PropTypes): JSX.Element => {
@@ -30,7 +29,7 @@ const ThemeWrapper = ({ children, companyDetails }: PropTypes): JSX.Element => {
   useEffect(() => {
     if (companyDetails) {
       dispatch(applyCompanyData(companyDetails))
-      dispatch(applyThemeColor(companyDetails.themeColor))
+      dispatch(applyThemeColor(companyDetails.company.themeColor))
     }
   }, [companyDetails])
 

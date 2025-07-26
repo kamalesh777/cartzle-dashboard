@@ -29,7 +29,7 @@ interface PropTypes {
 }
 
 const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element => {
-  const { details: companyData } = useSelector((state: RootState) => state.company)
+  const { company } = useSelector((state: RootState) => state.company?.details)
   const mediaData = Form.useWatch(name, form) || ''
 
   const [imgLoading] = useState<boolean>(false)
@@ -47,7 +47,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
   const imageData =
     typeof mediaData === 'string' && mediaData != null && mediaData?.startsWith('data:image')
       ? mediaData
-      : `${MEDIA_BASE_URL}/${mediaData}?preview=true&tr=w-400${companyData.versionName ? `&v=${companyData.versionName}` : ''}`
+      : `${MEDIA_BASE_URL}/${mediaData}?preview=true&tr=w-400${company.versionName ? `&v=${company.versionName}` : ''}`
 
   return (
     <FormItemWrapper name={name} label={label} tooltip={`Hover on image to view or update brand ${type}`}>
