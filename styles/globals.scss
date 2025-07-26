@@ -144,6 +144,9 @@ li {
 	width: calc(100% - 24px);
 	overflow: hidden;
 }
+.logo-box img {
+    object-fit: contain;
+}
 
 .menu-height {
 	height: calc(100% - 100px);
