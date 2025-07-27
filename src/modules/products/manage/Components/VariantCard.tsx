@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import type { UnitGroupType } from '../types'
 
 import { getRequest } from '@/api/preference/RequestService'
-import { TableContentLoaderWithProps, Toast } from '@/components/Common'
+import { InfoTooltip, TableContentLoaderWithProps, Toast } from '@/components/Common'
 import {
   ButtonWrapper,
   CardWrapper,
@@ -94,7 +94,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
           <CardWrapper
             title={
               <div className="d-flex justify-content-between align-items-center">
-                Variants
+                <InfoTooltip title="Add variants if product has multiple variants">Variants</InfoTooltip>
                 <ButtonWrapper
                   onClick={() => addFunc(add)}
                   icon={<PlusOutlined />}
