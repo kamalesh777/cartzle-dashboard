@@ -23,7 +23,7 @@ interface PropTypes {
 
 const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
   const company = Form.useWatch(['company'], form)
-  const { submit, buttonLoading } = usePostRequestHandler()
+  const { submit, buttonLoading } = usePostRequestHandler(false)
   const domainSuffix = process.env.NEXT_PUBLIC_DOMAIN_SUFFIX
 
   const formSubmitHandler = async (): Promise<void> => {
