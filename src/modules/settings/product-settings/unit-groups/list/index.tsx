@@ -87,7 +87,9 @@ const UnitGroupsCard = (): JSX.Element => {
           </Row>
         </CardWrapper>
       </div>
-      {openModal && <UnitTypeManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
+      {openModal && (
+        <UnitTypeManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+      )}
     </>
   )
 }

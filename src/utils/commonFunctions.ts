@@ -9,7 +9,11 @@ import type { FormInstance } from 'antd'
  * @param {Number} quality - Number between 0 and 1 (e.g. 0.5 for 50%).
  * @returns {Promise<String>} Base64 Data URL.
  */
-export const imageToBase64 = (imgSource: string | File, format = 'webp', quality?: number): Promise<string> => {
+export const imageToBase64 = (
+  imgSource: string | File,
+  format = 'webp',
+  quality?: number,
+): Promise<string> => {
   format = format.toLowerCase() === 'jpg' ? 'jpeg' : format.toLowerCase()
 
   return new Promise((resolve, reject) => {

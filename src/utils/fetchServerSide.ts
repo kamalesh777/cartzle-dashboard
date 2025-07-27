@@ -4,7 +4,11 @@ import { API_BASE_URL } from '@/constants/ApiConstant'
 
 type Methods = 'get' | 'post' | 'put' | 'delete'
 
-export const requestServerSide = async (endpoint: string, method: Methods = 'get', body?: any): Promise<any> => {
+export const requestServerSide = async (
+  endpoint: string,
+  method: Methods = 'get',
+  body?: any,
+): Promise<any> => {
   const Cookies = await cookies()
 
   // use params if present

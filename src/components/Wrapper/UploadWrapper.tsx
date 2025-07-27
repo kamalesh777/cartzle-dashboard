@@ -20,7 +20,9 @@ const UploadWrapper = ({ icons, text, helperText, ...props }: UploadWrapperProps
             <FileImageOutlined className="text-secondary" />
           </p>
           <p>{text || 'Click or drag file to this area to upload'}</p>
-          <p className="ant-upload-hint mb-3 fs-7">{helperText || 'Only Accept images are .jpeg, .jpg, .png, .webp, .svg'}</p>
+          <p className="ant-upload-hint mb-3 fs-7">
+            {helperText || 'Only Accept images are .jpeg, .jpg, .png, .webp, .svg'}
+          </p>
         </>
       )}
     </Upload.Dragger>

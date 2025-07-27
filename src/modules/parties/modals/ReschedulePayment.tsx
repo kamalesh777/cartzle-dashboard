@@ -5,7 +5,13 @@ import { Form, Input } from 'antd'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
-import { ModalWrapper, SubmitButtonWrapper, FormItemWrapper, InputNumberWrapper, SpaceWrapper } from '@/components/Wrapper'
+import {
+  ModalWrapper,
+  SubmitButtonWrapper,
+  FormItemWrapper,
+  InputNumberWrapper,
+  SpaceWrapper,
+} from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'

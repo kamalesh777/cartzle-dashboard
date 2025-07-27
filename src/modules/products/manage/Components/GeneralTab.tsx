@@ -17,7 +17,12 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
-import { COMMON_ROW_GUTTER, requiredWithWhitspcFieldRules, requiredFieldRules, EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
+import {
+  COMMON_ROW_GUTTER,
+  requiredWithWhitspcFieldRules,
+  requiredFieldRules,
+  EMPTY_PLACEHOLDER,
+} from '@/constants/AppConstant'
 import { getCurrency, getProfitMargin } from '@/utils/currency'
 import { getSelectOption } from '@/utils/disableFunction'
 
@@ -69,7 +74,12 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>
             <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
           </FormItemWrapper>
-          <FormItemWrapper name="media" label="Media" className="mb-1" getValueFromEvent={obj => obj.fileList}>
+          <FormItemWrapper
+            name="media"
+            label="Media"
+            className="mb-1"
+            getValueFromEvent={obj => obj.fileList}
+          >
             <UploadWrapper multiple listType="picture-card" />
           </FormItemWrapper>
         </CardWrapper>

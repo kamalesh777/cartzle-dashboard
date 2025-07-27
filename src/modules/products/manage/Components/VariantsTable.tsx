@@ -158,7 +158,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       width: 50,
       className: 'text-right',
       render: (_, record) => (
-        <TableActionButton items={[]} icon={<FormOutlined onClick={() => editRowHandler(record)} />} tooltipTitle="Edit" />
+        <TableActionButton
+          items={[]}
+          icon={<FormOutlined onClick={() => editRowHandler(record)} />}
+          tooltipTitle="Edit"
+        />
       ),
     },
   ]
@@ -192,7 +196,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       if (!updatedRecord.parent && item.parent) {
         return {
           ...item,
-          children: item.children?.map(child => (child.label === updatedRecord.label ? { ...child, ...updatedRecord } : child)),
+          children: item.children?.map(child =>
+            child.label === updatedRecord.label ? { ...child, ...updatedRecord } : child,
+          ),
         }
       }
       return item

@@ -83,7 +83,10 @@ const OrderListComp = (): JSX.Element => {
             </Col>
             <Col md={12} className="text-right">
               <div className="d-flex">
-                <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
+                <InputSearchWrapper
+                  placeholder="Search by name or phone..."
+                  onChange={e => setSearchValue(e.target.value)}
+                />
                 <ButtonWrapper
                   type="primary"
                   className="ms-2"

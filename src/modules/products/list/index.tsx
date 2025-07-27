@@ -77,7 +77,11 @@ const ProductListComp = (): JSX.Element => {
                   placeholder="Search by name or categories..."
                   onChange={e => setSearchValue(e.target.value)}
                 />
-                <ButtonWrapper type="primary" className="ms-2" onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}>
+                <ButtonWrapper
+                  type="primary"
+                  className="ms-2"
+                  onClick={() => router.push(`${PRODUCT_LIST_ROUTE}/create`)}
+                >
                   Add
                 </ButtonWrapper>
               </div>

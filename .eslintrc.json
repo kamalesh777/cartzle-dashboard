@@ -65,7 +65,12 @@
           "prettier/prettier": [
             "error",
             {
-              "semi": false
+              "semi": false,
+              "printWidth": 110,
+              "singleQuote": true,
+              "trailingComma": "all",
+              "arrowParens": "avoid",
+              "endOfLine": "auto"
             }
           ],
           "eol-last": ["error", "always"],

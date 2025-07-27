@@ -47,7 +47,9 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
   const imageData =
     typeof mediaData === 'string' && mediaData != null && mediaData?.startsWith('data:image')
       ? mediaData
-      : `${MEDIA_BASE_URL}/${mediaData}?preview=true&tr=w-400${company?.versionName ? `&v=${company.versionName}` : ''}`
+      : `${MEDIA_BASE_URL}/${mediaData}?preview=true&tr=w-400${
+          company?.versionName ? `&v=${company.versionName}` : ''
+        }`
 
   return (
     <FormItemWrapper name={name} label={label} tooltip={`Hover on image to view or update brand ${type}`}>
@@ -71,7 +73,12 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
                 <span onClick={() => setPreviewVisible(true)}>
                   <EyeOutlined /> View
                 </span>
-                <BrowseFile name={name} loading={imgLoading} onChange={changeHandler} className="hide-upload-border text-white">
+                <BrowseFile
+                  name={name}
+                  loading={imgLoading}
+                  onChange={changeHandler}
+                  className="hide-upload-border text-white"
+                >
                   <EditOutlined /> Edit
                 </BrowseFile>
               </SpaceWrapper>

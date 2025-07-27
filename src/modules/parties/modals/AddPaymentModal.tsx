@@ -65,7 +65,9 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
           name="transaction_type"
           initialValue={TransactionTypeOptions[0]}
         >
-          <Radio.Group onChange={(e: RadioChangeEvent) => form.setFieldValue('transaction_type', e.target.value)}>
+          <Radio.Group
+            onChange={(e: RadioChangeEvent) => form.setFieldValue('transaction_type', e.target.value)}
+          >
             {TransactionTypeOptions?.map(item => (
               <RadioWrapper key={item} value={item}>
                 {upperFirst(item)}
@@ -109,7 +111,12 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
           </>
         ) : (
           <>
-            <FormItemWrapper label="Payment Date" name="date" rules={requiredFieldRules} initialValue={currentTime}>
+            <FormItemWrapper
+              label="Payment Date"
+              name="date"
+              rules={requiredFieldRules}
+              initialValue={currentTime}
+            >
               <DatePickerWrapper showTime={{ showSecond: false, use12Hours: true, minuteStep: 5 }} />
             </FormItemWrapper>
 

@@ -13,7 +13,13 @@ import type { MenuProps } from 'antd'
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  ColWrapper,
+  InputSearchWrapper,
+  SpaceWrapper,
+  TableWrapper,
+} from '@/components/Wrapper'
 
 import EmployeesManageComp from '../manage'
 import ManagePaymentModal from '../modals/ManagePayment'
@@ -92,7 +98,9 @@ const EmployeesListComp = (): JSX.Element => {
               title={
                 <>
                   <p>Alternate Number </p>
-                  <Typography.Text copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }} />{' '}
+                  <Typography.Text
+                    copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }}
+                  />{' '}
                 </>
               }
             />
@@ -149,9 +157,13 @@ const EmployeesListComp = (): JSX.Element => {
           </Row>
         )}
       />
-      {openManageModal && <EmployeesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
+      {openManageModal && (
+        <EmployeesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />
+      )}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
-      {openMarAttanModal && <MarkAttendanceForm {...{ openModal: openMarAttanModal, setOpenModal: setMarAttanModal }} />}
+      {openMarAttanModal && (
+        <MarkAttendanceForm {...{ openModal: openMarAttanModal, setOpenModal: setMarAttanModal }} />
+      )}
       {openMPModal && <ManagePaymentModal {...{ openModal: openMPModal, setOpenModal: setMPModal }} />}
       {openSHModal && <SalaryHistoryModal {...{ openModal: openSHModal, setOpenModal: setSHModal }} />}
     </>

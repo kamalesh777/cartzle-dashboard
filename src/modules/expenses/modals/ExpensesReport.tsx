@@ -6,7 +6,14 @@ import type { ListDataTypes } from '../types'
 
 import type { ModalPropTypes } from 'src/types/common'
 
-import { ButtonWrapper, ColWrapper, ModalWrapper, SelectWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  ColWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SpaceWrapper,
+  TableWrapper,
+} from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 

@@ -42,7 +42,11 @@ interface payloadType {
  * @returns {Promise<DataResponse>} A Promise that resolves to the response data or rejects with an error.
  */
 
-export const postRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
+export const postRequest = async (
+  endPoint: string,
+  data: payloadType['payload'],
+  headerData = {},
+): Promise<DataResponse> => {
   // Construct the full API endpoint URL
   // const API_ENDPOINT = cloudEndpoint(endPoint)
 
@@ -59,7 +63,11 @@ export const postRequest = async (endPoint: string, data: payloadType['payload']
 }
 
 // same as post method here we useing only PUT request instead of POST
-export const putRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
+export const putRequest = async (
+  endPoint: string,
+  data: payloadType['payload'],
+  headerData = {},
+): Promise<DataResponse> => {
   try {
     // Perform an HTTP PUT request using the provided endpoint, data, and headers
     const response = await API.put(endPoint, data, headerData)
@@ -73,7 +81,11 @@ export const putRequest = async (endPoint: string, data: payloadType['payload'],
 }
 
 // same as post method here we useing only PATCH request instead of POST
-export const patchRequest = async (endPoint: string, data: payloadType['payload'], headerData = {}): Promise<DataResponse> => {
+export const patchRequest = async (
+  endPoint: string,
+  data: payloadType['payload'],
+  headerData = {},
+): Promise<DataResponse> => {
   try {
     // Perform an HTTP PATCH request using the provided endpoint, data, and headers
     const response = await API.patch(endPoint, data, headerData)

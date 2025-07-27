@@ -62,17 +62,29 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
       </Row>
 
       <ColWrapper>
-        <FormItemWrapper name={['company', 'supportNumber']} label="Support Number" rules={[...requiredFieldRules]}>
+        <FormItemWrapper
+          name={['company', 'supportNumber']}
+          label="Support Number"
+          rules={[...requiredFieldRules]}
+        >
           <InputNumberWrapper maxLength={10} />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['company', 'supportEmail']} label="Support Email" rules={[...requiredFieldRules]}>
+        <FormItemWrapper
+          name={['company', 'supportEmail']}
+          label="Support Email"
+          rules={[...requiredFieldRules]}
+        >
           <InputWrapper />
         </FormItemWrapper>
       </ColWrapper>
       <ColWrapper>
-        <FormItemWrapper name={['company', 'address']} label="Company Address" rules={[...requiredFieldRules]}>
+        <FormItemWrapper
+          name={['company', 'address']}
+          label="Company Address"
+          rules={[...requiredFieldRules]}
+        >
           <Input.TextArea rows={3} />
         </FormItemWrapper>
       </ColWrapper>

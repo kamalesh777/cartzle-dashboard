@@ -10,7 +10,13 @@ import type { MenuProps } from 'antd'
 import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 import ViewDetailsModal from '@/components/Common/ViewDetailsModal'
-import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  ColWrapper,
+  InputSearchWrapper,
+  SpaceWrapper,
+  TableWrapper,
+} from '@/components/Wrapper'
 
 import PartiesManageComp from '../manage'
 import { listData } from '../static/data'
@@ -79,7 +85,9 @@ const AccountSettingListComp = (): JSX.Element => {
               title={
                 <>
                   <p>Alternate Number </p>
-                  <Typography.Text copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }} />{' '}
+                  <Typography.Text
+                    copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }}
+                  />{' '}
                 </>
               }
             />
@@ -115,7 +123,10 @@ const AccountSettingListComp = (): JSX.Element => {
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <div className="d-flex">
-                <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
+                <InputSearchWrapper
+                  placeholder="Search by name or phone..."
+                  onChange={e => setSearchValue(e.target.value)}
+                />
                 <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
                   Add
                 </ButtonWrapper>
@@ -124,7 +135,9 @@ const AccountSettingListComp = (): JSX.Element => {
           </Row>
         )}
       />
-      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
+      {openManageModal && (
+        <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />
+      )}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
     </>
   )

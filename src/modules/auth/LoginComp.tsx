@@ -22,10 +22,10 @@ interface ResultTypes {
 
 const LoginComp = (): JSX.Element => {
   const router = useRouter()
-  const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<DataResponse<ResultTypes>, FormValueTypes>(
-    false,
-    false,
-  )
+  const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<
+    DataResponse<ResultTypes>,
+    FormValueTypes
+  >(false, false)
 
   const formSubmitHandler = async (formValues: FormValueTypes): Promise<void> => {
     const resp = await submit('post', '/api/login', formValues, null)
@@ -45,7 +45,9 @@ const LoginComp = (): JSX.Element => {
             <h2 className="mb-3">Login Now!</h2>
 
             <Form layout="vertical" onFinish={formSubmitHandler}>
-              {!isSuccess && data?.message ? <Alert message={data?.message} type="error" showIcon className="my-3" /> : null}
+              {!isSuccess && data?.message ? (
+                <Alert message={data?.message} type="error" showIcon className="my-3" />
+              ) : null}
 
               <FormItemWrapper
                 label="Email / Mobile"

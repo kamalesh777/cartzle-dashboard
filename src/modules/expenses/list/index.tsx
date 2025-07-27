@@ -113,7 +113,9 @@ const ExpensesListComp = (): JSX.Element => {
           </Row>
         )}
       />
-      {openManageModal && <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />}
+      {openManageModal && (
+        <PartiesManageComp {...{ openModal: openManageModal, setOpenModal: setManageModal }} />
+      )}
       {openVDModal && <ViewDetailsModal {...{ openModal: openVDModal, setOpenModal: setVDModal }} />}
       {openExpReModal && <ExpenseReport {...{ openModal: openExpReModal, setOpenModal: setExpReModal }} />}
     </>

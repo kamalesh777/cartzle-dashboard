@@ -45,7 +45,12 @@ const MarkAttendanceForm = ({ openModal, setOpenModal }: ModalPropTypes<never>):
         />
       }
     >
-      <Form form={form} onFinish={onFinish} layout="vertical" initialValues={{ date: dayjs(), status: 'present' }}>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        layout="vertical"
+        initialValues={{ date: dayjs(), status: 'present' }}
+      >
         <FormItemWrapper label="Date" name="date" rules={requiredFieldRules}>
           <DatePickerWrapper disabledDate={getDisabledDate('before', 2)} />
         </FormItemWrapper>

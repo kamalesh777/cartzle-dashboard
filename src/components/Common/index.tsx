@@ -5,4 +5,12 @@ import { TableContentLoaderWithProps, CircleRect } from './SkeletonLoader/Conten
 import TableActionButton from './TableActionButton'
 import Toast from './Toast'
 
-export { InfoTooltip, NavLink, TableActionButton, Toast, TableContentLoaderWithProps, CircleRect, NotFoundPage }
+export {
+  InfoTooltip,
+  NavLink,
+  TableActionButton,
+  Toast,
+  TableContentLoaderWithProps,
+  CircleRect,
+  NotFoundPage,
+}

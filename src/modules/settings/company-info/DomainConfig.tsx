@@ -35,10 +35,22 @@ const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
       >
         <Row>
           <ColWrapper span={24}>
-            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="subdomain" label="Subdomain">
+            <EditableFormWrapper
+              isLoading={isLoading}
+              form={form}
+              editMode={editMode}
+              name="subdomain"
+              label="Subdomain"
+            >
               <InputWrapper readOnly />
             </EditableFormWrapper>
-            <EditableFormWrapper isLoading={isLoading} form={form} editMode={editMode} name="workspaceUrl" label="Website URL">
+            <EditableFormWrapper
+              isLoading={isLoading}
+              form={form}
+              editMode={editMode}
+              name="workspaceUrl"
+              label="Website URL"
+            >
               <InputWrapper readOnly />
             </EditableFormWrapper>
           </ColWrapper>

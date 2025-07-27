@@ -11,7 +11,14 @@ import type { UnitGroupType } from '../types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { TableContentLoaderWithProps, Toast } from '@/components/Common'
-import { ButtonWrapper, CardWrapper, EmptyWrapper, FormItemWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  CardWrapper,
+  EmptyWrapper,
+  FormItemWrapper,
+  SelectWrapper,
+  SpaceWrapper,
+} from '@/components/Wrapper'
 
 import { setVariantOptions } from '@/store/slices/variantsSlice'
 
@@ -88,14 +95,21 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
             title={
               <div className="d-flex justify-content-between align-items-center">
                 Variants
-                <ButtonWrapper onClick={() => addFunc(add)} icon={<PlusOutlined />} type="link" className="p-0">
+                <ButtonWrapper
+                  onClick={() => addFunc(add)}
+                  icon={<PlusOutlined />}
+                  type="link"
+                  className="p-0"
+                >
                   Add Variant
                 </ButtonWrapper>
               </div>
             }
           >
             {fields?.length > 0 ? (
-              fields.map((field, index) => <VariantFields key={index} {...{ field, form, remove, inputEdit, setInputEdit }} />)
+              fields.map((field, index) => (
+                <VariantFields key={index} {...{ field, form, remove, inputEdit, setInputEdit }} />
+              ))
             ) : (
               <EmptyWrapper onClick={() => addFunc(add)} entity="variants" />
             )}

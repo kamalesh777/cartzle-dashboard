@@ -99,7 +99,12 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
           <CircleRect rowCounts={10} rectHeight={110} circleR={130} viewBox="-50 0 1400 350" />
         </div>
       ) : (
-        <Menu mode="inline" className="menu-height" items={menuItems} selectedKeys={[getCurrentPath(pathname, 2, 1)]} />
+        <Menu
+          mode="inline"
+          className="menu-height"
+          items={menuItems}
+          selectedKeys={[getCurrentPath(pathname, 2, 1)]}
+        />
       )}
     </Sider>
   )

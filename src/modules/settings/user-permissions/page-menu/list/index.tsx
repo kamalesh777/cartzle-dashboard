@@ -51,7 +51,8 @@ const PageMenuList = (): JSX.Element => {
     {
       title: 'Cards',
       dataIndex: 'cards_name',
-      render: val => (val?.length ? val.map((item: string) => startCase(item)).join(', ') : EMPTY_PLACEHOLDER),
+      render: val =>
+        val?.length ? val.map((item: string) => startCase(item)).join(', ') : EMPTY_PLACEHOLDER,
     },
     {
       title: '',

@@ -88,7 +88,11 @@ const OrderManageComp = (): JSX.Element => {
                     >
                       <Row gutter={COMMON_ROW_GUTTER}>
                         <ColWrapper md={8}>
-                          <FormItemWrapper name={[field.name, 'product_id']} label="Product Name" rules={requiredFieldRules}>
+                          <FormItemWrapper
+                            name={[field.name, 'product_id']}
+                            label="Product Name"
+                            rules={requiredFieldRules}
+                          >
                             <SelectWrapper className="w-100" />
                           </FormItemWrapper>
                         </ColWrapper>
@@ -98,7 +102,11 @@ const OrderManageComp = (): JSX.Element => {
                           </FormItemWrapper>
                         </ColWrapper>
                         <ColWrapper md={8}>
-                          <FormItemWrapper name={[field.name, 'price']} label="Price" rules={requiredFieldRules}>
+                          <FormItemWrapper
+                            name={[field.name, 'price']}
+                            label="Price"
+                            rules={requiredFieldRules}
+                          >
                             <InputNumberWrapper />
                           </FormItemWrapper>
                         </ColWrapper>
@@ -106,7 +114,12 @@ const OrderManageComp = (): JSX.Element => {
                     </CardWrapper>
                   ))}
                   <FormItemWrapper className="mt-3">
-                    <ButtonWrapper type="dashed" className="text-primary" onClick={() => add()} icon={<PlusOutlined />}>
+                    <ButtonWrapper
+                      type="dashed"
+                      className="text-primary"
+                      onClick={() => add()}
+                      icon={<PlusOutlined />}
+                    >
                       Add more items
                     </ButtonWrapper>
                     <Form.ErrorList errors={errors} />
@@ -208,7 +221,9 @@ const OrderManageComp = (): JSX.Element => {
     </CardWrapper>
   )
 
-  return <DynamicPageLayout MainComp={MAIN_COMP} goBackUrl={`${ORDER_LIST_ROUTE}/${params?.type}`} hideTitle />
+  return (
+    <DynamicPageLayout MainComp={MAIN_COMP} goBackUrl={`${ORDER_LIST_ROUTE}/${params?.type}`} hideTitle />
+  )
 }
 
 export default OrderManageComp

@@ -40,7 +40,12 @@ const BrowseFile = ({ name, loading, onChange, children, className }: Props): JS
       zoomSlider
       maxAspect={name.startsWith('logo') ? 8 : 2}
     >
-      <Upload maxCount={1} className={className || 'logo-favicon-preview'} listType="picture-card" showUploadList={false}>
+      <Upload
+        maxCount={1}
+        className={className || 'logo-favicon-preview'}
+        listType="picture-card"
+        showUploadList={false}
+      >
         {children || uploadButton}
       </Upload>
     </ImgCrop>

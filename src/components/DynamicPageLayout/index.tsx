@@ -135,7 +135,10 @@ const DynamicPageLayout = ({
       ) : (
         <Menu className="mt-3 page-menu-box">
           {linkedMenuItems.map(item => (
-            <Menu.Item key={item.key} className={item.path === getCurrentPath(pathname, 0, 4) ? 'ant-menu-item-selected' : ''}>
+            <Menu.Item
+              key={item.key}
+              className={item.path === getCurrentPath(pathname, 0, 4) ? 'ant-menu-item-selected' : ''}
+            >
               <NavLink href={item.path ?? '#'}>
                 <div className="d-flex justify-content-between align-items-center">{item.label}</div>
               </NavLink>

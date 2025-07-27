@@ -7,7 +7,13 @@ import dayjs, { type Dayjs } from 'dayjs'
 import type { EmployeePaymentFormData } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
-import { FormItemWrapper, InputNumberWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputNumberWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
@@ -16,7 +22,10 @@ import { getSelectOption } from '@/utils/disableFunction'
 
 const {} = Select
 
-const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({ openModal, setOpenModal }: ModalPropTypes<never>) => {
+const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({
+  openModal,
+  setOpenModal,
+}: ModalPropTypes<never>) => {
   const [form] = Form.useForm()
 
   const handleFinish = (values: EmployeePaymentFormData): void => {
@@ -46,7 +55,12 @@ const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({ openModal, setOpe
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={handleFinish} initialValues={{ date: dayjs(), paymentType: 'salary' }}>
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={handleFinish}
+        initialValues={{ date: dayjs(), paymentType: 'salary' }}
+      >
         <FormItemWrapper label="Payment Date" name="date" rules={requiredFieldRules}>
           <DatePickerWrapper />
         </FormItemWrapper>

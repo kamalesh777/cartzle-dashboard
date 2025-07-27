@@ -65,7 +65,9 @@ const UnitsList = (): JSX.Element => {
           </Row>
         </CardWrapper>
       </div>
-      {openModal && <UnitsManagemodal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
+      {openModal && (
+        <UnitsManagemodal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+      )}
     </>
   )
 }

@@ -52,7 +52,10 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
       <div className="pt-4">
         <Form form={form} layout="vertical">
           {stepsOption?.map((step, index) => (
-            <div key={step.key} className={currentStep === index ? 'opacity-1 height-auto' : 'opacity-0 height-0'}>
+            <div
+              key={step.key}
+              className={currentStep === index ? 'opacity-1 height-auto' : 'opacity-0 height-0'}
+            >
               {step.content}
             </div>
           ))}

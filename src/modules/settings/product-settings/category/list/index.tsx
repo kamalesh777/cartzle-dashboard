@@ -101,12 +101,16 @@ const CategoryCard = (): JSX.Element => {
           columns={columns}
           dataSource={data || []}
           locale={{
-            emptyText: <EmptyContentWithLoading entity="Categories" isLoading={isLoading} columns={[30, 40, 30]} />,
+            emptyText: (
+              <EmptyContentWithLoading entity="Categories" isLoading={isLoading} columns={[30, 40, 30]} />
+            ),
           }}
           expandedRowRender={expandedRowRender}
         />
       </div>
-      {openModal && <CategoryManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
+      {openModal && (
+        <CategoryManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+      )}
     </>
   )
 }

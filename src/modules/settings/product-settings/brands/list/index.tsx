@@ -77,7 +77,9 @@ const CategoryCard = (): JSX.Element => {
       <div id="brands" className="mb-3">
         <TableWrapper title={() => ACTION_COMP} columns={columns} dataSource={data} />
       </div>
-      {openModal && <BrandManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />}
+      {openModal && (
+        <BrandManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+      )}
     </>
   )
 }

@@ -24,7 +24,14 @@ interface EditCardWrapperProps extends CardProps {
  * @param restProps - rest props
  * @returns JSX.Element
  */
-const EditCardWrapper = ({ children, footer, editMode, form, setEditMode, ...restProps }: EditCardWrapperProps): JSX.Element => {
+const EditCardWrapper = ({
+  children,
+  footer,
+  editMode,
+  form,
+  setEditMode,
+  ...restProps
+}: EditCardWrapperProps): JSX.Element => {
   // keep the form data for cancel
   const formData = form.getFieldsValue()
 

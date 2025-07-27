@@ -8,7 +8,13 @@ import { upperFirst } from 'lodash'
 
 import type { ModalPropTypes } from 'src/types/common'
 
-import { FormItemWrapper, InputNumberWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputNumberWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
 import { PaymentOptions, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
@@ -43,12 +49,19 @@ const ExpensesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTy
       }
     >
       <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
-        <FormItemWrapper name="date" label="Date" rules={requiredWithWhitspcFieldRules} initialValue={dayjs()}>
+        <FormItemWrapper
+          name="date"
+          label="Date"
+          rules={requiredWithWhitspcFieldRules}
+          initialValue={dayjs()}
+        >
           <DatePickerWrapper />
         </FormItemWrapper>
 
         <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>
-          <Select options={ExpensesOptions?.map((item: string) => ({ label: upperFirst(item), value: item }))} />
+          <Select
+            options={ExpensesOptions?.map((item: string) => ({ label: upperFirst(item), value: item }))}
+          />
         </FormItemWrapper>
 
         <FormItemWrapper name="amount" label="Amount" rules={[...requiredFieldRules]}>

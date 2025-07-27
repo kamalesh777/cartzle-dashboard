@@ -7,7 +7,13 @@ import { Form, Space, Input } from 'antd'
 import type { FormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
-import { ModalWrapper, FormItemWrapper, InputWrapper, ButtonWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  ModalWrapper,
+  FormItemWrapper,
+  InputWrapper,
+  ButtonWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {

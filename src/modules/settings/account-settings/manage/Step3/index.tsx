@@ -56,7 +56,11 @@ const Step3Content = ({ form, currentStep }: PropTypes): JSX.Element => {
     <div className="p-4 rounded-3 text-center">
       {progress < 99 ? (
         <>
-          <Progress percent={Math.round(progress)} type="line" status={progress < 100 ? 'active' : 'success'} />
+          <Progress
+            percent={Math.round(progress)}
+            type="line"
+            status={progress < 100 ? 'active' : 'success'}
+          />
           <p className="mt-2">{getProgressText()}</p>
         </>
       ) : (

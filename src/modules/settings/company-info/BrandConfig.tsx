@@ -83,10 +83,24 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
 
   return (
     <CardWrapper title="Brand Config" id="brand" className="mb-3">
-      <Form form={form} layout="vertical" onFinish={updateHandler} onValuesChange={() => setIsValueChanged(true)}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={updateHandler}
+        onValuesChange={() => setIsValueChanged(true)}
+      >
         <ColWrapper span={16}>
-          <FormItemWrapper name="themeColor" label="Theme Color" className="theme-color" getValueFromEvent={v => v.toHexString()}>
-            <CustomColorPicker disabledAlpha showText onChange={v => dispatch(applyThemeColor(v.toHexString()))} />
+          <FormItemWrapper
+            name="themeColor"
+            label="Theme Color"
+            className="theme-color"
+            getValueFromEvent={v => v.toHexString()}
+          >
+            <CustomColorPicker
+              disabledAlpha
+              showText
+              onChange={v => dispatch(applyThemeColor(v.toHexString()))}
+            />
           </FormItemWrapper>
           <Row gutter={COMMON_ROW_GUTTER}>
             <FormItemWrapper name="versionName" hidden />

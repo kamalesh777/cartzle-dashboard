@@ -2,7 +2,13 @@ import React from 'react'
 
 import { type FormInstance, Input } from 'antd'
 
-import { FormItemWrapper, InputWrapper, ColWrapper, InputNumberWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputWrapper,
+  ColWrapper,
+  InputNumberWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/AppConstant'
 
 interface PropTypes {

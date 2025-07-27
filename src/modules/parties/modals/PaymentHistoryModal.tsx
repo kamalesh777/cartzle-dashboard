@@ -71,7 +71,14 @@ const PaymentHistoryModal = ({ openModal, setOpenModal }: ModalPropTypes<never>)
         <Text type="danger">Due: ₹1,20,000</Text>
       </div>
 
-      <TableWrapper columns={columns} dataSource={PaymentHistoryData} pagination={false} rowKey="key" bordered size="middle" />
+      <TableWrapper
+        columns={columns}
+        dataSource={PaymentHistoryData}
+        pagination={false}
+        rowKey="key"
+        bordered
+        size="middle"
+      />
     </ModalWrapper>
   )
 }

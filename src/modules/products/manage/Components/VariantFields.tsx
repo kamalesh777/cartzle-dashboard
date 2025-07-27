@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  SettingOutlined,
+} from '@ant-design/icons'
 import { Divider, Form, Row, Space, Tag, type FormInstance } from 'antd'
 
 import Cookies from 'js-cookie'
@@ -119,7 +125,9 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     <CardWrapper
       bodyStyle={{ padding: '15px' }}
       key={vKey}
-      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${variantsArr?.length - 1 === name ? '' : 'mb-3'}`}
+      className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${
+        variantsArr?.length - 1 === name ? '' : 'mb-3'
+      }`}
       onClick={e => inputEdit === false && editFunc(e, name)}
     >
       {inputEdit !== name ? (
@@ -217,8 +225,16 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
           <ColWrapper lg={2} sm={4}>
             <FormItemWrapper label=" " className="mb-2">
               <Space.Compact>
-                <ButtonWrapper className="text-success" onClick={event => saveVariant(event, name)} icon={<CheckOutlined />} />
-                <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)} icon={<CloseOutlined />} />
+                <ButtonWrapper
+                  className="text-success"
+                  onClick={event => saveVariant(event, name)}
+                  icon={<CheckOutlined />}
+                />
+                <ButtonWrapper
+                  className="error-color"
+                  onClick={e => removeFunc(e, name)}
+                  icon={<CloseOutlined />}
+                />
               </Space.Compact>
             </FormItemWrapper>
           </ColWrapper>

@@ -66,7 +66,12 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
   ]
 
   return (
-    <ModalWrapper open={openModal} onCancel={closeModal} title={`Variants: ${selectedList?.label}`} width={600}>
+    <ModalWrapper
+      open={openModal}
+      onCancel={closeModal}
+      title={`Variants: ${selectedList?.label}`}
+      width={600}
+    >
       <Form layout="vertical" form={form}>
         <Row gutter={COMMON_ROW_GUTTER}>
           {fieldsArr?.map((item: FieldsArrType) => (
@@ -83,7 +88,10 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
           ))}
           {selectedList?.parent && (
             <ColWrapper md={24}>
-              <FormItemWrapper name={['variantCombinations', selectedList?.label, 'images']} label="Product Images">
+              <FormItemWrapper
+                name={['variantCombinations', selectedList?.label, 'images']}
+                label="Product Images"
+              >
                 <UploadWrapper />
               </FormItemWrapper>
             </ColWrapper>

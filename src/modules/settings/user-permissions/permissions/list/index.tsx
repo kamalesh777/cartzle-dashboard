@@ -10,7 +10,13 @@ import type { ListDataTypes } from '../types'
 import { TableActionButton } from '@/components/Common'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
-import { ButtonWrapper, ColWrapper, InputSearchWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import {
+  ButtonWrapper,
+  ColWrapper,
+  InputSearchWrapper,
+  SpaceWrapper,
+  TableWrapper,
+} from '@/components/Wrapper'
 
 import { SETTINGS_ROUTE, USER_PERMISSION_ROUTE } from '@/constants/AppConstant'
 
@@ -72,7 +78,10 @@ const PermissionList = (): JSX.Element => {
           </ColWrapper>
           <ColWrapper md={16} className="text-right">
             <SpaceWrapper>
-              <InputSearchWrapper placeholder="Search by name or phone..." onChange={e => setSearchValue(e.target.value)} />
+              <InputSearchWrapper
+                placeholder="Search by name or phone..."
+                onChange={e => setSearchValue(e.target.value)}
+              />
               <ButtonWrapper type="primary" onClick={() => redirectToUrlPath('create')}>
                 New
               </ButtonWrapper>

@@ -14,7 +14,13 @@ interface PostRequestHandlerReturn<T, P> {
   data: T | null
   isSuccess: boolean
   buttonLoading: boolean
-  submit: (method: RequestMethod, endPoint: string, payload?: P, goBack?: string | null, callBack?: Callback) => Promise<T | null>
+  submit: (
+    method: RequestMethod,
+    endPoint: string,
+    payload?: P,
+    goBack?: string | null,
+    callBack?: Callback,
+  ) => Promise<T | null>
 }
 
 /**
@@ -48,7 +54,9 @@ export const usePostRequestHandler = <T = unknown, P = unknown>(
 
     try {
       const res =
-        !method || method === 'post' ? await postRequest(endPoint, payload || {}) : await putRequest(endPoint, payload || {})
+        !method || method === 'post'
+          ? await postRequest(endPoint, payload || {})
+          : await putRequest(endPoint, payload || {})
 
       if (res.data.success) {
         setData(res.data as T)
@@ -99,7 +107,10 @@ interface GetRequestHandlerReturn<T> {
  * @param failToast Whether to show a failure toast. Default is true.
  * @returns An object containing `data`, `isSuccess`, `isLoading`, and the `fetchData` function.
  */
-export const useGetRequestHandler = <T = unknown>(successToast = false, failToast = true): GetRequestHandlerReturn<T> => {
+export const useGetRequestHandler = <T = unknown>(
+  successToast = false,
+  failToast = true,
+): GetRequestHandlerReturn<T> => {
   const [isLoading, setIsLoading] = useState(true)
   const [isSuccess, setIsSuccess] = useState(false)
   const [data, setData] = useState<T | null>(null)

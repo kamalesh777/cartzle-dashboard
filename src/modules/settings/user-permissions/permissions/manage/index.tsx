@@ -82,7 +82,8 @@ const PermissionManageComp = (): JSX.Element => {
           {permissionsArr.map(obj => (
             <Col sm={4} key={obj.name} className="text-center">
               <SpaceWrapper direction="vertical" size={0}>
-                {startCase(obj.name)} <Checkbox indeterminate={false} value={obj.name} onChange={checkAllColHandler} />
+                {startCase(obj.name)}{' '}
+                <Checkbox indeterminate={false} value={obj.name} onChange={checkAllColHandler} />
               </SpaceWrapper>
             </Col>
           ))}

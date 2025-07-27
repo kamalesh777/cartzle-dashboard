@@ -53,7 +53,13 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
               <InputWrapper />
             </EditableFormWrapper>
 
-            <EditableFormWrapper name="gstin" label="GSTIN Number" editMode={editMode} form={form} isLoading={isLoading}>
+            <EditableFormWrapper
+              name="gstin"
+              label="GSTIN Number"
+              editMode={editMode}
+              form={form}
+              isLoading={isLoading}
+            >
               <InputWrapper />
             </EditableFormWrapper>
 
@@ -89,7 +95,13 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
               <SelectWrapper mode="tags" />
             </EditableFormWrapper>
 
-            <EditableFormWrapper name="address" label="Corp Address" editMode={editMode} form={form} isLoading={isLoading}>
+            <EditableFormWrapper
+              name="address"
+              label="Corp Address"
+              editMode={editMode}
+              form={form}
+              isLoading={isLoading}
+            >
               <Input.TextArea rows={2} />
             </EditableFormWrapper>
 

@@ -36,7 +36,12 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
       </main>
       {/* Side Nav according to the mobile device responsive */}
       {isMobileDevice ? (
-        <Drawer width={collapsed ? collapseWidth : sidenavWidth} onClose={onClose} placement="left" open={openDrawer}>
+        <Drawer
+          width={collapsed ? collapseWidth : sidenavWidth}
+          onClose={onClose}
+          placement="left"
+          open={openDrawer}
+        >
           <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth, setOpenDrawer }} />
         </Drawer>
       ) : (

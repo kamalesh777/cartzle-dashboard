@@ -7,13 +7,23 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { TableContentLoaderWithProps, Toast } from '@/components/Common'
-import { FormItemWrapper, InputWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 import { getSelectOption } from '@/utils/disableFunction'
 
-const UnitGroupManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const UnitGroupManageModal = ({
+  openModal,
+  setOpenModal,
+  selectedId,
+}: ModalPropTypes<never>): JSX.Element => {
   const { fetchData: fetchUnits, data: units, isLoading } = useGetRequestHandler<UnitsPayload[]>()
   const { submit } = usePostRequestHandler()
   const [form] = Form.useForm()

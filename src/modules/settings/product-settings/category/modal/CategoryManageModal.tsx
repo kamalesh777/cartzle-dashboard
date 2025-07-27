@@ -8,7 +8,13 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { TableContentLoaderWithProps, Toast } from '@/components/Common'
-import { FormItemWrapper, InputWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  InputWrapper,
+  ModalWrapper,
+  SelectWrapper,
+  SubmitButtonWrapper,
+} from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -71,7 +77,12 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={onFinish} initialValues={{ unitTypes: [{ id: '', units: [] }] }}>
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={onFinish}
+        initialValues={{ unitTypes: [{ id: '', units: [] }] }}
+      >
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
           {loading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />

@@ -15,7 +15,13 @@ interface CustomOptionProps {
 
 function SelectWrapper(props: customSelectProps): JSX.Element {
   return (
-    <Select placement="bottomRight" dropdownStyle={{ minWidth: '150px' }} showSearch optionFilterProp="label" {...props}>
+    <Select
+      placement="bottomRight"
+      dropdownStyle={{ minWidth: '150px' }}
+      showSearch
+      optionFilterProp="label"
+      {...props}
+    >
       {props.children}
     </Select>
   )

@@ -11,7 +11,10 @@ import type { DefaultOptionType } from 'antd/es/select'
  * @param direction - 'before' or 'after'
  * @param days - number of days to shift from today
  */
-export const getDisabledDate = (direction: 'before' | 'after', days = 0): RangePickerProps['disabledDate'] => {
+export const getDisabledDate = (
+  direction: 'before' | 'after',
+  days = 0,
+): RangePickerProps['disabledDate'] => {
   return (current: Dayjs): boolean => {
     if (!current) return false
 
