@@ -1,3 +1,5 @@
+/* eslint-disable no-duplicate-imports */
+/* eslint-disable prettier/prettier */
 'use client'
 import React, { useEffect, type PropsWithChildren } from 'react'
 
@@ -7,10 +9,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import type { RootState } from '@/store/index'
 import type { CompanyState } from '@/store/slices/companySlice'
-// eslint-disable-next-line no-duplicate-imports
 import type { ThemeConfig } from 'antd'
 
-// eslint-disable-next-line no-duplicate-imports
+
+import initialThemeConfig from '@/configs/ThemeConfig'
 import { applyCompanyData, applyThemeColor } from '@/store/slices/companySlice'
 
 import LayoutWrapper from './LayoutWrapper'
@@ -25,11 +27,11 @@ const ThemeWrapper = ({ children, companyDetails }: PropTypes): JSX.Element => {
 
   const pathname = usePathname()
   const isAuth = pathname.startsWith('/auth')
-
+  const themeColor = companyDetails?.company?.themeColor ?? initialThemeConfig?.token?.colorPrimary
   useEffect(() => {
     if (companyDetails) {
       dispatch(applyCompanyData(companyDetails))
-      dispatch(applyThemeColor(companyDetails.company.themeColor))
+      dispatch(applyThemeColor(themeColor))
     }
   }, [companyDetails])
 

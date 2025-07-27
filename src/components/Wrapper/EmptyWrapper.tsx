@@ -20,7 +20,7 @@ const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps)
       description={
         content || (
           <p>
-            {`No ${entity} found, `}
+            {`No ${entity} found `}
             {onClick && (
               <span role="button" onClick={onClick} className="text-primary cursor-pointer">
                 click here

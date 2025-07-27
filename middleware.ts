@@ -1,19 +1,35 @@
-import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { LOGIN_ROUTE } from './src/constants/AppConstant'
+import { fetchServerSide } from './src/utils/fetchServerSide'
+
+interface ValidateTokenResponse {
+  success: boolean
+  message: string
+  result: {
+    id: string
+    name: string
+    email: string
+    role: string
+  } | null
+}
+
+const validateAuthToken = async (): Promise<ValidateTokenResponse> => {
+  const resp = await fetchServerSide('/user/validate-token')
+  return resp
+}
 
 // This function can be marked `async` if using `await` inside
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function middleware(request: NextRequest) {
-  const cookieStore = cookies()
-  const accessToken = cookieStore.get('accessToken')?.value
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const response = await validateAuthToken()
+  const isSuccess = response?.success
 
   const pathname = request.nextUrl.pathname
 
-  if (!accessToken && pathname !== LOGIN_ROUTE) {
+  // If the token is invalid and the user is not on the login page, redirect to the login page
+  if (!isSuccess && pathname !== LOGIN_ROUTE) {
     return NextResponse.redirect(new URL(LOGIN_ROUTE, request.url))
-  } else if (pathname === LOGIN_ROUTE && accessToken) {
+  } else if (pathname === LOGIN_ROUTE && isSuccess) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 

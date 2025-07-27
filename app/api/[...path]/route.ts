@@ -47,7 +47,7 @@ async function handleRequest(request: Request): Promise<Response> {
   try {
     // const { getToken } = await auth()
 
-    const isGetMethod = request.method === 'GET'
+    const isGetMethod = request.method === 'GET' || request.method === 'DELETE'
 
     // Read the request body if it's not a GET request
     let bodyData = undefined

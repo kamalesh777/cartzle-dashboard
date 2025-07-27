@@ -47,6 +47,7 @@ const routesObj = {
   // UNITS LIST
   'unit-list': `${API_COMMON_SRV}/unit/list`,
   'unit-create': `${API_COMMON_SRV}/unit/create`,
+  'unit-delete': `${API_COMMON_SRV}/unit/delete`,
 }
 
 export default routesObj

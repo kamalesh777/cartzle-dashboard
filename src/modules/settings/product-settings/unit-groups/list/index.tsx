@@ -6,7 +6,7 @@ import { Row, type MenuProps } from 'antd'
 import type { BrandTypePayload, CategoryList } from '../../types'
 
 import { TableActionButton, TableContentLoaderWithProps } from '@/components/Common'
-import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, CardWrapper, ColWrapper, EmptyWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
@@ -72,7 +72,7 @@ const UnitGroupsCard = (): JSX.Element => {
               <div className="w-100">
                 <TableContentLoaderWithProps columnWidth={[23, 23, 23, 23]} rowCounts={2} />
               </div>
-            ) : (
+            ) : data && data?.length > 0 ? (
               data?.map((item: CategoryList) => (
                 <ColWrapper md={6} span={12} key={item.name}>
                   <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3">
@@ -83,6 +83,8 @@ const UnitGroupsCard = (): JSX.Element => {
                   </CardWrapper>
                 </ColWrapper>
               ))
+            ) : (
+              <EmptyWrapper entity="Unit Groups" className="w-100" />
             )}
           </Row>
         </CardWrapper>

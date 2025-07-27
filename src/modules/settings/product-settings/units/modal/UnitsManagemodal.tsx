@@ -5,49 +5,55 @@ import { Form } from 'antd'
 import type { UnitsTypes } from '../../types'
 import type { ModalPropTypes } from 'src/types/common'
 
-import { postRequest } from '@/api/preference/RequestService'
 import { TableContentLoaderWithProps, Toast } from '@/components/Common'
 import { FormItemWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 
-import { useGetRequestHandler } from '@/hook/requestHandler'
-import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
+import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
+import { modalCloseHandler } from '@/utils/commonFunctions'
 import { getSelectOption } from '@/utils/disableFunction'
 
-const UnitsManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const UnitsManageModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
-  const { fetchData: fetchUnits, data, isLoading } = useGetRequestHandler<UnitsTypes[]>()
+  const { fetchData, data, isLoading } = useGetRequestHandler<UnitsTypes[]>()
+  const { submit } = usePostRequestHandler()
 
   const [btnLoading, setBtnLoading] = React.useState(false)
 
+  const fetchUnitsList = async (): Promise<void> => {
+    await fetchData('/api/unit-list')
+  }
   useEffect(() => {
-    fetchUnits('/api/unit-list')
+    fetchUnitsList()
   }, [])
+
+  const afterSubmitFunc = (): void => {
+    form.resetFields()
+    setOpenModal(false)
+    afterSubmit?.()
+  }
 
   const onFinish = async (values: any): Promise<void> => {
     const { unitGroupIds, ...rest } = values
     try {
       setBtnLoading(true)
-      const resp = await postRequest(`/api/unit-create`, { ...rest, unitGroupIds })
-      Toast('success', resp.data.message)
-      form.resetFields()
-      setOpenModal(false)
+      await submit('post', `/api/unit-create`, { ...rest, unitGroupIds }, null, afterSubmitFunc)
     } catch (err) {
       Toast('error', (err as Error).message)
     } finally {
       setBtnLoading(false)
     }
-    // eslint-disable-next-line no-console
-    console.log('===Brand Submitted:', values)
   }
+
+  // close modal
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 
   return (
     <ModalWrapper
       open={openModal}
       onCancel={closeModal}
-      title={getModalTitle(selectedId as string)}
+      title={'Units'}
       footer={
         <SubmitButtonWrapper
           okText={'Save'}
