@@ -36,12 +36,14 @@ const routesObj = {
 
   // CREATE CATEGORY
   'category-create': `${API_COMMON_SRV}/category/create`,
+  'category-update': `${API_COMMON_SRV}/category/update`,
   'category-list': `${API_COMMON_SRV}/category/list`,
   'category-details': `${API_COMMON_SRV}/category/details`,
 
   // CREATE UNIT TYPE
   'unit-group-list': `${API_COMMON_SRV}/unit-group/list`,
   'unit-group-create': `${API_COMMON_SRV}/unit-group/create`,
+  'unit-group-update': `${API_COMMON_SRV}/unit-group/update`,
   'unit-group-details': `${API_COMMON_SRV}/unit-group/details`,
 
   // UNITS LIST

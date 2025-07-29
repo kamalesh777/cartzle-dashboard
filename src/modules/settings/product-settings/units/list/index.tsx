@@ -63,7 +63,7 @@ const UnitsList = (): JSX.Element => {
             ) : data && data?.length > 0 ? (
               data?.map((item: UnitsPayload) => (
                 <ColWrapper md={4} span={8} key={item.id}>
-                  <CardWrapper styles={{ body: { padding: '10px' } }} className="mb-3 show bg-gray-100">
+                  <CardWrapper classNames={{ body: 'px-3 py-2' }} className="mb-3 show bg-gray-100">
                     <SpaceWrapper className="w-100 justify-content-between">
                       <p>{item.name}</p>
                       <DeleteOutlined

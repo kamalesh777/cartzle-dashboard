@@ -44,6 +44,7 @@ const UnitGroupsCard = (): JSX.Element => {
     {
       key: 'delete',
       label: 'Delete',
+      className: 'error-color',
       onClick: () => {
         // Handle delete action
       },
@@ -90,7 +91,12 @@ const UnitGroupsCard = (): JSX.Element => {
         </CardWrapper>
       </div>
       {openModal && (
-        <UnitTypeManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+        <UnitTypeManageModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          selectedId={selectedId}
+          afterSubmit={fetchUnitGroups}
+        />
       )}
     </>
   )

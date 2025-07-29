@@ -20,7 +20,12 @@ import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandl
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 import { getSelectOption, type ArrOptions } from '@/utils/disableFunction'
 
-const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const CategoryManageModal = ({
+  openModal,
+  setOpenModal,
+  selectedId,
+  afterSubmit,
+}: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
 
   const { submit, buttonLoading } = usePostRequestHandler<CategoryList>()
@@ -55,9 +60,10 @@ const CategoryManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropT
   }
 
   const onFinish = async (values: CategoryList): Promise<void> => {
-    await submit(selectedId, '/api/category-create', values, null, () => {
-      form.resetFields()
-      setOpenModal(false)
+    const API_ENDPOINT = selectedId ? `/api/category-update/${selectedId}` : '/api/category-create'
+    await submit(selectedId, API_ENDPOINT, values, null, () => {
+      closeModal()
+      afterSubmit?.()
     })
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)

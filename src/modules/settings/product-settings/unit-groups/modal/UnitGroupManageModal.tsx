@@ -23,6 +23,7 @@ const UnitGroupManageModal = ({
   openModal,
   setOpenModal,
   selectedId,
+  afterSubmit,
 }: ModalPropTypes<never>): JSX.Element => {
   const { fetchData: fetchUnits, data: units, isLoading } = useGetRequestHandler<UnitsPayload[]>()
   const { submit } = usePostRequestHandler()
@@ -55,8 +56,12 @@ const UnitGroupManageModal = ({
   }
 
   // handle form submit
-  const onFinish = (values: any): void => {
-    submit(selectedId, '/api/unit-group-create', values, null)
+  const onFinish = async (values: any): Promise<void> => {
+    const API_ENDPOINT = selectedId ? `/api/unit-group-update/${selectedId}` : '/api/unit-group-create'
+    await submit(selectedId, API_ENDPOINT, values, null, () => {
+      closeModal()
+      afterSubmit?.()
+    })
   }
   const closeModal = (): void => modalCloseHandler(setOpenModal, form)
 

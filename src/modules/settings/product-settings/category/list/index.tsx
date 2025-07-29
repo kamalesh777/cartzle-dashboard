@@ -40,6 +40,7 @@ const CategoryCard = (): JSX.Element => {
     {
       key: 'delete',
       label: 'Delete',
+      className: 'error-color',
       onClick: () => {
         // Handle delete action
       },
@@ -109,7 +110,12 @@ const CategoryCard = (): JSX.Element => {
         />
       </div>
       {openModal && (
-        <CategoryManageModal openModal={openModal} setOpenModal={setOpenModal} selectedId={selectedId} />
+        <CategoryManageModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          selectedId={selectedId}
+          afterSubmit={fetchCategories}
+        />
       )}
     </>
   )
