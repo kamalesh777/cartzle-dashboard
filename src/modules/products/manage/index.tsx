@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { ArrowRightOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons'
 import { Form, Tabs } from 'antd'
@@ -26,6 +26,96 @@ const ProductManageComp = (): JSX.Element => {
 
   const [form] = Form.useForm()
 
+  const result = {
+    title: 'Samsung Galaxy A35 5G',
+    description:
+      "The Samsung Galaxy A35 5G is a sleek blend of style and performance. Its stunning design, featuring Corning Gorilla Glass Victus+, and linear camera layout, sets it apart. Capture life's moments with the 50 MP wide-angle camera, even in low light, thanks to enhanced sensors. Record steady videos with Super HDR, OIS, and VDIS. Protect your data with Samsung Knox Vault, while enjoying the vibrant 16.83 cm FHD+ Super AMOLED display. Experience seamless multitasking with the improved GPU and NPU, and store all your content with a large internal storage. Stay connected longer with the 5000mAh battery and IP67-rated protection against spills and dust. Enjoy up to 5 years of security updates and easy data transfer with Smart Switch and Quick Share. With One UI 6, personalise your experience effortlessly. The Samsung Galaxy A35 5G: where style meets substance in a compact package.",
+    category: 'c506ccda-382e-49de-9551-6cd838da33f0',
+    costPrice: 18999,
+    salePrice: 21999,
+    profit: 3000,
+    margin: '15.79',
+    variants: [
+      {
+        opName: 'rom',
+        opValue: ['256gb', '128gb'],
+      },
+      {
+        opName: 'ram',
+        opValue: ['8gb', '16gb'],
+      },
+    ],
+    variantCombinations: [
+      {
+        label: '16gb',
+        options: {
+          ram: '16gb',
+        },
+        parent: true,
+        key: '16gb',
+        sellPrice: 19999,
+        costPrice: 16999,
+        available: 0,
+        children: [
+          {
+            label: '256gb x 16gb',
+            options: {
+              rom: '256gb',
+              ram: '16gb',
+            },
+            parent: false,
+            key: '16gb-0',
+            sellPrice: 19999,
+            costPrice: 16999,
+            available: 0,
+          },
+          {
+            label: '128gb x 16gb',
+            options: {
+              rom: '128gb',
+              ram: '16gb',
+            },
+            parent: false,
+            key: '16gb-1',
+            sellPrice: 19999,
+            costPrice: 16999,
+            available: 0,
+          },
+        ],
+      },
+      {
+        label: '256gb x 16gb',
+        options: {
+          rom: '256gb',
+          ram: '16gb',
+        },
+        parent: false,
+        key: '16gb-0',
+        sellPrice: 19999,
+        costPrice: 16999,
+        available: 0,
+      },
+      {
+        label: '128gb x 16gb',
+        options: {
+          rom: '128gb',
+          ram: '16gb',
+        },
+        parent: false,
+        key: '16gb-1',
+        sellPrice: 19999,
+        costPrice: 16999,
+        available: 0,
+      },
+    ],
+    groupBy: 'ram',
+  }
+
+  useEffect(() => {
+    form.setFieldsValue(result)
+  }, [])
+
+  // tabs array
   const tabsArray = [
     {
       label: 'General',

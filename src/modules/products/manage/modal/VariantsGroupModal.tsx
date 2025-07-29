@@ -14,6 +14,7 @@ import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { getCurrency } from '@/utils/currency'
+import { generateSku } from '@/utils/productUtils'
 
 interface FieldsArrType {
   name: string
@@ -31,6 +32,11 @@ interface Props extends ModalPropTypes<VariantCombination> {
 }
 
 const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
+  const productTitle = Form.useWatch('title', form)
+  const productCategory = Form.useWatch('category', form)
+
+  const skuValue = generateSku(productTitle, productCategory, selectedList?.label as string)
+
   const closeModal = (): void => modalCloseHandler(setOpenModal)
   const renderPrefix = (name: string): string => {
     if (name === 'sellPrice' || name === 'costPrice') {
@@ -58,7 +64,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
     {
       name: 'sku',
       label: <InfoTooltip title="Available product in stock">SKU</InfoTooltip>,
-      initialValue: 'adad',
+      initialValue: skuValue,
       fieldsProps: {
         readOnly: true,
       },

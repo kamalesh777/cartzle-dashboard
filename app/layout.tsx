@@ -23,10 +23,12 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
+// export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
   const resp = await fetchServerSide('/company/details')
-  const result = resp.result
+  const result = await resp.result
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
@@ -40,11 +42,12 @@ export async function generateMetadata({}: Props, parent: ResolvingMetadata): Pr
     },
   }
 }
-
-const IndexLayout = async ({ children }: PropsWithChildren): Promise<JSX.Element> => {
+export const dynamic = 'force-dynamic'
+const DashboardLayout = async ({ children }: PropsWithChildren): Promise<JSX.Element> => {
   // fetch company details on server side
   const resp = await fetchServerSide(`/company/details`)
-  const companyDetails = resp.result
+
+  const companyDetails = await resp.result
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
@@ -59,4 +62,4 @@ const IndexLayout = async ({ children }: PropsWithChildren): Promise<JSX.Element
   )
 }
 
-export default IndexLayout
+export default DashboardLayout

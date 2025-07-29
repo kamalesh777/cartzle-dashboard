@@ -3,8 +3,6 @@ import React from 'react'
 import { Form, Input, Checkbox, Row, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
-import { useRouter } from 'next/navigation'
-
 import type { DataResponse } from 'src/types/common'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
@@ -21,7 +19,6 @@ interface ResultTypes {
 }
 
 const LoginComp = (): JSX.Element => {
-  const router = useRouter()
   const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<
     DataResponse<ResultTypes>,
     FormValueTypes
@@ -31,9 +28,23 @@ const LoginComp = (): JSX.Element => {
     const resp = await submit('post', '/api/login', formValues, null)
 
     if (resp?.success) {
-      router.push('/') // go to home page
-      Cookies.set('accessToken', resp.result.accessToken, { secure: true, sameSite: 'Strict' })
-      Cookies.set('refreshToken', resp.result.refreshToken, { secure: true, sameSite: 'Strict' })
+      // Set cookies with proper attributes
+      Cookies.set('accessToken', resp.result.accessToken, {
+        secure: true,
+        sameSite: 'Strict',
+        path: '/',
+        expires: 1, // 1 day
+      })
+      Cookies.set('refreshToken', resp.result.refreshToken, {
+        secure: true,
+        sameSite: 'Strict',
+        path: '/',
+        expires: 7, // 7 days
+      })
+
+      // Force a full page reload to ensure all data is properly loaded
+      window.location.href = '/'
+      // router.push('/')
     }
   }
 
