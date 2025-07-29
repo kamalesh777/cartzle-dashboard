@@ -21,10 +21,9 @@ const validateAuthToken = async (): Promise<ValidateTokenResponse> => {
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const pathname = request.nextUrl.pathname
   const response = await validateAuthToken()
   const isSuccess = response?.success
-
-  const pathname = request.nextUrl.pathname
 
   // If the token is invalid and the user is not on the login page, redirect to the login page
   if (!isSuccess && pathname !== LOGIN_ROUTE) {
