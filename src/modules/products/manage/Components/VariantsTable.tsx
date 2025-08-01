@@ -33,6 +33,8 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const salePrice = Form.useWatch('salePrice', form)
   const groupBy = Form.useWatch('groupBy', form)
 
+  const selectedVariants = Form.useWatch('variantCombinations', form)
+
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
 
@@ -83,7 +85,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     {
       title: 'Variant',
       dataIndex: 'label',
-      width: '40%',
+      width: '60%',
       className: 'd-flex align-items-center',
       render: label =>
         label?.split(' x ')?.map((item: string, index: number, array: string[]) => {
@@ -98,7 +100,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     {
       title: 'Cost Price',
       dataIndex: 'costPrice',
-      width: '18%',
+      width: '15%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
@@ -111,7 +113,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     {
       title: 'Sell Price',
       dataIndex: 'sellPrice',
-      width: '18%',
+      width: '15%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
@@ -124,7 +126,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     {
       title: <InfoTooltip title="Available product in stock">Stock</InfoTooltip>,
       dataIndex: 'available',
-      width: '18%',
+      width: '10%',
       render: (_, record) => (
         <InputNumberWrapper
           value={record.available}
@@ -134,23 +136,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         />
       ),
     },
-    // {
-    //   title: <InfoTooltip title="Unique product code">SKU</InfoTooltip>,
-    //   dataIndex: 'sku',
-    //   width: '20%',
-    //   render: (_, record) => (
-    //     record?.children && record?.children?.length > 0 ? (
-    //       EMPTY_PLACEHOLDER
-    //     ) : (
-    //       <InputWrapper
-    //         value={generateSku(title, category, record.label)}
-    //         size="small"
-    //         readOnly
-    //         // onChange={value => rowChangeHandler({ ...record, sku:  })}
-    //       />
-    //     )
-    //   ),
-    // },
     {
       title: '',
       dataIndex: 'action',
@@ -170,6 +155,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
+    selectedRowKeys: selectedVariants?.map((item: VariantCombination) => item.key),
     onChange: (_selectedRowKeys, selectedRows) => {
       form.setFieldValue('variantCombinations', selectedRows)
     },
