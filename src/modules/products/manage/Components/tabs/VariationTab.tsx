@@ -2,13 +2,13 @@ import React from 'react'
 
 import { Row } from 'antd'
 
-import type { TabProps } from '../types'
+import type { TabProps } from '../../types'
 
 import { ColWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
-import VariantCardComp from './VariantCard'
-import VariantsTable from './VariantsTable'
+import VariantCardComp from '../VariantCard'
+import VariantsTable from '../VariantsTable'
 
 const VariationTab = ({ form }: TabProps): JSX.Element => {
   return (

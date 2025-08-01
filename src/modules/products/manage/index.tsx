@@ -15,9 +15,9 @@ import { PRODUCT_LIST_ROUTE, ProductTabsArr } from '@/constants/AppConstant'
 
 import { useUnwantedReload } from '@/hook/useUnwantedReload'
 
-import AdditionalTab from './Components/AdditionalTab'
-import GeneralTab from './Components/GeneralTab'
-import VariationTab from './Components/VariationTab'
+import AdditionalTab from './Components/tabs/AdditionalTab'
+import GeneralTab from './Components/tabs/GeneralTab'
+import VariationTab from './Components/tabs/VariationTab'
 
 // Product manage component
 const ProductManageComp = (): JSX.Element => {
