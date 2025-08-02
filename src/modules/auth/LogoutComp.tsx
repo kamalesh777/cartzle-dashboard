@@ -1,6 +1,5 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 import { LOGIN_ROUTE } from '@/constants/AppConstant'
@@ -8,10 +7,13 @@ import { LOGIN_ROUTE } from '@/constants/AppConstant'
 const LogoutComp = (): JSX.Element => {
   const router = useRouter()
 
-  useLayoutEffect(() => {
-    Cookies.remove('accessToken')
-    Cookies.remove('refreshToken')
-    router.push(LOGIN_ROUTE)
+  useEffect(() => {
+    const doLogout = async (): Promise<void> => {
+      await fetch('/api/logout', { method: 'GET' })
+      router.push(LOGIN_ROUTE)
+    }
+
+    doLogout()
   }, [])
 
   return <h3>Please wait....</h3>
