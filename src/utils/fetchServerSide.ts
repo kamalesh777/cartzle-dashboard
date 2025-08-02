@@ -34,8 +34,9 @@ export const requestServerSide = async (
     body,
   })
 
+  // convert response to json
   const finalResponse = {
-    ...response.json(),
+    ...(await response.json()),
     status: response.status,
   }
   return finalResponse
