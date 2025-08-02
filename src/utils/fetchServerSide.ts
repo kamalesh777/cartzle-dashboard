@@ -29,7 +29,6 @@ export const requestServerSide = async (
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${Cookies.get('accessToken')?.value}`,
-      'x-refresh-token': Cookies.get('refreshToken')?.value || '',
     },
     method,
     body,
