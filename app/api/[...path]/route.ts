@@ -71,6 +71,7 @@ async function handleRequest(request: Request): Promise<Response> {
     const finalResponse = {
       ...response.data,
       message: response.data.message || ERROR_MSG,
+      status: response.status,
     }
     return responseHandler(finalResponse, response.status, ENDPOINT)
   } catch (error) {
