@@ -109,6 +109,10 @@ tr.ant-table-expanded-row .ant-table-wrapper {
     z-index: 2;
     margin-bottom: 25px;
 }
+.ant-menu-inline .ant-menu-item {
+    height: 34px !important;
+    line-height: 34px !important;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;
