@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Form } from 'antd'
 
-import type { TabProps } from '../types'
+import type { TabProps } from '../../types'
 
 const AdditionalTab = ({ form }: TabProps): JSX.Element => {
   const formvalues = Form.useWatch([], form)

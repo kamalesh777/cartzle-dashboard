@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Row, Input, Form } from 'antd'
 
-import type { CategoryType, TabProps } from '../types'
+import type { CategoryType, TabProps } from '../../types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { InfoTooltip } from '@/components/Common'
