@@ -20,7 +20,7 @@ interface pageMenuItems {
   key: string
   path?: string
   href?: string
-  title?: string
+  label?: string
   icon?: React.ReactNode
   breadcrumb?: boolean
   hasDivider?: boolean
@@ -32,7 +32,6 @@ interface menuItems {
   key: string
   icon?: React.ReactNode
   path?: string
-  title?: string
   href?: string
   breadcrumb?: boolean
   notification?: number
@@ -93,24 +92,24 @@ const DynamicPageLayout = ({
 
     if (matchedChild?.pagemenu?.length) {
       setPageMenu(matchedChild.pagemenu)
-      setTitle(matchedChild.title ?? '')
+      setTitle(matchedChild.label ?? '')
     } else if (mainMenu.pagemenu?.length) {
       setPageMenu([...mainMenu.pagemenu, ...hasStaticPageMenuItem])
-      setTitle(mainMenu.title ?? '')
+      setTitle(mainMenu.label ?? '')
     } else {
       setPageMenu([])
     }
   }
 
   const anchorItems = pageMenu.map(item => ({
-    title: <div style={{ paddingBlock: '4px' }}>{item.title}</div>,
+    title: <div style={{ paddingBlock: '4px' }}>{item.label}</div>,
     key: item.key,
     href: item.href ?? `#${item.key}`,
   }))
 
   const linkedMenuItems = pageMenu.map(item => ({
     ...item,
-    label: item.title,
+    label: item.label,
   }))
 
   const goBackButton = goBackUrl ? (

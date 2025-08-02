@@ -28,6 +28,7 @@ interface PropTypes {
 }
 
 type MenuItem = Required<MenuProps>['items'][number]
+type ObjType = 'group'
 
 const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: PropTypes): JSX.Element => {
   const pathname = usePathname()
@@ -42,10 +43,11 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
   // console.log("menu==", menuState)
 
   interface MenuObject {
+    label?: string
+    type?: string
     path: string
     notification: string
     key: string
-    title: string
     icon: string
     children?: MenuObject[]
   }
@@ -61,26 +63,34 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
   }
 
   const mapMenuItems = (menuArray: MenuObject[], loopCount = 2): MenuItem[] => {
-    return menuArray.map(obj => ({
-      label: (
-        <NavLink href={obj.path}>
-          {obj.title}
-          {obj?.notification != null ? (
-            <Tag color="#B06AB3" className="m-0">
-              {obj.notification}
-            </Tag>
-          ) : null}
-        </NavLink>
-      ),
-      icon: renderDynamicIcon(obj.icon),
-      key: obj.key,
-      className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
-      children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
-      onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
-    }))
+    return menuArray.map(obj => {
+      return {
+        type: obj.type as ObjType,
+        label:
+          obj.type === 'group' ? (
+            obj.label
+          ) : (
+            <NavLink href={obj.path}>
+              {obj.label}
+              {obj?.notification != null ? (
+                <Tag color="#B06AB3" className="m-0">
+                  {obj.notification}
+                </Tag>
+              ) : null}
+            </NavLink>
+          ),
+
+        icon: renderDynamicIcon(obj.icon),
+        key: obj.key,
+        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
+        children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
+        onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
+      }
+    })
   }
 
   const menuItems = mapMenuItems(menuState.data as MenuObject[])
+
   return (
     <Sider
       trigger={null}
