@@ -19,18 +19,22 @@ export const getCurrency = (value?: string): string => {
  * This function is used to calculate the margin based on the option
  * @param costPrice - cost price of the product
  * @param salePrice - sale price of the product
+ * @param discount - discount of the product
  * @param option - option to calculate the margin
  * @returns margin based on the option
  */
-export const getProfitMargin = (costPrice: number, salePrice: number, option: string): number | string => {
+export const getProfitDiscount = (
+  costPrice: number,
+  salePrice: number,
+  discount: number,
+  option: string,
+): number | string => {
   if (!costPrice || !salePrice) {
     return EMPTY_PLACEHOLDER
   }
   switch (option) {
     case 'profit':
-      return salePrice - costPrice
-    case 'margin':
-      return Number(((salePrice - costPrice) / costPrice) * 100).toFixed(2)
+      return salePrice - (salePrice * discount) / 100 - costPrice
     default:
       return salePrice - costPrice
   }

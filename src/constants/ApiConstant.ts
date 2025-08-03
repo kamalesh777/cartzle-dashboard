@@ -24,6 +24,7 @@ const routesObj = {
   // FILE OR MEDIA
   'product-media-bulk-upload': `${API_BASE_URL}/media-srv/bulk-upload`,
   'brand-media-upload': `${API_BASE_URL}/media-srv/upload-brand-media`,
+  'get-media-list': `${API_BASE_URL}/media-srv/tags`,
 
   // GENERATE NEW TOKEN
   'generate-token': `${API_BASE_URL}/token/generate-new-token`,
