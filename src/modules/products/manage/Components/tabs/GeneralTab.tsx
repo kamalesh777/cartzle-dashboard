@@ -5,7 +5,10 @@ import { Row, Input, Form } from 'antd'
 
 import type { CategoryType, TabProps } from '../../types'
 
-import { getRequest } from '@/api/preference/RequestService'
+// eslint-disable-next-line no-duplicate-imports
+import type { UploadFile } from 'antd'
+
+import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { InfoTooltip } from '@/components/Common'
 import {
   ColWrapper,
@@ -23,14 +26,18 @@ import {
   requiredFieldRules,
   EMPTY_PLACEHOLDER,
 } from '@/constants/AppConstant'
+import { imageToBase64 } from '@/utils/commonFunctions'
 import { getCurrency, getProfitMargin } from '@/utils/currency'
 import { getSelectOption } from '@/utils/disableFunction'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
+  const mediaImages = Form.useWatch('media', form)
 
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
+  const [productImages, setProductImages] = useState<{ base64: string; name: string }[]>([])
+
   // Set profit and margin on cost price and sale price change
   useEffect(() => {
     if (salePrice > costPrice) {
@@ -60,6 +67,50 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
     }
     fetchCategory()
   }, [])
+
+  const fileUploadHandler = async (fileList: UploadFile[]): Promise<void> => {
+    try {
+      fileList.forEach(async file => {
+        if (file?.status === 'done') {
+          const base64 = await imageToBase64(file?.originFileObj as File, 'webp', 0.5)
+          setProductImages([...productImages, { base64, name: file.name }])
+        }
+      })
+    } catch (error) {
+      console.log('===error', error)
+    }
+  }
+
+  useEffect(() => {
+    const uploadImages = async (): Promise<void> => {
+      try {
+        const res = await postRequest('/api/product-media-bulk-upload', { images: productImages })
+        if (res.data.success) {
+          form.setFieldsValue({ media: [] })
+        }
+      } catch (error) {
+        console.log('===error', error)
+      }
+    }
+    if (productImages?.length > 0) {
+      uploadImages()
+    }
+  }, [productImages])
+
+  // const removeFileHandler = (file: UploadFile): void => {
+  //   const updatedFiles = mediaImages.filter((item: UploadFile) => item.name !== file.name)
+  //   form.setFieldsValue({ media: updatedFiles })
+  // }
+
+  console.log('===mediaImages', mediaImages)
+  console.log('===productImages', productImages)
+
+  useEffect(() => {
+    if (mediaImages?.length > 0) {
+      fileUploadHandler(mediaImages)
+    }
+  }, [mediaImages])
+
   return (
     <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
       {/* Left side fields */}

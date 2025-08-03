@@ -22,7 +22,7 @@ const routesObj = {
   'company-details': `${API_BASE_URL}/company/details`,
 
   // FILE OR MEDIA
-  'product-media-upload': `${API_BASE_URL}/media-srv/upload`,
+  'product-media-bulk-upload': `${API_BASE_URL}/media-srv/bulk-upload`,
   'brand-media-upload': `${API_BASE_URL}/media-srv/upload-brand-media`,
 
   // GENERATE NEW TOKEN
