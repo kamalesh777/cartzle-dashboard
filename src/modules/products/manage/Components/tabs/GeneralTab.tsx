@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { Row, Input } from 'antd'
 
-import type { CategoryType, TabProps } from '../../types'
+import type { TabProps } from '../../types'
 
 // eslint-disable-next-line no-duplicate-imports
 
-import { getRequest } from '@/api/preference/RequestService'
 import { InfoTooltip } from '@/components/Common'
 import {
   ColWrapper,
@@ -17,37 +16,16 @@ import {
   SelectWrapper,
   SpaceWrapper,
 } from '@/components/Wrapper'
-import {
-  COMMON_ROW_GUTTER,
-  requiredWithWhitspcFieldRules,
-  requiredFieldRules,
-} from '@/constants/AppConstant'
+import { COMMON_ROW_GUTTER, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
-import ProductMediaCard from '../ProductMediaCard'
+
+import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
+import ProductMediaCard from '../ProductMediaCard'
+import MetaViewCard from '../meta/ViewCard'
+import MetaManageCard from '../meta/ManageCard'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
-
-  const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
-  
-
-  
-
-  // fetch category
-  useEffect(() => {
-    const fetchCategory = async (): Promise<void> => {
-      try {
-        const res = await getRequest('/api/category-list')
-        if (res.data.success) {
-          setCategoriesData(res.data.result)
-        }
-      } catch (error) {
-        console.log('===error', error)
-      }
-    }
-    fetchCategory()
-  }, [])
-
   return (
     <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
       {/* Left side fields */}
@@ -59,7 +37,10 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           <FormItemWrapper name="description" label="Description">
             <Input.TextArea rows={3} />
           </FormItemWrapper>
+          {/* Product media card */}
           <ProductMediaCard form={form} />
+          {/* Meta card */}
+          <MetaViewCard />
         </CardWrapper>
       </ColWrapper>
 
@@ -71,28 +52,9 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           </FormItemWrapper>
         </CardWrapper>
         <PriceCard form={form} />
-        <CardWrapper title={'Organization & Tags'} bottomBorder>
+        <OrganizationCard />
+        <CardWrapper title={'Tags & Collection'} bottomBorder>
           <Row gutter={COMMON_ROW_GUTTER}>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>
-                <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="brand" label="Brand">
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="supplier" label="Supplier">
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper name="type" label="Product Type">
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
             <ColWrapper md={12}>
               <FormItemWrapper
                 name="showcase"

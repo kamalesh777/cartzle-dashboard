@@ -284,6 +284,9 @@ header.ant-layout-header.fix-header {
     height: 70px;
     margin-bottom: 10px;
     position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+	transition: all 0.3s ease-in-out;
 }
 .media-list:not(:nth-child(5n)) {
 	margin-right: 12px;
@@ -294,6 +297,23 @@ header.ant-layout-header.fix-header {
     object-fit: cover;
 	border-radius: 8px;
     border: 1px solid #d9d9d9;
+}
+.media-list:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+}
+.media-list:hover::after {
+    opacity: 0.5;
+}
+.media-list:hover .upload-action {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+	inset: 0;
+	z-index: 9;
 }
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
