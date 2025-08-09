@@ -14,7 +14,7 @@ import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
-import { PRIMARY_IMAGE } from '@/constants/AppConstant'
+import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
 interface PropTypes {
@@ -25,7 +25,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const productId = Form.useWatch('id', form) || 'temp'
   const mediaFiles = Form.useWatch('mediaFiles', form)
   const uploadMedia = Form.useWatch('uploadMedia', form)
-  const primaryImageId = Form.useWatch(PRIMARY_IMAGE, form)
+  const primaryImageId = Form.useWatch(PRIMARY_IMAGE_ID, form)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
@@ -51,7 +51,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       const res = await getRequest(`/api/get-media-list/${productId}`)
       if (res.data.success) {
         const result = res.data.result
-        form.setFieldsValue({ mediaFiles: result, [PRIMARY_IMAGE]: result[0]?.fileId })
+        form.setFieldsValue({ mediaFiles: result, [PRIMARY_IMAGE_ID]: result[0]?.fileId })
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -106,7 +106,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           loading={fileUploadLoading}
         />
       </FormItemWrapper>
-      <FormItemWrapper name={PRIMARY_IMAGE} hidden />
+      <FormItemWrapper name={PRIMARY_IMAGE_ID} hidden />
       <FormItemWrapper
         name="mediaFiles"
         label="Media Files"
@@ -124,7 +124,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                 />
                 <SpaceWrapper className="upload-action" size={0}>
                   <ButtonWrapper
-                    onClick={() => form.setFieldValue(PRIMARY_IMAGE, media?.fileId)}
+                    onClick={() => form.setFieldValue(PRIMARY_IMAGE_ID, media?.fileId)}
                     type="text"
                     icon={
                       media?.fileId === primaryImageId ? (

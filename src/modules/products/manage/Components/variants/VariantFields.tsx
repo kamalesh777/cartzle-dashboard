@@ -93,13 +93,13 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       setUnitOptions(unitGroupUnits)
     } else {
       const result = unitGroupUnits?.map((item: UnitGroupType['units']) => {
-        const unitValue = `${value}${item?.name}`
+        const unitValue = `${value} ${item?.name}`
         return {
           name: unitValue,
           id: unitValue,
         }
       })
-      setUnitOptions(result)
+      setUnitOptions([...result, { name: value, id: value }])
     }
   }
 
@@ -213,7 +213,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
               {...restField}
             >
               <SelectWrapper
-                options={getSelectOption(unitOptions, ['name', 'name'])}
+                options={getSelectOption(unitOptions, ['name', 'name'], false)}
                 // onSelect={onSelect}
                 optionFilterProp="label"
                 onSearch={text => handleSearch(text)}

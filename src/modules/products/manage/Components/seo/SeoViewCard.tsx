@@ -12,7 +12,7 @@ import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
-import { PRIMARY_IMAGE } from '@/constants/AppConstant'
+import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 
 import SeoManageCard from './SeoManageCard'
 
@@ -22,7 +22,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
   const [openSeoModal, setOpenSeoModal] = useState(false)
 
   // get og image
-  const ogImage = productValues?.[PRIMARY_IMAGE]
+  const ogImage = productValues?.[PRIMARY_IMAGE_ID]
   const meta = {
     title: productValues?.title,
     description: productValues?.description,

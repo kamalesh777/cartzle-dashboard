@@ -35,7 +35,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
   const variantsArr = Form.useWatch('variants', form)
-  const categoryId = Form.useWatch('category', form)
+  const categoryId = Form.useWatch('categoryId', form)
 
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
   const [loading, setLoading] = useState<boolean>(false)
