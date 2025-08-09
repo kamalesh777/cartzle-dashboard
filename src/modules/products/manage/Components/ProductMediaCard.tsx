@@ -80,7 +80,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       if (res.data.success) {
         Toast('success', res.data.message)
         getMediaList() // fetch media list after upload
-        form.setFieldsValue({ media: [] })
+        form.setFieldValue('media', null)
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -98,7 +98,13 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   return (
     <>
       <FormItemWrapper name="media" label="Media" getValueFromEvent={obj => obj.fileList}>
-        <UploadWrapper multiple listType="text" showUploadList={false} loading={fileUploadLoading} />
+        <UploadWrapper
+          multiple
+          listType="text"
+          fileList={mediaImages}
+          showUploadList={false}
+          loading={fileUploadLoading}
+        />
       </FormItemWrapper>
       <FormItemWrapper name={PRIMARY_IMAGE} hidden />
       <FormItemWrapper
