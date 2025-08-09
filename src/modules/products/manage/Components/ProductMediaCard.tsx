@@ -23,8 +23,8 @@ interface PropTypes {
 
 const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const productId = Form.useWatch('id', form) || 'temp'
-  const uploadedFiles = Form.useWatch('uploadedMedia', form)
-  const mediaImages = Form.useWatch('media', form)
+  const mediaFiles = Form.useWatch('mediaFiles', form)
+  const uploadMedia = Form.useWatch('uploadMedia', form)
   const primaryImageId = Form.useWatch(PRIMARY_IMAGE, form)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -32,7 +32,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const [fileUploadLoading, setFileUploadLoading] = useState(false)
 
   // useMemo for uploaded files
-  const uploadedMediaArr = useMemo(() => uploadedFiles, [uploadedFiles])
+  const uploadedMediaArr = useMemo(() => mediaFiles, [mediaFiles])
 
   // fetch the uploaded media list
   useEffect(() => {
@@ -40,18 +40,18 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   }, [productId])
 
   useEffect(() => {
-    if (mediaImages?.length > 0) {
-      fileUploadHandler(mediaImages)
+    if (uploadMedia?.length > 0) {
+      fileUploadHandler(uploadMedia)
     }
-  }, [mediaImages])
+  }, [uploadMedia])
 
   // get media list
   const getMediaList = async (): Promise<void> => {
     try {
       const res = await getRequest(`/api/get-media-list/${productId}`)
       if (res.data.success) {
-        const uploadedFiles = res.data.result
-        form.setFieldsValue({ uploadedMedia: uploadedFiles, [PRIMARY_IMAGE]: uploadedFiles[0]?.fileId })
+        const result = res.data.result
+        form.setFieldsValue({ mediaFiles: result, [PRIMARY_IMAGE]: result[0]?.fileId })
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -80,7 +80,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       if (res.data.success) {
         Toast('success', res.data.message)
         getMediaList() // fetch media list after upload
-        form.setFieldValue('media', null)
+        form.setFieldValue('uploadMedia', null)
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -97,25 +97,25 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
 
   return (
     <>
-      <FormItemWrapper name="media" label="Media" getValueFromEvent={obj => obj.fileList}>
+      <FormItemWrapper name="uploadMedia" label="Upload Media" getValueFromEvent={obj => obj.fileList}>
         <UploadWrapper
           multiple
           listType="text"
-          fileList={mediaImages}
+          fileList={uploadMedia}
           showUploadList={false}
           loading={fileUploadLoading}
         />
       </FormItemWrapper>
       <FormItemWrapper name={PRIMARY_IMAGE} hidden />
       <FormItemWrapper
-        name="uploadedMedia"
-        label="Uploaded Media"
+        name="mediaFiles"
+        label="Media Files"
         className="mb-0"
         tooltip="All uploaded media list"
       >
         {uploadedMediaArr?.length ? (
           <div className="media-list-container">
-            {uploadedMediaArr?.map((media: any) => (
+            {uploadedMediaArr?.map((media: { fileId: string; name: string }) => (
               <div key={media?.name} className="media-list">
                 <img
                   src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}

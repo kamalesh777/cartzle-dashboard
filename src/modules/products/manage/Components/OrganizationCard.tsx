@@ -31,17 +31,17 @@ const OrganizationCard = (): JSX.Element => {
     <CardWrapper title={'Organization'} bottomBorderNone className="mb-3">
       <Row gutter={COMMON_ROW_GUTTER}>
         <ColWrapper md={12}>
-          <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>
+          <FormItemWrapper name="categoryId" label="Category" rules={requiredFieldRules}>
             <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
           </FormItemWrapper>
         </ColWrapper>
         <ColWrapper md={12}>
-          <FormItemWrapper name="brand" label="Brand">
+          <FormItemWrapper name="brandId" label="Brand">
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
         <ColWrapper md={12}>
-          <FormItemWrapper name="supplier" label="Supplier">
+          <FormItemWrapper name="supplierId" label="Supplier">
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>

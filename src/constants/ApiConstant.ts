@@ -51,6 +51,12 @@ const routesObj = {
   'unit-list': `${API_COMMON_SRV}/unit/list`,
   'unit-create': `${API_COMMON_SRV}/unit/create`,
   'unit-delete': `${API_COMMON_SRV}/unit/delete`,
+
+  // PRODUCT
+  'product-create': `${API_BASE_URL}/product-srv/create`,
+  'product-update': `${API_BASE_URL}/product-srv/update`,
+  'product-list': `${API_BASE_URL}/product-srv/list`,
+  'product-details': `${API_BASE_URL}/product-srv/details`,
 }
 
 export default routesObj

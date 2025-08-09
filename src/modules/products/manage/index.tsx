@@ -9,6 +9,8 @@ import type { ProductFormValueTypes } from '../types'
 
 import type { PositionType } from './types'
 
+import { postRequest } from '@/api/preference/RequestService'
+import { Toast } from '@/components/Common'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { ButtonWrapper, CardWrapper, SpaceWrapper } from '@/components/Wrapper'
 import { PRODUCT_LIST_ROUTE, ProductTabsArr } from '@/constants/AppConstant'
@@ -60,7 +62,7 @@ const ProductManageComp = (): JSX.Element => {
         <ButtonWrapper onClick={() => setCurrentTab(prevState => prevState - 1)}>Back</ButtonWrapper>
       ) : null,
     right: (
-      <ButtonWrapper type="primary" onClick={nextHandler}>
+      <ButtonWrapper type="primary" htmlType="submit" onClick={nextHandler}>
         {ProductTabsArr[2] !== currentTab ? 'Next' : 'Save'}
         {ProductTabsArr[2] !== currentTab ? <ArrowRightOutlined /> : <SaveOutlined />}
       </ButtonWrapper>
@@ -81,7 +83,11 @@ const ProductManageComp = (): JSX.Element => {
     const payload = {
       ...formValue,
     }
-    console.log('===formValue', payload)
+    const resp = await postRequest('/api/product-create', payload)
+    console.log('===resp', resp)
+    if (resp?.data?.success) {
+      Toast('success', resp.data.message)
+    }
   }
 
   /** Main component */
