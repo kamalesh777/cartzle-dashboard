@@ -10,7 +10,7 @@ import type { ModalPropTypes } from 'src/types/common'
 import { InfoTooltip } from '@/components/Common'
 import { ColWrapper, FormItemWrapper, InputNumberWrapper, ModalWrapper } from '@/components/Wrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
-import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { CATEGORY_ID, COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { getCurrency } from '@/utils/currency'
@@ -33,7 +33,7 @@ interface Props extends ModalPropTypes<VariantCombination> {
 
 const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
   const productTitle = Form.useWatch('title', form)
-  const productCategory = Form.useWatch('category', form)
+  const productCategory = Form.useWatch(CATEGORY_ID, form)
 
   const skuValue = generateSku(productTitle, productCategory, selectedList?.label as string)
 

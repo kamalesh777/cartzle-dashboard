@@ -1,7 +1,7 @@
 export interface ProductDataTypes {
   category: string | null
   key: string
-  name: string
+  title: string
   width: number
   thickness: number
   length: number
@@ -14,7 +14,7 @@ export interface ProductDataTypes {
 }
 
 export interface ProductFormValueTypes {
-  name: string
+  title: string
   category: keyof (typeof categoriesOptions)[number]['value']
   description?: string
   thickness: number

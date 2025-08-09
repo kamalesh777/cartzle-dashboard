@@ -72,3 +72,4 @@ export const PaymentOptions = PaymentMethods?.map(item => ({ value: item, label:
 export const PageLeaveConfirmMessage = 'You have unsaved changes. Leave anyway?'
 export const ProductTabsArr = [0, 1, 2]
 export const PRIMARY_IMAGE_ID = 'primaryImageId'
+export const CATEGORY_ID = 'categoryId'

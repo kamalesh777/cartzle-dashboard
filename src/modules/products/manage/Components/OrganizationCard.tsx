@@ -7,7 +7,7 @@ import type { CategoryType } from '../types'
 import { getRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
 import { CardWrapper, ColWrapper, FormItemWrapper, SelectWrapper } from '@/components/Wrapper'
-import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { CATEGORY_ID, COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
 
 const OrganizationCard = (): JSX.Element => {
@@ -31,7 +31,7 @@ const OrganizationCard = (): JSX.Element => {
     <CardWrapper title={'Organization'} bottomBorderNone className="mb-3">
       <Row gutter={COMMON_ROW_GUTTER}>
         <ColWrapper md={12}>
-          <FormItemWrapper name="categoryId" label="Category" rules={requiredFieldRules}>
+          <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
             <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
           </FormItemWrapper>
         </ColWrapper>

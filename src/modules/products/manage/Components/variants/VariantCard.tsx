@@ -25,6 +25,7 @@ import { setVariantOptions } from '@/store/slices/variantsSlice'
 import { getSelectOption } from '@/utils/disableFunction'
 
 import VariantFields from './VariantFields'
+import { CATEGORY_ID } from '@/constants/AppConstant'
 
 interface PropTypes {
   form: FormInstance
@@ -35,7 +36,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
   const variantsArr = Form.useWatch('variants', form)
-  const categoryId = Form.useWatch('categoryId', form)
+  const categoryId = Form.useWatch(CATEGORY_ID, form)
 
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
   const [loading, setLoading] = useState<boolean>(false)
