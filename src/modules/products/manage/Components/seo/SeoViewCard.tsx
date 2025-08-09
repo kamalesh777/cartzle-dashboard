@@ -67,12 +67,12 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
         </div>
       )}
       <div>
-        <Typography.Paragraph className="mb-0" strong>
+        <Typography.Paragraph className="mb-0 mt-1" strong>
           {meta.ogTitle || 'Your social share title'}
         </Typography.Paragraph>
-        <div style={{ color: '#555' }}>
+        <Typography.Paragraph style={{ color: '#555', fontSize: 14 }}>
           {meta.description || 'This description will appear when the product is shared on social media.'}
-        </div>
+        </Typography.Paragraph>
       </div>
     </>
   )
@@ -115,7 +115,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
       children: (
         <div className="seo-card">
           <div className="seo-content">{tab.key === 'google' ? googleContent : socialContent}</div>
-          <ButtonWrapper type="link" className="p-0 ms-2" tooltip="Manage" onClick={handleManage}>
+          <ButtonWrapper type="link" className="p-0 ms-2 h-auto" tooltip="Manage" onClick={handleManage}>
             <SettingOutlined />
           </ButtonWrapper>
         </div>

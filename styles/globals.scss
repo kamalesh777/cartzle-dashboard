@@ -278,6 +278,8 @@ header.ant-layout-header.fix-header {
 .media-list-container {
     display: flex;
 	flex-wrap: wrap;
+	max-height: 160px;
+    overflow-y: scroll;
 }
 .media-list {
     width: calc(20% - 10px);
@@ -288,6 +290,10 @@ header.ant-layout-header.fix-header {
     overflow: hidden;
 	transition: all 0.3s ease-in-out;
 }
+.media-list:hover {
+	width: calc(20% - 10px);
+    height: 70px;
+}
 .media-list:not(:nth-child(5n)) {
 	margin-right: 12px;
 }
@@ -296,6 +302,7 @@ header.ant-layout-header.fix-header {
     width: 100%;
     object-fit: cover;
 	border-radius: 8px;
+	padding: 8px;
     border: 1px solid #d9d9d9;
 }
 .media-list:after {
@@ -319,6 +326,7 @@ header.ant-layout-header.fix-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
+	align-items: flex-start;
 }
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {

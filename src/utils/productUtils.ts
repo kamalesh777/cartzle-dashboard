@@ -10,6 +10,6 @@ export const generateSku = (productName: string, category: string, variants: str
   const arr: string[] = [productName, category]
   const values = variants?.split(' x ')
   arr.push(...values)
-  const sku = arr.map(item => item.toLowerCase().substring(0, 4)).join('-')
+  const sku = arr.map(item => item?.toLowerCase().substring(0, 4)).join('-')
   return sku
 }
