@@ -7,21 +7,20 @@ import { useRouter } from 'next/navigation'
 
 import type { ProductDataTypes } from '../types'
 
+import EmptyContentTableLoading from '@/components/Common/EmptyContentTableLoading'
 import TableActionButton from '@/components/Common/TableActionButton'
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
-import { listData } from '../static/data'
 import { useGetRequestHandler } from '@/hook/requestHandler'
 import { getCurrency } from '@/utils/currency'
-import EmptyContentTableLoading from '@/components/Common/EmptyContentTableLoading'
 
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
   const [searchValue, setSearchValue] = useState<string>('')
 
-  const {data, isLoading, fetchData} = useGetRequestHandler<ProductDataTypes[]>()
+  const { isLoading, fetchData } = useGetRequestHandler<ProductDataTypes[]>()
 
   useEffect(() => {
     const searchQuery = searchValue ? `?search=${searchValue}` : ''
@@ -96,7 +95,15 @@ const ProductListComp = (): JSX.Element => {
         )}
         dataSource={[]}
         columns={columns}
-        locale={{emptyText: <EmptyContentTableLoading isLoading={!isLoading} columns={[23, 14, 13, 13, 15, 11]} entity="Product" />}}
+        locale={{
+          emptyText: (
+            <EmptyContentTableLoading
+              isLoading={!isLoading}
+              columns={[23, 14, 13, 13, 15, 11]}
+              entity="Product"
+            />
+          ),
+        }}
       />
     </>
   )

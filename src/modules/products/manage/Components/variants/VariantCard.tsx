@@ -20,12 +20,12 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 
+import { CATEGORY_ID } from '@/constants/AppConstant'
 import { setVariantOptions } from '@/store/slices/variantsSlice'
 
 import { getSelectOption } from '@/utils/disableFunction'
 
 import VariantFields from './VariantFields'
-import { CATEGORY_ID } from '@/constants/AppConstant'
 
 interface PropTypes {
   form: FormInstance

@@ -14,6 +14,7 @@ import SpaceWrapper from './SpaceWrapper'
 interface Props {
   name: string
   loading: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: (info: UploadChangeParam<UploadFile<any>>) => void
   children?: React.ReactNode
   className?: string
@@ -31,6 +32,7 @@ const BrowseFile = ({ name, loading, onChange, children, className }: Props): JS
 
   return (
     <ImgCrop
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onModalOk={file => onChange?.(file as unknown as UploadChangeParam<UploadFile<any>>)}
       modalOk="Crop"
       rotationSlider
