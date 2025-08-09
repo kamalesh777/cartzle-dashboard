@@ -7,7 +7,7 @@ import { Form, type FormInstance } from 'antd'
 
 import { useDispatch } from 'react-redux'
 
-import type { UnitGroupType } from '../types'
+import type { UnitGroupType } from '../../types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { InfoTooltip, TableContentLoaderWithProps, Toast } from '@/components/Common'

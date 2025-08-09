@@ -22,8 +22,7 @@ import { getSelectOption } from '@/utils/disableFunction'
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
 import ProductMediaCard from '../ProductMediaCard'
-import MetaViewCard from '../meta/ViewCard'
-import MetaManageCard from '../meta/ManageCard'
+import SeoViewCard from '../seo/SeoViewCard'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   return (
@@ -35,25 +34,25 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
             <InputWrapper />
           </FormItemWrapper>
           <FormItemWrapper name="description" label="Description">
-            <Input.TextArea rows={3} />
+            <Input.TextArea rows={4} />
           </FormItemWrapper>
           {/* Product media card */}
           <ProductMediaCard form={form} />
           {/* Meta card */}
-          <MetaViewCard />
+          <SeoViewCard form={form} />
         </CardWrapper>
       </ColWrapper>
 
       {/* Right side fields */}
       <ColWrapper md={10}>
-        <CardWrapper title={'Status'} className="mb-3" bottomBorder>
+        <CardWrapper title={'Status'} className="mb-3" bottomBorderNone>
           <FormItemWrapper name="status" className="mb-2">
             <SelectWrapper options={getSelectOption(['Published', 'Draft', 'Deleted'])} />
           </FormItemWrapper>
         </CardWrapper>
         <PriceCard form={form} />
         <OrganizationCard />
-        <CardWrapper title={'Tags & Collection'} bottomBorder>
+        <CardWrapper title={'Tags & Collection'} bottomBorderNone>
           <Row gutter={COMMON_ROW_GUTTER}>
             <ColWrapper md={12}>
               <FormItemWrapper

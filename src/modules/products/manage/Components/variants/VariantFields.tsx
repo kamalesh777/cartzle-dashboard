@@ -15,7 +15,7 @@ import { lowerCase } from 'lodash'
 
 import { useSelector } from 'react-redux'
 
-import type { UnitGroupType, VariantOptionTypes } from '../types'
+import type { UnitGroupType, VariantOptionTypes } from '../../types'
 import type { RootState } from '@/store/index'
 
 import {

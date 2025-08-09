@@ -7,8 +7,8 @@ import type { TabProps } from '../../types'
 import { ColWrapper } from '@/components/Wrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
-import VariantCardComp from '../VariantCard'
-import VariantsTable from '../VariantsTable'
+import VariantCardComp from '../variants/VariantCard'
+import VariantsTable from '../variants/VariantsTable'
 
 const VariationTab = ({ form }: TabProps): JSX.Element => {
   return (

@@ -1,0 +1,135 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable no-duplicate-imports */
+import React, { useState } from 'react'
+
+import { SettingOutlined } from '@ant-design/icons'
+
+import { Form, Tabs, Typography } from 'antd'
+
+import type { FormInstance } from 'antd'
+
+import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
+
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+
+import { PRIMARY_IMAGE } from '@/constants/AppConstant'
+
+import SeoManageCard from './SeoManageCard'
+
+const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
+  const productValues = Form.useWatch([], form)
+
+  const [openSeoModal, setOpenSeoModal] = useState(false)
+
+  // get og image
+  const ogImage = productValues?.[PRIMARY_IMAGE]
+  const meta = {
+    title: productValues?.title,
+    description: productValues?.description,
+    ogTitle: productValues?.title,
+    ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
+  }
+
+  // set meta data to form
+  form.setFieldValue('seo', meta)
+
+  const handleManage = (): void => {
+    setOpenSeoModal(true)
+  }
+
+  const socialContent = (
+    <>
+      {meta?.ogImage ? (
+        <img
+          src={meta?.ogImage}
+          alt="OG Preview"
+          style={{
+            width: 120,
+            height: 120,
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            width: 120,
+            height: 120,
+            background: '#d9d9d9',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            color: '#888',
+          }}
+        >
+          No Image
+        </div>
+      )}
+      <div>
+        <Typography.Paragraph className="mb-0" strong>
+          {meta.ogTitle || 'Your social share title'}
+        </Typography.Paragraph>
+        <div style={{ color: '#555' }}>
+          {meta.description || 'This description will appear when the product is shared on social media.'}
+        </div>
+      </div>
+    </>
+  )
+  const googleContent = (
+    <SpaceWrapper direction="vertical" size={0}>
+      <Typography.Paragraph
+        className="mb-0"
+        style={{ color: '#1a0dab', fontSize: 18 }}
+        ellipsis={{ rows: 1, suffix: '' }}
+      >
+        {meta?.title || 'Your product title here'}
+      </Typography.Paragraph>
+      <Typography.Paragraph
+        className="mb-1"
+        style={{ color: '#006621', fontSize: 14 }}
+        ellipsis={{ rows: 1, suffix: '' }}
+      >
+        www.example.com/{productValues?.title || 'product-name'}
+      </Typography.Paragraph>
+      <Typography.Paragraph style={{ color: '#545454', fontSize: 14 }}>
+        {meta?.description || 'Your product description will appear here as a snippet in search results.'}
+      </Typography.Paragraph>
+    </SpaceWrapper>
+  )
+
+  const tabsArr = [
+    {
+      key: 'google',
+      label: 'Google Search Preview',
+    },
+    {
+      key: 'social',
+      label: 'Social Preview',
+    },
+  ]
+
+  const finalTabs = tabsArr.map(tab => {
+    return {
+      ...tab,
+      children: (
+        <div className="seo-card">
+          <div className="seo-content">{tab.key === 'google' ? googleContent : socialContent}</div>
+          <ButtonWrapper type="link" className="p-0 ms-2" tooltip="Manage" onClick={handleManage}>
+            <SettingOutlined />
+          </ButtonWrapper>
+        </div>
+      ),
+    }
+  })
+
+  return (
+    <>
+      <Form.Item name="seo" hidden />
+      <Tabs defaultActiveKey="google" items={finalTabs} style={{ overflow: 'hidden' }} />
+      <SeoManageCard openModal={openSeoModal} setOpenModal={setOpenSeoModal} form={form} />
+    </>
+  )
+}
+
+export default SeoViewCard

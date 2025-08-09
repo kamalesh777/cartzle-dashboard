@@ -28,7 +28,7 @@ const OrganizationCard = (): JSX.Element => {
     fetchCategory()
   }, [])
   return (
-    <CardWrapper title={'Organization'} bottomBorder className="mb-3">
+    <CardWrapper title={'Organization'} bottomBorderNone className="mb-3">
       <Row gutter={COMMON_ROW_GUTTER}>
         <ColWrapper md={12}>
           <FormItemWrapper name="category" label="Category" rules={requiredFieldRules}>

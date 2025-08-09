@@ -268,10 +268,10 @@ header.ant-layout-header.fix-header {
 .\[position\:absolute\] {
 	position: absolute !important;
 }
-.bottom-border-none .ant-card-head {
+.bottom-border-none > .ant-card-head {
 	border-bottom: none !important;
 }
-.bottom-border-none .ant-card-body {
+.bottom-border-none > .ant-card-body {
 	padding-top: 0px !important;
 }
 
@@ -314,6 +314,11 @@ header.ant-layout-header.fix-header {
     align-items: center;
 	inset: 0;
 	z-index: 9;
+}
+.seo-card {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {

@@ -71,3 +71,4 @@ export const PaymentMethods = ['PhonePe', 'GPay', 'Paytm', 'Amazon Pay', 'Cash',
 export const PaymentOptions = PaymentMethods?.map(item => ({ value: item, label: item }))
 export const PageLeaveConfirmMessage = 'You have unsaved changes. Leave anyway?'
 export const ProductTabsArr = [0, 1, 2]
+export const PRIMARY_IMAGE = 'primaryImage'

@@ -29,7 +29,7 @@ const PriceCard = ({ form }: PropTypes) => {
       }
     }, [costPrice, salePrice, discount, form])
   return (
-    <CardWrapper title={'Pricing'} className="mb-3" bottomBorder>
+    <CardWrapper title={'Pricing'} className="mb-3" bottomBorderNone>
           <Row gutter={COMMON_ROW_GUTTER}>
             <ColWrapper md={12}>
               <FormItemWrapper name="costPrice" label="Cost Price" rules={requiredFieldRules}>

@@ -5,7 +5,7 @@ import { Form, type TableColumnsType, type FormInstance } from 'antd'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import type { VariantCombination, VariantOptionTypes } from '../types'
+import type { VariantCombination, VariantOptionTypes } from '../../types'
 import type { RootState } from '@/store/index'
 import type { TableRowSelection } from 'antd/es/table/interface'
 
@@ -15,8 +15,8 @@ import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { getCurrency } from '@/utils/currency'
 
-import VariantsGroupModal from '../modal/VariantsGroupModal'
-import { generateGroupedCombinations } from '../utils/generateGroupedCombinations'
+import VariantsGroupModal from '../../modal/VariantsGroupModal'
+import { generateGroupedCombinations } from '../../utils/generateGroupedCombinations'
 
 interface PropTypes {
   form: FormInstance
