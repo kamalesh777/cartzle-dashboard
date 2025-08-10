@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cookies } from 'next/headers'
 
-import { API_BASE_URL } from '@/constants/ApiConstant'
-
 type Methods = 'get' | 'post' | 'put' | 'delete'
 
 export const requestServerSide = async (
@@ -26,7 +24,8 @@ export const requestServerSide = async (
   // check if searchQuery are present
   const paramsString = searchQuery.toString() ? `?${searchQuery.toString()}` : ''
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}${paramsString}`, {
+  // const response = await fetch(`${API_BASE_URL}${endpoint}${paramsString}`, {
+  const response = await fetch(`${endpoint}${paramsString}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${Cookies.get('accessToken')?.value}`,

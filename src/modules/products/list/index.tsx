@@ -31,7 +31,7 @@ const ProductListComp = (): JSX.Element => {
     {
       label: 'Update',
       key: 'update',
-      onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record?.title}`),
+      onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record.id}`),
     },
   ]
 

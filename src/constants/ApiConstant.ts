@@ -9,7 +9,7 @@ export const MEDIA_BASE_URL = `${API_BASE_URL}/media-srv`
 
 const API_COMMON_SRV = `${API_BASE_URL}/common-srv`
 
-const routesObj = {
+export const API_ROUTES = {
   'api-testing': `${API_BASE_URL}`,
 
   // MEDIA SERVICE
@@ -58,5 +58,3 @@ const routesObj = {
   'product-list': `${API_BASE_URL}/product-srv/list`,
   'product-details': `${API_BASE_URL}/product-srv/details`,
 }
-
-export default routesObj

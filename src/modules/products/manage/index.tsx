@@ -1,11 +1,12 @@
+'use client'
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ArrowRightOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons'
 import { Form, Tabs } from 'antd'
 
-import type { ProductFormValueTypes } from '../types'
+import type { ProductDataTypes, ProductFormValueTypes } from '../types'
 
 import type { PositionType } from './types'
 
@@ -21,12 +22,22 @@ import AdditionalTab from './Components/tabs/AdditionalTab'
 import GeneralTab from './Components/tabs/GeneralTab'
 import VariationTab from './Components/tabs/VariationTab'
 
+interface Props {
+  data: ProductDataTypes
+}
+
 // Product manage component
-const ProductManageComp = (): JSX.Element => {
+const ProductManageComp = ({ data }: Props): JSX.Element => {
   const { setIsValueChanged } = useUnwantedReload()
-  const [currentTab, setCurrentTab] = React.useState<number>(ProductTabsArr[0])
+  const [currentTab, setCurrentTab] = useState<number>(ProductTabsArr[0])
 
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    if (data) {
+      form.setFieldsValue(data)
+    }
+  }, [data])
 
   // tabs array
   const tabsArray = [

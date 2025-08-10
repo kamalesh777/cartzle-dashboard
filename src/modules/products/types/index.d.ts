@@ -1,4 +1,5 @@
 export interface ProductDataTypes {
+  id: string
   category: string | null
   key: string
   title: string

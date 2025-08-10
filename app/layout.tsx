@@ -14,7 +14,7 @@ import { RootStyleRegistry } from '@/components/RootStyle'
 import StoreProvider from '@/components/StoreProvider'
 
 import ThemeWrapper from '@/components/Wrapper/ThemeWrapper'
-import { API_BASE_URL } from '@/constants/ApiConstant'
+import { API_BASE_URL, API_ROUTES } from '@/constants/ApiConstant'
 import { metaTitle } from '@/utils/commonFunctions'
 import { fetchServerSide } from '@/utils/fetchServerSide'
 
@@ -27,7 +27,7 @@ type Props = {
 
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
-  const resp = await fetchServerSide('/company/details')
+  const resp = await fetchServerSide(`${API_ROUTES['company-details']}`)
   const result = await resp.result
 
   // optionally access and extend (rather than replace) parent metadata
@@ -45,7 +45,7 @@ export async function generateMetadata({}: Props, parent: ResolvingMetadata): Pr
 export const dynamic = 'force-dynamic'
 const DashboardLayout = async ({ children }: PropsWithChildren): Promise<JSX.Element> => {
   // fetch company details on server side
-  const resp = await fetchServerSide(`/company/details`)
+  const resp = await fetchServerSide(`${API_ROUTES['company-details']}`)
 
   const companyDetails = await resp.result
 

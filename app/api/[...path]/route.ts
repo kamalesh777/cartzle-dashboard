@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import type { AxiosError, AxiosResponse } from 'axios'
 
 import API from '@/api/preference/API'
-import apiRoute from '@/constants/ApiConstant'
+import { API_ROUTES } from '@/constants/ApiConstant'
 
 const ERROR_MSG = 'Something went wrong'
 
@@ -38,7 +38,7 @@ async function handleRequest(request: Request): Promise<Response> {
   }
 
   // It will give the original API endpoint
-  const maskUrl = apiRoute[urlParams?.at(0) as keyof typeof apiRoute] as string
+  const maskUrl = API_ROUTES[urlParams?.at(0) as keyof typeof API_ROUTES] as string
   // Make the param string after removing the mask URL key (which will come at the first index)
   const paramString = urlParams?.length > 1 ? `/${urlParams.slice(1).join('/')}` : ''
   // After getting the original URL, concatenate with param and search value
