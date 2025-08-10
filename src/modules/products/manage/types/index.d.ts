@@ -62,4 +62,10 @@ export interface TabProps {
   form: FormInstance
 }
 
+export interface VariantMedia {
+  fileId: string
+  name: string
+  isPrimary: boolean
+}
+
 export type PositionType = 'left' | 'right'

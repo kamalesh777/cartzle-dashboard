@@ -73,7 +73,11 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
         <ButtonWrapper onClick={() => setCurrentTab(prevState => prevState - 1)}>Back</ButtonWrapper>
       ) : null,
     right: (
-      <ButtonWrapper type="primary" htmlType="submit" onClick={nextHandler}>
+      <ButtonWrapper
+        type="primary"
+        htmlType={ProductTabsArr[2] !== currentTab ? 'button' : 'submit'}
+        onClick={nextHandler}
+      >
         {ProductTabsArr[2] !== currentTab ? 'Next' : 'Save'}
         {ProductTabsArr[2] !== currentTab ? <ArrowRightOutlined /> : <SaveOutlined />}
       </ButtonWrapper>

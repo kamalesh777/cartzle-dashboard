@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { DeleteOutlined, EyeOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
 import { Form, Tooltip } from 'antd'
 
+import type { VariantMedia } from '../types'
 import type { FormInstance, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
@@ -17,6 +18,8 @@ import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
+import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
+
 interface PropTypes {
   form: FormInstance
 }
@@ -25,7 +28,6 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const productId = Form.useWatch('id', form) || 'temp'
   const mediaFiles = Form.useWatch('mediaFiles', form)
   const uploadMedia = Form.useWatch('uploadMedia', form)
-  const primaryImageId = Form.useWatch(PRIMARY_IMAGE_ID, form)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
@@ -95,6 +97,12 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
     setOpenDeleteModal(true)
   }
 
+  // file active handler
+  const fileActiveHandler = (uploadedFiles: VariantMedia[], index: number): void => {
+    const result = setPrimaryMediaHandler(uploadedFiles, index)
+    form.setFieldsValue({ mediaFiles: result })
+  }
+
   return (
     <>
       <FormItemWrapper name="uploadMedia" label="Upload Media" getValueFromEvent={obj => obj.fileList}>
@@ -106,7 +114,6 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           loading={fileUploadLoading}
         />
       </FormItemWrapper>
-      <FormItemWrapper name={PRIMARY_IMAGE_ID} hidden />
       <FormItemWrapper
         name="mediaFiles"
         label="Media Files"
@@ -115,7 +122,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       >
         {uploadedMediaArr?.length ? (
           <div className="media-list-container">
-            {uploadedMediaArr?.map((media: { fileId: string; name: string }) => (
+            {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
               <div key={media?.name} className="media-list">
                 <img
                   src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
@@ -124,10 +131,10 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                 />
                 <SpaceWrapper className="upload-action" size={0}>
                   <ButtonWrapper
-                    onClick={() => form.setFieldValue(PRIMARY_IMAGE_ID, media?.fileId)}
+                    onClick={() => fileActiveHandler(uploadedMediaArr, index)}
                     type="text"
                     icon={
-                      media?.fileId === primaryImageId ? (
+                      media?.isPrimary ? (
                         <Tooltip title="Primary Image">
                           <StarFilled style={{ color: '#ffc221' }} />
                         </Tooltip>
