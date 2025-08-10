@@ -12,7 +12,9 @@ const EmptyContentTableLoading = ({ isLoading, columns, rowCounts, ...props }: P
   return isLoading ? (
     <TableContentLoaderWithProps columnWidth={columns} rowCounts={rowCounts || 5} />
   ) : (
-    <EmptyWrapper {...props} />
+    <div className="my-3">
+      <EmptyWrapper {...props} />
+    </div>
   )
 }
 

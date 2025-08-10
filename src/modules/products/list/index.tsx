@@ -20,7 +20,7 @@ const ProductListComp = (): JSX.Element => {
   const router = useRouter()
   const [searchValue, setSearchValue] = useState<string>('')
 
-  const { isLoading, fetchData } = useGetRequestHandler<ProductDataTypes[]>()
+  const { data, isLoading, fetchData } = useGetRequestHandler<ProductDataTypes[]>()
 
   useEffect(() => {
     const searchQuery = searchValue ? `?search=${searchValue}` : ''
@@ -93,12 +93,12 @@ const ProductListComp = (): JSX.Element => {
             </Col>
           </Row>
         )}
-        dataSource={[]}
+        dataSource={data || []}
         columns={columns}
         locale={{
           emptyText: (
             <EmptyContentTableLoading
-              isLoading={!isLoading}
+              isLoading={isLoading}
               columns={[23, 14, 13, 13, 15, 11]}
               entity="Product"
             />
