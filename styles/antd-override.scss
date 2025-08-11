@@ -113,6 +113,20 @@ tr.ant-table-expanded-row .ant-table-wrapper {
     height: 34px !important;
     line-height: 34px !important;
 }
+.checkbox-button {
+    position: relative;
+}
+.checkbox-button>.ant-checkbox {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.checkbox-button > .ant-checkbox-label {
+    padding-inline: 0 !important;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

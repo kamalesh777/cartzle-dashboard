@@ -37,6 +37,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
+  const [selectedIndex, setSelectedIndex] = useState<number>()
 
   // filter variants with op_value length > 0
   const variantsArr = useMemo(() => {
@@ -142,10 +143,10 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       fixed: 'right',
       width: 50,
       className: 'text-right',
-      render: (_, record) => (
+      render: (_, record, index) => (
         <TableActionButton
           items={[]}
-          icon={<FormOutlined onClick={() => editRowHandler(record)} />}
+          icon={<FormOutlined onClick={() => editRowHandler(record, index)} />}
           tooltipTitle="Edit"
         />
       ),
@@ -155,7 +156,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-    selectedRowKeys: selectedVariants?.map((item: VariantCombination) => item.key),
+    selectedRowKeys: selectedVariants?.length
+      ? selectedVariants?.map((item: VariantCombination) => item.key)
+      : [],
     onChange: (_selectedRowKeys, selectedRows) => {
       form.setFieldValue('variantCombinations', selectedRows)
     },
@@ -194,8 +197,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   // edit row handler
-  const editRowHandler = (record: VariantCombination): void => {
+  const editRowHandler = (record: VariantCombination, index: number): void => {
     setSelectedList(record)
+    setSelectedIndex(index)
     setOpenModal(true)
   }
 
@@ -217,7 +221,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         />
       )}
 
-      {openModal && <VariantsGroupModal {...{ form, openModal, setOpenModal, selectedList }} />}
+      {openModal && (
+        <VariantsGroupModal {...{ form, openModal, setOpenModal, selectedList, selectedIndex }} />
+      )}
     </div>
   )
 }

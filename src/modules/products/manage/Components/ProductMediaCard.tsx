@@ -121,13 +121,13 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
         tooltip="All uploaded media list"
       >
         {uploadedMediaArr?.length ? (
-          <div className="media-list-container">
+          <div className="media-list-container" style={{ gap: '0px' }}>
             {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
-              <div key={media?.name} className="media-list">
+              <div key={media?.name} className={`media-list mb-2`}>
                 <img
                   src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
                   alt={media.name}
-                  className="w-20 h-20"
+                  className={media?.isPrimary ? 'active-border' : ''}
                 />
                 <SpaceWrapper className="upload-action" size={0}>
                   <ButtonWrapper

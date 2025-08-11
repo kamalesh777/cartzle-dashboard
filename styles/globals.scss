@@ -280,20 +280,17 @@ header.ant-layout-header.fix-header {
 	flex-wrap: wrap;
 	max-height: 160px;
     overflow-y: scroll;
+	gap: 10px;
 }
 .media-list {
     width: calc(20% - 10px);
     height: 70px;
-    margin-bottom: 10px;
     position: relative;
     border-radius: 8px;
     overflow: hidden;
 	transition: all 0.3s ease-in-out;
 }
-.media-list:hover {
-	width: calc(20% - 10px);
-    height: 70px;
-}
+
 .media-list:not(:nth-child(5n)) {
 	margin-right: 12px;
 }
@@ -308,25 +305,34 @@ header.ant-layout-header.fix-header {
 .media-list:after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: 4px;
     background: #000;
     opacity: 0;
+	border-radius: 8px;
 }
 .media-list:hover::after {
     opacity: 0.5;
 }
-.media-list:hover .upload-action {
+.media-list .upload-action {
     position: absolute;
     justify-content: center;
     align-items: center;
 	inset: 0;
 	z-index: 9;
+	opacity: 0;
+	transition: all 0.3s ease-in-out;
+}
+.media-list:hover .upload-action {
+	opacity: 1;
 }
 .seo-card {
     display: flex;
     width: 100%;
     justify-content: space-between;
 	align-items: flex-start;
+}
+.active-border {
+	border: 2px solid var(--primary-color) !important;
 }
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
@@ -335,4 +341,14 @@ header.ant-layout-header.fix-header {
 	.settings-stepper {
 		display: none;
 	}
+	.media-list:not(:nth-child(5n)) {
+		margin-right: 0px;
+	}
+	.media-list {
+		width: calc(50% - 7px)
+	}
+	.media-list:not(:nth-child(2n)) {
+		margin-right: 10px;
+	}
+	
 }
