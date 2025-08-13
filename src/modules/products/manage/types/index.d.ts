@@ -69,3 +69,10 @@ export interface VariantMedia {
 }
 
 export type PositionType = 'left' | 'right'
+
+export interface MetaType {
+  title: string
+  description: string
+  ogTitle: string
+  ogImage: string
+}

@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-duplicate-imports */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { SettingOutlined } from '@ant-design/icons'
 
 import { Form, Tabs, Typography } from 'antd'
 
+import type { MetaType } from '../../types'
 import type { FormInstance } from 'antd'
 
 import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
@@ -19,18 +20,19 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
   const mediaFiles = Form.useWatch('mediaFiles', form)
 
   const [openSeoModal, setOpenSeoModal] = useState(false)
+  const [meta, setMeta] = useState<MetaType | null>(null)
 
   // get og image
   const ogImage = mediaFiles?.find((item: any) => item?.isPrimary)?.fileId
-  const meta = {
-    title: productValues?.title,
-    description: productValues?.description,
-    ogTitle: productValues?.title,
-    ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
-  }
 
-  // set meta data to form
-  form.setFieldValue('seo', meta)
+  useEffect(() => {
+    setMeta({
+      title: productValues?.title,
+      description: productValues?.description,
+      ogTitle: productValues?.title,
+      ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
+    })
+  }, [productValues, ogImage])
 
   const handleManage = (): void => {
     setOpenSeoModal(true)
@@ -68,10 +70,10 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
       )}
       <div>
         <Typography.Paragraph className="mb-0 mt-1" strong>
-          {meta.ogTitle || 'Your social share title'}
+          {meta?.ogTitle || 'Your social share title'}
         </Typography.Paragraph>
         <Typography.Paragraph style={{ color: '#555', fontSize: 14 }}>
-          {meta.description || 'This description will appear when the product is shared on social media.'}
+          {meta?.description || 'This description will appear when the product is shared on social media.'}
         </Typography.Paragraph>
       </div>
     </>
@@ -127,7 +129,12 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
     <>
       <Form.Item name="seo" hidden />
       <Tabs defaultActiveKey="google" items={finalTabs} style={{ overflow: 'hidden' }} />
-      <SeoManageCard openModal={openSeoModal} setOpenModal={setOpenSeoModal} form={form} />
+      <SeoManageCard
+        openModal={openSeoModal}
+        setOpenModal={setOpenSeoModal}
+        selectedList={meta as MetaType}
+        form={form}
+      />
     </>
   )
 }
