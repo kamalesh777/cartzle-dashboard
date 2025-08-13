@@ -116,16 +116,15 @@ tr.ant-table-expanded-row .ant-table-wrapper {
 .checkbox-button {
     position: relative;
 }
-.checkbox-button>.ant-checkbox {
+.checkbox-button > .ant-checkbox {
     position: absolute;
-    inset: 0;
     margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 9;
+    bottom: 0;
 }
 .checkbox-button > .ant-checkbox-label {
     padding-inline: 0 !important;
+    width: 100%;
 }
 @media (max-width: 768px) {
     .ant-menu {

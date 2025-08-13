@@ -1,24 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 
-import { StarFilled, StarOutlined, EyeOutlined } from '@ant-design/icons'
-import { Checkbox, Form, Row, Tooltip } from 'antd'
+import { StarFilled } from '@ant-design/icons'
+
+import { Checkbox, Form, Row } from 'antd'
 
 import type { VariantCombination, VariantMedia } from '../types'
+// eslint-disable-next-line no-duplicate-imports
+import type { MenuProps } from 'antd'
 import type { FormInstance, Rule } from 'antd/es/form'
 
 import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
 import {
-  ButtonWrapper,
   CheckBoxWrapper,
   ColWrapper,
+  DropdownWrapper,
   EmptyWrapper,
   FormItemWrapper,
   InputNumberWrapper,
   ModalWrapper,
-  SpaceWrapper,
 } from '@/components/Wrapper'
 
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
@@ -29,6 +31,8 @@ import { getCurrency } from '@/utils/currency'
 import { generateSku } from '@/utils/productUtils'
 
 import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
+
+import MoreVertical from '@/components/Common/Icons/MoreVertical'
 
 interface FieldsArrType {
   name: string
@@ -99,6 +103,20 @@ const VariantsGroupModal = ({
     form.setFieldsValue({ mediaFiles: result })
   }
 
+  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
+    return [
+      {
+        key: '1',
+        label: 'Set as Primary',
+        onClick: () => fileActiveHandler(uploadedMediaArr, index),
+      },
+      {
+        key: '2',
+        label: 'View',
+      },
+    ]
+  }
+
   return (
     <ModalWrapper
       open={openModal}
@@ -120,9 +138,11 @@ const VariantsGroupModal = ({
               </FormItemWrapper>
             </ColWrapper>
           ))}
-          <FormItemWrapper name={'showAll'}>
-            <CheckBoxWrapper>Show all media files</CheckBoxWrapper>
-          </FormItemWrapper>
+          <ColWrapper md={24}>
+            <FormItemWrapper name={'showAll'} className="mb-3" initialValue={true} valuePropName="checked">
+              <CheckBoxWrapper>Show all media files</CheckBoxWrapper>
+            </FormItemWrapper>
+          </ColWrapper>
           {(selectedList?.parent || variantsArr?.length === 1) && (
             <ColWrapper md={24}>
               <FormItemWrapper
@@ -132,38 +152,28 @@ const VariantsGroupModal = ({
                 {uploadedMediaArr?.length ? (
                   <Checkbox.Group>
                     <div className="media-list-container">
-                      {uploadedMediaArr?.map((media: VariantMedia) => (
-                        <CheckBoxWrapper value={media?.fileId} key={media?.name} className="checkbox-button">
-                          <div className="media-list w-100">
+                      {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
+                        <CheckBoxWrapper
+                          value={media?.fileId}
+                          key={media?.name}
+                          className="checkbox-button"
+                          style={{ width: '18%' }}
+                        >
+                          <div
+                            className={`media-list w-100 ${
+                              mediaIdArr?.includes(media?.fileId) ? 'active-border' : ''
+                            }`}
+                          >
+                            <div className="upload-action">
+                              {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
+                              <DropdownWrapper menu={{ items: menuItems(media, index) }}>
+                                <MoreVertical className="p-1" />
+                              </DropdownWrapper>
+                            </div>
                             <img
                               src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
                               alt={media.name}
-                              className={mediaIdArr?.includes(media?.fileId) ? 'active-border' : ''}
                             />
-                            <SpaceWrapper className="upload-action" size={0}>
-                              <ButtonWrapper
-                                // onClick={() => fileActiveHandler(uploadedMediaArr, selectedList?.label)}
-                                type="text"
-                                icon={
-                                  media?.isPrimary ? (
-                                    <Tooltip title="Primary Image">
-                                      <StarFilled style={{ color: '#ffc221' }} />
-                                    </Tooltip>
-                                  ) : (
-                                    <Tooltip title="Set as primary">
-                                      <StarOutlined style={{ color: '#FFF' }} />
-                                    </Tooltip>
-                                  )
-                                }
-                                className="p-0"
-                              />
-                              <ButtonWrapper
-                                type="text"
-                                icon={<EyeOutlined className="text-white" />}
-                                tooltip="View"
-                                className="p-0"
-                              />
-                            </SpaceWrapper>
                           </div>
                         </CheckBoxWrapper>
                       ))}

@@ -10,7 +10,7 @@ import type { FormInstance, MenuProps, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
-import MoreVertical from '@/components/Common/Icons/MoreVertical'
+
 import { FormItemWrapper, EmptyWrapper, DropdownWrapper } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
@@ -20,6 +20,8 @@ import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
 import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
+
+import MoreVertical from '@/components/Common/Icons/MoreVertical'
 
 interface PropTypes {
   form: FormInstance

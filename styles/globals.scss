@@ -274,7 +274,9 @@ header.ant-layout-header.fix-header {
 .bottom-border-none > .ant-card-body {
 	padding-top: 0px !important;
 }
-
+.active-border {
+	border: 2px solid var(--primary-color) !important;
+}
 .media-list-container {
     display: flex;
 	flex-wrap: wrap;
@@ -294,6 +296,9 @@ header.ant-layout-header.fix-header {
     flex-direction: column;
 }
 
+.media-list:hover {
+	@extend .active-border;
+}
 .media-list:not(:nth-child(5n)) {
 	margin-right: 12px;
 }
@@ -326,9 +331,7 @@ header.ant-layout-header.fix-header {
     justify-content: space-between;
 	align-items: flex-start;
 }
-.active-border {
-	border: 2px solid var(--primary-color) !important;
-}
+
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
