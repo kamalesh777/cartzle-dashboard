@@ -289,6 +289,7 @@ header.ant-layout-header.fix-header {
     border-radius: 8px;
     overflow: hidden;
 	transition: all 0.3s ease-in-out;
+	border: 1px solid #d9d9d9;
 }
 
 .media-list:not(:nth-child(5n)) {
@@ -300,31 +301,30 @@ header.ant-layout-header.fix-header {
     object-fit: cover;
 	border-radius: 8px;
 	padding: 8px;
-    border: 1px solid #d9d9d9;
 }
-.media-list:after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    background: #000;
-    opacity: 0;
-	border-radius: 8px;
-}
-.media-list:hover::after {
-    opacity: 0.5;
-}
+// .media-list:after {
+//     content: "";
+//     position: absolute;
+//     border-radius: 8px;
+//     height: 20px;
+//     background: #fff;
+//     top: 3px;
+//     left: 3px;
+//     right: 3px;
+//     opacity: 1;
+// }
 .media-list .upload-action {
+    display: flex;
+    justify-content: space-between;
     position: absolute;
-    justify-content: center;
-    align-items: center;
-	inset: 0;
-	z-index: 9;
-	opacity: 0;
-	transition: all 0.3s ease-in-out;
+    z-index: 9;
+    width: 90%;
+    top: 0px;
+    left: 0;
+    margin: auto;
+    right: 0;
 }
-.media-list:hover .upload-action {
-	opacity: 1;
-}
+
 .seo-card {
     display: flex;
     width: 100%;

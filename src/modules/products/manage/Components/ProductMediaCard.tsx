@@ -2,15 +2,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DeleteOutlined, EyeOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
-import { Form, Tooltip } from 'antd'
+import { MoreOutlined, StarFilled } from '@ant-design/icons'
+import { Form } from 'antd'
 
 import type { VariantMedia } from '../types'
-import type { FormInstance, UploadFile } from 'antd'
+import type { FormInstance, MenuProps, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
-import { FormItemWrapper, ButtonWrapper, EmptyWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, EmptyWrapper, DropdownWrapper } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
@@ -103,6 +103,30 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
     form.setFieldsValue({ mediaFiles: result })
   }
 
+  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
+    return [
+      {
+        key: '1',
+        label: 'Set as Primary',
+        onClick: () => fileActiveHandler(uploadedMediaArr, index),
+      },
+      {
+        key: '2',
+        label: 'View',
+        onClick: () => deleteMediaHandler(record?.fileId),
+      },
+      {
+        type: 'divider',
+      },
+      {
+        key: '3',
+        label: 'Delete',
+        onClick: () => deleteMediaHandler(record?.fileId),
+        className: 'error-color',
+      },
+    ]
+  }
+
   return (
     <>
       <FormItemWrapper name="uploadMedia" label="Upload Media" getValueFromEvent={obj => obj.fileList}>
@@ -123,43 +147,14 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
         {uploadedMediaArr?.length ? (
           <div className="media-list-container" style={{ gap: '0px' }}>
             {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
-              <div key={media?.name} className={`media-list mb-2`}>
-                <img
-                  src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
-                  alt={media.name}
-                  className={media?.isPrimary ? 'active-border' : ''}
-                />
-                <SpaceWrapper className="upload-action" size={0}>
-                  <ButtonWrapper
-                    onClick={() => fileActiveHandler(uploadedMediaArr, index)}
-                    type="text"
-                    icon={
-                      media?.isPrimary ? (
-                        <Tooltip title="Primary Image">
-                          <StarFilled style={{ color: '#ffc221' }} />
-                        </Tooltip>
-                      ) : (
-                        <Tooltip title="Set as primary">
-                          <StarOutlined style={{ color: '#FFF' }} />
-                        </Tooltip>
-                      )
-                    }
-                    className="p-0"
-                  />
-                  <ButtonWrapper
-                    type="text"
-                    icon={<EyeOutlined className="text-white" />}
-                    tooltip="View"
-                    className="p-0"
-                  />
-                  <ButtonWrapper
-                    type="text"
-                    onClick={() => deleteMediaHandler(media?.fileId)}
-                    icon={<DeleteOutlined className="text-white" />}
-                    tooltip="Delete"
-                    className="p-0"
-                  />
-                </SpaceWrapper>
+              <div key={media?.name} className={`media-list mb-2 ${media?.isPrimary ? 'active-border' : ''}`}>
+                <div className="upload-action">
+                  {media?.isPrimary ? <StarFilled className="primary-color" /> : <span />}
+                  <DropdownWrapper menu={{ items: menuItems(media, index) }}>
+                    <MoreOutlined className="bg-white p-1" />
+                  </DropdownWrapper>
+                </div>
+                <img src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`} alt={media.name} />
               </div>
             ))}
           </div>
