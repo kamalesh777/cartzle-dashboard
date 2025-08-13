@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { MoreOutlined, StarFilled } from '@ant-design/icons'
+import { StarFilled } from '@ant-design/icons'
 import { Form } from 'antd'
 
 import type { VariantMedia } from '../types'
@@ -10,6 +10,7 @@ import type { FormInstance, MenuProps, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
+import MoreVertical from '@/components/Common/Icons/MoreVertical'
 import { FormItemWrapper, EmptyWrapper, DropdownWrapper } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
@@ -149,9 +150,9 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
             {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
               <div key={media?.name} className={`media-list mb-2 ${media?.isPrimary ? 'active-border' : ''}`}>
                 <div className="upload-action">
-                  {media?.isPrimary ? <StarFilled className="primary-color" /> : <span />}
+                  {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
                   <DropdownWrapper menu={{ items: menuItems(media, index) }}>
-                    <MoreOutlined className="bg-white p-1" />
+                    <MoreVertical className="p-1" />
                   </DropdownWrapper>
                 </div>
                 <img src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`} alt={media.name} />

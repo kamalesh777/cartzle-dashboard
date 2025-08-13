@@ -12,17 +12,16 @@ import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
-import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
-
 import SeoManageCard from './SeoManageCard'
 
 const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
   const productValues = Form.useWatch([], form)
+  const mediaFiles = Form.useWatch('mediaFiles', form)
 
   const [openSeoModal, setOpenSeoModal] = useState(false)
 
   // get og image
-  const ogImage = productValues?.[PRIMARY_IMAGE_ID]
+  const ogImage = mediaFiles?.find((item: any) => item?.isPrimary)?.fileId
   const meta = {
     title: productValues?.title,
     description: productValues?.description,
@@ -48,6 +47,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
             height: 120,
             objectFit: 'cover',
             borderRadius: 4,
+            border: '1px solid rgb(236, 236, 236)',
           }}
         />
       ) : (

@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Row, Input } from 'antd'
 
-import type { TabProps } from '../../types'
+import type { CategoryType, TabProps } from '../../types'
 
 // eslint-disable-next-line no-duplicate-imports
 
-import { InfoTooltip } from '@/components/Common'
+import { getRequest } from '@/api/preference/RequestService'
+import { InfoTooltip, Toast } from '@/components/Common'
 import {
   ColWrapper,
   CardWrapper,
@@ -16,30 +17,51 @@ import {
   SelectWrapper,
   SpaceWrapper,
 } from '@/components/Wrapper'
-import { COMMON_ROW_GUTTER, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
+import {
+  COMMON_ROW_GUTTER,
+  requiredWithWhitspcFieldRules,
+  CATEGORY_ID,
+  requiredFieldRules,
+} from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
 
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
 import ProductMediaCard from '../ProductMediaCard'
-import SeoViewCard from '../seo/SeoViewCard'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
+  const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
+
+  // fetch category
+  useEffect(() => {
+    const fetchCategory = async (): Promise<void> => {
+      try {
+        const res = await getRequest('/api/category-list')
+        if (res.data.success) {
+          setCategoriesData(res.data.result)
+        }
+      } catch (error) {
+        Toast('error', (error as Error).message)
+      }
+    }
+    fetchCategory()
+  }, [])
   return (
     <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
       {/* Left side fields */}
       <ColWrapper md={14}>
-        <CardWrapper className="mb-3">
+        <CardWrapper className="mb-3" title="General" bottomBorderNone>
           <FormItemWrapper name="title" label="Title" rules={requiredWithWhitspcFieldRules}>
             <InputWrapper />
           </FormItemWrapper>
           <FormItemWrapper name="description" label="Description">
             <Input.TextArea rows={4} />
           </FormItemWrapper>
+          <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
+            <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
+          </FormItemWrapper>
           {/* Product media card */}
           <ProductMediaCard form={form} />
-          {/* Meta card */}
-          <SeoViewCard form={form} />
         </CardWrapper>
       </ColWrapper>
 
@@ -91,7 +113,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                 <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
               </SpaceWrapper>
             }
-            className="mb-3"
+            className="mb-1"
           >
             <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
           </FormItemWrapper>

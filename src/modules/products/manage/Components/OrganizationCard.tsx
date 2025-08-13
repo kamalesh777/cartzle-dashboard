@@ -1,45 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { Row } from 'antd'
 
-import type { CategoryType } from '../types'
-
-import { getRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
 import { CardWrapper, ColWrapper, FormItemWrapper, SelectWrapper } from '@/components/Wrapper'
-import { CATEGORY_ID, COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
-import { getSelectOption } from '@/utils/disableFunction'
+import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
 const OrganizationCard = (): JSX.Element => {
-  const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
-
-  // fetch category
-  useEffect(() => {
-    const fetchCategory = async (): Promise<void> => {
-      try {
-        const res = await getRequest('/api/category-list')
-        if (res.data.success) {
-          setCategoriesData(res.data.result)
-        }
-      } catch (error) {
-        Toast('error', (error as Error).message)
-      }
-    }
-    fetchCategory()
-  }, [])
   return (
     <CardWrapper title={'Organization'} bottomBorderNone className="mb-3">
       <Row gutter={COMMON_ROW_GUTTER}>
-        <ColWrapper md={12}>
-          <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
-            <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
-          </FormItemWrapper>
-        </ColWrapper>
-        <ColWrapper md={12}>
-          <FormItemWrapper name="brandId" label="Brand">
-            <SelectWrapper />
-          </FormItemWrapper>
-        </ColWrapper>
         <ColWrapper md={12}>
           <FormItemWrapper name="supplierId" label="Supplier">
             <SelectWrapper />
@@ -47,6 +16,11 @@ const OrganizationCard = (): JSX.Element => {
         </ColWrapper>
         <ColWrapper md={12}>
           <FormItemWrapper name="type" label="Product Type">
+            <SelectWrapper />
+          </FormItemWrapper>
+        </ColWrapper>
+        <ColWrapper md={24}>
+          <FormItemWrapper name="brandId" label="Brand" className="mb-1">
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
