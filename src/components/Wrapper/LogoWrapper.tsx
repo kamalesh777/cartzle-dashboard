@@ -28,7 +28,7 @@ const LogoWrapper: React.FC<LogoWrapperProps> = ({ collapsed, className = '' }) 
   const versionQuery = company?.versionName ? `&v=${company.versionName}` : ''
 
   const FAVICON_URL = `${MEDIA_BASE_URL}/${faviconId}?preview=true${versionQuery}`
-  const LOGO_URL = `${MEDIA_BASE_URL}/${logoId}?preview=true${versionQuery}&tr=w-400`
+  const LOGO_URL = `${MEDIA_BASE_URL}/${logoId}?preview=true${versionQuery}&tr=w-250`
 
   const imageProps = collapsed
     ? {

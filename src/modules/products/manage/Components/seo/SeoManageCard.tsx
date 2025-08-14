@@ -79,7 +79,6 @@ const SeoManageCard = ({ openModal, setOpenModal, selectedList, form }: Props): 
           <Input.TextArea
             placeholder="eg. High-quality wooden chair with premium finish. Perfect for your living room."
             rows={4}
-            maxLength={160}
           />
         </FormItemWrapper>
 
