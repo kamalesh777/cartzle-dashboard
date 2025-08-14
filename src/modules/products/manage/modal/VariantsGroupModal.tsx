@@ -57,10 +57,16 @@ const VariantsGroupModal = ({
   form,
 }: Props): JSX.Element => {
   const productTitle = Form.useWatch('title', form)
-  const uploadedMediaArr = Form.useWatch('mediaFiles', form)
+  const mediaFilesArr = Form.useWatch('mediaFiles', form)
   const variantsArr = Form.useWatch('variants', form)
   const mediaIdArr = Form.useWatch(['variantCombinations', selectedIndex, 'mediaIds'], form)
+  const showOnlySelected = Form.useWatch(['showOnlySelected'], form)
   const productCategory = Form.useWatch(CATEGORY_ID, form)
+
+  // filter media files based on mediaIds
+  const uploadedMediaArr = showOnlySelected
+    ? mediaFilesArr?.filter((media: VariantMedia) => mediaIdArr?.includes(media?.fileId))
+    : mediaFilesArr
 
   const skuValue = generateSku(productTitle, productCategory, selectedList?.label as string)
 
@@ -141,8 +147,13 @@ const VariantsGroupModal = ({
             </ColWrapper>
           ))}
           <ColWrapper md={24}>
-            <FormItemWrapper name={'showAll'} className="mb-3" initialValue={true} valuePropName="checked">
-              <CheckBoxWrapper>Show all media files</CheckBoxWrapper>
+            <FormItemWrapper
+              name={'showOnlySelected'}
+              className="mb-3"
+              initialValue={false}
+              valuePropName="checked"
+            >
+              <CheckBoxWrapper>Show only selected media files</CheckBoxWrapper>
             </FormItemWrapper>
           </ColWrapper>
           {(selectedList?.parent || variantsArr?.length === 1) && (
@@ -156,8 +167,8 @@ const VariantsGroupModal = ({
                 }
               >
                 {uploadedMediaArr?.length ? (
-                  <Checkbox.Group>
-                    <div className="media-list-container">
+                  <Checkbox.Group className="d-flex">
+                    <div className="media-list-container w-100">
                       {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
                         <CheckBoxWrapper
                           value={media?.fileId}
