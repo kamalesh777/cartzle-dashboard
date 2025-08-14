@@ -296,9 +296,9 @@ header.ant-layout-header.fix-header {
     flex-direction: column;
 }
 
-.media-list:hover {
-	@extend .active-border;
-}
+// .media-list:hover {
+// 	@extend .active-border;
+// }
 .media-list:not(:nth-child(5n)) {
 	margin-right: 12px;
 }
@@ -308,17 +308,9 @@ header.ant-layout-header.fix-header {
     height: 60px;
     margin-top: -4px;
 }
-// .media-list:after {
-//     content: "";
-//     position: absolute;
-//     border-radius: 8px;
-//     height: 20px;
-//     background: #fff;
-//     top: 3px;
-//     left: 3px;
-//     right: 3px;
-//     opacity: 1;
-// }
+.media-list-wrapper {
+	width: 18%;
+}
 .media-list .upload-action {
     display: flex;
     justify-content: space-between;
@@ -347,6 +339,9 @@ header.ant-layout-header.fix-header {
 	}
 	.media-list:not(:nth-child(2n)) {
 		margin-right: 10px;
+	}
+	.media-list-wrapper {
+		width: 48%;
 	}
 	
 }

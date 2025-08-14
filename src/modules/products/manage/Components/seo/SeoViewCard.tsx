@@ -6,7 +6,6 @@ import { SettingOutlined } from '@ant-design/icons'
 
 import { Form, Tabs, Typography } from 'antd'
 
-import type { MetaType } from '../../types'
 import type { FormInstance } from 'antd'
 
 import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
@@ -16,23 +15,26 @@ import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import SeoManageCard from './SeoManageCard'
 
 const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
-  const productValues = Form.useWatch([], form)
+  const title = Form.useWatch('title', form)
+  const description = Form.useWatch('description', form)
   const mediaFiles = Form.useWatch('mediaFiles', form)
+  const seoDetails = Form.useWatch('seo', form)
 
   const [openSeoModal, setOpenSeoModal] = useState(false)
-  const [meta, setMeta] = useState<MetaType | null>(null)
 
   // get og image
   const ogImage = mediaFiles?.find((item: any) => item?.isPrimary)?.fileId
 
   useEffect(() => {
-    setMeta({
-      title: productValues?.title,
-      description: productValues?.description,
-      ogTitle: productValues?.title,
-      ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
+    form.setFieldsValue({
+      seo: {
+        title: title,
+        description: description,
+        ogTitle: title,
+        ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
+      },
     })
-  }, [productValues, ogImage])
+  }, [title, description])
 
   const handleManage = (): void => {
     setOpenSeoModal(true)
@@ -40,9 +42,9 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
 
   const socialContent = (
     <>
-      {meta?.ogImage ? (
+      {seoDetails?.ogImage ? (
         <img
-          src={meta?.ogImage}
+          src={seoDetails?.ogImage}
           alt="OG Preview"
           style={{
             width: 120,
@@ -70,10 +72,11 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
       )}
       <div>
         <Typography.Paragraph className="mb-0 mt-1" strong>
-          {meta?.ogTitle || 'Your social share title'}
+          {seoDetails?.ogTitle || 'Your social share title'}
         </Typography.Paragraph>
         <Typography.Paragraph style={{ color: '#555', fontSize: 14 }}>
-          {meta?.description || 'This description will appear when the product is shared on social media.'}
+          {seoDetails?.description ||
+            'This description will appear when the product is shared on social media.'}
         </Typography.Paragraph>
       </div>
     </>
@@ -85,17 +88,18 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
         style={{ color: '#1a0dab', fontSize: 18 }}
         ellipsis={{ rows: 1, suffix: '' }}
       >
-        {meta?.title || 'Your product title here'}
+        {seoDetails?.title || 'Your product title here'}
       </Typography.Paragraph>
       <Typography.Paragraph
         className="mb-1"
         style={{ color: '#006621', fontSize: 14 }}
         ellipsis={{ rows: 1, suffix: '' }}
       >
-        www.example.com/{productValues?.title || 'product-name'}
+        www.example.com/{title || 'product-name'}
       </Typography.Paragraph>
       <Typography.Paragraph style={{ color: '#545454', fontSize: 14 }}>
-        {meta?.description || 'Your product description will appear here as a snippet in search results.'}
+        {seoDetails?.description ||
+          'Your product description will appear here as a snippet in search results.'}
       </Typography.Paragraph>
     </SpaceWrapper>
   )
@@ -132,7 +136,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
       <SeoManageCard
         openModal={openSeoModal}
         setOpenModal={setOpenSeoModal}
-        selectedList={meta as MetaType}
+        selectedList={seoDetails}
         form={form}
       />
     </>

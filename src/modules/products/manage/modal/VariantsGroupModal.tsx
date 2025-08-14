@@ -105,14 +105,16 @@ const VariantsGroupModal = ({
 
   const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
     return [
-      {
-        key: '1',
-        label: 'Set as Primary',
-        onClick: () => fileActiveHandler(uploadedMediaArr, index),
-      },
+      mediaIdArr?.includes(record?.fileId)
+        ? {
+            key: '1',
+            label: 'Set as Primary',
+            onClick: () => fileActiveHandler(uploadedMediaArr, index),
+          }
+        : null,
       {
         key: '2',
-        label: 'View',
+        label: 'Preview',
       },
     ]
   }
@@ -147,7 +149,11 @@ const VariantsGroupModal = ({
             <ColWrapper md={24}>
               <FormItemWrapper
                 name={['variantCombinations', selectedIndex, 'mediaIds']}
-                label="Variant Images"
+                label={
+                  <InfoTooltip title="Select media by checking on the checkbox or media preview">
+                    Variant Images
+                  </InfoTooltip>
+                }
               >
                 {uploadedMediaArr?.length ? (
                   <Checkbox.Group>
@@ -156,8 +162,7 @@ const VariantsGroupModal = ({
                         <CheckBoxWrapper
                           value={media?.fileId}
                           key={media?.name}
-                          className="checkbox-button"
-                          style={{ width: '18%' }}
+                          className="checkbox-button media-list-wrapper"
                         >
                           <div
                             className={`media-list w-100 ${
@@ -166,7 +171,10 @@ const VariantsGroupModal = ({
                           >
                             <div className="upload-action">
                               {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
-                              <DropdownWrapper menu={{ items: menuItems(media, index) }}>
+                              <DropdownWrapper
+                                menu={{ items: menuItems(media, index) }}
+                                overlayStyle={{ minWidth: '140px' }}
+                              >
                                 <MoreVertical className="p-1" />
                               </DropdownWrapper>
                             </div>

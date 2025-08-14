@@ -115,7 +115,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       },
       {
         key: '2',
-        label: 'View',
+        label: 'Preview',
         onClick: () => deleteMediaHandler(record?.fileId),
       },
       {
