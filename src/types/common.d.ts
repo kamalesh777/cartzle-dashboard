@@ -5,7 +5,7 @@ export interface ModalPropTypes<T> {
   setOpenModal: (param: boolean) => void
   selectedList?: T
   selectedId?: string
-  selectedIndex?: number
+  selectedIndex?: number | string
   afterSubmit?: () => void
 }
 

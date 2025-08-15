@@ -30,6 +30,9 @@ export interface VariantCombination {
   costPrice?: number
   available?: number
   sku?: string
+  discount?: number
+  inStock?: boolean
+  mediaIds?: string[]
   children?: VariantCombination[]
 }
 
