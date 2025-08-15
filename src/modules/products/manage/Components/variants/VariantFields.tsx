@@ -69,9 +69,11 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     }
   }
 
-  const removeFunc = (e: React.MouseEvent, name: number): void => {
+  const removeFunc = (e: React.MouseEvent, name: number, fullRemove = true): void => {
     setInputEdit(false)
-    remove(name)
+    if (fullRemove) {
+      remove(name)
+    }
     e.stopPropagation()
   }
 
@@ -232,7 +234,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 />
                 <ButtonWrapper
                   className="error-color"
-                  onClick={e => removeFunc(e, name)}
+                  onClick={e => removeFunc(e, name, false)}
                   icon={<CloseOutlined />}
                 />
               </Space.Compact>
