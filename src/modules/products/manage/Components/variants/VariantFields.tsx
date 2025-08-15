@@ -47,7 +47,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
   const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
   const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
 
-  const variantsArr = Form.useWatch('variants', form)
+  const variantsArr = Form.useWatch('variantOptions', form)
 
   const [unitOptions, setUnitOptions] = useState<UnitGroupType['units'][]>([])
   const [selectedUnitGroup, setSelectedUnitGroup] = useState<string>('')
@@ -61,7 +61,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     e.stopPropagation()
     try {
       // Validate only the specific variant fields
-      await form.validateFields([['variants', name]], { recursive: true })
+      await form.validateFields([['variantOptions', name]], { recursive: true })
       setInputEdit(false)
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -106,7 +106,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
   // at the time of edit variant
   useEffect(() => {
     if (inputEdit) {
-      const variant = form.getFieldValue(['variants', inputEdit])
+      const variant = form.getFieldValue(['variantOptions', inputEdit])
       const unitGroupUnits = getSelectedUnitGroup(variant.opName)
       setUnitOptions(unitGroupUnits)
     }
@@ -118,7 +118,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     const unitGroupUnits = getSelectedUnitGroup(value)
     setUnitOptions(unitGroupUnits)
     // reset the opValue when unit group changes
-    form.setFieldValue(['variants', name, 'opValue'], [])
+    form.setFieldValue(['variantOptions', name, 'opValue'], [])
   }
 
   return (
@@ -133,8 +133,8 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       {inputEdit !== name ? (
         <SpaceWrapper size={16} className="w-100 justify-content-between">
           <span className="d-flex align-items-center">
-            <p className="fw-bold me-2">{form.getFieldValue(['variants', name, 'opName'])}:</p>
-            {form.getFieldValue(['variants', name, 'opValue'])?.map((item: string, index: number) => (
+            <p className="fw-bold me-2">{form.getFieldValue(['variantOptions', name, 'opName'])}:</p>
+            {form.getFieldValue(['variantOptions', name, 'opValue'])?.map((item: string, index: number) => (
               <Tag key={index} color="processing">
                 {item}
               </Tag>

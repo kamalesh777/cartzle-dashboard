@@ -26,7 +26,7 @@ const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps)
                 click here
               </span>
             )}
-            {onClick && ` to add ${entity}`}
+            {onClick && ` to add`}
           </p>
         )
       }

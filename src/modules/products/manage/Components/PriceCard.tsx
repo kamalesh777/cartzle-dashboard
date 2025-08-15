@@ -11,9 +11,10 @@ import { getCurrency, getProfitDiscount } from '@/utils/currency'
 
 interface PropTypes {
   form: FormInstance
+  entity?: 'variants'
 }
 
-const PriceCard = ({ form }: PropTypes): JSX.Element => {
+const PriceCard = ({ form, entity }: PropTypes): JSX.Element => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const discount = Form.useWatch('discount', form)
@@ -31,8 +32,9 @@ const PriceCard = ({ form }: PropTypes): JSX.Element => {
       })
     }
   }, [costPrice, salePrice, discount, form])
-  return (
-    <CardWrapper title={'Pricing'} className="mb-3" bottomBorderNone>
+
+  const renderFormFields = (): JSX.Element => {
+    return (
       <Row gutter={COMMON_ROW_GUTTER}>
         <ColWrapper md={12}>
           <FormItemWrapper name="costPrice" label="Cost Price" rules={requiredFieldRules}>
@@ -48,7 +50,7 @@ const PriceCard = ({ form }: PropTypes): JSX.Element => {
               ...requiredFieldRules,
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || value > getFieldValue('costPrice')) {
+                  if (!value || value >= getFieldValue('costPrice')) {
                     return Promise.resolve()
                   }
                   return Promise.reject(new Error('Sale price < Cost price'))
@@ -70,6 +72,13 @@ const PriceCard = ({ form }: PropTypes): JSX.Element => {
           </FormItemWrapper>
         </ColWrapper>
       </Row>
+    )
+  }
+  return entity === 'variants' ? (
+    renderFormFields()
+  ) : (
+    <CardWrapper title={'Pricing'} className="mb-3" bottomBorderNone>
+      {renderFormFields()}
     </CardWrapper>
   )
 }

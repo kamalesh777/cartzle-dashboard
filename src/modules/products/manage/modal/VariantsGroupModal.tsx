@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { StarFilled } from '@ant-design/icons'
 
@@ -22,16 +22,18 @@ import {
   FormItemWrapper,
   InputNumberWrapper,
   ModalWrapper,
+  SelectWrapper,
+  SubmitButtonWrapper,
 } from '@/components/Wrapper'
 
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
-import { CATEGORY_ID, COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
-import { getCurrency } from '@/utils/currency'
 import { generateSku } from '@/utils/productUtils'
 
+import PriceCard from '../Components/PriceCard'
 import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
 
 interface FieldsArrType {
@@ -39,9 +41,11 @@ interface FieldsArrType {
   label: React.ReactNode
   rules?: Rule[]
   initialValue?: string | number
+  colSpan?: number
   fieldsProps?: {
     value?: string | number
     readOnly?: boolean
+    addonAfter?: string | React.ReactNode
   }
 }
 
@@ -57,11 +61,15 @@ const VariantsGroupModal = ({
   form,
 }: Props): JSX.Element => {
   const mediaFilesArr = Form.useWatch('mediaFiles', form)
-  const variantsArr = Form.useWatch('variants', form)
-  const mediaIdArr = Form.useWatch(['variantCombinations', selectedIndex, 'mediaIds'], form)
-  const showOnlySelected = Form.useWatch(['showOnlySelected'], form)
+  const variantsArr = Form.useWatch('variantOptions', form)
 
-  // const [groupForm] = Form.useForm()
+  const [groupForm] = Form.useForm()
+  const showOnlySelected = Form.useWatch(['showOnlySelected'], groupForm)
+  const mediaIdArr = Form.useWatch(['variantCombinations', selectedIndex, 'mediaIds'], groupForm)
+
+  useEffect(() => {
+    groupForm.setFieldsValue(selectedList)
+  }, [selectedList])
 
   // filter media files based on mediaIds
   const uploadedMediaArr = showOnlySelected
@@ -72,36 +80,28 @@ const VariantsGroupModal = ({
   const skuValue = generateSku(productName, selectedList?.label as string)
 
   const closeModal = (): void => modalCloseHandler(setOpenModal)
-  const renderPrefix = (name: string): string => {
-    if (name === 'salePrice' || name === 'costPrice') {
-      return getCurrency()
-    }
-    return ''
-  }
 
   const fieldsArr: FieldsArrType[] = [
-    {
-      name: 'salePrice',
-      label: 'Sale Price',
-      rules: requiredFieldRules,
-    },
-    {
-      name: 'costPrice',
-      label: 'Cost Price',
-      rules: requiredFieldRules,
-    },
-    {
-      name: 'available',
-      label: 'Available',
-      rules: requiredFieldRules,
-    },
     {
       name: 'sku',
       label: <InfoTooltip title="Available product in stock">SKU</InfoTooltip>,
       initialValue: skuValue,
+      colSpan: 24,
       fieldsProps: {
         readOnly: true,
       },
+    },
+    {
+      name: 'inStock',
+      label: 'In Stock',
+      colSpan: 12,
+      initialValue: 'true',
+    },
+    {
+      name: 'available',
+      label: 'Available',
+      colSpan: 12,
+      rules: requiredFieldRules,
     },
   ]
 
@@ -126,25 +126,54 @@ const VariantsGroupModal = ({
     ]
   }
 
+  const onFinish = (values: any): void => {
+    form.setFieldValue(['variantCombinations', selectedIndex], values)
+    closeModal()
+  }
+
   return (
     <ModalWrapper
       open={openModal}
       onCancel={closeModal}
       title={`Variants: ${selectedList?.label}`}
       width={600}
+      footer={
+        <SubmitButtonWrapper
+          okButtonProps={{ loading: false, onClick: () => groupForm.submit() }}
+          cancelButtonProps={{
+            onClick: () => closeModal(),
+          }}
+        />
+      }
     >
-      <FormWrapper form={form}>
-        <Row gutter={COMMON_ROW_GUTTER}>
+      <FormWrapper form={groupForm} onFinish={onFinish}>
+        {/* ==== price card ==== */}
+        {!selectedList?.parent || variantsArr?.length === 1 ? (
+          <PriceCard form={groupForm} entity="variants" />
+        ) : null}
+        {/* ==== dynamically fields ==== */}
+        <Row gutter={COMMON_ROW_GUTTER} className="mt-3">
           {!selectedList?.parent || variantsArr?.length === 1
             ? fieldsArr?.map((item: FieldsArrType) => (
-                <ColWrapper md={12} key={item.name}>
+                <ColWrapper md={item.colSpan} key={item.name}>
                   <FormItemWrapper
-                    name={['variantCombinations', selectedIndex, item.name]}
+                    name={item.name}
                     label={item.label}
                     rules={item.rules}
                     initialValue={item.initialValue}
                   >
-                    <InputNumberWrapper prefix={renderPrefix(item.name)} {...item.fieldsProps} />
+                    {item.name === 'inStock' ? (
+                      <SelectWrapper
+                        placeholder="Select In Stock"
+                        options={[
+                          { value: 'true', label: 'Yes' },
+                          { value: 'false', label: 'No' },
+                        ]}
+                        {...item.fieldsProps}
+                      />
+                    ) : (
+                      <InputNumberWrapper {...item.fieldsProps} />
+                    )}
                   </FormItemWrapper>
                 </ColWrapper>
               ))
@@ -152,7 +181,7 @@ const VariantsGroupModal = ({
           {(selectedList?.parent || variantsArr?.length === 1) && (
             <ColWrapper md={24}>
               <FormItemWrapper
-                name={['variantCombinations', selectedIndex, 'mediaIds']}
+                name={'mediaIds'}
                 label={
                   <InfoTooltip title="Select media by checking on the checkbox or media preview">
                     Variant Images

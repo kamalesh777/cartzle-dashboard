@@ -35,7 +35,7 @@ interface PropTypes {
 const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
-  const variantsArr = Form.useWatch('variants', form)
+  const variantsArr = Form.useWatch('variantOptions', form)
   const categoryId = Form.useWatch(CATEGORY_ID, form)
 
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
@@ -79,7 +79,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
 
   const addFunc = async (add: (index?: number | null, position?: number) => void): Promise<void> => {
     try {
-      await form.validateFields([['variants']], { recursive: true })
+      await form.validateFields([['variantOptions']], { recursive: true })
       setInputEdit(0)
       add(null, 0)
     } catch (error) {
@@ -90,17 +90,19 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
 
   return (
     <>
-      <Form.List name="variants">
+      <Form.List name="variantOptions">
         {(fields, { add, remove }) => (
           <CardWrapper
             title={
               <div className="d-flex justify-content-between align-items-center">
-                <InfoTooltip title="Add variants if product has multiple variants">Variants</InfoTooltip>
+                <InfoTooltip title="Add variants if product has multiple variants">
+                  Variant Options
+                </InfoTooltip>
                 <ButtonWrapper
                   onClick={() => addFunc(add)}
                   icon={<PlusOutlined />}
                   type="link"
-                  className="p-0"
+                  className="p-0 primary-color"
                 >
                   Add Variant
                 </ButtonWrapper>
@@ -112,7 +114,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
                 <VariantFields key={index} {...{ field, form, remove, inputEdit, setInputEdit }} />
               ))
             ) : (
-              <EmptyWrapper onClick={() => addFunc(add)} entity="variants" />
+              <EmptyWrapper onClick={() => addFunc(add)} entity="Variant Options" />
             )}
           </CardWrapper>
         )}

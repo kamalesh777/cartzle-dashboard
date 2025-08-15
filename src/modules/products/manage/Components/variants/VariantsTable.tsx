@@ -28,7 +28,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const variantsTableState = useSelector((state: RootState) => state.variants?.variantsTable)
 
   // variants from form
-  const variantsCard = Form.useWatch('variants', form)
+  const variantsCard = Form.useWatch('variantOptions', form)
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const groupBy = Form.useWatch('groupBy', form)
@@ -84,7 +84,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // table columns
   const columns: TableColumnsType<VariantCombination> = [
     {
-      title: 'Variant',
+      title: 'All Combinations',
       dataIndex: 'label',
       width: '60%',
       className: 'd-flex align-items-center',
@@ -121,6 +121,8 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           value={record.salePrice}
           size="small"
           onChange={value => rowChangeHandler({ ...record, salePrice: value as number })}
+          // min={record.costPrice}
+          status={(record?.costPrice as number) > (record?.salePrice as number) ? 'error' : undefined}
         />
       ),
     },
@@ -192,7 +194,6 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       }
       return item
     })
-
     dispatch(setVariantsTable(finalData))
   }
 
