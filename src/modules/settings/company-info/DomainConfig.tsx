@@ -7,6 +7,7 @@ import type { PropTypes } from './types'
 import { ColWrapper, InputWrapper } from '@/components/Wrapper'
 import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 
 const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
   const [form] = Form.useForm()
@@ -27,7 +28,7 @@ const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
 
   return (
     <EditCardWrapper title="Domain Config" id="domain" {...{ editMode, setEditMode, form }}>
-      <Form
+      <FormWrapper
         form={form}
         onFinish={onFinish}
         labelAlign="left"
@@ -56,7 +57,7 @@ const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
             </EditableFormWrapper>
           </ColWrapper>
         </Row>
-      </Form>
+      </FormWrapper>
     </EditCardWrapper>
   )
 }

@@ -16,6 +16,7 @@ import {
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { PaymentOptions, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -48,7 +49,7 @@ const ExpensesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTy
         />
       }
     >
-      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+      <FormWrapper form={form} onFinish={formSubmitHandler}>
         <FormItemWrapper
           name="date"
           label="Date"
@@ -70,7 +71,7 @@ const ExpensesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTy
         <FormItemWrapper label="Payment Method" name="payment_method" rules={requiredFieldRules}>
           <SelectWrapper options={PaymentOptions} />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

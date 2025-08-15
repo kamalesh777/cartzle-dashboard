@@ -7,6 +7,7 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { TableContentLoaderWithProps, Toast } from '@/components/Common'
 import { FormItemWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
@@ -64,7 +65,7 @@ const UnitsManageModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTyp
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={onFinish}>
+      <FormWrapper form={form} onFinish={onFinish}>
         <FormItemWrapper name="units" label="Units" rules={requiredFieldRules}>
           {isLoading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
@@ -77,7 +78,7 @@ const UnitsManageModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropTyp
             />
           )}
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

@@ -8,7 +8,7 @@ import { Form, Tabs, Typography } from 'antd'
 
 import type { FormInstance } from 'antd'
 
-import { ButtonWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
@@ -131,7 +131,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
 
   return (
     <>
-      <Form.Item name="seo" hidden />
+      <FormItemWrapper name="seo" hidden />
       <Tabs defaultActiveKey="google" items={finalTabs} style={{ overflow: 'hidden' }} />
       <SeoManageCard
         openModal={openSeoModal}

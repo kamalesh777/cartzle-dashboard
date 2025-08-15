@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { Form, Input, Checkbox, Row, Alert } from 'antd'
+import { Input, Checkbox, Row, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
 import type { DataResponse } from 'src/types/common'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
 interface FormValueTypes {
@@ -55,7 +56,7 @@ const LoginComp = (): JSX.Element => {
           <CardWrapper>
             <h2 className="mb-3">Login Now!</h2>
 
-            <Form layout="vertical" onFinish={formSubmitHandler}>
+            <FormWrapper onFinish={formSubmitHandler}>
               {!isSuccess && data?.message ? (
                 <Alert message={data?.message} type="error" showIcon className="my-3" />
               ) : null}
@@ -84,7 +85,7 @@ const LoginComp = (): JSX.Element => {
                   Submit
                 </ButtonWrapper>
               </FormItemWrapper>
-            </Form>
+            </FormWrapper>
           </CardWrapper>
         </ColWrapper>
       </Row>

@@ -1,16 +1,15 @@
 import React from 'react'
 
-import { Form } from 'antd'
-
 import { FormItemWrapper, SelectWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 
 const WoodsModifierComp = (): JSX.Element => {
   return (
-    <Form>
+    <FormWrapper>
       <FormItemWrapper name="" label="">
         <SelectWrapper />
       </FormItemWrapper>
-    </Form>
+    </FormWrapper>
   )
 }
 

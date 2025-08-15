@@ -17,6 +17,7 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import {
   categoriesOptions,
   COMMON_ROW_GUTTER,
@@ -52,7 +53,7 @@ const OrderManageComp = (): JSX.Element => {
 
   const MAIN_COMP = (
     <CardWrapper title={cardTitle}>
-      <Form layout="vertical" form={form} onFinish={formSubmitHandler} initialValues={formInitialValues}>
+      <FormWrapper form={form} onFinish={formSubmitHandler} initialValues={formInitialValues}>
         <Row gutter={COMMON_ROW_GUTTER}>
           <ColWrapper md={12}>
             <FormItemWrapper name="party_id" label="Party's Name" rules={requiredWithWhitspcFieldRules}>
@@ -217,7 +218,7 @@ const OrderManageComp = (): JSX.Element => {
             </SpaceWrapper>
           </ColWrapper>
         </Row>
-      </Form>
+      </FormWrapper>
     </CardWrapper>
   )
 

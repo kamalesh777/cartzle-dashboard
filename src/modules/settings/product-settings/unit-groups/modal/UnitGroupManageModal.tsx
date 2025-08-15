@@ -14,6 +14,7 @@ import {
   SelectWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -80,7 +81,7 @@ const UnitGroupManageModal = ({
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={onFinish}>
+      <FormWrapper form={form} onFinish={onFinish}>
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
           {isLoading || loading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
@@ -100,7 +101,7 @@ const UnitGroupManageModal = ({
             />
           )}
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

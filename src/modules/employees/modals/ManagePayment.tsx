@@ -16,6 +16,7 @@ import {
 } from '@/components/Wrapper'
 
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 import { getSelectOption } from '@/utils/disableFunction'
@@ -55,8 +56,7 @@ const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({
         />
       }
     >
-      <Form
-        layout="vertical"
+      <FormWrapper
         form={form}
         onFinish={handleFinish}
         initialValues={{ date: dayjs(), paymentType: 'salary' }}
@@ -76,7 +76,7 @@ const ManagePaymentModal: React.FC<ModalPropTypes<never>> = ({
         <FormItemWrapper label="Notes" name="notes">
           <Input.TextArea rows={2} placeholder="e.g. Paid 50% in advance" />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

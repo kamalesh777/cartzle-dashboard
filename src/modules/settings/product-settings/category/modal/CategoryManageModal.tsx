@@ -15,6 +15,7 @@ import {
   SelectWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { useGetRequestHandler, usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -83,12 +84,7 @@ const CategoryManageModal = ({
         />
       }
     >
-      <Form
-        layout="vertical"
-        form={form}
-        onFinish={onFinish}
-        initialValues={{ unitTypes: [{ id: '', units: [] }] }}
-      >
+      <FormWrapper form={form} onFinish={onFinish} initialValues={{ unitTypes: [{ id: '', units: [] }] }}>
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
           {loading ? (
             <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
@@ -107,7 +103,7 @@ const CategoryManageModal = ({
             />
           )}
         </Form.Item>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

@@ -13,6 +13,7 @@ import {
   ModalWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -46,7 +47,7 @@ const PartiesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTyp
         />
       }
     >
-      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+      <FormWrapper form={form} onFinish={formSubmitHandler}>
         <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
           <InputWrapper />
         </FormItemWrapper>
@@ -81,7 +82,7 @@ const PartiesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropTyp
             </FormItemWrapper>
           </ColWrapper>
         </Row>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

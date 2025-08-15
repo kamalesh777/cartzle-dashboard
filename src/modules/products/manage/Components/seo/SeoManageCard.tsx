@@ -16,6 +16,7 @@ import {
   ModalWrapper,
   SpaceWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
@@ -70,7 +71,7 @@ const SeoManageCard = ({ openModal, setOpenModal, selectedList, form }: Props): 
       bodyScroll
       footer={FooterButton}
     >
-      <Form layout="vertical" form={seoForm} onFinish={onFinish}>
+      <FormWrapper form={seoForm} onFinish={onFinish}>
         <FormItemWrapper label="Meta Title" name={['seo', 'title']} rules={requiredFieldRules}>
           <InputWrapper placeholder="eg.Best Wooden Chair for Living Room" />
         </FormItemWrapper>
@@ -93,7 +94,7 @@ const SeoManageCard = ({ openModal, setOpenModal, selectedList, form }: Props): 
         <FormItemWrapper label="Open Graph Image URL" name={['seo', 'ogImage']} rules={requiredFieldRules}>
           <InputWrapper placeholder="eg. https://example.com/image.jpg" />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

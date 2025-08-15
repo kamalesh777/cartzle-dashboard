@@ -7,6 +7,7 @@ import { startCase } from 'lodash'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { CardWrapper, FormItemWrapper, InputWrapper, SpaceWrapper, TableWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 
 interface DataType {
   key: React.ReactNode
@@ -135,7 +136,7 @@ const PermissionManageComp = (): JSX.Element => {
   ]
 
   const MainComponent = (
-    <Form form={form} layout="vertical">
+    <FormWrapper form={form}>
       <CardWrapper styles={{ body: { paddingBottom: '10px' } }}>
         <FormItemWrapper name="name" label="Name">
           <InputWrapper />
@@ -145,7 +146,7 @@ const PermissionManageComp = (): JSX.Element => {
         </FormItemWrapper>
       </CardWrapper>
       <TableWrapper<DataType> columns={columns} dataSource={data} defaultExpandAllRows rowKey="page_name" />
-    </Form>
+    </FormWrapper>
   )
   return <DynamicPageLayout MainComp={MainComponent} />
 }

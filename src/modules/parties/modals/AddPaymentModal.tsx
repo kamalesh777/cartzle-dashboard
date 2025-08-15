@@ -21,6 +21,7 @@ import {
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { COMMON_ROW_GUTTER, PaymentOptions, requiredFieldRules } from '@/constants/AppConstant'
 import { getDecimal, modalCloseHandler } from '@/utils/commonFunctions'
 
@@ -58,7 +59,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={handleFinish}>
+      <FormWrapper form={form} onFinish={handleFinish}>
         <FormItemWrapper
           className="mb-3"
           label="Select Transaction type"
@@ -140,7 +141,7 @@ const AddPaymentModal = ({ openModal, setOpenModal, afterSubmit }: ModalPropType
         >
           <Input.TextArea rows={3} />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

@@ -10,6 +10,7 @@ import type { CompanyFormValues } from '../account-settings/types'
 import { ColWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
 import EditCardWrapper from '@/components/Wrapper/EditCardWrapper'
 import EditableFormWrapper from '@/components/Wrapper/EditableFormWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
@@ -32,7 +33,7 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
 
   return (
     <EditCardWrapper title="Company Details" id="company" {...{ editMode, setEditMode, form }}>
-      <Form
+      <FormWrapper
         form={form}
         onFinish={onFinish}
         colon={false}
@@ -123,7 +124,7 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
               </FormItemWrapper> */}
           </ColWrapper>
         </Row>
-      </Form>
+      </FormWrapper>
     </EditCardWrapper>
   )
 }

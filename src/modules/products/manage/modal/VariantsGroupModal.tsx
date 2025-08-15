@@ -13,6 +13,7 @@ import type { FormInstance, Rule } from 'antd/es/form'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
+import MoreVertical from '@/components/Common/Icons/MoreVertical'
 import {
   CheckBoxWrapper,
   ColWrapper,
@@ -23,6 +24,7 @@ import {
   ModalWrapper,
 } from '@/components/Wrapper'
 
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { CATEGORY_ID, COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
@@ -31,8 +33,6 @@ import { getCurrency } from '@/utils/currency'
 import { generateSku } from '@/utils/productUtils'
 
 import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
-
-import MoreVertical from '@/components/Common/Icons/MoreVertical'
 
 interface FieldsArrType {
   name: string
@@ -132,7 +132,7 @@ const VariantsGroupModal = ({
       title={`Variants: ${selectedList?.label}`}
       width={600}
     >
-      <Form layout="vertical" form={form}>
+      <FormWrapper form={form}>
         <Row gutter={COMMON_ROW_GUTTER}>
           {fieldsArr?.map((item: FieldsArrType) => (
             <ColWrapper md={12} key={item.name}>
@@ -210,7 +210,7 @@ const VariantsGroupModal = ({
             </ColWrapper>
           )}
         </Row>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

@@ -7,6 +7,7 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { ModalWrapper } from '@/components/Wrapper'
 
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 import Step1Content from './Step1'
@@ -50,7 +51,7 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
     >
       <Steps current={currentStep} items={stepsOption} />
       <div className="pt-4">
-        <Form form={form} layout="vertical">
+        <FormWrapper form={form}>
           {stepsOption?.map((step, index) => (
             <div
               key={step.key}
@@ -59,7 +60,7 @@ const AccountSettingsComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
               {step.content}
             </div>
           ))}
-        </Form>
+        </FormWrapper>
       </div>
     </ModalWrapper>
   )

@@ -11,6 +11,7 @@ import { postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
 import CustomColorPicker from '@/components/Common/CustomColorPicker'
 import { FormItemWrapper, CardWrapper, ColWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
@@ -83,12 +84,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
 
   return (
     <CardWrapper title="Brand Config" id="brand" className="mb-3">
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={updateHandler}
-        onValuesChange={() => setIsValueChanged(true)}
-      >
+      <FormWrapper form={form} onFinish={updateHandler} onValuesChange={() => setIsValueChanged(true)}>
         <ColWrapper span={16}>
           <FormItemWrapper
             name="themeColor"
@@ -128,7 +124,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
             />
           )}
         </ColWrapper>
-      </Form>
+      </FormWrapper>
     </CardWrapper>
   )
 }

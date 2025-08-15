@@ -13,6 +13,7 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 import { getDisabledDate } from '@/utils/disableFunction'
@@ -42,7 +43,7 @@ const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTy
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={handleFinish}>
+      <FormWrapper form={form} onFinish={handleFinish}>
         <FormItemWrapper label="Promised Date" name="promised_date" rules={requiredFieldRules}>
           <DatePickerWrapper
             showNow={false}
@@ -64,7 +65,7 @@ const ReschedulePayment = ({ openModal, setOpenModal, afterSubmit }: ModalPropTy
         >
           <Input.TextArea rows={3} />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

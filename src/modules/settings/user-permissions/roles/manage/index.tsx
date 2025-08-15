@@ -13,6 +13,7 @@ import {
   ButtonWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
@@ -40,7 +41,7 @@ const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
         />
       }
     >
-      <Form layout="vertical" onFinish={formSubmitHandler} form={form}>
+      <FormWrapper onFinish={formSubmitHandler} form={form}>
         <FormItemWrapper name="page" label="Page Name">
           <InputWrapper />
         </FormItemWrapper>
@@ -76,7 +77,7 @@ const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
             </>
           )}
         </Form.List>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

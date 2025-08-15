@@ -9,6 +9,7 @@ import type { ModalPropTypes } from 'src/types/common'
 
 import { FormItemWrapper, ModalWrapper, SelectWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 import { getDisabledDate, getSelectOption } from '@/utils/disableFunction'
@@ -45,12 +46,7 @@ const MarkAttendanceForm = ({ openModal, setOpenModal }: ModalPropTypes<never>):
         />
       }
     >
-      <Form
-        form={form}
-        onFinish={onFinish}
-        layout="vertical"
-        initialValues={{ date: dayjs(), status: 'present' }}
-      >
+      <FormWrapper form={form} onFinish={onFinish} initialValues={{ date: dayjs(), status: 'present' }}>
         <FormItemWrapper label="Date" name="date" rules={requiredFieldRules}>
           <DatePickerWrapper disabledDate={getDisabledDate('before', 2)} />
         </FormItemWrapper>
@@ -62,7 +58,7 @@ const MarkAttendanceForm = ({ openModal, setOpenModal }: ModalPropTypes<never>):
         <FormItemWrapper label="Remarks (optional)" name="remarks">
           <Input.TextArea rows={2} placeholder="E.g. late arrival, sick leave reason..." />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

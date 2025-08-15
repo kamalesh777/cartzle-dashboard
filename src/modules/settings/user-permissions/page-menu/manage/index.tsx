@@ -14,6 +14,7 @@ import {
   ButtonWrapper,
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
 
 const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
@@ -41,7 +42,7 @@ const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<n
         />
       }
     >
-      <Form layout="vertical" onFinish={formSubmitHandler} form={form}>
+      <FormWrapper onFinish={formSubmitHandler} form={form}>
         <FormItemWrapper name="page_name" label="Page Name">
           <InputWrapper />
         </FormItemWrapper>
@@ -77,7 +78,7 @@ const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<n
             </>
           )}
         </Form.List>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

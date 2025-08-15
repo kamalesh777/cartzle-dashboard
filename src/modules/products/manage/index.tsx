@@ -14,6 +14,7 @@ import { postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { ButtonWrapper, CardWrapper, SpaceWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { PRODUCT_LIST_ROUTE, ProductTabsArr } from '@/constants/AppConstant'
 
 import { useUnwantedReload } from '@/hook/useUnwantedReload'
@@ -29,7 +30,9 @@ interface Props {
 // Product manage component
 const ProductManageComp = ({ data }: Props): JSX.Element => {
   const { setIsValueChanged } = useUnwantedReload()
-  const [currentTab, setCurrentTab] = useState<number>(ProductTabsArr[0])
+  const firstIndex = ProductTabsArr[0] || 0
+  const lastIndex = ProductTabsArr[2]
+  const [currentTab, setCurrentTab] = useState<number>(firstIndex)
 
   const [form] = Form.useForm()
 
@@ -43,7 +46,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   const tabsArray = [
     {
       label: 'General',
-      key: ProductTabsArr[0].toString(),
+      key: firstIndex.toString(),
       children: <GeneralTab form={form} />,
     },
     {
@@ -58,28 +61,40 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
     },
   ]
 
+  // next handler
   const nextHandler = async (): Promise<void> => {
-    if (currentTab >= ProductTabsArr[2]) {
+    // Exit if already beyond last tab
+    if (currentTab > lastIndex) return
+
+    // If on last tab, submit the form
+    if (currentTab === lastIndex) {
+      await form.submit()
       return
     }
-    await form.validateFields({ recursive: true })
-    setCurrentTab(prevState => +prevState + 1)
+
+    try {
+      await form.validateFields({ recursive: true })
+      setCurrentTab(prevState => prevState + 1)
+    } catch (error) {
+      console.error('==Validation failed:', error)
+    }
+  }
+
+  // previous handler
+  const prevHandler = (): void => {
+    if (currentTab <= firstIndex) {
+      return
+    }
+    setCurrentTab(prevState => +prevState - 1)
   }
 
   /** Operations slot */
   const OperationsSlot: Record<PositionType, React.ReactNode> = {
-    left:
-      ProductTabsArr[0] !== currentTab ? (
-        <ButtonWrapper onClick={() => setCurrentTab(prevState => prevState - 1)}>Back</ButtonWrapper>
-      ) : null,
+    left: firstIndex !== currentTab ? <ButtonWrapper onClick={prevHandler}>Back</ButtonWrapper> : null,
     right: (
-      <ButtonWrapper
-        type="primary"
-        htmlType={ProductTabsArr[2] !== currentTab ? 'button' : 'submit'}
-        onClick={nextHandler}
-      >
-        {ProductTabsArr[2] !== currentTab ? 'Next' : 'Save'}
-        {ProductTabsArr[2] !== currentTab ? <ArrowRightOutlined /> : <SaveOutlined />}
+      <ButtonWrapper type="primary" onClick={nextHandler}>
+        {lastIndex === currentTab ? 'Save' : 'Next'}
+        {lastIndex === currentTab ? <SaveOutlined /> : <ArrowRightOutlined />}
       </ButtonWrapper>
     ),
   }
@@ -108,23 +123,18 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   /** Main component */
   const MAIN_COMP = (
     <>
-      <Form
-        layout="vertical"
-        form={form}
-        onFinish={formSubmitHandler}
-        onValuesChange={() => setIsValueChanged(true)}
-      >
+      <FormWrapper form={form} onFinish={formSubmitHandler} onValuesChange={() => setIsValueChanged(true)}>
         <CardWrapper>
           <Tabs
             centered
             onChange={tabChangeHandler}
-            defaultActiveKey={ProductTabsArr[0].toString()}
+            defaultActiveKey={firstIndex.toString()}
             activeKey={currentTab.toString()}
             items={tabsArray}
             tabBarExtraContent={OperationsSlot}
           />
         </CardWrapper>
-      </Form>
+      </FormWrapper>
     </>
   )
 

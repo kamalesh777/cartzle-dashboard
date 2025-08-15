@@ -5,6 +5,7 @@ import { Form } from 'antd'
 import type { ModalPropTypes } from 'src/types/common'
 
 import { FormItemWrapper, InputWrapper, ModalWrapper, SubmitButtonWrapper } from '@/components/Wrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -34,14 +35,14 @@ const BrandManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropType
         />
       }
     >
-      <Form layout="vertical" form={form} onFinish={onFinish}>
+      <FormWrapper form={form} onFinish={onFinish}>
         <FormItemWrapper name="name" label="Name" rules={requiredFieldRules}>
           <InputWrapper placeholder="Enter brand name" />
         </FormItemWrapper>
         <FormItemWrapper name="official_url" label="Official URL">
           <InputWrapper placeholder="Enter brand official url" />
         </FormItemWrapper>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }

@@ -15,6 +15,7 @@ import {
   SubmitButtonWrapper,
 } from '@/components/Wrapper'
 import DatePickerWrapper from '@/components/Wrapper/DatePickerWrapper'
+import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
@@ -49,7 +50,7 @@ const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
         />
       }
     >
-      <Form form={form} layout="vertical" onFinish={formSubmitHandler}>
+      <FormWrapper form={form} onFinish={formSubmitHandler}>
         <FormItemWrapper name="name" label="Name" rules={requiredWithWhitspcFieldRules}>
           <InputWrapper />
         </FormItemWrapper>
@@ -93,7 +94,7 @@ const EmployeesManageComp = ({ openModal, setOpenModal, selectedId }: ModalPropT
             </FormItemWrapper>
           </ColWrapper>
         </Row>
-      </Form>
+      </FormWrapper>
     </ModalWrapper>
   )
 }
