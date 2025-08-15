@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import { StarFilled } from '@ant-design/icons'
-
 import { Checkbox, Form, Row } from 'antd'
-
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { VariantCombination, VariantMedia } from '../types'
@@ -38,7 +36,7 @@ import { modalCloseHandler } from '@/utils/commonFunctions'
 import { generateSku } from '@/utils/productUtils'
 
 import PriceCard from '../Components/PriceCard'
-import { setPrimaryMediaHandler, updateVariantRecursively } from '../utils'
+import { setPrimaryMediaHandler, updateVariantRecursively } from '../utils' // keep only updateVariantRecursively
 
 interface FieldsArrType {
   name: string
@@ -65,50 +63,63 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
   const selectedVariant = variantsTableState?.find(item => item.key === selectedList?.key)
   const mediaState = selectedVariant?.media
 
-  // form instance for the product form
+  // main product form watchers
   const mediaFilesArr = Form.useWatch('mediaFiles', form)
   const variantsArr = Form.useWatch('variantOptions', form)
 
-  // form instance for the variant group modal
+  // modal group form
   const [groupForm] = Form.useForm()
   const showOnlySelected = Form.useWatch(['showOnlySelected'], groupForm)
-  const mediaArr = Form.useWatch('media', groupForm) as VariantMedia[]
+  const mediaArr = Form.useWatch('media', groupForm) as VariantMedia[] | undefined
 
   useEffect(() => {
     groupForm.setFieldsValue({ ...selectedList, media: mediaState })
-  }, [selectedList])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedList, mediaState])
 
-  // filter media files based on media
-  const uploadedMediaArr = !showOnlySelected
-    ? mediaFilesArr
-    : mediaFilesArr?.filter((m: VariantMedia) => mediaArr?.some((i: VariantMedia) => i.fileId === m.fileId))
+  // lookup helpers (fast + stable)
+  const selectedIds = useMemo(() => new Set(mediaArr?.map(m => m.fileId)), [mediaArr])
+  const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
+
+  // filter media files based on "show only selected"
+  const uploadedMediaArr = useMemo(
+    () =>
+      showOnlySelected
+        ? mediaFilesArr?.filter((media: VariantMedia) => selectedIds.has(media.fileId))
+        : mediaFilesArr,
+    [showOnlySelected, mediaFilesArr, selectedIds]
+  )
 
   const productName = form.getFieldValue('title')
   const skuValue = generateSku(productName, selectedList?.label as string)
 
   const closeModal = (): void => modalCloseHandler(setOpenModal)
 
-  // set primary media handler
+  // set primary media handler — update groupForm (and keep product form in sync)
   const fileActiveHandler = (upFiles: VariantMedia[], fileId: string): void => {
-    const result = setPrimaryMediaHandler(upFiles, fileId)
+    const result = setPrimaryMediaHandler(upFiles, fileId) // immutable
     groupForm.setFieldsValue({ media: result })
   }
 
   // media menu dropdown
   const menuItems = (record: VariantMedia): MenuProps['items'] => {
+    const isSelected = selectedIds.has(record.fileId)
+    const isAlreadyPrimary = primaryId === record.fileId
+
     return [
-      mediaArr?.some((item: VariantMedia) => item.fileId === record.fileId)
+      isSelected
         ? {
             key: '1',
             label: 'Set as Primary',
-            onClick: () => fileActiveHandler(mediaArr, record?.fileId),
+            disabled: isAlreadyPrimary,
+            onClick: () => fileActiveHandler(mediaArr || [], record.fileId),
           }
         : null,
       {
         key: '2',
         label: 'Preview',
       },
-    ]
+    ].filter(Boolean) as MenuProps['items']
   }
 
   // form submit handler
@@ -152,17 +163,14 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       footer={
         <SubmitButtonWrapper
           okButtonProps={{ loading: false, onClick: () => groupForm.submit() }}
-          cancelButtonProps={{
-            onClick: () => closeModal(),
-          }}
+          cancelButtonProps={{ onClick: () => closeModal() }}
         />
       }
     >
       <FormWrapper form={groupForm} onFinish={onFinish}>
         {/* ==== price card ==== */}
-        {!selectedList?.parent || variantsArr?.length === 1 ? (
-          <PriceCard form={groupForm} entity="variants" />
-        ) : null}
+        {!selectedList?.parent || variantsArr?.length === 1 ? <PriceCard form={groupForm} entity="variants" /> : null}
+
         {/* ==== dynamically fields ==== */}
         <Row gutter={COMMON_ROW_GUTTER} className="mt-3">
           {!selectedList?.parent || variantsArr?.length === 1
@@ -190,6 +198,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                 </ColWrapper>
               ))
             : null}
+
           {(selectedList?.parent || variantsArr?.length === 1) && (
             <ColWrapper md={24}>
               <FormItemWrapper
@@ -199,14 +208,13 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                     Variant Images
                   </InfoTooltip>
                 }
-                valuePropName="checked"
-                // Transform IDs → media objects before storing in form state
+                // ✅ Store objects in form (IDs → objects)
                 getValueFromEvent={(checkedIds: string[]) =>
-                  uploadedMediaArr.filter((media: VariantMedia) => checkedIds.includes(media.fileId))
+                  (uploadedMediaArr || []).filter((m: VariantMedia) => checkedIds?.includes(m.fileId))
                 }
-                // Convert objects → IDs when populating the field (for edit mode)
+                // ✅ Feed IDs to Checkbox.Group when editing (objects → IDs)
                 getValueProps={(mediaObjects: VariantMedia[] = []) => ({
-                  value: mediaObjects.map(obj => obj.fileId)
+                  value: mediaObjects.map(obj => obj.fileId),
                 })}
               >
                 {uploadedMediaArr?.length ? (
@@ -214,21 +222,15 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                     <div className="media-list-container w-100">
                       {uploadedMediaArr.map((media: VariantMedia) => (
                         <CheckBoxWrapper
-                          value={media.fileId} // still using fileId for the checkbox control
+                          value={media.fileId} // Checkbox group value = fileId
                           key={media.fileId}
                           className="checkbox-button media-list-wrapper"
                         >
                           <div
-                            className={`media-list w-100 ${
-                              mediaArr?.some((item: VariantMedia) => item.fileId === media.fileId) ? 'active-border' : ''
-                            }`}
+                            className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
                           >
                             <div className="upload-action">
-                              {mediaArr?.some((item: VariantMedia) => item.fileId === media.fileId && item.isPrimary) ? (
-                                <StarFilled className="primary-color p-1" />
-                              ) : (
-                                <span />
-                              )}
+                              {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
                               <DropdownWrapper
                                 menu={{ items: menuItems(media) }}
                                 overlayStyle={{ minWidth: '140px' }}
@@ -254,7 +256,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                   />
                 )}
               </FormItemWrapper>
-            
+
               <FormItemWrapper
                 name="showOnlySelected"
                 className="mb-3"

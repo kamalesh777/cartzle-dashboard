@@ -1,16 +1,10 @@
 import type { VariantCombination, VariantMedia } from '../types'
 
-// make isPrimary true for current index and make false for other indexes
+// ✅ Immutable helper to force rerender and ensure star updates
 export const setPrimaryMediaHandler = (mediaFiles: VariantMedia[], fileId: string): VariantMedia[] => {
-  const result = mediaFiles?.map((item: VariantMedia) => {
-    if (item.fileId === fileId) {
-      item.isPrimary = true
-    } else {
-      item.isPrimary = false
-    }
-    return item
-  })
-  return result
+  return (mediaFiles || []).map((item: VariantMedia) =>
+    item.fileId === fileId ? { ...item, isPrimary: true } : { ...item, isPrimary: false }
+  )
 }
 
 export const updateVariantRecursively = (
