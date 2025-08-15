@@ -219,7 +219,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
               >
                 {uploadedMediaArr?.length ? (
                   <Checkbox.Group className="d-flex">
-                    <div className="media-list-container w-100">
+                    <div className="media-list-container w-100" style={{ maxHeight: '300px' }}>
                       {uploadedMediaArr.map((media: VariantMedia) => (
                         <CheckBoxWrapper
                           value={media.fileId} // Checkbox group value = fileId

@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { StarFilled } from '@ant-design/icons'
-import { Form } from 'antd'
+import { Checkbox, Form } from 'antd'
 
 import type { VariantMedia } from '../types'
 import type { FormInstance, MenuProps, UploadFile } from 'antd'
@@ -12,7 +12,7 @@ import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
 
 import MoreVertical from '@/components/Common/Icons/MoreVertical'
-import { FormItemWrapper, EmptyWrapper, DropdownWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, EmptyWrapper, DropdownWrapper, CheckBoxWrapper } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
@@ -30,6 +30,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const productId = Form.useWatch('id', form) || 'temp'
   const mediaFiles = Form.useWatch('mediaFiles', form)
   const uploadMedia = Form.useWatch('uploadMedia', form)
+  const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
@@ -100,17 +101,21 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   }
 
   // file active handler
-  const fileActiveHandler = (uploadedFiles: VariantMedia[], fileId: string): void => {
-    const result = setPrimaryMediaHandler(uploadedFiles, fileId)
-    form.setFieldsValue({ mediaFiles: result })
+  const fileActiveHandler = (upFiles: VariantMedia[], fileId: string): void => {
+    const result = setPrimaryMediaHandler(upFiles, fileId)
+    form.setFieldsValue({ media: result })
   }
+
+  // lookup helpers (fast + stable)
+    const selectedIds = useMemo(() => new Set(mediaArr?.map(m => m.fileId)), [mediaArr])
+    const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
 
   const menuItems = (record: VariantMedia): MenuProps['items'] => {
     return [
       {
         key: '1',
         label: 'Set as Primary',
-        onClick: () => fileActiveHandler(uploadedMediaArr, record?.fileId),
+        onClick: () => fileActiveHandler(mediaArr || [], record?.fileId),
       },
       {
         key: '2',
@@ -140,26 +145,52 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           loading={fileUploadLoading}
         />
       </FormItemWrapper>
+      <FormItemWrapper name="mediaFiles" hidden />
       <FormItemWrapper
-        name="mediaFiles"
+        name="media"
         label="Media Files"
         className="mb-0"
         tooltip="All uploaded media list"
+        // ✅ Store objects in form (IDs → objects)
+        getValueFromEvent={(checkedIds: string[]) =>
+          (uploadedMediaArr || []).filter((m: VariantMedia) => checkedIds?.includes(m.fileId))
+        }
+        // ✅ Feed IDs to Checkbox.Group when editing (objects → IDs)
+        getValueProps={(mediaObjects: VariantMedia[] = []) => ({
+          value: mediaObjects.map(obj => obj.fileId),
+        })}
+        valuePropName="checked"
       >
         {uploadedMediaArr?.length ? (
-          <div className="media-list-container" style={{ gap: '0px' }}>
-            {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
-              <div key={media?.name} className={`media-list mb-2 ${media?.isPrimary ? 'active-border' : ''}`}>
-                <div className="upload-action">
-                  {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
-                  <DropdownWrapper menu={{ items: menuItems(media) }}>
-                    <MoreVertical className="p-1" />
-                  </DropdownWrapper>
+          <Checkbox.Group className="d-flex">
+          <div className="media-list-container w-100">
+            {uploadedMediaArr.map((media: VariantMedia) => (
+              <CheckBoxWrapper
+                value={media.fileId} // Checkbox group value = fileId
+                key={media.fileId}
+                className="checkbox-button media-list-wrapper"
+              >
+                <div
+                  className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
+                >
+                  <div className="upload-action">
+                    {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
+                    <DropdownWrapper
+                      menu={{ items: menuItems(media) }}
+                      overlayStyle={{ minWidth: '140px' }}
+                    >
+                      <MoreVertical className="p-1" />
+                    </DropdownWrapper>
+                  </div>
+                  <img
+                    src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
+                    alt={media.name}
+                  />
                 </div>
-                <img src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`} alt={media.name} />
-              </div>
+              </CheckBoxWrapper>
             ))}
           </div>
+        </Checkbox.Group>
         ) : (
           <EmptyWrapper
             imageStyle={{ width: 100, height: 100, margin: 'auto' }}
