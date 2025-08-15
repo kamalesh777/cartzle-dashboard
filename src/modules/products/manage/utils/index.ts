@@ -1,9 +1,9 @@
 import type { VariantCombination, VariantMedia } from '../types'
 
 // make isPrimary true for current index and make false for other indexes
-export const setPrimaryMediaHandler = (mediaFiles: VariantMedia[], index: number): VariantMedia[] => {
-  const result = mediaFiles?.map((item: VariantMedia, i: number) => {
-    if (i === index) {
+export const setPrimaryMediaHandler = (mediaFiles: VariantMedia[], fileId: string): VariantMedia[] => {
+  const result = mediaFiles?.map((item: VariantMedia) => {
+    if (item.fileId === fileId) {
       item.isPrimary = true
     } else {
       item.isPrimary = false

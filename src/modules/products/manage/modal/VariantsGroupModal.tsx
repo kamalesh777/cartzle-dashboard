@@ -63,22 +63,25 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
 
   // find selected variant by key
   const selectedVariant = variantsTableState?.find(item => item.key === selectedList?.key)
-  const mediaIdArr = selectedVariant?.mediaIds
+  const mediaState = selectedVariant?.media
 
+  // form instance for the product form
   const mediaFilesArr = Form.useWatch('mediaFiles', form)
   const variantsArr = Form.useWatch('variantOptions', form)
 
+  // form instance for the variant group modal
   const [groupForm] = Form.useForm()
   const showOnlySelected = Form.useWatch(['showOnlySelected'], groupForm)
+  const mediaArr = Form.useWatch('media', groupForm) as VariantMedia[]
 
   useEffect(() => {
-    groupForm.setFieldsValue(selectedList)
+    groupForm.setFieldsValue({ ...selectedList, media: mediaState })
   }, [selectedList])
 
-  // filter media files based on mediaIds
-  const uploadedMediaArr = showOnlySelected
-    ? mediaFilesArr?.filter((media: VariantMedia) => mediaIdArr?.includes(media?.fileId))
-    : mediaFilesArr
+  // filter media files based on media
+  const uploadedMediaArr = !showOnlySelected
+    ? mediaFilesArr
+    : mediaFilesArr?.filter((m: VariantMedia) => mediaArr?.some((i: VariantMedia) => i.fileId === m.fileId))
 
   const productName = form.getFieldValue('title')
   const skuValue = generateSku(productName, selectedList?.label as string)
@@ -86,19 +89,19 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
   const closeModal = (): void => modalCloseHandler(setOpenModal)
 
   // set primary media handler
-  const fileActiveHandler = (uploadedFiles: VariantMedia[], index: number): void => {
-    const result = setPrimaryMediaHandler(uploadedFiles, index)
-    form.setFieldsValue({ mediaFiles: result })
+  const fileActiveHandler = (upFiles: VariantMedia[], fileId: string): void => {
+    const result = setPrimaryMediaHandler(upFiles, fileId)
+    groupForm.setFieldsValue({ media: result })
   }
 
   // media menu dropdown
-  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
+  const menuItems = (record: VariantMedia): MenuProps['items'] => {
     return [
-      mediaIdArr?.includes(record?.fileId)
+      mediaArr?.some((item: VariantMedia) => item.fileId === record.fileId)
         ? {
             key: '1',
             label: 'Set as Primary',
-            onClick: () => fileActiveHandler(uploadedMediaArr, index),
+            onClick: () => fileActiveHandler(mediaArr, record?.fileId),
           }
         : null,
       {
@@ -190,31 +193,44 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
           {(selectedList?.parent || variantsArr?.length === 1) && (
             <ColWrapper md={24}>
               <FormItemWrapper
-                name={'mediaIds'}
+                name="media"
                 label={
                   <InfoTooltip title="Select media by checking on the checkbox or media preview">
                     Variant Images
                   </InfoTooltip>
                 }
+                valuePropName="checked"
+                // Transform IDs → media objects before storing in form state
+                getValueFromEvent={(checkedIds: string[]) =>
+                  uploadedMediaArr.filter((media: VariantMedia) => checkedIds.includes(media.fileId))
+                }
+                // Convert objects → IDs when populating the field (for edit mode)
+                getValueProps={(mediaObjects: VariantMedia[] = []) => ({
+                  value: mediaObjects.map(obj => obj.fileId)
+                })}
               >
                 {uploadedMediaArr?.length ? (
                   <Checkbox.Group className="d-flex">
                     <div className="media-list-container w-100">
-                      {uploadedMediaArr?.map((media: VariantMedia, index: number) => (
+                      {uploadedMediaArr.map((media: VariantMedia) => (
                         <CheckBoxWrapper
-                          value={media?.fileId}
-                          key={media?.name}
+                          value={media.fileId} // still using fileId for the checkbox control
+                          key={media.fileId}
                           className="checkbox-button media-list-wrapper"
                         >
                           <div
                             className={`media-list w-100 ${
-                              mediaIdArr?.includes(media?.fileId) ? 'active-border' : ''
+                              mediaArr?.some((item: VariantMedia) => item.fileId === media.fileId) ? 'active-border' : ''
                             }`}
                           >
                             <div className="upload-action">
-                              {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
+                              {mediaArr?.some((item: VariantMedia) => item.fileId === media.fileId && item.isPrimary) ? (
+                                <StarFilled className="primary-color p-1" />
+                              ) : (
+                                <span />
+                              )}
                               <DropdownWrapper
-                                menu={{ items: menuItems(media, index) }}
+                                menu={{ items: menuItems(media) }}
                                 overlayStyle={{ minWidth: '140px' }}
                               >
                                 <MoreVertical className="p-1" />
@@ -238,8 +254,9 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                   />
                 )}
               </FormItemWrapper>
+            
               <FormItemWrapper
-                name={'showOnlySelected'}
+                name="showOnlySelected"
                 className="mb-3"
                 initialValue={false}
                 valuePropName="checked"

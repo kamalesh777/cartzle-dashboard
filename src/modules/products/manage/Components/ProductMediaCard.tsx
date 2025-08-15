@@ -100,17 +100,17 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   }
 
   // file active handler
-  const fileActiveHandler = (uploadedFiles: VariantMedia[], index: number): void => {
-    const result = setPrimaryMediaHandler(uploadedFiles, index)
+  const fileActiveHandler = (uploadedFiles: VariantMedia[], fileId: string): void => {
+    const result = setPrimaryMediaHandler(uploadedFiles, fileId)
     form.setFieldsValue({ mediaFiles: result })
   }
 
-  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
+  const menuItems = (record: VariantMedia): MenuProps['items'] => {
     return [
       {
         key: '1',
         label: 'Set as Primary',
-        onClick: () => fileActiveHandler(uploadedMediaArr, index),
+        onClick: () => fileActiveHandler(uploadedMediaArr, record?.fileId),
       },
       {
         key: '2',
@@ -152,7 +152,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
               <div key={media?.name} className={`media-list mb-2 ${media?.isPrimary ? 'active-border' : ''}`}>
                 <div className="upload-action">
                   {media?.isPrimary ? <StarFilled className="primary-color p-1" /> : <span />}
-                  <DropdownWrapper menu={{ items: menuItems(media, index) }}>
+                  <DropdownWrapper menu={{ items: menuItems(media) }}>
                     <MoreVertical className="p-1" />
                   </DropdownWrapper>
                 </div>

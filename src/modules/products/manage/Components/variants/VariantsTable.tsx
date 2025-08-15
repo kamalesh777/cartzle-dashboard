@@ -59,7 +59,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         costPrice: costPrice || item?.costPrice,
         discount: discount || item?.discount,
         inStock: item?.inStock || false,
-        mediaIds: item?.mediaIds || [],
+        media: item?.media || [],
         available: 0,
       }
 

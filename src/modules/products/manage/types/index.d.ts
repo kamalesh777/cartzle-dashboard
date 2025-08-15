@@ -33,7 +33,7 @@ export interface VariantCombination {
   sku?: string
   discount?: number
   inStock?: boolean
-  mediaIds?: string[]
+  media?: { fileId: string; name: string; isPrimary: boolean }[]
   children?: VariantCombination[]
 }
 
