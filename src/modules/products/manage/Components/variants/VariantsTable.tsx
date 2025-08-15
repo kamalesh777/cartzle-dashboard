@@ -54,7 +54,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     return data.map(item => {
       const updatedItem: VariantCombination = {
         ...item,
-        sellPrice: item?.sellPrice || salePrice,
+        salePrice: item?.salePrice || salePrice,
         costPrice: item?.costPrice || costPrice,
         available: 0,
       }
@@ -112,15 +112,15 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: 'Sell Price',
-      dataIndex: 'sellPrice',
+      title: 'Sale Price',
+      dataIndex: 'salePrice',
       width: '15%',
       render: (_, record) => (
         <InputNumberWrapper
           prefix={getCurrency()}
-          value={record.sellPrice}
+          value={record.salePrice}
           size="small"
-          onChange={value => rowChangeHandler({ ...record, sellPrice: value as number })}
+          onChange={value => rowChangeHandler({ ...record, salePrice: value as number })}
         />
       ),
     },
@@ -157,7 +157,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
     selectedRowKeys: selectedVariants?.length
-      ? selectedVariants?.map((item: VariantCombination) => item.key)
+      ? selectedVariants?.map((item: VariantCombination) => item.label)
       : [],
     onChange: (_selectedRowKeys, selectedRows) => {
       form.setFieldValue('variantCombinations', selectedRows)
@@ -176,7 +176,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
           ...updatedRecord,
           children: item.children?.map(child => ({
             ...child,
-            sellPrice: updatedRecord.sellPrice,
+            salePrice: updatedRecord.salePrice,
             costPrice: updatedRecord.costPrice,
             available: updatedRecord.available,
           })),

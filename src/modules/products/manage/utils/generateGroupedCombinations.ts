@@ -67,7 +67,7 @@ export const generateGroupedCombinations = (
         ...item,
         parent: false,
         ...(existingChild || {}),
-        key: `${label}-${index}`, // better than undefined-0
+        key: `${label}-${index}`, // here index is children map index
       }
     })
 
@@ -77,7 +77,7 @@ export const generateGroupedCombinations = (
     }
 
     return {
-      ...(existingParent || {}), // keep sellPrice, costPrice, available
+      ...(existingParent || {}), // keep salePrice, costPrice, available
       label,
       parent: true,
       key: label,

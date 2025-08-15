@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 
 import { Form } from 'antd'
@@ -7,9 +8,12 @@ import type { FormProps } from 'antd'
 
 interface FormWrapperProps extends FormProps {
   children: React.ReactNode
+  log?: boolean
 }
 
-const FormWrapper = ({ children, ...props }: FormWrapperProps): JSX.Element => {
+const FormWrapper = ({ children, log = false, ...props }: FormWrapperProps): JSX.Element => {
+  const formData = Form.useWatch([], props.form)
+  log && console.log('===formData log', formData)
   return (
     <Form layout="vertical" scrollToFirstError {...props}>
       {children}

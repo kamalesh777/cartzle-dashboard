@@ -26,7 +26,7 @@ export interface VariantCombination {
   label: string
   key: string
   parent?: boolean
-  sellPrice?: number
+  salePrice?: number
   costPrice?: number
   available?: number
   sku?: string
@@ -36,7 +36,7 @@ export interface VariantCombination {
 type VariantItem = {
   label: string
   key: string
-  sellPrice?: number
+  salePrice?: number
   costPrice?: number
   available?: number
   options: Record<string, string>

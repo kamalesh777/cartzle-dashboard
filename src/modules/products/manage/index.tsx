@@ -114,7 +114,6 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
       ...formValue,
     }
     const resp = await postRequest('/api/product-create', payload)
-    console.log('===resp', resp)
     if (resp?.data?.success) {
       Toast('success', resp.data.message)
     }
@@ -123,7 +122,12 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   /** Main component */
   const MAIN_COMP = (
     <>
-      <FormWrapper form={form} onFinish={formSubmitHandler} onValuesChange={() => setIsValueChanged(true)}>
+      <FormWrapper
+        form={form}
+        onFinish={formSubmitHandler}
+        onValuesChange={() => setIsValueChanged(true)}
+        log
+      >
         <CardWrapper>
           <Tabs
             centered

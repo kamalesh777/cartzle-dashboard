@@ -56,23 +56,24 @@ const VariantsGroupModal = ({
   selectedIndex,
   form,
 }: Props): JSX.Element => {
-  const productTitle = Form.useWatch('title', form)
   const mediaFilesArr = Form.useWatch('mediaFiles', form)
   const variantsArr = Form.useWatch('variants', form)
   const mediaIdArr = Form.useWatch(['variantCombinations', selectedIndex, 'mediaIds'], form)
   const showOnlySelected = Form.useWatch(['showOnlySelected'], form)
-  const productCategory = Form.useWatch(CATEGORY_ID, form)
+
+  // const [groupForm] = Form.useForm()
 
   // filter media files based on mediaIds
   const uploadedMediaArr = showOnlySelected
     ? mediaFilesArr?.filter((media: VariantMedia) => mediaIdArr?.includes(media?.fileId))
     : mediaFilesArr
 
-  const skuValue = generateSku(productTitle, productCategory, selectedList?.label as string)
+  const productName = form.getFieldValue('title')
+  const skuValue = generateSku(productName, selectedList?.label as string)
 
   const closeModal = (): void => modalCloseHandler(setOpenModal)
   const renderPrefix = (name: string): string => {
-    if (name === 'sellPrice' || name === 'costPrice') {
+    if (name === 'salePrice' || name === 'costPrice') {
       return getCurrency()
     }
     return ''
@@ -80,8 +81,8 @@ const VariantsGroupModal = ({
 
   const fieldsArr: FieldsArrType[] = [
     {
-      name: 'sellPrice',
-      label: 'Sell Price',
+      name: 'salePrice',
+      label: 'Sale Price',
       rules: requiredFieldRules,
     },
     {
@@ -134,28 +135,20 @@ const VariantsGroupModal = ({
     >
       <FormWrapper form={form}>
         <Row gutter={COMMON_ROW_GUTTER}>
-          {fieldsArr?.map((item: FieldsArrType) => (
-            <ColWrapper md={12} key={item.name}>
-              <FormItemWrapper
-                name={['variantCombinations', selectedIndex, item.name]}
-                label={item.label}
-                rules={item.rules}
-                initialValue={item.initialValue}
-              >
-                <InputNumberWrapper prefix={renderPrefix(item.name)} {...item.fieldsProps} />
-              </FormItemWrapper>
-            </ColWrapper>
-          ))}
-          <ColWrapper md={24}>
-            <FormItemWrapper
-              name={'showOnlySelected'}
-              className="mb-3"
-              initialValue={false}
-              valuePropName="checked"
-            >
-              <CheckBoxWrapper>Show only selected media files</CheckBoxWrapper>
-            </FormItemWrapper>
-          </ColWrapper>
+          {!selectedList?.parent || variantsArr?.length === 1
+            ? fieldsArr?.map((item: FieldsArrType) => (
+                <ColWrapper md={12} key={item.name}>
+                  <FormItemWrapper
+                    name={['variantCombinations', selectedIndex, item.name]}
+                    label={item.label}
+                    rules={item.rules}
+                    initialValue={item.initialValue}
+                  >
+                    <InputNumberWrapper prefix={renderPrefix(item.name)} {...item.fieldsProps} />
+                  </FormItemWrapper>
+                </ColWrapper>
+              ))
+            : null}
           {(selectedList?.parent || variantsArr?.length === 1) && (
             <ColWrapper md={24}>
               <FormItemWrapper
@@ -206,6 +199,14 @@ const VariantsGroupModal = ({
                     style={{ borderRadius: '8px' }}
                   />
                 )}
+              </FormItemWrapper>
+              <FormItemWrapper
+                name={'showOnlySelected'}
+                className="mb-3"
+                initialValue={false}
+                valuePropName="checked"
+              >
+                <CheckBoxWrapper>Show only selected media files</CheckBoxWrapper>
               </FormItemWrapper>
             </ColWrapper>
           )}
