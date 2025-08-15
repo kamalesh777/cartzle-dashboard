@@ -32,6 +32,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
   const groupBy = Form.useWatch('groupBy', form)
+  const discount = Form.useWatch('discount', form)
 
   const selectedVariants = Form.useWatch('variantCombinations', form)
 
@@ -54,8 +55,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     return data.map(item => {
       const updatedItem: VariantCombination = {
         ...item,
-        salePrice: item?.salePrice || salePrice,
-        costPrice: item?.costPrice || costPrice,
+        salePrice: salePrice || item?.salePrice,
+        costPrice: costPrice || item?.costPrice,
+        discount: discount || item?.discount,
+        inStock: item?.inStock || false,
+        mediaIds: item?.mediaIds || [],
         available: 0,
       }
 
@@ -72,6 +76,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     if (variantsArr?.length) {
       // generate grouped combinations with variants and groupBy
       const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
+
       // add default price for all variants
       const finalData = addDefaultPriceForAll(data)
       dispatch(setVariantsTable(finalData))
@@ -79,7 +84,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dispatch(setVariantsTable([]))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variantsArr, costPrice, salePrice, groupBy])
+  }, [variantsArr, costPrice, salePrice, groupBy, discount])
 
   // table columns
   const columns: TableColumnsType<VariantCombination> = [
@@ -145,10 +150,10 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       fixed: 'right',
       width: 50,
       className: 'text-right',
-      render: (_, record, index) => (
+      render: (_, record) => (
         <TableActionButton
           items={[]}
-          icon={<FormOutlined onClick={() => editRowHandler(record, index)} />}
+          icon={<FormOutlined onClick={() => editRowHandler(record)} />}
           tooltipTitle="Edit"
         />
       ),
@@ -159,7 +164,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
     selectedRowKeys: selectedVariants?.length
-      ? selectedVariants?.map((item: VariantCombination) => item.label)
+      ? selectedVariants?.map((item: VariantCombination) => item?.label)
       : [],
     onChange: (_selectedRowKeys, selectedRows) => {
       form.setFieldValue('variantCombinations', selectedRows)
@@ -198,9 +203,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   }
 
   // edit row handler
-  const editRowHandler = (record: VariantCombination, index: number): void => {
+  const editRowHandler = (record: VariantCombination): void => {
     setSelectedList(record)
-    setSelectedIndex(index)
+    setSelectedIndex(record.rowIndex)
     setOpenModal(true)
   }
 

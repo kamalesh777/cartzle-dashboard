@@ -5,7 +5,10 @@ import { StarFilled } from '@ant-design/icons'
 
 import { Checkbox, Form, Row } from 'antd'
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import type { VariantCombination, VariantMedia } from '../types'
+import type { RootState } from '@/store/index'
 // eslint-disable-next-line no-duplicate-imports
 import type { MenuProps } from 'antd'
 import type { FormInstance, Rule } from 'antd/es/form'
@@ -29,12 +32,13 @@ import {
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
 import { generateSku } from '@/utils/productUtils'
 
 import PriceCard from '../Components/PriceCard'
-import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
+import { setPrimaryMediaHandler, updateVariantRecursively } from '../utils'
 
 interface FieldsArrType {
   name: string
@@ -53,19 +57,19 @@ interface Props extends ModalPropTypes<VariantCombination> {
   form: FormInstance
 }
 
-const VariantsGroupModal = ({
-  openModal,
-  setOpenModal,
-  selectedList,
-  selectedIndex,
-  form,
-}: Props): JSX.Element => {
+const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
+  const dispatch = useDispatch()
+  const variantsTableState = useSelector((state: RootState) => state.variants.variantsTable)
+
+  // find selected variant by key
+  const selectedVariant = variantsTableState?.find(item => item.key === selectedList?.key)
+  const mediaIdArr = selectedVariant?.mediaIds
+
   const mediaFilesArr = Form.useWatch('mediaFiles', form)
   const variantsArr = Form.useWatch('variantOptions', form)
 
   const [groupForm] = Form.useForm()
   const showOnlySelected = Form.useWatch(['showOnlySelected'], groupForm)
-  const mediaIdArr = Form.useWatch(['variantCombinations', selectedIndex, 'mediaIds'], groupForm)
 
   useEffect(() => {
     groupForm.setFieldsValue(selectedList)
@@ -80,6 +84,37 @@ const VariantsGroupModal = ({
   const skuValue = generateSku(productName, selectedList?.label as string)
 
   const closeModal = (): void => modalCloseHandler(setOpenModal)
+
+  // set primary media handler
+  const fileActiveHandler = (uploadedFiles: VariantMedia[], index: number): void => {
+    const result = setPrimaryMediaHandler(uploadedFiles, index)
+    form.setFieldsValue({ mediaFiles: result })
+  }
+
+  // media menu dropdown
+  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
+    return [
+      mediaIdArr?.includes(record?.fileId)
+        ? {
+            key: '1',
+            label: 'Set as Primary',
+            onClick: () => fileActiveHandler(uploadedMediaArr, index),
+          }
+        : null,
+      {
+        key: '2',
+        label: 'Preview',
+      },
+    ]
+  }
+
+  // form submit handler
+  const onFinish = (values: any): void => {
+    // update variant recursively by key
+    const updatedData = updateVariantRecursively(variantsTableState, selectedList?.key as string, values)
+    dispatch(setVariantsTable(updatedData))
+    closeModal()
+  }
 
   const fieldsArr: FieldsArrType[] = [
     {
@@ -104,32 +139,6 @@ const VariantsGroupModal = ({
       rules: requiredFieldRules,
     },
   ]
-
-  const fileActiveHandler = (uploadedFiles: VariantMedia[], index: number): void => {
-    const result = setPrimaryMediaHandler(uploadedFiles, index)
-    form.setFieldsValue({ mediaFiles: result })
-  }
-
-  const menuItems = (record: VariantMedia, index: number): MenuProps['items'] => {
-    return [
-      mediaIdArr?.includes(record?.fileId)
-        ? {
-            key: '1',
-            label: 'Set as Primary',
-            onClick: () => fileActiveHandler(uploadedMediaArr, index),
-          }
-        : null,
-      {
-        key: '2',
-        label: 'Preview',
-      },
-    ]
-  }
-
-  const onFinish = (values: any): void => {
-    form.setFieldValue(['variantCombinations', selectedIndex], values)
-    closeModal()
-  }
 
   return (
     <ModalWrapper

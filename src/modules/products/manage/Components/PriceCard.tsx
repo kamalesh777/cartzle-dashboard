@@ -17,7 +17,7 @@ interface PropTypes {
 const PriceCard = ({ form, entity }: PropTypes): JSX.Element => {
   const costPrice = Form.useWatch('costPrice', form)
   const salePrice = Form.useWatch('salePrice', form)
-  const discount = Form.useWatch('discount', form)
+  const discount = Form.useWatch('discount', form) ?? 0
 
   // Set profit and margin on cost price and sale price change
   useEffect(() => {

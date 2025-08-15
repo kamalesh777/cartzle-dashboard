@@ -25,6 +25,7 @@ export interface VariantOptionTypes {
 export interface VariantCombination {
   label: string
   key: string
+  rowIndex?: number
   parent?: boolean
   salePrice?: number
   costPrice?: number

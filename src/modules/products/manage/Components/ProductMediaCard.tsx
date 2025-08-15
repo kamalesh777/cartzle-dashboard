@@ -20,7 +20,7 @@ import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
-import { setPrimaryMediaHandler } from '../utils/setPrimaryHandler'
+import { setPrimaryMediaHandler } from '../utils'
 
 interface PropTypes {
   form: FormInstance
