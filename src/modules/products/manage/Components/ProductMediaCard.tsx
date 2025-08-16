@@ -21,6 +21,7 @@ import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
 import { setPrimaryMediaHandler } from '../utils'
+import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 
 interface PropTypes {
   form: FormInstance
@@ -35,6 +36,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
   const [fileUploadLoading, setFileUploadLoading] = useState(false)
+  const [openPreviewModal, setOpenPreviewModal] = useState(false)
 
   // useMemo for uploaded files
   const uploadedMediaArr = useMemo(() => mediaFiles, [mediaFiles])
@@ -96,7 +98,6 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
 
   // delete media handler
   const deleteMediaHandler = async (fileId: string): Promise<void> => {
-    setSelectedFileId(fileId)
     setOpenDeleteModal(true)
   }
 
@@ -111,16 +112,21 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
     const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
 
   const menuItems = (record: VariantMedia): MenuProps['items'] => {
+    const isSelected = selectedIds.has(record.fileId)
+    const isAlreadyPrimary = primaryId === record.fileId
     return [
-      {
-        key: '1',
-        label: 'Set as Primary',
-        onClick: () => fileActiveHandler(mediaArr || [], record?.fileId),
-      },
+      isSelected
+        ? {
+            key: '1',
+            label: 'Set as Primary',
+            disabled: isAlreadyPrimary,
+            onClick: () => fileActiveHandler(mediaArr || [], record.fileId),
+          }
+        : null,
       {
         key: '2',
         label: 'Preview',
-        onClick: () => deleteMediaHandler(record?.fileId),
+        onClick: () => setOpenPreviewModal(true),
       },
       {
         type: 'divider',
@@ -176,7 +182,10 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                   <div className="upload-action">
                     {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
                     <DropdownWrapper
-                      menu={{ items: menuItems(media) }}
+                      menu={{ 
+                        items: menuItems(media), 
+                        onClick: () => setSelectedFileId(media.fileId) 
+                      }}
                       overlayStyle={{ minWidth: '140px' }}
                     >
                       <MoreVertical className="p-1" />
@@ -200,16 +209,31 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           />
         )}
       </FormItemWrapper>
-      <DeleteModalWrapper
-        apiEndpoint={`/api/media-service/${selectedFileId}`}
-        openModal={openDeleteModal}
-        closeModal={setOpenDeleteModal}
+      {/* delete modal */}
+      {
+        openDeleteModal && (
+          <DeleteModalWrapper
+            apiEndpoint={`/api/media-service/${selectedFileId}`}
+            openModal={openDeleteModal}
+            closeModal={setOpenDeleteModal}
         description="Are you sure you want to delete this media?"
         afterDelete={() => {
           getMediaList()
           setSelectedFileId('')
         }}
       />
+        )
+      }
+      {/* preview modal */}
+      {openPreviewModal &&
+        <ImagePreview 
+          multiple 
+          items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
+          visible={openPreviewModal} 
+          setVisible={setOpenPreviewModal}
+          src={selectedFileId}
+        />
+      }
     </>
   )
 }

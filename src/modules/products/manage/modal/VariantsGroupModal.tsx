@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { StarFilled } from '@ant-design/icons'
 import { Checkbox, Form, Row } from 'antd'
@@ -37,6 +37,7 @@ import { generateSku } from '@/utils/productUtils'
 
 import PriceCard from '../Components/PriceCard'
 import { setPrimaryMediaHandler, updateVariantRecursively } from '../utils' // keep only updateVariantRecursively
+import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 
 interface FieldsArrType {
   name: string
@@ -71,6 +72,9 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
   const [groupForm] = Form.useForm()
   const showOnlySelected = Form.useWatch(['showOnlySelected'], groupForm)
   const mediaArr = Form.useWatch('media', groupForm) as VariantMedia[] | undefined
+
+  const [openPreviewModal, setOpenPreviewModal] = useState(false)
+  const [selectedFileId, setSelectedFileId] = useState('')
 
   useEffect(() => {
     groupForm.setFieldsValue({ ...selectedList, media: mediaState })
@@ -118,6 +122,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       {
         key: '2',
         label: 'Preview',
+        onClick: () => setOpenPreviewModal(true),
       },
     ].filter(Boolean) as MenuProps['items']
   }
@@ -155,6 +160,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
   ]
 
   return (
+    <>
     <ModalWrapper
       open={openModal}
       onCancel={closeModal}
@@ -232,7 +238,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                             <div className="upload-action">
                               {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
                               <DropdownWrapper
-                                menu={{ items: menuItems(media) }}
+                                menu={{ items: menuItems(media), onClick: () => setSelectedFileId(media.fileId) }}
                                 overlayStyle={{ minWidth: '140px' }}
                               >
                                 <MoreVertical className="p-1" />
@@ -270,6 +276,18 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
         </Row>
       </FormWrapper>
     </ModalWrapper>
+    {/* preview modal */}
+    {openPreviewModal &&
+      <ImagePreview 
+        multiple 
+        items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
+        visible={openPreviewModal} 
+        setVisible={setOpenPreviewModal}
+        src={selectedFileId}
+        
+      />
+    }
+    </>
   )
 }
 
