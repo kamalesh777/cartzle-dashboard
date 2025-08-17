@@ -110,8 +110,9 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
    * @description This function is called when the form is submitted
    */
   const formSubmitHandler = async (formValue: ProductFormValueTypes): Promise<void> => {
+    const { uploadMedia, mediaFiles, ...rest } = formValue
     const payload = {
-      ...formValue,
+      ...rest,
     }
     const resp = await postRequest('/api/product-create', payload)
     if (resp?.data?.success) {

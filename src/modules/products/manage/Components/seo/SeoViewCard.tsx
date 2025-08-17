@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-duplicate-imports */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { SettingOutlined } from '@ant-design/icons'
 
@@ -17,13 +17,13 @@ import SeoManageCard from './SeoManageCard'
 const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
   const title = Form.useWatch('title', form)
   const description = Form.useWatch('description', form)
-  const mediaFiles = Form.useWatch('mediaFiles', form)
+  const mediaArr = Form.useWatch('media', form)
   const seoDetails = Form.useWatch('seo', form)
 
   const [openSeoModal, setOpenSeoModal] = useState(false)
 
   // get og image
-  const ogImage = mediaFiles?.find((item: any) => item?.isPrimary)?.fileId
+  const ogImage = useMemo(() => mediaArr?.find((item: any) => item?.isPrimary)?.fileId, [mediaArr])
 
   useEffect(() => {
     form.setFieldsValue({
@@ -34,7 +34,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
         ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
       },
     })
-  }, [title, description])
+  }, [title, description, ogImage])
 
   const handleManage = (): void => {
     setOpenSeoModal(true)

@@ -15,17 +15,23 @@ export interface ProductDataTypes {
 }
 
 export interface ProductFormValueTypes {
-  title: string
-  category: keyof (typeof categoriesOptions)[number]['value']
-  description?: string
-  thickness: number
-  width: number
-  length: number
-  unit: string
-  party: string
-  is_supplier: boolean
-  cost_price: number
-  sale_price: number
-  wood_type: string
-  // product_image: strings[]
+    title: string,
+    description?: string,
+    categoryId: string,
+    costPrice: number,
+    salePrice: number,
+    discount: number,
+    profit: number,
+    brandId?: string
+    tags?: string[]
+    status?: string
+    supplierId?: string
+    showcase?: boolean
+    groupBy?: string
+    variantCombinations?: VariantCombination[]
+    variantOptions?: VariantOptionTypes[]
+    mediaFiles?: VariantMedia[]
+    media?: VariantMedia[]
+    uploadMedia?: VariantMedia[]
+    seo?: SeoType
 }

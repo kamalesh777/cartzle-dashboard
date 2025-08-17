@@ -120,14 +120,12 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
     const isSelected = selectedIds.has(record.fileId)
     const isAlreadyPrimary = primaryId === record.fileId
     return [
-      isSelected
-        ? {
-            key: '1',
-            label: 'Set as Primary',
-            disabled: isAlreadyPrimary,
-            onClick: () => fileActiveHandler(mediaArr || [], record.fileId),
-          }
-        : null,
+      {
+        key: '1',
+        label: 'Set as Primary',
+        disabled: isAlreadyPrimary || !isSelected,
+        onClick: () => fileActiveHandler(mediaArr || [], record.fileId),
+      },
       {
         key: '2',
         label: 'Preview',
@@ -196,7 +194,9 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                     <DropdownWrapper
                       menu={{ 
                         items: menuItems(media), 
-                        onClick: () => setSelectedFileId(media.fileId) 
+                        onClick: () => {
+                          setSelectedFileId(media.fileId)
+                        } 
                       }}
                       overlayStyle={{ minWidth: '140px' }}
                     >
