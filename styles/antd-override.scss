@@ -120,7 +120,8 @@ tr.ant-table-expanded-row .ant-table-wrapper {
     position: absolute;
     margin: auto;
     z-index: 9;
-    bottom: 0;
+    bottom: 5px;
+    left: 5px
 }
 .checkbox-button > .ant-checkbox-label {
     padding-inline: 0 !important;

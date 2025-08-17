@@ -9,10 +9,10 @@ import type { VariantMedia } from '../types'
 import type { FormInstance, MenuProps, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
+import { InfoTooltip, Toast } from '@/components/Common'
 
 import MoreVertical from '@/components/Common/Icons/MoreVertical'
-import { FormItemWrapper, EmptyWrapper, DropdownWrapper, CheckBoxWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, EmptyWrapper, DropdownWrapper, CheckBoxWrapper, ButtonWrapper } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
@@ -108,8 +108,13 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   }
 
   // lookup helpers (fast + stable)
-    const selectedIds = useMemo(() => new Set(mediaArr?.map(m => m.fileId)), [mediaArr])
-    const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
+  const selectedIds = useMemo(() => new Set(mediaArr?.map(m => m.fileId)), [mediaArr])
+  const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
+
+  const selectAllHandler = (): void => {
+    const isAllSelected = mediaArr?.length === uploadedMediaArr?.length
+    form.setFieldValue('media', isAllSelected ? [] : uploadedMediaArr)
+  }
 
   const menuItems = (record: VariantMedia): MenuProps['items'] => {
     const isSelected = selectedIds.has(record.fileId)
@@ -154,9 +159,16 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       <FormItemWrapper name="mediaFiles" hidden />
       <FormItemWrapper
         name="media"
-        label="Media Files"
-        className="mb-0"
-        tooltip="All uploaded media list"
+        label={
+          <div className='d-flex justify-content-between align-items-center w-100'>
+            <InfoTooltip className='ml-2' title="All uploaded media list">
+              Media Files
+            </InfoTooltip>
+            <ButtonWrapper type="link" onClick={selectAllHandler} className='px-0 primary-color'>
+              {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
+            </ButtonWrapper>
+          </div>
+        }
         // ✅ Store objects in form (IDs → objects)
         getValueFromEvent={(checkedIds: string[]) =>
           (uploadedMediaArr || []).filter((m: VariantMedia) => checkedIds?.includes(m.fileId))

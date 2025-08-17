@@ -323,6 +323,9 @@ header.ant-layout-header.fix-header {
     justify-content: space-between;
 	align-items: flex-start;
 }
+label[for="media"] {
+    width: 100%;
+}
 
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
