@@ -28,7 +28,7 @@ interface PropTypes {
 }
 
 const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
-  const productId = Form.useWatch('id', form) || 'temp'
+  const productId = form.getFieldValue('id') || 'temp'
   const mediaFiles = Form.useWatch('mediaFiles', form)
   const uploadMedia = Form.useWatch('uploadMedia', form)
   const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined
@@ -173,7 +173,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
         }
         // ✅ Feed IDs to Checkbox.Group when editing (objects → IDs)
         getValueProps={(mediaObjects: VariantMedia[] = []) => ({
-          value: mediaObjects.map(obj => obj.fileId),
+          value: mediaObjects?.map(obj => obj.fileId),
         })}
         valuePropName="checked"
       >
