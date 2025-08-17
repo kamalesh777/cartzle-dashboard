@@ -22,13 +22,15 @@ import { imageToBase64 } from '@/utils/commonFunctions'
 
 import { setPrimaryMediaHandler } from '../utils'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
+import { useParams } from 'next/navigation'
 
 interface PropTypes {
   form: FormInstance
 }
 
 const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
-  const productId = form.getFieldValue('id') || 'temp'
+  const {id} = useParams() // get the product id
+  const folderId = id || 'temp'
   const mediaFiles = Form.useWatch('mediaFiles', form)
   const uploadMedia = Form.useWatch('uploadMedia', form)
   const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined
@@ -44,7 +46,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   // fetch the uploaded media list
   useEffect(() => {
     getMediaList()
-  }, [productId])
+  }, [folderId])
 
   useEffect(() => {
     if (uploadMedia?.length > 0) {
@@ -55,7 +57,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   // get media list
   const getMediaList = async (): Promise<void> => {
     try {
-      const res = await getRequest(`/api/get-media-list/${productId}`)
+      const res = await getRequest(`/api/get-media-list/${folderId}`)
       if (res.data.success) {
         const result = res.data.result
         form.setFieldsValue({ mediaFiles: result, [PRIMARY_IMAGE_ID]: result[0]?.fileId })
@@ -82,7 +84,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       )
 
       // Send request only once after processing all files
-      const res = await postRequest('/api/product-media-bulk-upload', { images: filesArr })
+      const res = await postRequest('/api/product-media-bulk-upload', { images: filesArr, folder: folderId })
 
       if (res.data.success) {
         Toast('success', res.data.message)
@@ -162,9 +164,11 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
             <InfoTooltip className='ml-2' title="All uploaded media list">
               Media Files
             </InfoTooltip>
-            <ButtonWrapper type="link" onClick={selectAllHandler} className='px-0 primary-color'>
-              {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
-            </ButtonWrapper>
+            {(uploadedMediaArr && uploadedMediaArr?.length > 0) ? (
+              <ButtonWrapper type="link" onClick={selectAllHandler} className='px-0 primary-color'>
+                {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
+              </ButtonWrapper>
+            ) : null}
           </div>
         }
         // ✅ Store objects in form (IDs → objects)
