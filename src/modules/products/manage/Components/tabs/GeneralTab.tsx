@@ -113,7 +113,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                 <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
               </SpaceWrapper>
             }
-            className="mb-1"
+            className="mb-2"
           >
             <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
           </FormItemWrapper>

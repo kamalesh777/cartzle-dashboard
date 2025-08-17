@@ -20,7 +20,7 @@ const OrganizationCard = (): JSX.Element => {
           </FormItemWrapper>
         </ColWrapper>
         <ColWrapper md={24}>
-          <FormItemWrapper name="brandId" label="Brand" className="mb-1">
+          <FormItemWrapper name="brandId" label="Brand" className="mb-2">
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
