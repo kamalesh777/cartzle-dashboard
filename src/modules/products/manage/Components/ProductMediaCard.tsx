@@ -30,10 +30,14 @@ interface PropTypes {
 
 const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const {id} = useParams() // get the product id
-  const folderId = id || 'temp'
-  const mediaFiles = Form.useWatch('mediaFiles', form)
-  const uploadMedia = Form.useWatch('uploadMedia', form)
-  const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined
+  const folderId = id !== 'create' ? id : 'temp'
+
+  // uploaded media files
+  const mediaFiles = Form.useWatch('mediaFiles', form) 
+  // temp media files for uploading
+  const uploadMedia = Form.useWatch('uploadMedia', form) 
+  // selected media files will be attached to the product
+  const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined 
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')

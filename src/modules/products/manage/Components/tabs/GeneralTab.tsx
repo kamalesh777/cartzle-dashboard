@@ -28,6 +28,7 @@ import { getSelectOption } from '@/utils/disableFunction'
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
 import ProductMediaCard from '../ProductMediaCard'
+import { startCase } from 'lodash'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
@@ -68,8 +69,8 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
       {/* Right side fields */}
       <ColWrapper md={10}>
         <CardWrapper title={'Status'} className="mb-3" bottomBorderNone>
-          <FormItemWrapper name="status" className="mb-2">
-            <SelectWrapper options={getSelectOption(['Published', 'Draft', 'Deleted'])} />
+          <FormItemWrapper name="status" className="mb-2" initialValue={'draft'}>
+            <SelectWrapper options={getSelectOption(['published', 'draft'])} />
           </FormItemWrapper>
         </CardWrapper>
         <PriceCard form={form} />
