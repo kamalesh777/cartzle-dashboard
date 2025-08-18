@@ -117,6 +117,8 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
     const resp = await postRequest('/api/product-create', payload)
     if (resp?.data?.success) {
       Toast('success', resp.data.message)
+    } else {
+      Toast('error', resp.data.message)
     }
   }
 

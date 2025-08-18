@@ -92,7 +92,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
 
       if (res.data.success) {
         Toast('success', res.data.message)
-        getMediaList() // fetch media list after upload
+        setTimeout(() => getMediaList(), 1500) // fetch media list after upload
         form.setFieldValue('uploadMedia', null)
       }
     } catch (error) {
