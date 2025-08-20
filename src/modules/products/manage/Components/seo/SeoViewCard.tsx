@@ -10,7 +10,7 @@ import type { FormInstance } from 'antd'
 
 import { ButtonWrapper, FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 
-import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+import { previewMediaUrl } from '@/utils/mediaUtils'
 
 import SeoManageCard from './SeoManageCard'
 
@@ -31,7 +31,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
         title: title,
         description: description,
         ogTitle: title,
-        ogImage: ogImage ? `${MEDIA_BASE_URL}/${ogImage}?preview=true&tr=w-120,h-120` : '',
+        ogImage: ogImage ? previewMediaUrl(`${ogImage}?tr=w-120,h-120`) : '',
       },
     })
   }, [title, description, ogImage])

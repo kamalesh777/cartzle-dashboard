@@ -28,7 +28,6 @@ import { getSelectOption } from '@/utils/disableFunction'
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
 import ProductMediaCard from '../ProductMediaCard'
-import { startCase } from 'lodash'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])

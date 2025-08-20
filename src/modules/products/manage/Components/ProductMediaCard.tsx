@@ -12,32 +12,34 @@ import { getRequest, postRequest } from '@/api/preference/RequestService'
 import { InfoTooltip, Toast } from '@/components/Common'
 
 import MoreVertical from '@/components/Common/Icons/MoreVertical'
-import { FormItemWrapper, EmptyWrapper, DropdownWrapper, CheckBoxWrapper, ButtonWrapper } from '@/components/Wrapper'
+import {
+  FormItemWrapper,
+  EmptyWrapper,
+  DropdownWrapper,
+  CheckBoxWrapper,
+  ButtonWrapper,
+} from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
+import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
-import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
 
-import { PRIMARY_IMAGE_ID } from '@/constants/AppConstant'
 import { imageToBase64 } from '@/utils/commonFunctions'
 
+import { previewMediaUrl } from '@/utils/mediaUtils'
+
 import { setPrimaryMediaHandler } from '../utils'
-import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
-import { useParams } from 'next/navigation'
 
 interface PropTypes {
   form: FormInstance
 }
 
 const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
-  const {id} = useParams() // get the product id
-  const folderId = id !== 'create' ? id : 'temp'
-
   // uploaded media files
-  const mediaFiles = Form.useWatch('mediaFiles', form) 
+  const mediaFiles = Form.useWatch('mediaFiles', form)
   // temp media files for uploading
-  const uploadMedia = Form.useWatch('uploadMedia', form) 
+  const uploadMedia = Form.useWatch('uploadMedia', form)
   // selected media files will be attached to the product
-  const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined 
+  const mediaArr = Form.useWatch('media', form) as VariantMedia[] | undefined
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
@@ -47,10 +49,10 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   // useMemo for uploaded files
   const uploadedMediaArr = useMemo(() => mediaFiles, [mediaFiles])
 
-  // fetch the uploaded media list
+  // fetch the uploaded media list for temp folder
   useEffect(() => {
     getMediaList()
-  }, [folderId])
+  }, [])
 
   useEffect(() => {
     if (uploadMedia?.length > 0) {
@@ -61,10 +63,11 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   // get media list
   const getMediaList = async (): Promise<void> => {
     try {
-      const res = await getRequest(`/api/get-media-list/${folderId}`)
+      const res = await getRequest(`/api/get-media-list/temp`)
       if (res.data.success) {
         const result = res.data.result
-        form.setFieldsValue({ mediaFiles: result, [PRIMARY_IMAGE_ID]: result[0]?.fileId })
+        const previousMedia = form.getFieldValue('media') || []
+        form.setFieldsValue({ mediaFiles: [...previousMedia, ...result] })
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -88,7 +91,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       )
 
       // Send request only once after processing all files
-      const res = await postRequest('/api/product-media-bulk-upload', { images: filesArr, folder: folderId })
+      const res = await postRequest('/api/product-media-bulk-upload', { images: filesArr })
 
       if (res.data.success) {
         Toast('success', res.data.message)
@@ -103,7 +106,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   }
 
   // delete media handler
-  const deleteMediaHandler = async (fileId: string): Promise<void> => {
+  const deleteMediaHandler = async (): Promise<void> => {
     setOpenDeleteModal(true)
   }
 
@@ -143,7 +146,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       {
         key: '3',
         label: 'Delete',
-        onClick: () => deleteMediaHandler(record?.fileId),
+        onClick: () => deleteMediaHandler(),
         className: 'error-color',
       },
     ]
@@ -164,12 +167,12 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       <FormItemWrapper
         name="media"
         label={
-          <div className='d-flex justify-content-between align-items-center w-100'>
-            <InfoTooltip className='ml-2' title="All uploaded media list">
+          <div className="d-flex justify-content-between align-items-center w-100">
+            <InfoTooltip className="ml-2" title="All uploaded media list">
               Media Files
             </InfoTooltip>
-            {(uploadedMediaArr && uploadedMediaArr?.length > 0) ? (
-              <ButtonWrapper type="link" onClick={selectAllHandler} className='px-0 primary-color'>
+            {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
+              <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0 primary-color">
                 {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
               </ButtonWrapper>
             ) : null}
@@ -187,73 +190,66 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       >
         {uploadedMediaArr?.length ? (
           <Checkbox.Group className="d-flex">
-          <div className="media-list-container w-100">
-            {uploadedMediaArr.map((media: VariantMedia) => (
-              <CheckBoxWrapper
-                value={media.fileId} // Checkbox group value = fileId
-                key={media.fileId}
-                className="checkbox-button media-list-wrapper"
-              >
-                <div
-                  className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
+            <div className="media-list-container w-100">
+              {uploadedMediaArr.map((media: VariantMedia) => (
+                <CheckBoxWrapper
+                  value={media.fileId} // Checkbox group value = fileId
+                  key={media.fileId}
+                  className="checkbox-button media-list-wrapper"
                 >
-                  <div className="upload-action">
-                    {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
-                    <DropdownWrapper
-                      menu={{ 
-                        items: menuItems(media), 
-                        onClick: () => {
-                          setSelectedFileId(media.fileId)
-                        } 
-                      }}
-                      overlayStyle={{ minWidth: '140px' }}
-                    >
-                      <MoreVertical className="p-1" />
-                    </DropdownWrapper>
+                  <div className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}>
+                    <div className="upload-action">
+                      {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
+                      <DropdownWrapper
+                        menu={{
+                          items: menuItems(media),
+                          onClick: () => {
+                            setSelectedFileId(media.fileId)
+                          },
+                        }}
+                        overlayStyle={{ minWidth: '140px' }}
+                      >
+                        <MoreVertical className="p-1" />
+                      </DropdownWrapper>
+                    </div>
+                    <img src={previewMediaUrl(`${media.filePath}?tr=w-100,h-100`)} alt={media.name} />
                   </div>
-                  <img
-                    src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
-                    alt={media.name}
-                  />
-                </div>
-              </CheckBoxWrapper>
-            ))}
-          </div>
-        </Checkbox.Group>
+                </CheckBoxWrapper>
+              ))}
+            </div>
+          </Checkbox.Group>
         ) : (
           <EmptyWrapper
             imageStyle={{ width: 100, height: 100, margin: 'auto' }}
             entity="Media"
             className="ant-card-bordered p-4 text-center"
-            style={{ borderRadius: '8px' }}
+            style={{ borderRadius: '8px', marginInline: 0 }}
           />
         )}
       </FormItemWrapper>
       {/* delete modal */}
-      {
-        openDeleteModal && (
-          <DeleteModalWrapper
-            apiEndpoint={`/api/media-service/${selectedFileId}`}
-            openModal={openDeleteModal}
-            closeModal={setOpenDeleteModal}
-        description="Are you sure you want to delete this media?"
-        afterDelete={() => {
-          getMediaList()
-          setSelectedFileId('')
-        }}
-      />
-        )
-      }
+      {openDeleteModal && (
+        <DeleteModalWrapper
+          apiEndpoint={`/api/media-service/${selectedFileId}`}
+          openModal={openDeleteModal}
+          closeModal={setOpenDeleteModal}
+          description="Are you sure you want to delete this media?"
+          afterDelete={() => {
+            getMediaList()
+            setSelectedFileId('')
+          }}
+        />
+      )}
       {/* preview modal */}
-      {openPreviewModal &&
-        <ImagePreview 
-          multiple 
+      {openPreviewModal && (
+        <ImagePreview
+          multiple
           items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
-          visible={openPreviewModal} 
+          visible={openPreviewModal}
           setVisible={setOpenPreviewModal}
           src={selectedFileId}
         />
-      }
+      )}
     </>
   )
 }

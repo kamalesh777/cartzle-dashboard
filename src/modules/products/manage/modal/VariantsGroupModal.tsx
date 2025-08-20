@@ -28,16 +28,16 @@ import {
 } from '@/components/Wrapper'
 
 import FormWrapper from '@/components/Wrapper/FormWrapper'
-import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
+import { previewMediaUrl } from '@/utils/mediaUtils'
 import { generateSku } from '@/utils/productUtils'
 
 import PriceCard from '../Components/PriceCard'
 import { setPrimaryMediaHandler, updateVariantRecursively } from '../utils' // keep only updateVariantRecursively
-import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 
 interface FieldsArrType {
   name: string
@@ -91,7 +91,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       showOnlySelected
         ? mediaFilesArr?.filter((media: VariantMedia) => selectedIds.has(media.fileId))
         : mediaFilesArr,
-    [showOnlySelected, mediaFilesArr, selectedIds]
+    [showOnlySelected, mediaFilesArr, selectedIds],
   )
 
   const productName = form.getFieldValue('title')
@@ -161,132 +161,142 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
 
   return (
     <>
-    <ModalWrapper
-      open={openModal}
-      onCancel={closeModal}
-      title={`Variants: ${selectedList?.label}`}
-      width={600}
-      footer={
-        <SubmitButtonWrapper
-          okButtonProps={{ loading: false, onClick: () => groupForm.submit() }}
-          cancelButtonProps={{ onClick: () => closeModal() }}
-        />
-      }
-    >
-      <FormWrapper form={groupForm} onFinish={onFinish}>
-        {/* ==== price card ==== */}
-        {!selectedList?.parent || variantsArr?.length === 1 ? <PriceCard form={groupForm} entity="variants" /> : null}
+      <ModalWrapper
+        open={openModal}
+        onCancel={closeModal}
+        title={`Variants: ${selectedList?.label}`}
+        width={600}
+        footer={
+          <SubmitButtonWrapper
+            okButtonProps={{ loading: false, onClick: () => groupForm.submit() }}
+            cancelButtonProps={{ onClick: () => closeModal() }}
+          />
+        }
+      >
+        <FormWrapper form={groupForm} onFinish={onFinish}>
+          {/* ==== price card ==== */}
+          {!selectedList?.parent || variantsArr?.length === 1 ? (
+            <PriceCard form={groupForm} entity="variants" />
+          ) : null}
 
-        {/* ==== dynamically fields ==== */}
-        <Row gutter={COMMON_ROW_GUTTER} className="mt-3">
-          {!selectedList?.parent || variantsArr?.length === 1
-            ? fieldsArr?.map((item: FieldsArrType) => (
-                <ColWrapper md={item.colSpan} key={item.name}>
-                  <FormItemWrapper
-                    name={item.name}
-                    label={item.label}
-                    rules={item.rules}
-                    initialValue={item.initialValue}
-                  >
-                    {item.name === 'inStock' ? (
-                      <SelectWrapper
-                        placeholder="Select In Stock"
-                        options={[
-                          { value: 'true', label: 'Yes' },
-                          { value: 'false', label: 'No' },
-                        ]}
-                        {...item.fieldsProps}
-                      />
-                    ) : (
-                      <InputNumberWrapper {...item.fieldsProps} />
-                    )}
-                  </FormItemWrapper>
-                </ColWrapper>
-              ))
-            : null}
+          {/* ==== dynamically fields ==== */}
+          <Row gutter={COMMON_ROW_GUTTER} className="mt-3">
+            {!selectedList?.parent || variantsArr?.length === 1
+              ? fieldsArr?.map((item: FieldsArrType) => (
+                  <ColWrapper md={item.colSpan} key={item.name}>
+                    <FormItemWrapper
+                      name={item.name}
+                      label={item.label}
+                      rules={item.rules}
+                      initialValue={item.initialValue}
+                    >
+                      {item.name === 'inStock' ? (
+                        <SelectWrapper
+                          placeholder="Select In Stock"
+                          options={[
+                            { value: 'true', label: 'Yes' },
+                            { value: 'false', label: 'No' },
+                          ]}
+                          {...item.fieldsProps}
+                        />
+                      ) : (
+                        <InputNumberWrapper {...item.fieldsProps} />
+                      )}
+                    </FormItemWrapper>
+                  </ColWrapper>
+                ))
+              : null}
 
-          {(selectedList?.parent || variantsArr?.length === 1) && (
-            <ColWrapper md={24}>
-              <FormItemWrapper
-                name="media"
-                label={
-                  <InfoTooltip title="Select media by checking on the checkbox or media preview">
-                    Variant Images
-                  </InfoTooltip>
-                }
-                // ✅ Store objects in form (IDs → objects)
-                getValueFromEvent={(checkedIds: string[]) =>
-                  (uploadedMediaArr || []).filter((m: VariantMedia) => checkedIds?.includes(m.fileId))
-                }
-                // ✅ Feed IDs to Checkbox.Group when editing (objects → IDs)
-                getValueProps={(mediaObjects: VariantMedia[] = []) => ({
-                  value: mediaObjects.map(obj => obj.fileId),
-                })}
-              >
-                {uploadedMediaArr?.length ? (
-                  <Checkbox.Group className="d-flex">
-                    <div className="media-list-container w-100" style={{ maxHeight: '300px' }}>
-                      {uploadedMediaArr.map((media: VariantMedia) => (
-                        <CheckBoxWrapper
-                          value={media.fileId} // Checkbox group value = fileId
-                          key={media.fileId}
-                          className="checkbox-button media-list-wrapper"
-                        >
-                          <div
-                            className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
+            {(selectedList?.parent || variantsArr?.length === 1) && (
+              <ColWrapper md={24}>
+                <FormItemWrapper
+                  name="media"
+                  label={
+                    <InfoTooltip title="Select media by checking on the checkbox or media preview">
+                      Variant Images
+                    </InfoTooltip>
+                  }
+                  // ✅ Store objects in form (IDs → objects)
+                  getValueFromEvent={(checkedIds: string[]) =>
+                    (uploadedMediaArr || []).filter((m: VariantMedia) => checkedIds?.includes(m.fileId))
+                  }
+                  // ✅ Feed IDs to Checkbox.Group when editing (objects → IDs)
+                  getValueProps={(mediaObjects: VariantMedia[] = []) => ({
+                    value: mediaObjects.map(obj => obj.fileId),
+                  })}
+                >
+                  {uploadedMediaArr?.length ? (
+                    <Checkbox.Group className="d-flex">
+                      <div className="media-list-container w-100" style={{ maxHeight: '300px' }}>
+                        {uploadedMediaArr.map((media: VariantMedia) => (
+                          <CheckBoxWrapper
+                            value={media.fileId} // Checkbox group value = fileId
+                            key={media.fileId}
+                            className="checkbox-button media-list-wrapper"
                           >
-                            <div className="upload-action">
-                              {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
-                              <DropdownWrapper
-                                menu={{ items: menuItems(media), onClick: () => setSelectedFileId(media.fileId) }}
-                                overlayStyle={{ minWidth: '140px' }}
-                              >
-                                <MoreVertical className="p-1" />
-                              </DropdownWrapper>
+                            <div
+                              className={`media-list w-100 ${
+                                selectedIds.has(media.fileId) ? 'active-border' : ''
+                              }`}
+                            >
+                              <div className="upload-action">
+                                {primaryId === media.fileId ? (
+                                  <StarFilled className="primary-color p-1" />
+                                ) : (
+                                  <span />
+                                )}
+                                <DropdownWrapper
+                                  menu={{
+                                    items: menuItems(media),
+                                    onClick: () => setSelectedFileId(media.fileId),
+                                  }}
+                                  overlayStyle={{ minWidth: '140px' }}
+                                >
+                                  <MoreVertical className="p-1" />
+                                </DropdownWrapper>
+                              </div>
+                              <img
+                                src={previewMediaUrl(`${media.filePath}?tr=w-100,h-100`)}
+                                alt={media.name}
+                              />
                             </div>
-                            <img
-                              src={`${MEDIA_BASE_URL}/${media.fileId}?preview=true&tr=w-100,h-100`}
-                              alt={media.name}
-                            />
-                          </div>
-                        </CheckBoxWrapper>
-                      ))}
-                    </div>
-                  </Checkbox.Group>
-                ) : (
-                  <EmptyWrapper
-                    imageStyle={{ width: 100, height: 100, margin: 'auto' }}
-                    entity="Media"
-                    className="ant-card-bordered p-4 text-center"
-                    style={{ borderRadius: '8px' }}
-                  />
-                )}
-              </FormItemWrapper>
+                          </CheckBoxWrapper>
+                        ))}
+                      </div>
+                    </Checkbox.Group>
+                  ) : (
+                    <EmptyWrapper
+                      imageStyle={{ width: 100, height: 100, margin: 'auto' }}
+                      entity="Media"
+                      className="ant-card-bordered p-4 text-center"
+                      style={{ borderRadius: '8px' }}
+                    />
+                  )}
+                </FormItemWrapper>
 
-              <FormItemWrapper
-                name="showOnlySelected"
-                className="mb-3"
-                initialValue={false}
-                valuePropName="checked"
-              >
-                <CheckBoxWrapper>Show only selected media files</CheckBoxWrapper>
-              </FormItemWrapper>
-            </ColWrapper>
-          )}
-        </Row>
-      </FormWrapper>
-    </ModalWrapper>
-    {/* preview modal */}
-    {openPreviewModal &&
-      <ImagePreview 
-        multiple 
-        items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
-        visible={openPreviewModal} 
-        setVisible={setOpenPreviewModal}
-        src={selectedFileId}
-        
-      />
-    }
+                <FormItemWrapper
+                  name="showOnlySelected"
+                  className="mb-3"
+                  initialValue={false}
+                  valuePropName="checked"
+                >
+                  <CheckBoxWrapper>Show only selected media files</CheckBoxWrapper>
+                </FormItemWrapper>
+              </ColWrapper>
+            )}
+          </Row>
+        </FormWrapper>
+      </ModalWrapper>
+      {/* preview modal */}
+      {openPreviewModal && (
+        <ImagePreview
+          multiple
+          items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
+          visible={openPreviewModal}
+          setVisible={setOpenPreviewModal}
+          src={selectedFileId}
+        />
+      )}
     </>
   )
 }

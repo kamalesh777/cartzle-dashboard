@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
@@ -10,13 +11,12 @@ import type { ProductDataTypes, ProductFormValueTypes } from '../types'
 
 import type { PositionType } from './types'
 
-import { postRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { ButtonWrapper, CardWrapper, SpaceWrapper } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { PRODUCT_LIST_ROUTE, ProductTabsArr } from '@/constants/AppConstant'
 
+import { usePostRequestHandler } from '@/hook/requestHandler'
 import { useUnwantedReload } from '@/hook/useUnwantedReload'
 
 import AdditionalTab from './Components/tabs/AdditionalTab'
@@ -33,6 +33,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   const firstIndex = ProductTabsArr[0] || 0
   const lastIndex = ProductTabsArr[2]
   const [currentTab, setCurrentTab] = useState<number>(firstIndex)
+  const { submit, buttonLoading } = usePostRequestHandler()
 
   const [form] = Form.useForm()
 
@@ -92,7 +93,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   const OperationsSlot: Record<PositionType, React.ReactNode> = {
     left: firstIndex !== currentTab ? <ButtonWrapper onClick={prevHandler}>Back</ButtonWrapper> : null,
     right: (
-      <ButtonWrapper type="primary" onClick={nextHandler}>
+      <ButtonWrapper type="primary" onClick={nextHandler} loading={buttonLoading}>
         {lastIndex === currentTab ? 'Save' : 'Next'}
         {lastIndex === currentTab ? <SaveOutlined /> : <ArrowRightOutlined />}
       </ButtonWrapper>
@@ -111,15 +112,13 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
    */
   const formSubmitHandler = async (formValue: ProductFormValueTypes): Promise<void> => {
     const { uploadMedia, mediaFiles, ...rest } = formValue
+
     const payload = {
       ...rest,
     }
-    const resp = await postRequest('/api/product-create', payload)
-    if (resp?.data?.success) {
-      Toast('success', resp.data.message)
-    } else {
-      Toast('error', resp.data.message)
-    }
+
+    const API_ENDPOINT = data?.id ? `/api/product-update/${data?.id}` : '/api/product-create'
+    await submit(data?.id, API_ENDPOINT, payload, PRODUCT_LIST_ROUTE)
   }
 
   /** Main component */

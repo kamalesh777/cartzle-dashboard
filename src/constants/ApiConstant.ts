@@ -9,6 +9,16 @@ export const MEDIA_BASE_URL = `${API_BASE_URL}/media-srv`
 
 const API_COMMON_SRV = `${API_BASE_URL}/common-srv`
 
+/**
+ * API_ROUTES contains all the API endpoints for the application.
+ *
+ * @remarks
+ * The endpoints are grouped by category. For example, all endpoints related to
+ * companies are grouped under the key 'company'.
+ *
+ * @example
+ * API_ROUTES['company-create'] // http://localhost:5000/api/v1/company/create
+ */
 export const API_ROUTES = {
   'api-testing': `${API_BASE_URL}`,
 

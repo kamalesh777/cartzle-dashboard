@@ -70,6 +70,7 @@ export interface VariantMedia {
   fileId: string
   name: string
   isPrimary: boolean
+  filePath: string
 }
 
 export type PositionType = 'left' | 'right'

@@ -15,23 +15,23 @@ export interface ProductDataTypes {
 }
 
 export interface ProductFormValueTypes {
-    title: string,
-    description?: string,
-    categoryId: string,
-    costPrice: number,
-    salePrice: number,
-    discount: number,
-    profit: number,
-    brandId?: string
-    tags?: string[]
-    status?: string
-    supplierId?: string
-    showcase?: boolean
-    groupBy?: string
-    variantCombinations?: VariantCombination[]
-    variantOptions?: VariantOptionTypes[]
-    mediaFiles?: VariantMedia[]
-    media?: VariantMedia[]
-    uploadMedia?: VariantMedia[]
-    seo?: SeoType
+  title: string
+  description?: string
+  categoryId: string
+  costPrice: number
+  salePrice: number
+  discount: number
+  profit: number
+  brandId?: string
+  tags?: string[]
+  status?: string
+  supplierId?: string
+  showcase?: boolean
+  groupBy?: string
+  variantCombinations?: VariantCombination[]
+  variantOptions?: VariantOptionTypes[]
+  mediaFiles?: VariantMedia[]
+  media?: VariantMedia[]
+  uploadMedia?: VariantMedia[]
+  seo?: SeoType
 }

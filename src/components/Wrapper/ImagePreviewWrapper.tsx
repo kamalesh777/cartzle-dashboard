@@ -1,19 +1,24 @@
-import { MEDIA_BASE_URL } from '@/constants/ApiConstant';
-import { Image, ImageProps } from 'antd';
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState } from 'react'
+
+import { Image } from 'antd'
+
+// eslint-disable-next-line no-duplicate-imports
+import type { ImageProps } from 'antd'
+
+import { MEDIA_BASE_URL } from '@/constants/ApiConstant'
+import { previewMediaUrl } from '@/utils/mediaUtils'
 
 interface PropTypes extends ImageProps {
-  src?: string;
-  visible?: boolean;
-  setVisible?: (value: boolean) => void;
-  multiple?: boolean;
-  items?: string[];
+  src?: string
+  visible?: boolean
+  setVisible?: (value: boolean) => void
+  multiple?: boolean
+  items?: string[]
 }
 
-export const getPreviewImageUrl = (value: string) =>
-    value?.startsWith('http')
-      ? value
-      : `${MEDIA_BASE_URL}/${value}?preview=true`;
+export const getPreviewImageUrl = (value: string): string =>
+  value?.startsWith('http') ? value : previewMediaUrl(value)
 
 const ImagePreview = ({
   src,
@@ -22,20 +27,19 @@ const ImagePreview = ({
   multiple = false,
   items = [],
   ...props
-}: PropTypes) => {
-  
+}: PropTypes): JSX.Element => {
   /**
    * Fallback image for image preview
    */
-  const fallbackImage = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&tr=w-200,h-200`;
-  const [current, setCurrent] = useState(items?.indexOf(src || ''));
+  const fallbackImage = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&tr=w-200,h-200`
+  const [current, setCurrent] = useState(items?.indexOf(src || ''))
 
   /**
    * Handle visible change
    * @param value - visible value
    */
-  const handleVisibleChange = (value: boolean) => {
-    setVisible?.(value);
+  const handleVisibleChange = (value: boolean): void => {
+    setVisible?.(value)
   }
 
   /**
@@ -44,7 +48,7 @@ const ImagePreview = ({
    * @param withPreview - whether to show preview
    * @returns JSX.Element
    */
-  const renderImage = (imageSrc: string, withPreview = false) => (
+  const renderImage = (imageSrc: string, withPreview = false): JSX.Element => (
     <Image
       src={getPreviewImageUrl(imageSrc)}
       style={{ display: 'none' }}
@@ -64,20 +68,22 @@ const ImagePreview = ({
 
   return multiple ? (
     <Image.PreviewGroup
-        preview={{ 
-            visible, 
-            onVisibleChange: handleVisibleChange,
-            current: current,
-            onChange: (index) => {
-                setCurrent(index)
-            },
-        }}
+      preview={{
+        visible,
+        onVisibleChange: handleVisibleChange,
+        current: current,
+        onChange: index => {
+          setCurrent(index)
+        },
+      }}
     >
-      {items.map((item) => renderImage(item))}
+      {items.map(item => renderImage(item))}
     </Image.PreviewGroup>
+  ) : src ? (
+    renderImage(src, true)
   ) : (
-    src ? renderImage(src, true) : null
-  );
-};
+    <></>
+  )
+}
 
-export default ImagePreview;
+export default ImagePreview
