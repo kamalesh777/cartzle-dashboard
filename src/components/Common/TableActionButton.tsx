@@ -10,13 +10,28 @@ interface PropTypes extends DropdownProps {
   items: MenuProps['items']
   icon?: React.ReactNode
   tooltipTitle?: string
+  onClick?: () => void
 }
 
 const TableActionButton: React.FC<PropTypes> = (props): JSX.Element => {
-  const { items, icon, tooltipTitle, ...restProps } = props
+  const { items, icon, tooltipTitle, onClick, ...restProps } = props
+
+  const deleteIndex = items?.findIndex(item => item?.key === 'delete') as number
+
+  // if (deleteIndex !== -1) {
+  //   items[deleteIndex].icon = <DeleteOutlined />
+  // }
+
+  // add a object before deleteIndex
+  if (deleteIndex !== -1) {
+    items?.splice(deleteIndex, 0, {
+      type: 'divider',
+    })
+  }
+
   return (
-    <DropdownWrapper menu={{ items }} trigger={['click']} {...restProps}>
-      <TooltipWrapper title={tooltipTitle ?? 'Action'}>{icon || <MoreVertical />}</TooltipWrapper>
+    <DropdownWrapper menu={{ items, onClick }} trigger={['click']} {...restProps}>
+      <TooltipWrapper title={tooltipTitle ?? ''}>{icon || <MoreVertical />}</TooltipWrapper>
     </DropdownWrapper>
   )
 }

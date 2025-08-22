@@ -66,7 +66,7 @@ const UsersListComp = (): JSX.Element => {
     {
       label: 'Deactivate',
       key: 'deactivate',
-      className: 'text-danger',
+      className: 'error-color',
     },
   ]
 

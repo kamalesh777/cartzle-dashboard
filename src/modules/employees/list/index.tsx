@@ -72,7 +72,7 @@ const EmployeesListComp = (): JSX.Element => {
         </SpaceWrapper>
       ),
       key: 'action',
-      className: 'text-danger',
+      className: 'error-color',
     },
   ]
 

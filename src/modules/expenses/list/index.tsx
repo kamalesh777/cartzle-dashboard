@@ -43,7 +43,7 @@ const ExpensesListComp = (): JSX.Element => {
     {
       label: 'Delete',
       key: 'delete_expenses',
-      className: 'text-danger',
+      className: 'error-color',
     },
   ]
 

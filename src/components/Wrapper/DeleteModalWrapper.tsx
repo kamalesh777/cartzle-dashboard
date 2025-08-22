@@ -47,7 +47,10 @@ const DeleteModalWrapper: React.FC<DeleteModalProps> = ({
       } else {
         switch (method.toLowerCase()) {
           case 'delete':
-            await deleteRequest(apiEndpoint)
+            const res = await deleteRequest(apiEndpoint)
+            if (!res.data.success) {
+              Toast('error', res.data.message)
+            }
             break
           // Add other methods if needed in the future
           default:

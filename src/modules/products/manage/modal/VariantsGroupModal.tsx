@@ -291,7 +291,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       {openPreviewModal && (
         <ImagePreview
           multiple
-          items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
+          items={uploadedMediaArr}
           visible={openPreviewModal}
           setVisible={setOpenPreviewModal}
           src={selectedFileId}

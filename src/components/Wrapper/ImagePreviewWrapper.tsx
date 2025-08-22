@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { Image } from 'antd'
 
+import type { VariantMedia } from '@/modules/products/manage/types'
 // eslint-disable-next-line no-duplicate-imports
 import type { ImageProps } from 'antd'
 
@@ -14,7 +15,7 @@ interface PropTypes extends ImageProps {
   visible?: boolean
   setVisible?: (value: boolean) => void
   multiple?: boolean
-  items?: string[]
+  items?: VariantMedia[]
 }
 
 export const getPreviewImageUrl = (value: string): string =>
@@ -32,7 +33,7 @@ const ImagePreview = ({
    * Fallback image for image preview
    */
   const fallbackImage = `${MEDIA_BASE_URL}/6882ad4d5c7cd75eb8762b74?preview=true&tr=w-200,h-200`
-  const [current, setCurrent] = useState(items?.indexOf(src || ''))
+  const [current, setCurrent] = useState(items?.findIndex(item => item.fileId === src) || 0)
 
   /**
    * Handle visible change
@@ -77,7 +78,7 @@ const ImagePreview = ({
         },
       }}
     >
-      {items.map(item => renderImage(item))}
+      {items.map(item => renderImage(item.filePath))}
     </Image.PreviewGroup>
   ) : src ? (
     renderImage(src, true)

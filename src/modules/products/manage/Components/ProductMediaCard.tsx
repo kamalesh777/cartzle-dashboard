@@ -23,7 +23,7 @@ import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 
-import { imageToBase64 } from '@/utils/commonFunctions'
+import { distinctByKey, imageToBase64 } from '@/utils/commonFunctions'
 
 import { previewMediaUrl } from '@/utils/mediaUtils'
 
@@ -67,7 +67,8 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       if (res.data.success) {
         const result = res.data.result
         const previousMedia = form.getFieldValue('media') || []
-        form.setFieldsValue({ mediaFiles: [...previousMedia, ...result] })
+        const allMedia = [...previousMedia, ...result]
+        form.setFieldsValue({ mediaFiles: distinctByKey<VariantMedia>(allMedia, 'fileId') })
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -244,7 +245,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
       {openPreviewModal && (
         <ImagePreview
           multiple
-          items={uploadedMediaArr?.map((media: VariantMedia) => media.fileId)}
+          items={uploadedMediaArr}
           visible={openPreviewModal}
           setVisible={setOpenPreviewModal}
           src={selectedFileId}

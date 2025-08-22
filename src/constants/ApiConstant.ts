@@ -67,4 +67,5 @@ export const API_ROUTES = {
   'product-update': `${API_BASE_URL}/product-srv/update`,
   'product-list': `${API_BASE_URL}/product-srv/list`,
   'product-details': `${API_BASE_URL}/product-srv/details`,
+  'product-delete': `${API_BASE_URL}/product-srv/delete`,
 }

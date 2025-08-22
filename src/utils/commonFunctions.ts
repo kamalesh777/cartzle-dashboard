@@ -184,3 +184,31 @@ export const generateSubdomain = (companyName: string): string => {
     .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
 }
+
+/**
+ * Merge array of objects by key and keep either latest or oldest entry
+ * @param {Array} arr - The array of objects
+ * @param {String} key - The key to group by
+ * @param {"latest"|"oldest"} strategy - Which to keep when duplicates exist
+ * @returns {Array} Merged array with distinct objects
+ */
+export function distinctByKey<T>(arr: T[], key: string, strategy = 'latest'): T[] {
+  const map = new Map()
+  if (!arr?.length) return []
+
+  for (const item of arr) {
+    const itemKey = item[key as keyof T]
+
+    if (!map.has(itemKey)) {
+      map.set(itemKey, item) // first time always set
+    } else {
+      if (strategy === 'latest') {
+        // overwrite with latest
+        map.set(itemKey, item)
+      }
+      // if strategy === "oldest", do nothing (keep the first one)
+    }
+  }
+
+  return Array.from(map.values())
+}

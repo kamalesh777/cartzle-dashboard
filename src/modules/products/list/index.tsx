@@ -10,6 +10,7 @@ import type { ProductDataTypes } from '../types'
 import EmptyContentTableLoading from '@/components/Common/EmptyContentTableLoading'
 import TableActionButton from '@/components/Common/TableActionButton'
 import { ButtonWrapper, TableWrapper } from '@/components/Wrapper'
+import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import InputSearchWrapper from '@/components/Wrapper/InputSearchWrapper'
 import { PRODUCT_LIST_ROUTE } from '@/constants/AppConstant'
 
@@ -19,6 +20,8 @@ import { getCurrency } from '@/utils/currency'
 const ProductListComp = (): JSX.Element => {
   const router = useRouter()
   const [searchValue, setSearchValue] = useState<string>('')
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [selectedId, setSelectedId] = useState('')
 
   const { data, isLoading, fetchData } = useGetRequestHandler<ProductDataTypes[]>()
 
@@ -32,6 +35,12 @@ const ProductListComp = (): JSX.Element => {
       label: 'Update',
       key: 'update',
       onClick: () => router.push(`${PRODUCT_LIST_ROUTE}/${record.id}`),
+    },
+    {
+      label: 'Delete',
+      key: 'delete',
+      className: 'error-color',
+      onClick: () => setOpenDeleteModal(true),
     },
   ]
 
@@ -64,7 +73,9 @@ const ProductListComp = (): JSX.Element => {
       title: '',
       key: 'action',
       className: 'text-right',
-      render: (_, record) => <TableActionButton items={getMoreMenus(record)} />,
+      render: (_, record) => (
+        <TableActionButton items={getMoreMenus(record)} onClick={() => setSelectedId(record.id)} />
+      ),
     },
   ]
 
@@ -105,6 +116,18 @@ const ProductListComp = (): JSX.Element => {
           ),
         }}
       />
+      {openDeleteModal && (
+        <DeleteModalWrapper
+          openModal={openDeleteModal}
+          closeModal={setOpenDeleteModal}
+          apiEndpoint={`/api/product-delete/${selectedId}`}
+          description="Are you sure you want to delete this product?"
+          afterDelete={() => {
+            fetchData(`/api/product-list${searchValue ? `?search=${searchValue}` : ''}`)
+            setSelectedId('')
+          }}
+        />
+      )}
     </>
   )
 }
