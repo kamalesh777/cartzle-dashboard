@@ -211,6 +211,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
               <ColWrapper md={24}>
                 <FormItemWrapper
                   name="media"
+                  className="mb-1"
                   label={
                     <InfoTooltip title="Select media by checking on the checkbox or media preview">
                       Variant Images

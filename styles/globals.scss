@@ -281,8 +281,10 @@ header.ant-layout-header.fix-header {
     display: flex;
 	flex-wrap: wrap;
 	max-height: 200px;
-    overflow-y: scroll;
+    overflow-x: scroll;
 	gap: 10px;
+	flex-direction: column;
+	padding-bottom: 10px;
 }
 .media-list {
     width: calc(20% - 11px);
@@ -309,7 +311,7 @@ header.ant-layout-header.fix-header {
     margin-top: -4px;
 }
 .media-list-wrapper {
-	width: 18%;
+	width: 21%;
 }
 .media-list .upload-action {
     display: flex;

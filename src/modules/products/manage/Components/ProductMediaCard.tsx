@@ -18,6 +18,7 @@ import {
   DropdownWrapper,
   CheckBoxWrapper,
   ButtonWrapper,
+  SpaceWrapper,
 } from '@/components/Wrapper'
 import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
@@ -173,9 +174,19 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
               Media Files
             </InfoTooltip>
             {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
-              <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0 primary-color">
-                {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
-              </ButtonWrapper>
+              <SpaceWrapper>
+                <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0 fs-7">
+                  {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
+                </ButtonWrapper>
+                <ButtonWrapper
+                  type="link"
+                  onClick={getMediaList}
+                  className="p-0 fs-7 primary-color"
+                  tooltip="Refresh"
+                >
+                  Reload
+                </ButtonWrapper>
+              </SpaceWrapper>
             ) : null}
           </div>
         }
