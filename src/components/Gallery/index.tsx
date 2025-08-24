@@ -180,6 +180,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
       }
     >
       <FormWrapper form={form}>
+        <FormItemWrapper name="mediaFiles" hidden />
         <FormItemWrapper name="uploadMedia" getValueFromEvent={obj => obj.fileList}>
           <UploadWrapper
             multiple
@@ -293,7 +294,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
             apiEndpoint={`/api/media-service/${selectedFileId}`}
             openModal={openDeleteModal}
             closeModal={setOpenDeleteModal}
-            description="Are you sure you want to delete this media?"
+            description="Are you sure you want to delete this media permanently?"
             afterDelete={() => {
               getMediaList()
               setSelectedFileId('')
