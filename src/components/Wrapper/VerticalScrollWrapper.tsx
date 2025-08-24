@@ -15,6 +15,8 @@ const VerticalScrollWrapper = (Props: Props): JSX.Element => {
           .max-h-${maxHeight} {
             max-height: ${maxHeight}px;
             scrollbar-width: thin;
+            overflow-x: scroll;
+            padding-bottom: 3px;
           }
           .vertical-scroll {
             display: flex;

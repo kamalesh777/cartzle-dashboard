@@ -139,7 +139,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     >
       {inputEdit !== name ? (
         <SpaceWrapper
-          align="center"
+          align={isMobileDevice ? 'start' : 'center'}
           className={`variant-fields ${isMobileDevice ? 'flex-column' : 'align-items-center'}`}
         >
           <p className="fw-bold me-2">{currentVariant?.opName}:</p>

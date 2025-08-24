@@ -128,7 +128,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
               {loading ? (
                 <TableContentLoaderWithProps columnWidth={[100]} rowCounts={1} />
               ) : (
-                <SelectWrapper style={{ width: '200px' }} options={groupByOptions || []} />
+                <SelectWrapper style={{ minWidth: '160px' }} options={groupByOptions || []} />
               )}
             </FormItemWrapper>
           </SpaceWrapper>
