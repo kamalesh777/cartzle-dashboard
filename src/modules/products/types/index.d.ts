@@ -30,6 +30,7 @@ export interface ProductFormValueTypes {
   supplierId?: string
   showcase?: boolean
   groupBy?: string
+  previousMedia?: VariantMedia[]
   variantCombinations?: VariantCombination[]
   variantOptions?: VariantOptionTypes[]
   mediaFiles?: VariantMedia[]
