@@ -39,7 +39,11 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
 
   useEffect(() => {
     if (data) {
-      form.setFieldsValue(data)
+      const result = {
+        ...data,
+        previousMedia: data.media,
+      }
+      form.setFieldsValue(result)
     }
   }, [data])
 

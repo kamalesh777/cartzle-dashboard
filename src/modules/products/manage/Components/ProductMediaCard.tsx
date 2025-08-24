@@ -9,7 +9,7 @@ import type { VariantMedia } from '../types'
 import type { FormInstance, MenuProps, UploadFile } from 'antd'
 
 import { getRequest, postRequest } from '@/api/preference/RequestService'
-import { InfoTooltip, Toast } from '@/components/Common'
+import { InfoTooltip, TableContentLoaderWithProps, Toast } from '@/components/Common'
 
 import MoreVertical from '@/components/Common/Icons/MoreVertical'
 import {
@@ -46,6 +46,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   const [selectedFileId, setSelectedFileId] = useState('')
   const [fileUploadLoading, setFileUploadLoading] = useState(false)
   const [openPreviewModal, setOpenPreviewModal] = useState(false)
+  const [mediaListLoading, setMediaListLoading] = useState(false)
 
   // useMemo for uploaded files
   const uploadedMediaArr = useMemo(() => mediaFiles, [mediaFiles])
@@ -64,15 +65,18 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
   // get media list
   const getMediaList = async (): Promise<void> => {
     try {
+      setMediaListLoading(true)
       const res = await getRequest(`/api/get-media-list/temp`)
       if (res.data.success) {
         const result = res.data.result
-        const previousMedia = form.getFieldValue('media') || []
+        const previousMedia = form.getFieldValue('previousMedia') || []
         const allMedia = [...previousMedia, ...result]
         form.setFieldsValue({ mediaFiles: distinctByKey<VariantMedia>(allMedia, 'fileId') })
       }
     } catch (error) {
       Toast('error', (error as Error).message)
+    } finally {
+      setMediaListLoading(false)
     }
   }
 
@@ -124,7 +128,8 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
 
   const selectAllHandler = (): void => {
     const isAllSelected = mediaArr?.length === uploadedMediaArr?.length
-    form.setFieldValue('media', isAllSelected ? [] : uploadedMediaArr)
+    const previousMedia = form.getFieldValue('previousMedia') || []
+    form.setFieldValue('media', isAllSelected ? previousMedia : uploadedMediaArr)
   }
 
   const menuItems = (record: VariantMedia): MenuProps['items'] => {
@@ -165,8 +170,14 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           loading={fileUploadLoading}
         />
       </FormItemWrapper>
+
+      {/* ======= hidden fields ======= */}
+      <FormItemWrapper name="previousMedia" hidden />
       <FormItemWrapper name="mediaFiles" hidden />
+      {/* ======= hidden fields ======= */}
+
       <FormItemWrapper
+        className="mb-2"
         name="media"
         label={
           <div className="d-flex justify-content-between align-items-center w-100">
@@ -176,7 +187,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
             {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
               <SpaceWrapper>
                 <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0 fs-7">
-                  {mediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
+                  {mediaArr?.length === uploadedMediaArr?.length ? 'Revert' : 'Select All'}
                 </ButtonWrapper>
                 <ButtonWrapper
                   type="link"
@@ -200,12 +211,14 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
         })}
         valuePropName="checked"
       >
-        {uploadedMediaArr?.length ? (
+        {mediaListLoading ? (
+          <TableContentLoaderWithProps columnWidth={[23, 23, 23, 23, 17]} rowCounts={2} rowHeight={250} />
+        ) : uploadedMediaArr?.length ? (
           <Checkbox.Group className="d-flex">
             <div className="media-list-container w-100">
               {uploadedMediaArr.map((media: VariantMedia) => (
                 <CheckBoxWrapper
-                  value={media.fileId} // Checkbox group value = fileId
+                  value={media.fileId}
                   key={media.fileId}
                   className="checkbox-button media-list-wrapper"
                 >
@@ -215,29 +228,31 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                       <DropdownWrapper
                         menu={{
                           items: menuItems(media),
-                          onClick: () => {
-                            setSelectedFileId(media.fileId)
-                          },
+                          onClick: () => setSelectedFileId(media.fileId),
                         }}
                         overlayStyle={{ minWidth: '140px' }}
                       >
                         <MoreVertical className="p-1" />
                       </DropdownWrapper>
                     </div>
-                    <img src={previewMediaUrl(`${media.filePath}?tr=w-100,h-100`)} alt={media.name} />
+                    <img
+                      src={previewMediaUrl(`${media.filePath}?tr=w-100,h-100`)}
+                      title={media.name}
+                      alt={media.name}
+                    />
                   </div>
                 </CheckBoxWrapper>
               ))}
             </div>
           </Checkbox.Group>
-        ) : (
+        ) : uploadedMediaArr ? (
           <EmptyWrapper
             imageStyle={{ width: 100, height: 100, margin: 'auto' }}
             entity="Media"
             className="ant-card-bordered p-4 text-center"
             style={{ borderRadius: '8px', marginInline: 0 }}
           />
-        )}
+        ) : null}
       </FormItemWrapper>
       {/* delete modal */}
       {openDeleteModal && (

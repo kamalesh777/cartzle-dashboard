@@ -60,6 +60,18 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
             <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
           </FormItemWrapper>
+          <FormItemWrapper
+            name="tags"
+            label={
+              <SpaceWrapper>
+                Tags
+                <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
+              </SpaceWrapper>
+            }
+            className="mb-2"
+          >
+            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
+          </FormItemWrapper>
           {/* Product media card */}
           <ProductMediaCard form={form} />
         </CardWrapper>
@@ -74,50 +86,6 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
         </CardWrapper>
         <PriceCard form={form} />
         <OrganizationCard />
-        <CardWrapper title={'Tags & Collection'} bottomBorderNone>
-          <Row gutter={COMMON_ROW_GUTTER}>
-            <ColWrapper md={12}>
-              <FormItemWrapper
-                name="showcase"
-                label={
-                  <SpaceWrapper>
-                    Showcase
-                    <InfoTooltip title="Where the product is highlighted, e.g., homepage, sale banner, hero slider." />
-                  </SpaceWrapper>
-                }
-              >
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-            <ColWrapper md={12}>
-              <FormItemWrapper
-                className="mb-3"
-                name="collection"
-                label={
-                  <SpaceWrapper>
-                    Collection
-                    <InfoTooltip title="A curated group of products, often for seasonal or themed grouping." />
-                  </SpaceWrapper>
-                }
-              >
-                <SelectWrapper />
-              </FormItemWrapper>
-            </ColWrapper>
-          </Row>
-
-          <FormItemWrapper
-            name="tags"
-            label={
-              <SpaceWrapper>
-                Tags
-                <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
-              </SpaceWrapper>
-            }
-            className="mb-2"
-          >
-            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
-          </FormItemWrapper>
-        </CardWrapper>
       </ColWrapper>
     </Row>
   )

@@ -9,6 +9,8 @@ export interface ProductDataTypes {
   stock: number
   purchasePrice: number
   salePrice: number
+  previousMedia?: VariantMedia[]
+  media?: VariantMedia[]
   supplier?: {
     name: string
   }
