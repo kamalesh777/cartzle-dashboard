@@ -9,7 +9,7 @@ import type { CategoryType, TabProps } from '../../types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
-import { ColWrapper, CardWrapper, FormItemWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
+import { ColWrapper, CardWrapper, FormItemWrapper, InputWrapper, SelectWrapper, ButtonWrapper } from '@/components/Wrapper'
 import {
   COMMON_ROW_GUTTER,
   requiredWithWhitspcFieldRules,
@@ -21,6 +21,8 @@ import { getSelectOption } from '@/utils/disableFunction'
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
 import ProductMediaCard from '../ProductMediaCard'
+
+import GalleryModal from '@/components/Gallery'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
@@ -39,36 +41,46 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
     }
     fetchCategory()
   }, [])
-  return (
-    <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
-      {/* Left side fields */}
-      <ColWrapper md={14}>
-        <CardWrapper className="mb-3" title="General" bottomBorderNone>
-          <FormItemWrapper name="title" label="Title" rules={requiredWithWhitspcFieldRules}>
-            <InputWrapper />
-          </FormItemWrapper>
-          <FormItemWrapper name="description" label="Description">
-            <Input.TextArea rows={4} />
-          </FormItemWrapper>
-          <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
-            <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
-          </FormItemWrapper>
-          {/* Product media card */}
-          <ProductMediaCard form={form} />
-        </CardWrapper>
-      </ColWrapper>
 
-      {/* Right side fields */}
-      <ColWrapper md={10}>
-        <CardWrapper title={'Status'} className="mb-3" bottomBorderNone>
-          <FormItemWrapper name="status" className="mb-2" initialValue={'draft'}>
-            <SelectWrapper options={getSelectOption(['published', 'draft'])} />
-          </FormItemWrapper>
-        </CardWrapper>
-        <PriceCard form={form} />
-        <OrganizationCard />
-      </ColWrapper>
-    </Row>
+  const [openGalleryModal, setOpenGalleryModal] = useState(false)
+  return (
+    <>
+      <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
+        {/* Left side fields */}
+        <ColWrapper md={14}>
+          <CardWrapper className="mb-3" title="General" bottomBorderNone>
+            <FormItemWrapper name="title" label="Title" rules={requiredWithWhitspcFieldRules}>
+              <InputWrapper />
+            </FormItemWrapper>
+            <FormItemWrapper name="description" label="Description">
+              <Input.TextArea rows={4} />
+            </FormItemWrapper>
+            <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
+              <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
+            </FormItemWrapper>
+            {/* Product media card */}
+            <ProductMediaCard form={form} />
+            <ButtonWrapper type="link" onClick={() => setOpenGalleryModal(true)}>
+              Open Gallery
+            </ButtonWrapper>
+          </CardWrapper>
+        </ColWrapper>
+
+        {/* Right side fields */}
+        <ColWrapper md={10}>
+          <CardWrapper title={'Status'} className="mb-3" bottomBorderNone>
+            <FormItemWrapper name="status" className="mb-2" initialValue={'draft'}>
+              <SelectWrapper options={getSelectOption(['published', 'draft'])} />
+            </FormItemWrapper>
+          </CardWrapper>
+          <PriceCard form={form} />
+          <OrganizationCard />
+        </ColWrapper>
+      </Row>
+      {openGalleryModal && (
+        <GalleryModal openModal={openGalleryModal} setOpenModal={setOpenGalleryModal} form={form} />
+      )}
+    </>
   )
 }
 

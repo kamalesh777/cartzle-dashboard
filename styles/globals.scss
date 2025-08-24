@@ -272,7 +272,9 @@ header.ant-layout-header.fix-header {
 	border: 1px solid var(--primary-color) !important;
 }
 .media-list-container {
-	gap: 10px;
+    gap: 10px;
+    display: flex;
+	flex-wrap: wrap;
 }
 .media-list {
     width: calc(20% - 11px);
@@ -299,7 +301,7 @@ header.ant-layout-header.fix-header {
     margin-top: -4px;
 }
 .media-list-wrapper {
-	width: 21%;
+	width: 13.2%;
 }
 .media-list .upload-action {
     display: flex;
