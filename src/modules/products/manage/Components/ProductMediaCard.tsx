@@ -24,6 +24,7 @@ import DeleteModalWrapper from '@/components/Wrapper/DeleteModalWrapper'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 import UploadWrapper from '@/components/Wrapper/UploadWrapper'
 
+import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { distinctByKey, imageToBase64 } from '@/utils/commonFunctions'
 
 import { previewMediaUrl } from '@/utils/mediaUtils'
@@ -215,7 +216,10 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
           <TableContentLoaderWithProps columnWidth={[23, 23, 23, 23, 17]} rowCounts={2} rowHeight={250} />
         ) : uploadedMediaArr?.length ? (
           <Checkbox.Group className="d-flex">
-            <div className="media-list-container w-100">
+            <VerticalScrollWrapper
+              className="media-list-container w-100"
+              maxHeight={uploadedMediaArr?.length > 8 ? 300 : 200}
+            >
               {uploadedMediaArr.map((media: VariantMedia) => (
                 <CheckBoxWrapper
                   value={media.fileId}
@@ -243,7 +247,7 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
                   </div>
                 </CheckBoxWrapper>
               ))}
-            </div>
+            </VerticalScrollWrapper>
           </Checkbox.Group>
         ) : uploadedMediaArr ? (
           <EmptyWrapper

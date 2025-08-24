@@ -8,15 +8,8 @@ import type { CategoryType, TabProps } from '../../types'
 // eslint-disable-next-line no-duplicate-imports
 
 import { getRequest } from '@/api/preference/RequestService'
-import { InfoTooltip, Toast } from '@/components/Common'
-import {
-  ColWrapper,
-  CardWrapper,
-  FormItemWrapper,
-  InputWrapper,
-  SelectWrapper,
-  SpaceWrapper,
-} from '@/components/Wrapper'
+import { Toast } from '@/components/Common'
+import { ColWrapper, CardWrapper, FormItemWrapper, InputWrapper, SelectWrapper } from '@/components/Wrapper'
 import {
   COMMON_ROW_GUTTER,
   requiredWithWhitspcFieldRules,
@@ -59,18 +52,6 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           </FormItemWrapper>
           <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
             <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
-          </FormItemWrapper>
-          <FormItemWrapper
-            name="tags"
-            label={
-              <SpaceWrapper>
-                Tags
-                <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
-              </SpaceWrapper>
-            }
-            className="mb-2"
-          >
-            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
           </FormItemWrapper>
           {/* Product media card */}
           <ProductMediaCard form={form} />

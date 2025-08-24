@@ -29,7 +29,9 @@ import {
 } from '@/components/Wrapper'
 import { LinkWrapper } from '@/components/Wrapper/LinkWrapper'
 
+import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
+import useDevice from '@/hook/useDevice'
 import { getSelectOption } from '@/utils/disableFunction'
 
 interface PropTypes {
@@ -42,6 +44,7 @@ interface PropTypes {
 }
 const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
   const isValueChanged = Cookies.get('isValueChanged')
+  const { isMobileDevice } = useDevice()
 
   const variantOptions = useSelector((state: RootState) => state.variants?.options)
   const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
@@ -123,9 +126,11 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
     form.setFieldValue(['variantOptions', name, 'opValue'], [])
   }
 
+  const currentVariant = form.getFieldValue(['variantOptions', name])
+
   return (
     <CardWrapper
-      bodyStyle={{ padding: '15px' }}
+      bodyStyle={{ padding: '8px 12px' }}
       key={vKey}
       className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${
         variantsArr?.length - 1 === name ? '' : 'mb-3'
@@ -133,16 +138,19 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
       onClick={e => inputEdit === false && editFunc(e, name)}
     >
       {inputEdit !== name ? (
-        <SpaceWrapper size={16} className="w-100 justify-content-between">
-          <span className="d-flex align-items-center">
-            <p className="fw-bold me-2">{form.getFieldValue(['variantOptions', name, 'opName'])}:</p>
-            {form.getFieldValue(['variantOptions', name, 'opValue'])?.map((item: string, index: number) => (
+        <SpaceWrapper
+          align="center"
+          className={`variant-fields ${isMobileDevice ? 'flex-column' : 'align-items-center'}`}
+        >
+          <p className="fw-bold me-2">{currentVariant?.opName}:</p>
+          <VerticalScrollWrapper maxHeight={40}>
+            {currentVariant?.opValue?.map((item: string, index: number) => (
               <Tag key={index} color="processing">
                 {item}
               </Tag>
             ))}
-          </span>
-          <Space.Compact>
+          </VerticalScrollWrapper>
+          <Space.Compact className="ml-auto">
             <TooltipWrapper title="Edit variant">
               <ButtonWrapper type="link" icon={<EditOutlined />} onClick={event => editFunc(event, name)} />
             </TooltipWrapper>
@@ -234,7 +242,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 />
                 <ButtonWrapper
                   className="error-color"
-                  onClick={e => removeFunc(e, name, false)}
+                  onClick={e => removeFunc(e, name)}
                   icon={<CloseOutlined />}
                 />
               </Space.Compact>

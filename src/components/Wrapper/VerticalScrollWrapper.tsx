@@ -1,0 +1,33 @@
+import React from 'react'
+
+interface Props {
+  children: React.ReactNode
+  maxHeight?: number | string
+  className?: string
+  style?: React.CSSProperties
+}
+const VerticalScrollWrapper = (Props: Props): JSX.Element => {
+  const { children, maxHeight, className, style } = Props
+  return (
+    <>
+      <style jsx global>
+        {`
+          .max-h-${maxHeight} {
+            max-height: ${maxHeight}px;
+            scrollbar-width: thin;
+          }
+          .vertical-scroll {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+          }
+        `}
+      </style>
+      <div className={`vertical-scroll max-h-${maxHeight} ${className ?? ''}`} style={style}>
+        {children}
+      </div>
+    </>
+  )
+}
+
+export default VerticalScrollWrapper

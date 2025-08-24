@@ -29,7 +29,9 @@ import {
 
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
+import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
+import useDevice from '@/hook/useDevice'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
@@ -59,6 +61,8 @@ interface Props extends ModalPropTypes<VariantCombination> {
 const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
   const dispatch = useDispatch()
   const variantsTableState = useSelector((state: RootState) => state.variants.variantsTable)
+
+  const { isMobileDevice } = useDevice()
 
   // find selected variant by key
   const selectedVariant = variantsTableState?.find(item => item.key === selectedList?.key)
@@ -164,6 +168,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       <ModalWrapper
         open={openModal}
         onCancel={closeModal}
+        bodyScroll="500px"
         title={`Variants: ${selectedList?.label}`}
         width={600}
         footer={
@@ -228,7 +233,10 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                 >
                   {uploadedMediaArr?.length ? (
                     <Checkbox.Group className="d-flex">
-                      <div className="media-list-container w-100" style={{ maxHeight: '300px' }}>
+                      <VerticalScrollWrapper
+                        maxHeight={isMobileDevice ? 200 : 300}
+                        className="media-list-container w-100"
+                      >
                         {uploadedMediaArr.map((media: VariantMedia) => (
                           <CheckBoxWrapper
                             value={media.fileId} // Checkbox group value = fileId
@@ -259,11 +267,12 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                               <img
                                 src={previewMediaUrl(`${media.filePath}?tr=w-100,h-100`)}
                                 alt={media.name}
+                                title={media.name}
                               />
                             </div>
                           </CheckBoxWrapper>
                         ))}
-                      </div>
+                      </VerticalScrollWrapper>
                     </Checkbox.Group>
                   ) : (
                     <EmptyWrapper

@@ -189,12 +189,6 @@ header.ant-layout-header.fix-header {
 .ant-table-wrapper .ant-table-thead >tr>th {
 	background-color: var(--primary-bg-color) !important;
 }
-.modal-scrollbar-adjust {
-  max-height: 400px;
-  overflow-y: scroll;
-  padding-right: 15px;
-  scrollbar-width: thin;
-}
 .max-w-200 {
 	max-width: 200px !important;
 }
@@ -331,7 +325,15 @@ label[for="media"] {
 label[for=media]:after {
     display: none;
 }
-
+.variant-fields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	width: 100%;
+}
+.variant-fields .ant-space-item:last-child {
+	margin-left: auto;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
