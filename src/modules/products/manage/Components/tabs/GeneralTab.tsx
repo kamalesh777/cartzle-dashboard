@@ -9,7 +9,14 @@ import type { CategoryType, TabProps } from '../../types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
-import { ColWrapper, CardWrapper, FormItemWrapper, InputWrapper, SelectWrapper, ButtonWrapper } from '@/components/Wrapper'
+import {
+  ColWrapper,
+  CardWrapper,
+  FormItemWrapper,
+  InputWrapper,
+  SelectWrapper,
+  ButtonWrapper,
+} from '@/components/Wrapper'
 import {
   COMMON_ROW_GUTTER,
   requiredWithWhitspcFieldRules,
