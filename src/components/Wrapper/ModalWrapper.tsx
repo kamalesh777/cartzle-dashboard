@@ -16,7 +16,7 @@ const ModalWrapper = (props: PropTypes): JSX.Element | null => {
           .modal-scrollbar-adjust {
             max-height: ${bodyScroll ? bodyScroll || '400px' : 'auto'};
             overflow-y: ${bodyScroll ? 'scroll' : 'auto'};
-            padding-right: 15px;
+            padding-right: 5px;
             scrollbar-width: thin;
           }
         `}
