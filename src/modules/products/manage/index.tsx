@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react'
 import { ArrowRightOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons'
 import { Form, Tabs } from 'antd'
 
+import { useDispatch } from 'react-redux'
+
 import type { ProductDataTypes, ProductFormValueTypes } from '../types'
 
 import type { PositionType } from './types'
@@ -19,6 +21,8 @@ import { PRODUCT_LIST_ROUTE, ProductTabsArr } from '@/constants/AppConstant'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 import { useUnwantedReload } from '@/hook/useUnwantedReload'
 
+import { setVariantsTable } from '@/store/slices/variantsSlice'
+
 import AdditionalTab from './Components/tabs/AdditionalTab'
 import GeneralTab from './Components/tabs/GeneralTab'
 import VariationTab from './Components/tabs/VariationTab'
@@ -29,6 +33,7 @@ interface Props {
 
 // Product manage component
 const ProductManageComp = ({ data }: Props): JSX.Element => {
+  const dispatch = useDispatch()
   const { setIsValueChanged } = useUnwantedReload()
   const firstIndex = ProductTabsArr[0] || 0
   const lastIndex = ProductTabsArr[2]
@@ -43,6 +48,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
         ...data,
       }
       form.setFieldsValue(result)
+      dispatch(setVariantsTable(data?.variantCombinations || []))
     }
   }, [data])
 

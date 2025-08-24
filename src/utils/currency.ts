@@ -34,7 +34,7 @@ export const getProfitDiscount = (
   }
   switch (option) {
     case 'profit':
-      return salePrice - (salePrice * discount) / 100 - costPrice
+      return (salePrice - (salePrice * discount) / 100 - costPrice).toFixed(2)
     default:
       return salePrice - costPrice
   }

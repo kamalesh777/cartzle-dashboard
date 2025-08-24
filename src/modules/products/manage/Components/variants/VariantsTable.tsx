@@ -58,12 +58,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
     return data.map(item => {
       const updatedItem: VariantCombination = {
         ...item,
-        salePrice: salePrice || item?.salePrice,
-        costPrice: costPrice || item?.costPrice,
-        discount: discount || item?.discount,
+        salePrice: item?.salePrice || salePrice,
+        costPrice: item?.costPrice || costPrice,
+        discount: item?.discount || discount,
         inStock: item?.inStock || false,
         media: item?.media || [],
-        available: 0,
         sku: generateSku(productTitle, item?.label),
       }
 
@@ -79,7 +78,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   useEffect(() => {
     if (variantsArr?.length) {
       // generate grouped combinations with variants and groupBy
-      const data = generateGroupedCombinations(variantsArr, groupBy, variantsTableState)
+      const data = generateGroupedCombinations(variantsArr, groupBy, selectedVariants)
 
       // add default price for all variants
       const finalData = addDefaultPriceForAll(data)

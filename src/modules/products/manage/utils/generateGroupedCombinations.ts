@@ -38,9 +38,15 @@ export const generateGroupedCombinations = (
   // eslint-disable-next-line consistent-return
   const findExistingChildData = (label: string): Partial<VariantItem> | undefined => {
     for (const group of existingData || []) {
-      if (group?.children) {
-        const match = group.children.find(child => child.label === label)
+      if (group.hasOwnProperty('children')) {
+        const match = group?.children?.find(child => child.label === label)
         if (match) return match
+      } else {
+        if (group?.label === label) {
+          return {
+            ...group,
+          }
+        }
       }
     }
   }

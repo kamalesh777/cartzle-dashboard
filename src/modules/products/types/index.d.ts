@@ -1,3 +1,5 @@
+import type { VariantCombination } from '../manage/types'
+
 export interface ProductDataTypes {
   id: string
   category: string | null
@@ -11,6 +13,7 @@ export interface ProductDataTypes {
   salePrice: number
   previousMedia?: VariantMedia[]
   media?: VariantMedia[]
+  variantCombinations?: VariantCombination[]
   supplier?: {
     name: string
   }
