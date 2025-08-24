@@ -308,7 +308,9 @@ header.ant-layout-header.fix-header {
     justify-content: space-between;
     position: relative;
 }
-
+.media-action li {
+	margin: 5px 0 !important;
+}
 .seo-card {
     display: flex;
     width: 100%;

@@ -1,11 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 
-import { Row, Input } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import { Row, Input, Form } from 'antd'
 
 import type { CategoryType, TabProps } from '../../types'
 
 // eslint-disable-next-line no-duplicate-imports
+
+import type { MediaObject } from '@/components/Gallery/types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
@@ -16,7 +20,9 @@ import {
   InputWrapper,
   SelectWrapper,
   ButtonWrapper,
+  EmptyWrapper,
 } from '@/components/Wrapper'
+import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import {
   COMMON_ROW_GUTTER,
   requiredWithWhitspcFieldRules,
@@ -25,13 +31,15 @@ import {
 } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
 
+import { previewMediaUrl } from '@/utils/mediaUtils'
+
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
-import ProductMediaCard from '../ProductMediaCard'
 
 import GalleryModal from '@/components/Gallery'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
+  const mediaArr = Form.useWatch('media', form)
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([])
 
   // fetch category
@@ -66,10 +74,48 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
               <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
             </FormItemWrapper>
             {/* Product media card */}
-            <ProductMediaCard form={form} />
-            <ButtonWrapper type="link" onClick={() => setOpenGalleryModal(true)}>
-              Open Gallery
-            </ButtonWrapper>
+            {/* <ProductMediaCard form={form} /> */}
+          </CardWrapper>
+          <CardWrapper
+            classNames={{
+              actions: 'bg-gray-100 media-action',
+            }}
+            actions={[
+              <ButtonWrapper
+                block
+                type="link"
+                className="primary-color"
+                onClick={() => setOpenGalleryModal(true)}
+                key={'upload'}
+              >
+                <UploadOutlined /> Browse Media
+              </ButtonWrapper>,
+            ]}
+          >
+            <FormItemWrapper name="media" label={'Media'} className="mb-1">
+              {mediaArr?.length > 0 ? (
+                <VerticalScrollWrapper maxHeight={80} className='flex-row'>
+                  {mediaArr?.map((media: MediaObject) => (
+                    <div className="media-item" key={media.fileId}>
+                      <img
+                        src={previewMediaUrl(`${media.filePath}?tr=w-80,h-80`)}
+                        title={media.name}
+                        alt={media.name}
+                      />
+                    </div>
+                  ))}
+                </VerticalScrollWrapper>
+              ) : (
+                <EmptyWrapper
+                  imageStyle={{ width: 100, height: 100, margin: 'auto' }}
+                  entity="Media"
+                  className="ant-card-bordered p-4 text-center"
+                  style={{ borderRadius: '8px', marginInline: 0 }}
+                  // onClick={() => setOpenGalleryModal(true)}
+                />
+              )}
+
+            </FormItemWrapper>
           </CardWrapper>
         </ColWrapper>
 

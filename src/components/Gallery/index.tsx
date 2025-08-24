@@ -2,7 +2,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { StarFilled } from '@ant-design/icons'
 import { Checkbox, Form, Row } from 'antd'
 
 import type { MediaObject } from './types'
@@ -36,7 +35,6 @@ import { distinctByKey, imageToBase64 } from '@/utils/commonFunctions'
 
 import { previewMediaUrl } from '@/utils/mediaUtils'
 
-import { setPrimaryMediaHandler } from './utils'
 import FormWrapper from '../Wrapper/FormWrapper'
 
 interface PropTypes extends ModalPropTypes<never> {
@@ -49,7 +47,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
   // temp media files for uploading
   const uploadMedia = Form.useWatch('uploadMedia', form)
   // selected media files will be attached to the product
-  const mediaArr = Form.useWatch('media', form) as MediaObject[] | undefined
+  const checkedMediaArr = Form.useWatch('selectedMedia', form) as MediaObject[] | undefined
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
@@ -82,8 +80,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
       const res = await getRequest(`/api/get-media-list/temp`)
       if (res.data.success) {
         const result = res.data.result
-        const previousMedia = form.getFieldValue('previousMedia') || []
-        const allMedia = [...previousMedia, ...result]
+        const allMedia = [...result]
         form.setFieldsValue({ mediaFiles: distinctByKey<MediaObject>(allMedia, 'fileId') })
       }
     } catch (error) {
@@ -129,32 +126,25 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
     setOpenDeleteModal(true)
   }
 
-  // file active handler
-  const fileActiveHandler = (upFiles: MediaObject[], fileId: string): void => {
-    const result = setPrimaryMediaHandler(upFiles, fileId)
-    form.setFieldsValue({ media: result })
-  }
-
   // lookup helpers (fast + stable)
-  const selectedIds = useMemo(() => new Set(mediaArr?.map(m => m.fileId)), [mediaArr])
-  const primaryId = useMemo(() => mediaArr?.find(m => m.isPrimary)?.fileId, [mediaArr])
+  const selectedIds = useMemo(() => new Set(checkedMediaArr?.map(m => m.fileId)), [checkedMediaArr])
 
+  // Select all handler
   const selectAllHandler = (): void => {
-    const isAllSelected = mediaArr?.length === uploadedMediaArr?.length
-    const previousMedia = form.getFieldValue('previousMedia') || []
-    form.setFieldValue('media', isAllSelected ? previousMedia : uploadedMediaArr)
+    const isAllSelected = checkedMediaArr?.length === uploadedMediaArr?.length
+    form.setFieldValue('media', isAllSelected ? [] : uploadedMediaArr)
   }
 
-  const menuItems = (record: MediaObject): MenuProps['items'] => {
-    const isSelected = selectedIds.has(record.fileId)
-    const isAlreadyPrimary = primaryId === record.fileId
+  const menuItems = (): MenuProps['items'] => {
+    // const isSelected = selectedIds.has(record.fileId)
+    // const isAlreadyPrimary = primaryId === record.fileId
     return [
-      {
-        key: '1',
-        label: 'Set as Primary',
-        disabled: isAlreadyPrimary || !isSelected,
-        onClick: () => fileActiveHandler(mediaArr || [], record.fileId),
-      },
+      // {
+      //   key: '1',
+      //   label: 'Set as Primary',
+      //   disabled: isAlreadyPrimary || !isSelected,
+      //   onClick: () => fileActiveHandler(checkedMediaArr || [], record.fileId),
+      // },
       {
         key: '2',
         label: 'Preview',
@@ -216,7 +206,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
                   {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
                     <SpaceWrapper>
                       <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0">
-                        {mediaArr?.length === uploadedMediaArr?.length ? 'Revert' : 'Select All'}
+                        {checkedMediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
                       </ButtonWrapper>
                       <ButtonWrapper
                         type="link"
@@ -235,7 +225,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
         >
           <FormItemWrapper
             className="mb-2"
-            name="media"
+            name="selectedMedia"
             // ✅ Store objects in form (IDs → objects)
             getValueFromEvent={(checkedIds: string[]) =>
               (uploadedMediaArr || []).filter((m: MediaObject) => checkedIds?.includes(m.fileId))
@@ -265,14 +255,10 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
                         className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
                       >
                         <div className="upload-action">
-                          {primaryId === media.fileId ? (
-                            <StarFilled className="primary-color p-1" />
-                          ) : (
-                            <span />
-                          )}
+                          <span>{}</span>
                           <DropdownWrapper
                             menu={{
-                              items: menuItems(media),
+                              items: menuItems(),
                               onClick: () => setSelectedFileId(media.fileId),
                             }}
                             overlayStyle={{ minWidth: '140px' }}
