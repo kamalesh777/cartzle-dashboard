@@ -167,7 +167,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
       <ModalWrapper
         open={openModal}
         onCancel={closeModal}
-        bodyScroll="500px"
+        bodyScroll={selectedList?.parent ? false : '500px'}
         title={`Variants: ${selectedList?.label}`}
         width={600}
         footer={
@@ -284,7 +284,12 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
         />
       )}
       {openGalleryModal && (
-        <GalleryModal openModal={openGalleryModal} setOpenModal={setOpenGalleryModal} form={form} />
+        <GalleryModal
+          openModal={openGalleryModal}
+          setOpenModal={setOpenGalleryModal}
+          name="media"
+          form={groupForm}
+        />
       )}
     </>
   )

@@ -39,16 +39,17 @@ import FormWrapper from '../Wrapper/FormWrapper'
 
 interface PropTypes extends ModalPropTypes<never> {
   form: FormInstance
+  name?: string
 }
 
 const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element => {
-  // uploaded media files
-  const mediaFiles = Form.useWatch('mediaFiles', form)
+  const [galleryForm] = Form.useForm()
   // temp media files for uploading
-  const uploadMedia = Form.useWatch('uploadMedia', form)
+  const uploadMedia = Form.useWatch('uploadMedia', galleryForm)
   // selected media files will be attached to the product
   const checkedMediaArr = Form.useWatch('selectedMedia', form) as MediaObject[] | undefined
 
+  const [mediaFiles, setMediaFiles] = useState<MediaObject[]>([])
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedFileId, setSelectedFileId] = useState('')
   const [fileUploadLoading, setFileUploadLoading] = useState(false)
@@ -80,8 +81,8 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
       const res = await getRequest(`/api/get-media-list/temp`)
       if (res.data.success) {
         const result = res.data.result
-        const allMedia = [...result]
-        form.setFieldsValue({ mediaFiles: distinctByKey<MediaObject>(allMedia, 'fileId') })
+
+        setMediaFiles(distinctByKey<MediaObject>(result, 'fileId'))
       }
     } catch (error) {
       Toast('error', (error as Error).message)
@@ -172,15 +173,14 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
       footer={
         <SubmitButtonWrapper
           okText={'Update Now!'}
-          okButtonProps={{ loading: false, onClick: () => form.submit() }}
+          okButtonProps={{ loading: false, onClick: () => galleryForm.submit() }}
           cancelButtonProps={{
             onClick: () => closeModal(),
           }}
         />
       }
     >
-      <FormWrapper form={form}>
-        <FormItemWrapper name="mediaFiles" hidden />
+      <FormWrapper form={galleryForm}>
         <FormItemWrapper name="uploadMedia" getValueFromEvent={obj => obj.fileList}>
           <UploadWrapper
             multiple
@@ -188,6 +188,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
             fileList={uploadMedia}
             showUploadList={false}
             loading={fileUploadLoading}
+            loadingText="Please wait it will take a little time!"
           />
         </FormItemWrapper>
 

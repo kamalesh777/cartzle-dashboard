@@ -39,6 +39,7 @@ const MORE_VERTICAL_SVG = (): JSX.Element => (
   </svg>
 )
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MoreVertical = (props: any): JSX.Element => {
   return <Icon component={MORE_VERTICAL_SVG} {...props} />
 }

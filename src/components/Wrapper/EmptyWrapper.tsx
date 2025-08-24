@@ -31,7 +31,7 @@ const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps)
           </p>
         )
       }
-      className={`${!props.bordered ? '' : 'ant-card-bordered'} p-4 text-center`}
+      className={`${!props.bordered ? '' : 'ant-card-bordered'} p-3 text-center`}
       {...props}
     />
   )

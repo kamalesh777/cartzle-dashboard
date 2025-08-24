@@ -21,6 +21,7 @@ import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
 interface Props extends ModalPropTypes<{ title: string }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   extra?: any
   form: FormInstance
 }
