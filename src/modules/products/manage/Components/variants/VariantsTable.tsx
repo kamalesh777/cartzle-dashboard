@@ -15,6 +15,8 @@ import { FormItemWrapper, InputNumberWrapper, TableWrapper } from '@/components/
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { getCurrency } from '@/utils/currency'
 
+import { generateSku } from '@/utils/productUtils'
+
 import VariantsGroupModal from '../../modal/VariantsGroupModal'
 import { generateGroupedCombinations } from '../../utils/generateGroupedCombinations'
 
@@ -35,6 +37,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const discount = Form.useWatch('discount', form)
 
   const selectedVariants = Form.useWatch('variantCombinations', form)
+  const productTitle = Form.useWatch('title', form)
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
@@ -61,6 +64,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         inStock: item?.inStock || false,
         media: item?.media || [],
         available: 0,
+        sku: generateSku(productTitle, item?.label),
       }
 
       if (item.children) {

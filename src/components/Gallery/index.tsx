@@ -245,15 +245,17 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
               />
             ) : uploadedMediaArr?.length ? (
               <Checkbox.Group className="d-flex">
-                <div className="media-list-container w-100">
+                <div className="gallery-list-container w-100">
                   {uploadedMediaArr.map((media: MediaObject) => (
                     <CheckBoxWrapper
                       value={media.fileId}
                       key={media.fileId}
-                      className="checkbox-button media-list-wrapper"
+                      className="checkbox-button gallery-list-wrapper"
                     >
                       <div
-                        className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
+                        className={`gallery-list w-100 ${
+                          selectedIds.has(media.fileId) ? 'active-border' : ''
+                        }`}
                       >
                         <div className="upload-action">
                           <span>{}</span>

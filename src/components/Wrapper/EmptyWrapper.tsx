@@ -6,6 +6,7 @@ export interface EmptyWrapperProps extends EmptyProps {
   onClick?: () => void
   content?: React.ReactNode
   entity: string
+  bordered?: boolean
 }
 
 /** Empty wrapper component
@@ -30,6 +31,7 @@ const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps)
           </p>
         )
       }
+      className={`${!props.bordered ? '' : 'ant-card-bordered'} p-4 text-center`}
       {...props}
     />
   )

@@ -13,6 +13,7 @@ import type { MediaObject } from '@/components/Gallery/types'
 
 import { getRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
+import GalleryModal from '@/components/Gallery'
 import {
   ColWrapper,
   CardWrapper,
@@ -35,8 +36,6 @@ import { previewMediaUrl } from '@/utils/mediaUtils'
 
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
-
-import GalleryModal from '@/components/Gallery'
 
 const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const mediaArr = Form.useWatch('media', form)
@@ -94,11 +93,11 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           >
             <FormItemWrapper name="media" label={'Media'} className="mb-1">
               {mediaArr?.length > 0 ? (
-                <VerticalScrollWrapper maxHeight={80} className='flex-row'>
+                <VerticalScrollWrapper maxHeight={90} className="flex-row">
                   {mediaArr?.map((media: MediaObject) => (
                     <div className="media-item" key={media.fileId}>
                       <img
-                        src={previewMediaUrl(`${media.filePath}?tr=w-80,h-80`)}
+                        src={previewMediaUrl(`${media.filePath}?tr=w-80,h-60`)}
                         title={media.name}
                         alt={media.name}
                       />
@@ -114,7 +113,6 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                   // onClick={() => setOpenGalleryModal(true)}
                 />
               )}
-
             </FormItemWrapper>
           </CardWrapper>
         </ColWrapper>

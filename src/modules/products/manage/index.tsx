@@ -41,7 +41,6 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
     if (data) {
       const result = {
         ...data,
-        previousMedia: data.media,
       }
       form.setFieldsValue(result)
     }
@@ -115,7 +114,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
    * @description This function is called when the form is submitted
    */
   const formSubmitHandler = async (formValue: ProductFormValueTypes): Promise<void> => {
-    const { uploadMedia, mediaFiles, previousMedia, variantCombinations, ...rest } = formValue
+    const { uploadMedia, mediaFiles, ...rest } = formValue
 
     const payload = {
       ...rest,

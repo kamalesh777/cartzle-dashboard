@@ -217,16 +217,18 @@ const ProductMediaCard = ({ form }: PropTypes): JSX.Element => {
         ) : uploadedMediaArr?.length ? (
           <Checkbox.Group className="d-flex">
             <VerticalScrollWrapper
-              className="media-list-container w-100"
+              className="gallery-list-container w-100"
               maxHeight={uploadedMediaArr?.length > 8 ? 300 : 200}
             >
               {uploadedMediaArr.map((media: VariantMedia) => (
                 <CheckBoxWrapper
                   value={media.fileId}
                   key={media.fileId}
-                  className="checkbox-button media-list-wrapper"
+                  className="checkbox-button gallery-list-wrapper"
                 >
-                  <div className={`media-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}>
+                  <div
+                    className={`gallery-list w-100 ${selectedIds.has(media.fileId) ? 'active-border' : ''}`}
+                  >
                     <div className="upload-action">
                       {primaryId === media.fileId ? <StarFilled className="primary-color p-1" /> : <span />}
                       <DropdownWrapper
