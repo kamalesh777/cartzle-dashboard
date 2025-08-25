@@ -7,7 +7,6 @@ import type { MediaObject } from '@/components/Gallery/types'
 
 import type { FormInstance } from 'antd'
 
-import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { previewMediaUrl } from '@/utils/mediaUtils'
 
 import { setPrimaryMediaHandler } from './utils'
@@ -31,7 +30,7 @@ const MediaItems = ({ mediaArr, form }: MediaItemsProps): JSX.Element => {
     form?.setFieldsValue({ media: result })
   }
   return (
-    <VerticalScrollWrapper className="flex-row">
+    <>
       {mediaArr?.map((media: MediaObject) => (
         <div className={'media-item'} key={media.fileId}>
           {media.isPrimary ? (
@@ -59,7 +58,7 @@ const MediaItems = ({ mediaArr, form }: MediaItemsProps): JSX.Element => {
           <div className="media-action-overlay" />
         </div>
       ))}
-    </VerticalScrollWrapper>
+    </>
   )
 }
 

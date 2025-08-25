@@ -9,11 +9,10 @@ import type { CategoryType, TabProps } from '../../types'
 
 // eslint-disable-next-line no-duplicate-imports
 
-import type { MediaObject } from '@/components/Gallery/types'
-
 import { getRequest } from '@/api/preference/RequestService'
 import { InfoTooltip, Toast } from '@/components/Common'
 import GalleryModal from '@/components/Gallery'
+import MediaItems from '@/components/Gallery/MediaItems'
 import {
   ColWrapper,
   CardWrapper,
@@ -32,8 +31,6 @@ import {
   requiredFieldRules,
 } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
-
-import { previewMediaUrl } from '@/utils/mediaUtils'
 
 import OrganizationCard from '../OrganizationCard'
 import PriceCard from '../PriceCard'
@@ -111,15 +108,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
             >
               {mediaArr?.length > 0 ? (
                 <VerticalScrollWrapper maxHeight={mediaArr?.length > 9 ? 200 : 100}>
-                  {mediaArr?.map((media: MediaObject) => (
-                    <div className="media-item" key={media.fileId}>
-                      <img
-                        src={previewMediaUrl(`${media.filePath}?tr=w-80,h-60`)}
-                        title={media.name}
-                        alt={media.name}
-                      />
-                    </div>
-                  ))}
+                  <MediaItems mediaArr={mediaArr} form={form} />
                 </VerticalScrollWrapper>
               ) : (
                 <EmptyWrapper

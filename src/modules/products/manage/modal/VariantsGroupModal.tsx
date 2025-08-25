@@ -31,6 +31,7 @@ import {
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 
+import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
 import useDevice from '@/hook/useDevice'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
@@ -191,7 +192,9 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                     className="mb-1"
                   >
                     {mediaArr?.length > 0 ? (
-                      <MediaItems mediaArr={mediaArr} form={groupForm} />
+                      <VerticalScrollWrapper className="flex-row">
+                        <MediaItems mediaArr={mediaArr} form={groupForm} />
+                      </VerticalScrollWrapper>
                     ) : (
                       <EmptyWrapper
                         imageStyle={{ width: 100, height: 100, margin: 'auto' }}
