@@ -97,7 +97,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                 onClick={() => setOpenGalleryModal(true)}
                 key={'upload'}
               >
-                <UploadOutlined /> Browse Media
+                <UploadOutlined /> Choose Media
               </ButtonWrapper>,
             ]}
           >

@@ -180,7 +180,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                       onClick={() => setOpenGalleryModal(true)}
                       key={'upload'}
                     >
-                      <UploadOutlined /> Browse Media
+                      <UploadOutlined /> Choose Media
                     </ButtonWrapper>,
                   ]}
                 >
