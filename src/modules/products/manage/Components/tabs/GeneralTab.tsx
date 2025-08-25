@@ -112,9 +112,9 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                 </VerticalScrollWrapper>
               ) : (
                 <EmptyWrapper
-                  imageStyle={{ width: 100, height: 100, margin: 'auto' }}
+                  bordered={false}
+                  imageStyle={{ width: 70, height: 70, margin: 'auto' }}
                   entity="Media"
-                  className="ant-card-bordered p-4 text-center"
                   style={{ borderRadius: '8px', marginInline: 0 }}
                   // onClick={() => setOpenGalleryModal(true)}
                 />

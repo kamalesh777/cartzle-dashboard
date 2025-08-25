@@ -138,15 +138,7 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
   }
 
   const menuItems = (): MenuProps['items'] => {
-    // const isSelected = selectedIds.has(record.fileId)
-    // const isAlreadyPrimary = primaryId === record.fileId
     return [
-      // {
-      //   key: '1',
-      //   label: 'Set as Primary',
-      //   disabled: isAlreadyPrimary || !isSelected,
-      //   onClick: () => fileActiveHandler(checkedMediaArr || [], record.fileId),
-      // },
       {
         key: '2',
         label: 'Preview',
