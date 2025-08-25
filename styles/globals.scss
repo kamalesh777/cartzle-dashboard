@@ -318,10 +318,43 @@ header.ant-layout-header.fix-header {
 	align-items: flex-start;
 }
 .media-item {
-    padding: 10px;
+    padding: 7px;
     border: 1px solid #ccc;
     border-radius: 6px;
+	position: relative;
 }
+.media-item .active {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background: var(--primary-color);
+	color: #fff;
+	padding: 5px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.media-item .media-action {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+	z-index: 5;
+    gap: 10px;
+}
+.media-item .media-action-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.60);
+    z-index: 1;
+	opacity: 0;
+}
+.media-item:hover .media-action,
+.media-item:hover .media-action-overlay {
+    opacity: 1;
+}
+
 label[for="media"] {
     width: 100%;
 }

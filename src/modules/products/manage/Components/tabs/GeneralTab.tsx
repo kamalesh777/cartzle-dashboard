@@ -12,7 +12,7 @@ import type { CategoryType, TabProps } from '../../types'
 import type { MediaObject } from '@/components/Gallery/types'
 
 import { getRequest } from '@/api/preference/RequestService'
-import { Toast } from '@/components/Common'
+import { InfoTooltip, Toast } from '@/components/Common'
 import GalleryModal from '@/components/Gallery'
 import {
   ColWrapper,
@@ -22,6 +22,7 @@ import {
   SelectWrapper,
   ButtonWrapper,
   EmptyWrapper,
+  SpaceWrapper,
 } from '@/components/Wrapper'
 import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import {
@@ -72,6 +73,18 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
             <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
               <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
             </FormItemWrapper>
+            <FormItemWrapper
+              name="tags"
+              label={
+                <SpaceWrapper>
+                  Tags
+                  <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
+                </SpaceWrapper>
+              }
+              className="mb-2"
+            >
+              <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
+            </FormItemWrapper>
             {/* Product media card */}
             {/* <ProductMediaCard form={form} /> */}
           </CardWrapper>
@@ -91,9 +104,13 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
               </ButtonWrapper>,
             ]}
           >
-            <FormItemWrapper name="media" label={'Media'} className="mb-1">
+            <FormItemWrapper
+              name="media"
+              label={<InfoTooltip title="Choose media for your product from the gallery">Media</InfoTooltip>}
+              className="mb-1"
+            >
               {mediaArr?.length > 0 ? (
-                <VerticalScrollWrapper maxHeight={90} className="flex-row">
+                <VerticalScrollWrapper maxHeight={mediaArr?.length > 9 ? 200 : 100}>
                   {mediaArr?.map((media: MediaObject) => (
                     <div className="media-item" key={media.fileId}>
                       <img
@@ -129,7 +146,12 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
         </ColWrapper>
       </Row>
       {openGalleryModal && (
-        <GalleryModal openModal={openGalleryModal} setOpenModal={setOpenGalleryModal} form={form} />
+        <GalleryModal
+          openModal={openGalleryModal}
+          setOpenModal={setOpenGalleryModal}
+          form={form}
+          namePath="media"
+        />
       )}
     </>
   )

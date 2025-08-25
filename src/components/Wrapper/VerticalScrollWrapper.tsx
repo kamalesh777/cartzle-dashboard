@@ -17,12 +17,12 @@ const VerticalScrollWrapper = (Props: Props): JSX.Element => {
             scrollbar-width: thin;
             overflow-x: scroll;
             padding-bottom: 3px;
-            gap: 10px;
           }
           .vertical-scroll {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
+            gap: 10px;
           }
         `}
       </style>

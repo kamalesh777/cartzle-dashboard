@@ -12,9 +12,10 @@ const initialThemeConfig: ThemeConfig = {
       colorLink: 'defaultColor',
     },
     Tooltip: {
-      colorBgSpotlight: '#fff',
-      colorTextLightSolid: '#000000e0',
+      colorBgSpotlight: '#000000e0',
+      colorTextLightSolid: '#fff',
       lineHeight: 1.3,
+      fontSize: 14,
     },
   },
 }

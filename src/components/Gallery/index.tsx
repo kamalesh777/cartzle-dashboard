@@ -4,8 +4,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { Checkbox, Form, Row } from 'antd'
 
-import type { MediaObject } from './types'
+import type { GalleryFormValues, MediaObject } from './types'
 import type { FormInstance, MenuProps, UploadFile } from 'antd'
+import type { NamePath } from 'antd/es/form/interface'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -39,15 +40,15 @@ import FormWrapper from '../Wrapper/FormWrapper'
 
 interface PropTypes extends ModalPropTypes<never> {
   form: FormInstance
-  name?: string
+  namePath?: NamePath
 }
 
-const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element => {
+const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): JSX.Element => {
   const [galleryForm] = Form.useForm()
   // temp media files for uploading
   const uploadMedia = Form.useWatch('uploadMedia', galleryForm)
   // selected media files will be attached to the product
-  const checkedMediaArr = Form.useWatch('selectedMedia', form) as MediaObject[] | undefined
+  const checkedMediaArr = Form.useWatch('selectedMedia', galleryForm) as MediaObject[] | undefined
 
   const [mediaFiles, setMediaFiles] = useState<MediaObject[]>([])
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -133,7 +134,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
   // Select all handler
   const selectAllHandler = (): void => {
     const isAllSelected = checkedMediaArr?.length === uploadedMediaArr?.length
-    form.setFieldValue('media', isAllSelected ? [] : uploadedMediaArr)
+    galleryForm.setFieldValue('selectedMedia', isAllSelected ? [] : uploadedMediaArr)
   }
 
   const menuItems = (): MenuProps['items'] => {
@@ -163,6 +164,12 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
     ]
   }
 
+  // update images in form
+  const formSubmitHandler = (values: GalleryFormValues): void => {
+    form.setFieldValue(namePath, values.selectedMedia)
+    closeModal()
+  }
+
   return (
     <ModalWrapper
       open={openModal}
@@ -180,7 +187,7 @@ const GalleryModal = ({ form, openModal, setOpenModal }: PropTypes): JSX.Element
         />
       }
     >
-      <FormWrapper form={galleryForm}>
+      <FormWrapper form={galleryForm} onFinish={formSubmitHandler} log>
         <FormItemWrapper name="uploadMedia" getValueFromEvent={obj => obj.fileList}>
           <UploadWrapper
             multiple

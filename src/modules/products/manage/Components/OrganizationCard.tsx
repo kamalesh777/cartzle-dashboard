@@ -25,7 +25,7 @@ const OrganizationCard = (): JSX.Element => {
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={24}>
+        <ColWrapper md={12}>
           <FormItemWrapper
             name="showcase"
             label={
@@ -38,8 +38,9 @@ const OrganizationCard = (): JSX.Element => {
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={24}>
+        <ColWrapper md={12}>
           <FormItemWrapper
+            className="mb-2"
             name="collection"
             label={
               <SpaceWrapper>
@@ -49,18 +50,6 @@ const OrganizationCard = (): JSX.Element => {
             }
           >
             <SelectWrapper />
-          </FormItemWrapper>
-          <FormItemWrapper
-            name="tags"
-            label={
-              <SpaceWrapper>
-                Tags
-                <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
-              </SpaceWrapper>
-            }
-            className="mb-2"
-          >
-            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
           </FormItemWrapper>
         </ColWrapper>
       </Row>
