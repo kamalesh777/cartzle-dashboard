@@ -23,6 +23,7 @@ export interface VariantOptionTypes {
 }
 
 export interface VariantCombination {
+  options?: Record<string, string>
   label: string
   key: string
   rowIndex?: number
@@ -43,7 +44,7 @@ type VariantItem = {
   salePrice?: number
   costPrice?: number
   available?: number
-  options: Record<string, string>
+  options?: Record<string, string>
 }
 export interface CategoryType {
   name: string

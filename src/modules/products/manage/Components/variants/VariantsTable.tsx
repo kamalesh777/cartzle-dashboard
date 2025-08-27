@@ -19,6 +19,7 @@ import { generateSku } from '@/utils/productUtils'
 
 import VariantsGroupModal from '../../modal/VariantsGroupModal'
 import { generateGroupedCombinations } from '../../utils/generateGroupedCombinations'
+import { normalizeVariants } from '../../utils/normalizeVariant'
 
 interface PropTypes {
   form: FormInstance
@@ -135,15 +136,15 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       ),
     },
     {
-      title: <InfoTooltip title="Available product in stock">Stock</InfoTooltip>,
-      dataIndex: 'available',
-      width: '10%',
+      title: <InfoTooltip title="Discount in percentage">Discount</InfoTooltip>,
+      dataIndex: 'discount',
+      width: '12%',
       render: (_, record) => (
         <InputNumberWrapper
-          value={record.available}
+          value={record.discount}
           size="small"
-          onChange={value => rowChangeHandler({ ...record, available: value as number })}
-          disabled={record?.children && record?.children?.length > 0}
+          suffix="%"
+          onChange={value => rowChangeHandler({ ...record, discount: value as number })}
         />
       ),
     },
@@ -166,11 +167,10 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-    selectedRowKeys: selectedVariants?.length
-      ? selectedVariants?.map((item: VariantCombination) => item?.label)
-      : [],
+    selectedRowKeys: selectedVariants?.map((item: VariantCombination) => item.label),
     onChange: (_selectedRowKeys, selectedRows) => {
-      form.setFieldValue('variantCombinations', selectedRows)
+      const normalizedData = normalizeVariants(selectedRows, groupBy)
+      form.setFieldValue('variantCombinations', normalizedData)
     },
   }
 
@@ -188,7 +188,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
             ...child,
             salePrice: updatedRecord.salePrice,
             costPrice: updatedRecord.costPrice,
-            available: updatedRecord.available,
+            discount: updatedRecord.discount,
           })),
         }
       }
