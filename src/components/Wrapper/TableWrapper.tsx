@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MinusSquareFilled, PlusSquareFilled } from '@ant-design/icons'
+import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import { Table, type TableColumnsType, type TableProps } from 'antd'
 
 import type { AnyObject } from 'antd/es/_util/type'
@@ -38,9 +38,9 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
         expandIcon: ({ expanded, onExpand, record }) =>
           record?.parent ? (
             expanded ? (
-              <MinusSquareFilled className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+              <MinusSquareOutlined className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
             ) : (
-              <PlusSquareFilled className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+              <PlusSquareOutlined className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
             )
           ) : null,
       }}
