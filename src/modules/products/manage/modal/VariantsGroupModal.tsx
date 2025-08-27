@@ -33,7 +33,6 @@ import ImagePreview from '@/components/Wrapper/ImagePreviewWrapper'
 
 import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
 import { COMMON_ROW_GUTTER, requiredFieldRules } from '@/constants/AppConstant'
-import useDevice from '@/hook/useDevice'
 import { setVariantsTable } from '@/store/slices/variantsSlice'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
@@ -61,8 +60,6 @@ interface Props extends ModalPropTypes<VariantCombination> {
 const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Props): JSX.Element => {
   const dispatch = useDispatch()
   const variantsTableState = useSelector((state: RootState) => state.variants.variantsTable)
-
-  const {} = useDevice()
 
   // find selected variant by key
   const selectedVariant = variantsTableState?.find(item => item.key === selectedList?.key)

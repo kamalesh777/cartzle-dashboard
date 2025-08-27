@@ -50,7 +50,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
       form.setFieldsValue(result)
       dispatch(setVariantsTable(data?.variantCombinations || []))
     }
-  }, [data])
+  }, [data, form])
 
   // tabs array
   const tabsArray = [
