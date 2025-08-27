@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { MinusSquareFilled, PlusSquareFilled } from '@ant-design/icons'
 import { Table, type TableColumnsType, type TableProps } from 'antd'
 
 import type { AnyObject } from 'antd/es/_util/type'
@@ -32,6 +33,17 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
   return (
     <Table<T>
       scroll={tableScroll}
+      expandable={{
+        indentSize: 0,
+        expandIcon: ({ expanded, onExpand, record }) =>
+          record?.parent ? (
+            expanded ? (
+              <MinusSquareFilled className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+            ) : (
+              <PlusSquareFilled className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+            )
+          ) : null,
+      }}
       {...resProps}
       columns={tableColumns as TableColumnsType}
       rowKey={props.rowKey ?? 'id'}

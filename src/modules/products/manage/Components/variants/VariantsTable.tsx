@@ -99,7 +99,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       render: label =>
         label?.split(' x ')?.map((item: string, index: number, array: string[]) => {
           return (
-            <div className="py-1" key={item}>
+            <div className="pt-1" key={item}>
               <span key={index}>{item}</span>
               {index < array.length - 1 && <span className="fw-bold primary-color mx-2">x</span>}
             </div>
@@ -223,14 +223,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         <TableWrapper
           columns={columns}
           rowKey="label"
-          size="small"
+          // size="small"
           rowSelection={rowSelection}
           dataSource={variantsTableState}
           pagination={false}
           bordered
-          expandable={{
-            indentSize: 0,
-          }}
         />
       )}
 
