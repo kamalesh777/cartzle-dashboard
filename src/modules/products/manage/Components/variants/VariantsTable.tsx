@@ -152,7 +152,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       dataIndex: 'action',
       fixed: 'right',
       width: 50,
-      className: 'text-right',
+      className: 'text-center',
       render: (_, record) => (
         <TableActionButton
           items={[]}
