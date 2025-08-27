@@ -19,7 +19,6 @@ import { generateSku } from '@/utils/productUtils'
 
 import VariantsGroupModal from '../../modal/VariantsGroupModal'
 import { generateGroupedCombinations } from '../../utils/generateGroupedCombinations'
-import { normalizeVariants } from '../../utils/normalizeVariant'
 
 interface PropTypes {
   form: FormInstance
@@ -100,10 +99,10 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       render: label =>
         label?.split(' x ')?.map((item: string, index: number, array: string[]) => {
           return (
-            <>
+            <div className="py-1" key={item}>
               <span key={index}>{item}</span>
               {index < array.length - 1 && <span className="fw-bold primary-color mx-2">x</span>}
-            </>
+            </div>
           )
         }),
     },
@@ -167,10 +166,14 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-    selectedRowKeys: selectedVariants?.map((item: VariantCombination) => item.label),
+    selectedRowKeys: selectedVariants?.length
+      ? selectedVariants?.map((item: VariantCombination) => item?.label)
+      : [],
+    getCheckboxProps: record => ({
+      className: record?.parent || variantsArr?.length === 1 ? '' : 'd-none',
+    }),
     onChange: (_selectedRowKeys, selectedRows) => {
-      const normalizedData = normalizeVariants(selectedRows, groupBy)
-      form.setFieldValue('variantCombinations', normalizedData)
+      form.setFieldValue('variantCombinations', selectedRows)
     },
   }
 
@@ -220,6 +223,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
         <TableWrapper
           columns={columns}
           rowKey="label"
+          size="small"
           rowSelection={rowSelection}
           dataSource={variantsTableState}
           pagination={false}

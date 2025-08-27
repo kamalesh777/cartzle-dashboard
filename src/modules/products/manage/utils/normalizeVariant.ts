@@ -1,25 +1,36 @@
 import type { VariantCombination } from '../types'
 
 export const normalizeVariants = (arr: VariantCombination[], groupBy: string): VariantCombination[] => {
-  const parents: Record<string, VariantCombination> = {}
-  const childrenByParent: Record<string, VariantCombination[]> = {}
+  const grouped: Record<string, VariantCombination[]> = {}
 
+  // Group all items by their groupBy value
   for (const item of arr) {
-    if (item.parent) {
-      parents[item.key] = { ...item, children: [] }
-    } else {
-      const parentKey = item.options?.[groupBy] as string
-      if (!childrenByParent[parentKey]) childrenByParent[parentKey] = []
-      childrenByParent[parentKey].push(item)
-    }
+    const parentKey = item.options?.[groupBy] as string
+    if (!grouped[parentKey]) grouped[parentKey] = []
+    grouped[parentKey].push(item)
   }
 
   const result: VariantCombination[] = []
 
-  Object.entries(parents).forEach(([key, parent]) => {
-    parent.children = childrenByParent[key] || []
-    result.push(parent)
-  })
+  for (const [key, items] of Object.entries(grouped)) {
+    if (items.length === 1) {
+      // ✅ Single element → mark as parent itself
+      result.push({
+        ...items[0],
+        parent: true,
+        // children: [],
+      })
+    } else {
+      // ✅ Multiple → create a parent with children
+      result.push({
+        label: key,
+        key,
+        parent: true,
+        options: { [groupBy]: key },
+        children: items.map(i => ({ ...i, parent: false })),
+      })
+    }
+  }
 
   return result
 }

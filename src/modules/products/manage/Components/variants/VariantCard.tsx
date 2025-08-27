@@ -36,12 +36,10 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
   const dispatch = useDispatch()
 
   const variantsArr = Form.useWatch('variantOptions', form)
-  const dbGroupBy = form.getFieldValue('groupBy')
   const categoryId = Form.useWatch(CATEGORY_ID, form)
 
   const [inputEdit, setInputEdit] = useState<boolean | number>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  // const [groupByOptions, setGroupByOptions] = useState<DefaultOptionType[] | null>([])
 
   const fetchVariant = async (): Promise<void> => {
     try {
@@ -74,10 +72,10 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
     setLoading(true)
     // if in db groupBy already added then use it otherwise the last index of variantsArr
     form.setFieldsValue({
-      groupBy: dbGroupBy ?? variantsArr?.at(-1)?.opName,
+      groupBy: variantsArr?.at(-1)?.opName,
     })
     setTimeout(() => setLoading(false), 600)
-  }, [form, variantsArr, dbGroupBy])
+  }, [form, variantsArr])
 
   const addFunc = async (add: (index?: number | null, position?: number) => void): Promise<void> => {
     try {
