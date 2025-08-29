@@ -34,7 +34,7 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
     <Table<T>
       scroll={tableScroll}
       expandable={{
-        indentSize: 0,
+        indentSize: 30,
         expandIcon: ({ expanded, onExpand, record }) =>
           record?.parent ? (
             expanded ? (

@@ -42,6 +42,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   const [openModal, setOpenModal] = useState(false)
   const [selectedList, setSelectedList] = useState<VariantCombination>()
   const [selectedIndex, setSelectedIndex] = useState<number>()
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
 
   // filter variants with op_value length > 0
   const variantsArr = useMemo(() => {
@@ -53,6 +54,16 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
    * @param data - variant data
    * @returns variant data with default price
    */
+
+  useEffect(() => {
+    const rowKeys = selectedVariants?.map((item: VariantCombination) => {
+      if (item?.parent) {
+        return item?.children?.map((child: VariantCombination) => child?.label)
+      }
+      return item?.label
+    })
+    setSelectedRowKeys(rowKeys)
+  }, [selectedVariants])
 
   const addDefaultPriceForAll = (data: VariantCombination[]): VariantCombination[] => {
     return data.map(item => {
@@ -166,12 +177,11 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
   // after selection update form values
   const rowSelection: TableRowSelection<VariantCombination> = {
     checkStrictly: false,
-    selectedRowKeys: selectedVariants?.length
-      ? selectedVariants?.map((item: VariantCombination) => item?.label)
-      : [],
-    getCheckboxProps: record => ({
-      className: record?.parent || variantsArr?.length === 1 ? '' : 'd-none',
-    }),
+    selectedRowKeys: selectedRowKeys,
+    // getCheckboxProps: record => ({
+    //   className: record?.parent || variantsArr?.length === 1 ? '' : 'd-none',
+    //   // checked: selectedVariants?.includes(record),
+    // }),
     onChange: (_selectedRowKeys, selectedRows) => {
       form.setFieldValue('variantCombinations', selectedRows)
     },
@@ -182,6 +192,9 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
    * @param updatedRecord - updated record
    */
   const rowChangeHandler = (updatedRecord: VariantCombination): void => {
+    // on changes of any field remove the row from selectedRowKeys
+    setSelectedRowKeys(prevState => prevState.filter(item => item !== updatedRecord.label))
+
     const finalData = (variantsTableState || []).map(item => {
       if (item.label === updatedRecord.label && item.parent) {
         return {
