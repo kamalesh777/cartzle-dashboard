@@ -103,7 +103,11 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
           >
             <FormItemWrapper
               name="media"
-              label={<InfoTooltip title="Choose media for your product from the gallery">Media</InfoTooltip>}
+              label={
+                <InfoTooltip title="Choose media for your product from the gallery">
+                  General Media
+                </InfoTooltip>
+              }
               className="mb-1"
             >
               {mediaArr?.length > 0 ? (

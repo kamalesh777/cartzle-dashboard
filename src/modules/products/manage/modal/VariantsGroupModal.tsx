@@ -184,7 +184,9 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                   <FormItemWrapper
                     name="media"
                     label={
-                      <InfoTooltip title="Select / Deselect media based on the variant">Media</InfoTooltip>
+                      <InfoTooltip title="Select / Deselect media based on the variant">
+                        Variant Media
+                      </InfoTooltip>
                     }
                     className="mb-1"
                   >

@@ -62,7 +62,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       }
       return item?.label
     })
-    setSelectedRowKeys(rowKeys)
+    setSelectedRowKeys(rowKeys?.flat())
   }, [selectedVariants])
 
   const addDefaultPriceForAll = (data: VariantCombination[]): VariantCombination[] => {
