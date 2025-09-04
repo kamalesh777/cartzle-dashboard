@@ -24,8 +24,8 @@
     margin-inline-end: 32px !important;
 }
 .ant-notification .ant-notification-notice-wrapper .ant-notification-notice-close {
-    top: 22px !important;
-    inset-inline-end: 20px !important;
+    top: 15px !important;
+    inset-inline-end: 15px !important;
 }
 .file-uploader .ant-upload.ant-upload-select {
 	width: 100%;
@@ -129,6 +129,9 @@ tr.ant-table-expanded-row .ant-table-wrapper {
 .checkbox-button > .ant-checkbox-label {
     padding-inline: 0 !important;
     width: 100%;
+}
+.notify-box .ant-notification-notice-message {
+    display: none;
 }
 @media (max-width: 768px) {
     .ant-menu {

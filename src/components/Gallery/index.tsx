@@ -158,7 +158,10 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
 
   // update images in form
   const formSubmitHandler = (values: GalleryFormValues): void => {
-    form.setFieldValue(namePath, values.selectedMedia)
+    // keep the previous value or files
+    const previousValue = form.getFieldValue(namePath) || []
+    const updatedValue = [...previousValue, ...values.selectedMedia]
+    form.setFieldValue(namePath, updatedValue)
     closeModal()
   }
 
@@ -203,22 +206,24 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
               </ColWrapper>
               <ColWrapper md={14}>
                 <div className="ms-auto d-flex">
-                  <InputSearchWrapper className="me-2" />
-                  {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
-                    <SpaceWrapper>
+                  <InputSearchWrapper size="small" />
+                  <SpaceWrapper className="ms-2" split={'|'}>
+                    {uploadedMediaArr?.length > 0 ? (
                       <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0">
                         {checkedMediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
                       </ButtonWrapper>
+                    ) : null}
+                    {uploadMedia?.length > 0 ? (
                       <ButtonWrapper
                         type="link"
                         onClick={getMediaList}
                         className="p-0 primary-color"
-                        tooltip="Refresh"
+                        tooltip="Refetch the media list"
                       >
-                        Reload
+                        Refetch
                       </ButtonWrapper>
-                    </SpaceWrapper>
-                  ) : null}
+                    ) : null}
+                  </SpaceWrapper>
                 </div>
               </ColWrapper>
             </Row>

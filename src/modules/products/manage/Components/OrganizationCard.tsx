@@ -10,12 +10,12 @@ const OrganizationCard = (): JSX.Element => {
   return (
     <CardWrapper title={'Organize & Collection'} bottomBorderNone className="mb-3">
       <Row gutter={COMMON_ROW_GUTTER}>
-        <ColWrapper md={12}>
+        <ColWrapper md={24}>
           <FormItemWrapper name="supplierId" label="Supplier">
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={12}>
+        <ColWrapper md={24}>
           <FormItemWrapper name="brandId" label="Brand">
             <SelectWrapper />
           </FormItemWrapper>
@@ -25,7 +25,7 @@ const OrganizationCard = (): JSX.Element => {
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={12}>
+        <ColWrapper md={24}>
           <FormItemWrapper
             name="showcase"
             label={
@@ -38,9 +38,8 @@ const OrganizationCard = (): JSX.Element => {
             <SelectWrapper />
           </FormItemWrapper>
         </ColWrapper>
-        <ColWrapper md={12}>
+        <ColWrapper md={24}>
           <FormItemWrapper
-            className="mb-2"
             name="collection"
             label={
               <SpaceWrapper>
@@ -50,6 +49,20 @@ const OrganizationCard = (): JSX.Element => {
             }
           >
             <SelectWrapper />
+          </FormItemWrapper>
+        </ColWrapper>
+        <ColWrapper md={24}>
+          <FormItemWrapper
+            name="tags"
+            label={
+              <SpaceWrapper>
+                Tags
+                <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
+              </SpaceWrapper>
+            }
+            className="mb-2"
+          >
+            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
           </FormItemWrapper>
         </ColWrapper>
       </Row>

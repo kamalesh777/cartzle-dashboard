@@ -35,7 +35,7 @@ const UploadWrapper = ({
         icons
       ) : (
         <p className="fs-1">
-          <FileImageOutlined className="text-secondary" />
+          <FileImageOutlined className="primary-color" />
         </p>
       )}
 

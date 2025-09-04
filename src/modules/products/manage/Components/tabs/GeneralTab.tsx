@@ -21,15 +21,9 @@ import {
   SelectWrapper,
   ButtonWrapper,
   EmptyWrapper,
-  SpaceWrapper,
 } from '@/components/Wrapper'
 import VerticalScrollWrapper from '@/components/Wrapper/VerticalScrollWrapper'
-import {
-  COMMON_ROW_GUTTER,
-  requiredWithWhitspcFieldRules,
-  CATEGORY_ID,
-  requiredFieldRules,
-} from '@/constants/AppConstant'
+import { requiredWithWhitspcFieldRules, CATEGORY_ID, requiredFieldRules } from '@/constants/AppConstant'
 import { getSelectOption } from '@/utils/disableFunction'
 
 import OrganizationCard from '../OrganizationCard'
@@ -57,9 +51,9 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
   const [openGalleryModal, setOpenGalleryModal] = useState(false)
   return (
     <>
-      <Row gutter={COMMON_ROW_GUTTER} justify={'space-between'}>
+      <Row gutter={24} justify={'space-between'}>
         {/* Left side fields */}
-        <ColWrapper md={14}>
+        <ColWrapper md={15}>
           <CardWrapper className="mb-3" title="General" bottomBorderNone>
             <FormItemWrapper name="title" label="Title" rules={requiredWithWhitspcFieldRules}>
               <InputWrapper />
@@ -67,24 +61,13 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
             <FormItemWrapper name="description" label="Description">
               <Input.TextArea rows={4} />
             </FormItemWrapper>
-            <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules}>
+            <FormItemWrapper name={CATEGORY_ID} label="Category" rules={requiredFieldRules} className="mb-2">
               <SelectWrapper options={getSelectOption(categoriesData, ['name', 'id'])} />
-            </FormItemWrapper>
-            <FormItemWrapper
-              name="tags"
-              label={
-                <SpaceWrapper>
-                  Tags
-                  <InfoTooltip title="Flexible labels for search/filtering eg. Lightweight, Breathable, New Arrival" />
-                </SpaceWrapper>
-              }
-              className="mb-2"
-            >
-              <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
             </FormItemWrapper>
             {/* Product media card */}
             {/* <ProductMediaCard form={form} /> */}
           </CardWrapper>
+          <PriceCard form={form} />
           <CardWrapper
             classNames={{
               actions: 'bg-gray-100 media-action',
@@ -111,7 +94,10 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
               className="mb-1"
             >
               {mediaArr?.length > 0 ? (
-                <VerticalScrollWrapper maxHeight={mediaArr?.length > 9 ? 200 : 100}>
+                <VerticalScrollWrapper
+                  isColumnDir={mediaArr?.length > 4}
+                  maxHeight={mediaArr?.length > 9 ? 200 : 100}
+                >
                   <MediaItems mediaArr={mediaArr} form={form} />
                 </VerticalScrollWrapper>
               ) : (
@@ -128,13 +114,13 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
         </ColWrapper>
 
         {/* Right side fields */}
-        <ColWrapper md={10}>
+        <ColWrapper md={9}>
           <CardWrapper title={'Status'} className="mb-3" bottomBorderNone>
             <FormItemWrapper name="status" className="mb-2" initialValue={'draft'}>
               <SelectWrapper options={getSelectOption(['published', 'draft'])} />
             </FormItemWrapper>
           </CardWrapper>
-          <PriceCard form={form} />
+
           <OrganizationCard />
         </ColWrapper>
       </Row>

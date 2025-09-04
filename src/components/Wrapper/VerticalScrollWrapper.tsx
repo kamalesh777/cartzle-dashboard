@@ -5,9 +5,10 @@ interface Props {
   maxHeight?: number | string
   className?: string
   style?: React.CSSProperties
+  isColumnDir?: boolean
 }
 const VerticalScrollWrapper = (Props: Props): JSX.Element => {
-  const { children, maxHeight, className, style } = Props
+  const { children, maxHeight, className, style, isColumnDir } = Props
   return (
     <>
       <style jsx global>
@@ -20,7 +21,7 @@ const VerticalScrollWrapper = (Props: Props): JSX.Element => {
           }
           .vertical-scroll {
             display: flex;
-            flex-direction: column;
+            flex-direction: ${isColumnDir ? 'column' : 'row'};
             flex-wrap: wrap;
             gap: 10px;
           }

@@ -16,9 +16,10 @@ interface MediaItemsProps {
   mediaArr: MediaObject[]
   entity?: string
   form?: FormInstance
+  className?: string
 }
 
-const MediaItems = ({ mediaArr, form }: MediaItemsProps): JSX.Element => {
+const MediaItems = ({ mediaArr, form, className }: MediaItemsProps): JSX.Element => {
   // handle primary media
   const fileActiveHandler = (upFiles: MediaObject[], fileId: string): void => {
     const result = setPrimaryMediaHandler(upFiles, fileId) // immutable
@@ -32,7 +33,7 @@ const MediaItems = ({ mediaArr, form }: MediaItemsProps): JSX.Element => {
   return (
     <>
       {mediaArr?.map((media: MediaObject) => (
-        <div className={'media-item'} key={media.fileId}>
+        <div className={`media-item ${className ?? ''}`} key={media.fileId}>
           {media.isPrimary ? (
             <div className="active">
               <StarFilled />

@@ -15,6 +15,7 @@ const openNotificationWithIcon = (
     description,
     className: `notify-box ${className ?? ''}`,
     placement: placement ?? 'top',
+    pauseOnHover: true,
   })
 }
 
