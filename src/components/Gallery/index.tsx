@@ -195,6 +195,7 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
         </FormItemWrapper>
 
         <CardWrapper
+          className="mb-3"
           title={
             <Row gutter={COMMON_ROW_GUTTER} className="w-100">
               <ColWrapper md={10}>
@@ -207,13 +208,11 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
               <ColWrapper md={14}>
                 <div className="ms-auto d-flex">
                   <InputSearchWrapper size="small" />
-                  <SpaceWrapper className="ms-2" split={'|'}>
-                    {uploadedMediaArr?.length > 0 ? (
+                  {uploadedMediaArr && uploadedMediaArr?.length > 0 ? (
+                    <SpaceWrapper className="ms-2" split={'|'}>
                       <ButtonWrapper type="link" onClick={selectAllHandler} className="px-0">
                         {checkedMediaArr?.length === uploadedMediaArr?.length ? 'Unselect All' : 'Select All'}
                       </ButtonWrapper>
-                    ) : null}
-                    {uploadMedia?.length > 0 ? (
                       <ButtonWrapper
                         type="link"
                         onClick={getMediaList}
@@ -222,8 +221,8 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
                       >
                         Refetch
                       </ButtonWrapper>
-                    ) : null}
-                  </SpaceWrapper>
+                    </SpaceWrapper>
+                  ) : null}
                 </div>
               </ColWrapper>
             </Row>
