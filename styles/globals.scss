@@ -380,6 +380,22 @@ label[for=media]:after {
 .variant-fields .ant-space-item:last-child {
 	margin-left: auto;
 }
+.ellipsis-vertical {
+	width: 24px;
+	height: 30px;
+	border-radius: 4px;
+	padding: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: -15px 0;
+	margin-left: auto;
+	cursor: pointer;
+	position: relative;
+}
+.ellipsis-vertical:hover {
+  background-color: var(--bs-gray-200);
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
