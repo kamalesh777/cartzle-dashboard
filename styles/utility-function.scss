@@ -1,0 +1,20 @@
+// Utility function to replace "." with "_" for valid class names
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+	@if $index {
+	  @return str-slice($string, 1, $index - 1) + $replace +
+		str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+	@return $string;
+  }
+  
+  // Generate classes from 0.1rem → 10rem (step 0.1)
+  @for $i from 1 through 100 {
+	$size: $i / 10; // gives 0.1, 0.2, ..., 10.0
+	$class-name: str-replace("#{$size}", ".", "-");
+  
+	.lucide-icon-#{$class-name} {
+	  width: #{$size}rem !important;
+	  height: #{$size}rem !important;
+	}
+  }

@@ -59,9 +59,16 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
         <ColWrapper span={12}>
           <div className="header-left-panel">
             <ButtonWrapper
+              tooltip="Toggle Sidebar"
               className="text-default"
               type="link"
-              icon={collapsed ? <PanelRightClose /> : <PanelRightOpen />}
+              icon={
+                collapsed ? (
+                  <PanelRightClose className="lucide-icon-1-6" />
+                ) : (
+                  <PanelRightOpen className="lucide-icon-1-6" />
+                )
+              }
               onClick={() => (isMobileDevice ? showDrawer() : setCollapsed(!collapsed))}
             />
           </div>

@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 
 import { Layout, Menu, Tag } from 'antd'
+
 import { usePathname } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { MenuProps } from 'antd'
+import type { dynamicIconImports } from 'lucide-react/dynamic'
 
 import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
 import { type AppThunkDispatch, type RootState } from '@/store/index'
@@ -80,9 +82,12 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
             </NavLink>
           ),
 
-        icon: renderDynamicIcon(obj.icon),
+        icon: renderDynamicIcon({
+          name: obj.icon as keyof typeof dynamicIconImports,
+          className: 'lucide-icon-1-4',
+        }),
         key: obj.key,
-        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
+        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount - 1),
         children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
         onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
       }

@@ -2,7 +2,9 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 
-import { Row, Input, Form, Upload } from 'antd'
+import { Row, Input, Form } from 'antd'
+
+import { Upload } from 'lucide-react'
 
 import type { CategoryType, TabProps } from '../../types'
 

@@ -2,6 +2,7 @@ import '@/styles/antd-override.scss'
 import '@/styles/utility-class.scss'
 import '@/styles/color.scss'
 import '@/styles/reset.scss'
+import '@/styles/utility-function.scss'
 import '@/styles/globals.scss'
 
 import React, { type PropsWithChildren } from 'react'

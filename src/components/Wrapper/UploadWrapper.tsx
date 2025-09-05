@@ -34,8 +34,8 @@ const UploadWrapper = ({
       {icons ? (
         icons
       ) : (
-        <p className="fs-1">
-          <FileImage className="primary-color" />
+        <p>
+          <FileImage className="primary-color lucide-icon-4-5" />
         </p>
       )}
 

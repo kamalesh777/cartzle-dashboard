@@ -270,7 +270,7 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
                             }}
                             overlayStyle={{ minWidth: '140px' }}
                           >
-                            <MoreVertical className="p-1" />
+                            <MoreVertical className="p-1 lucide-icon-1-6" />
                           </DropdownWrapper>
                         </div>
                         <img

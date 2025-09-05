@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 
-import { Form, Row, Upload } from 'antd'
+import { Form, Row } from 'antd'
+import { Upload } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { VariantCombination } from '../types'

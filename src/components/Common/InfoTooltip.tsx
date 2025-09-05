@@ -14,9 +14,9 @@ interface PropTypes extends TooltipPropsWithTitle {
 const InfoTooltip: React.FC<PropTypes> = (props): JSX.Element => {
   return (
     <TooltipWrapper {...props}>
-      <SpaceWrapper>
+      <SpaceWrapper size={6}>
         {props?.children}
-        {props?.icon || <Info className="text-primary" />}
+        {props?.icon || <Info className="text-primary mt-1" />}
       </SpaceWrapper>
     </TooltipWrapper>
   )
