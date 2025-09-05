@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { EditOutlined } from '@ant-design/icons'
 import { Divider } from 'antd'
+
+import { SquarePen } from 'lucide-react'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { CardProps, FormInstance } from 'antd'
@@ -38,7 +39,7 @@ const EditCardWrapper = ({
   // extra content for edit mode
   const editExtraContent = (
     <ButtonWrapper type="link" className="px-0" onClick={() => setEditMode(true)}>
-      <EditOutlined /> Edit
+      <SquarePen /> Edit
     </ButtonWrapper>
   )
   const cancelHandler = (): void => {

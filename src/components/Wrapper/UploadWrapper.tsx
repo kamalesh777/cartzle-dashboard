@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { FileImageOutlined } from '@ant-design/icons'
 import { Skeleton, Upload, type UploadProps } from 'antd'
+import { FileImage } from 'lucide-react'
 
 interface UploadWrapperProps extends UploadProps {
   icons?: React.ReactNode
@@ -35,7 +35,7 @@ const UploadWrapper = ({
         icons
       ) : (
         <p className="fs-1">
-          <FileImageOutlined className="primary-color" />
+          <FileImage className="primary-color" />
         </p>
       )}
 

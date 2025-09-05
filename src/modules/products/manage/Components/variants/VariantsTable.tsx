@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { FormOutlined } from '@ant-design/icons'
 import { Form, type TableColumnsType, type FormInstance } from 'antd'
 
+import { Settings2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { VariantCombination, VariantOptionTypes } from '../../types'
@@ -167,7 +167,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       render: (_, record) => (
         <TableActionButton
           items={[]}
-          icon={<FormOutlined onClick={() => editRowHandler(record)} />}
+          icon={<Settings2 onClick={() => editRowHandler(record)} />}
           tooltipTitle="Edit"
         />
       ),

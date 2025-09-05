@@ -4,8 +4,9 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 
-import { ArrowRightOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons'
-import { Form, Tabs } from 'antd'
+import { Form, Tabs, Upload } from 'antd'
+
+import { ArrowRight, Save } from 'lucide-react'
 
 import type { ProductDataTypes, ProductFormValueTypes } from '../types'
 
@@ -99,7 +100,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
     right: (
       <ButtonWrapper type="primary" onClick={nextHandler} loading={buttonLoading}>
         {lastIndex === currentTab ? 'Save' : 'Next'}
-        {lastIndex === currentTab ? <SaveOutlined /> : <ArrowRightOutlined />}
+        {lastIndex === currentTab ? <Save /> : <ArrowRight />}
       </ButtonWrapper>
     ),
   }
@@ -152,7 +153,7 @@ const ProductManageComp = ({ data }: Props): JSX.Element => {
   const ACTION_COMP = (
     <ButtonWrapper type="default" className="primary-color">
       <SpaceWrapper>
-        <UploadOutlined /> Import CSV
+        <Upload /> Import CSV
       </SpaceWrapper>
     </ButtonWrapper>
   )

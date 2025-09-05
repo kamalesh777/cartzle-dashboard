@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 
-import { DeleteOutlined } from '@ant-design/icons'
 import { Row } from 'antd'
+
+import { Trash } from 'lucide-react'
 
 import type { UnitsPayload } from '../../types'
 
@@ -13,7 +14,7 @@ import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
 import { useGetRequestHandler } from '@/hook/requestHandler'
 
-import UnitsManagemodal from '../modal/UnitsManagemodal'
+import UnitsManageModal from '../modal/UnitsManageModal'
 
 const UnitsList = (): JSX.Element => {
   const { fetchData, data, isLoading } = useGetRequestHandler<UnitsPayload[]>()
@@ -66,7 +67,7 @@ const UnitsList = (): JSX.Element => {
                   <CardWrapper classNames={{ body: 'px-3 py-2' }} className="mb-3 show bg-gray-100">
                     <SpaceWrapper className="w-100 justify-content-between">
                       <p>{item.name}</p>
-                      <DeleteOutlined
+                      <Trash
                         className="on-hover cursor-pointer error-color"
                         onClick={() => deleteUnit(item.id as string)}
                       />
@@ -81,7 +82,7 @@ const UnitsList = (): JSX.Element => {
         </CardWrapper>
       </div>
       {openModal && (
-        <UnitsManagemodal openModal={openModal} setOpenModal={setOpenModal} afterSubmit={fetchUnitList} />
+        <UnitsManageModal openModal={openModal} setOpenModal={setOpenModal} afterSubmit={fetchUnitList} />
       )}
     </>
   )

@@ -2,9 +2,9 @@
 /* eslint-disable no-duplicate-imports */
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { SettingOutlined } from '@ant-design/icons'
-
 import { Form, Tabs, Typography } from 'antd'
+
+import { Settings } from 'lucide-react'
 
 import type { FormInstance } from 'antd'
 
@@ -122,7 +122,7 @@ const SeoViewCard = ({ form }: { form: FormInstance }): JSX.Element => {
         <div className="seo-card">
           <div className="seo-content">{tab.key === 'google' ? googleContent : socialContent}</div>
           <ButtonWrapper type="link" className="p-0 ms-2 h-auto" tooltip="Manage" onClick={handleManage}>
-            <SettingOutlined />
+            <Settings />
           </ButtonWrapper>
         </div>
       ),

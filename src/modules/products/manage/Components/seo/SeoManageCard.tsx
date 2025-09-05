@@ -1,9 +1,9 @@
 /* eslint-disable no-duplicate-imports */
 import React, { useEffect } from 'react'
 
-import { RedoOutlined } from '@ant-design/icons'
-
 import { Form, Input } from 'antd'
+
+import { Redo } from 'lucide-react'
 
 import type { FormInstance } from 'antd'
 
@@ -49,7 +49,7 @@ const SeoManageCard = ({ openModal, setOpenModal, selectedList, form }: Props): 
   const FooterButton = (
     <div className="d-flex justify-content-between mt-3 w-100">
       <div>
-        <ButtonWrapper type="default" onClick={resetHandler} icon={<RedoOutlined />}>
+        <ButtonWrapper type="default" onClick={resetHandler} icon={<Redo />}>
           Reset
         </ButtonWrapper>
       </div>

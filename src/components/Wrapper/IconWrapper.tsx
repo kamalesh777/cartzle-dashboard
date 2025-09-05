@@ -1,7 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import Icon, * as IconObj from '@ant-design/icons'
+import { Icon } from 'lucide-react'
+
+import { DynamicIcon } from 'lucide-react/dynamic'
+
+// eslint-disable-next-line no-duplicate-imports
+import type { IconNode } from 'lucide-react'
+
+// eslint-disable-next-line no-duplicate-imports
+import type { dynamicIconImports } from 'lucide-react/dynamic'
 
 interface Proptypes {
   icon: string
@@ -13,12 +20,11 @@ interface Proptypes {
 }
 
 /**
- * Utility function to render a dynamic Ant Design icon.
+ * Utility function to render a dynamic icon.
  */
-export const renderDynamicIcon = (iconName: string): JSX.Element => {
+export const renderDynamicIcon = (iconName: keyof typeof dynamicIconImports): JSX.Element => {
   // Dynamically access the icon component from IconObj
-  const iconComp = (IconObj as any)[iconName]
-  return iconName != null ? <Icon component={iconComp} /> : <></>
+  return iconName != null ? <DynamicIcon name={iconName} /> : <></>
 }
 
 /**
@@ -26,8 +32,8 @@ export const renderDynamicIcon = (iconName: string): JSX.Element => {
  */
 const IconWrapper: React.FC<Proptypes> = ({ icon, ...restProps }): JSX.Element => {
   // Dynamically render the icon with additional props
-  const iconComp = (IconObj as any)[icon]
-  return icon != null ? <Icon component={iconComp} {...restProps} /> : <></>
+  const iconComp = renderDynamicIcon(icon as keyof typeof dynamicIconImports)
+  return icon != null ? <Icon {...restProps} iconNode={iconComp as unknown as IconNode} /> : <></>
 }
 
 export default IconWrapper

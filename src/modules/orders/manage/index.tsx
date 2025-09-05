@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { CloseCircleFilled, PlusOutlined } from '@ant-design/icons'
 import { Form, Radio, Row } from 'antd'
 
+import { CircleX, Plus } from 'lucide-react'
 import { useParams } from 'next/navigation'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
@@ -79,7 +79,7 @@ const OrderManageComp = (): JSX.Element => {
                       key={field.key}
                       extra={
                         fields?.length > 1 ? (
-                          <CloseCircleFilled
+                          <CircleX
                             onClick={() => {
                               remove(field.name)
                             }}
@@ -119,7 +119,7 @@ const OrderManageComp = (): JSX.Element => {
                       type="dashed"
                       className="text-primary"
                       onClick={() => add()}
-                      icon={<PlusOutlined />}
+                      icon={<Plus />}
                     >
                       Add more items
                     </ButtonWrapper>

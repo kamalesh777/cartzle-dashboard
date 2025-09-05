@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 
-import { CloseOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons'
-
 import { Form, Image, type UploadFile } from 'antd'
 
 // eslint-disable-next-line no-duplicate-imports
+import { Eye, SquarePen, X } from 'lucide-react'
 import { useSelector } from 'react-redux'
 
 import type { RootState } from '@/store/index'
@@ -67,11 +66,11 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
           preview={{
             visible: previewVisible,
             src: `${imageData}?preview=true&tr=700`,
-            closeIcon: <CloseOutlined onClick={() => setPreviewVisible(false)} />,
+            closeIcon: <X onClick={() => setPreviewVisible(false)} />,
             mask: (
               <SpaceWrapper size={16}>
                 <span onClick={() => setPreviewVisible(true)}>
-                  <EyeOutlined /> View
+                  <Eye /> View
                 </span>
                 <BrowseFile
                   name={name}
@@ -79,7 +78,7 @@ const LogoFaviconUpload = ({ name, label, type, form }: PropTypes): JSX.Element 
                   onChange={changeHandler}
                   className="hide-upload-border text-white"
                 >
-                  <EditOutlined /> Edit
+                  <SquarePen /> Edit
                 </BrowseFile>
               </SpaceWrapper>
             ),

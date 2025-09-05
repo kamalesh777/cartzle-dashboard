@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
-
 import { Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
+
+import { CloudUpload, Loader } from 'lucide-react'
 
 import type { UploadChangeParam, UploadFile } from 'antd/es/upload'
 
@@ -24,7 +24,7 @@ const BrowseFile = ({ name, loading, onChange, children, className }: Props): JS
   const uploadButton = (
     <ButtonWrapper style={{ border: 0, background: 'none' }}>
       <SpaceWrapper align="center" direction="vertical" size={0}>
-        {loading ? <LoadingOutlined /> : <UploadOutlined />}
+        {loading ? <Loader /> : <CloudUpload />}
         Upload
       </SpaceWrapper>
     </ButtonWrapper>

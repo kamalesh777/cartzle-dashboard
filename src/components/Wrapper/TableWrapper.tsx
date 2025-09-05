@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons'
-import { Table, type TableColumnsType, type TableProps } from 'antd'
+import { Button, Table, type TableColumnsType, type TableProps } from 'antd'
+
+import { MinusSquare, PlusSquare } from 'lucide-react'
 
 import type { AnyObject } from 'antd/es/_util/type'
 
@@ -38,9 +39,13 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
         expandIcon: ({ expanded, onExpand, record }) =>
           record?.parent ? (
             expanded ? (
-              <MinusSquareOutlined className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+              <Button onClick={e => onExpand(record, e)} type="text">
+                <MinusSquare className="fs-5 me-2 primary-color" />
+              </Button>
             ) : (
-              <PlusSquareOutlined className="fs-5 me-2 primary-color" onClick={e => onExpand(record, e)} />
+              <Button onClick={e => onExpand(record, e)} type="text">
+                <PlusSquare className="fs-5 me-2 primary-color" />
+              </Button>
             )
           ) : null,
       }}

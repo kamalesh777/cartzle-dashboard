@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 
-import { UploadOutlined } from '@ant-design/icons'
-import { Form, Row } from 'antd'
+import { Form, Row, Upload } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { VariantCombination } from '../types'
@@ -177,7 +176,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                       onClick={() => setOpenGalleryModal(true)}
                       key={'upload'}
                     >
-                      <UploadOutlined /> Choose Media
+                      <Upload /> Choose Media
                     </ButtonWrapper>,
                   ]}
                 >

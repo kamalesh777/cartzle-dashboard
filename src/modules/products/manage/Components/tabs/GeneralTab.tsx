@@ -2,8 +2,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 
-import { UploadOutlined } from '@ant-design/icons'
-import { Row, Input, Form } from 'antd'
+import { Row, Input, Form, Upload } from 'antd'
 
 import type { CategoryType, TabProps } from '../../types'
 
@@ -80,7 +79,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
                 onClick={() => setOpenGalleryModal(true)}
                 key={'upload'}
               >
-                <UploadOutlined /> Choose Media
+                <Upload /> Choose Media
               </ButtonWrapper>,
             ]}
           >

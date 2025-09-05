@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 
-import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Anchor, Menu, Row, Tooltip } from 'antd'
+import { ArrowLeft } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/Common'
@@ -118,7 +118,7 @@ const DynamicPageLayout = ({
         onClick={() => router.push(goBackUrl)}
         className="me-2"
         style={{ width: 40 }}
-        icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
+        icon={<ArrowLeft style={{ fontSize: '14px' }} />}
       />
     </Tooltip>
   ) : null

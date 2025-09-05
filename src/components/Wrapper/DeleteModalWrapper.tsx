@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
+
+import { FileWarning } from 'lucide-react'
 
 import { deleteRequest } from '@/api/preference/RequestService'
 import { Toast } from '@/components/Common'
@@ -90,7 +91,7 @@ const DeleteModalWrapper: React.FC<DeleteModalProps> = ({
       open={openModal}
       title={
         <div className="flex items-center gap-2 error-color">
-          <ExclamationCircleOutlined className="me-2" />
+          <FileWarning className="me-2" />
           <span>Confirm Delete</span>
         </div>
       }

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-
 import { Form, Space, Input } from 'antd'
+
+import { MinusCircle, Plus } from 'lucide-react'
 
 import type { ModalPropTypes } from 'src/types/common'
 
@@ -65,12 +65,12 @@ const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
                     >
                       <Input />
                     </FormItemWrapper>
-                    <MinusCircleOutlined className="ms-2" onClick={() => remove(field.name)} />
+                    <MinusCircle className="ms-2" onClick={() => remove(field.name)} />
                   </Space.Compact>
                 </FormItemWrapper>
               ))}
               <FormItemWrapper>
-                <ButtonWrapper type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                <ButtonWrapper type="dashed" onClick={() => add()} icon={<Plus />}>
                   Add card
                 </ButtonWrapper>
               </FormItemWrapper>

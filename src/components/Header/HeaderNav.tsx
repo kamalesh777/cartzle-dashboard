@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined } from '@ant-design/icons'
 import { Avatar, Layout, type MenuProps, Row } from 'antd'
 import { capitalize } from 'lodash'
+import { PanelRightOpen, PanelRightClose, Power } from 'lucide-react'
 
 // import { useLogoutHandler } from 'src/hook/useAuth'
 
@@ -40,7 +40,7 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
       key: 'sign-out',
       label: (
         <SpaceWrapper className="error-color">
-          <PoweroffOutlined />
+          <Power />
           Log Out
         </SpaceWrapper>
       ),
@@ -61,7 +61,7 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
             <ButtonWrapper
               className="text-default"
               type="link"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              icon={collapsed ? <PanelRightClose /> : <PanelRightOpen />}
               onClick={() => (isMobileDevice ? showDrawer() : setCollapsed(!collapsed))}
             />
           </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { InfoCircleOutlined } from '@ant-design/icons'
+import { Info } from 'lucide-react'
 
 import type { TooltipPropsWithTitle } from 'antd/es/tooltip'
 
@@ -16,7 +16,7 @@ const InfoTooltip: React.FC<PropTypes> = (props): JSX.Element => {
     <TooltipWrapper {...props}>
       <SpaceWrapper>
         {props?.children}
-        {props?.icon || <InfoCircleOutlined className="text-primary" />}
+        {props?.icon || <Info className="text-primary" />}
       </SpaceWrapper>
     </TooltipWrapper>
   )

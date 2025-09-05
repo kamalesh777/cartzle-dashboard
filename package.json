@@ -10,7 +10,6 @@
     "build-check": "rm -rf .next/cache && tsc --noEmit"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.1",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/redux": "^3.6.0",
     "antd": "^5.26.1",
@@ -20,6 +19,7 @@
     "eslint-config-next": "^14.2.30",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.542.0",
     "next": "^14.2.30",
     "query-string": "^9.0.0",
     "react": "^18.2.0",

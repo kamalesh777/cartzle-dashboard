@@ -1,18 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
 import { Divider, Form, Row, Space, Tag, type FormInstance } from 'antd'
 
 import Cookies from 'js-cookie'
 import { lowerCase } from 'lodash'
 
+import { Check, Settings, SquarePen, Trash, X } from 'lucide-react'
 import { useSelector } from 'react-redux'
 
 import type { UnitGroupType, VariantOptionTypes } from '../../types'
@@ -152,12 +146,12 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
           </VerticalScrollWrapper>
           <Space.Compact className="ml-auto">
             <TooltipWrapper title="Edit variant">
-              <ButtonWrapper type="link" icon={<EditOutlined />} onClick={event => editFunc(event, name)} />
+              <ButtonWrapper type="link" icon={<SquarePen />} onClick={event => editFunc(event, name)} />
             </TooltipWrapper>
             <TooltipWrapper title="Delete variant">
               <ButtonWrapper
                 type="link"
-                icon={<DeleteOutlined />}
+                icon={<Trash />}
                 className="error-color"
                 onClick={event => removeFunc(event, name)}
               />
@@ -206,7 +200,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                       isValueChanged={Boolean(isValueChanged)}
                     >
                       <>
-                        <SettingOutlined /> Manage Group
+                        <Settings /> Manage Group
                       </>
                     </LinkWrapper>
                   </div>
@@ -238,13 +232,9 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
                 <ButtonWrapper
                   className="text-success"
                   onClick={event => saveVariant(event, name)}
-                  icon={<CheckOutlined />}
+                  icon={<Check />}
                 />
-                <ButtonWrapper
-                  className="error-color"
-                  onClick={e => removeFunc(e, name)}
-                  icon={<CloseOutlined />}
-                />
+                <ButtonWrapper className="error-color" onClick={e => removeFunc(e, name)} icon={<X />} />
               </Space.Compact>
             </FormItemWrapper>
           </ColWrapper>

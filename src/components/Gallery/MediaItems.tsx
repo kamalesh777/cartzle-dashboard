@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 
-import { CloseOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
+import { CircleX, Star } from 'lucide-react'
 
 import type { MediaObject } from '@/components/Gallery/types'
 
@@ -36,7 +36,7 @@ const MediaItems = ({ mediaArr, form, className }: MediaItemsProps): JSX.Element
         <div className={`media-item ${className ?? ''}`} key={media.fileId}>
           {media.isPrimary ? (
             <div className="active">
-              <StarFilled />
+              <Star />
             </div>
           ) : null}
           <img src={previewMediaUrl(`${media.filePath}?tr=w-103,h-70`)} title={media.name} alt={media.name} />
@@ -45,12 +45,12 @@ const MediaItems = ({ mediaArr, form, className }: MediaItemsProps): JSX.Element
               <ButtonWrapper
                 type="link"
                 className="text-white"
-                icon={media.isPrimary ? <StarFilled /> : <StarOutlined />}
+                icon={media.isPrimary ? <Star /> : <Star />}
                 onClick={() => fileActiveHandler(mediaArr, media.fileId)}
               />
             </TooltipWrapper>
             <TooltipWrapper title="Remove">
-              <CloseOutlined
+              <CircleX
                 onClick={() => deleteFileHandler(mediaArr, media.fileId)}
                 className="text-white cursor-pointer"
               />

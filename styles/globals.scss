@@ -17,6 +17,16 @@ $placeholder-color: #bbb;
   color: $placeholder-color !important;
 }
 
+.lucide {
+	width: 1.4rem;
+	height: 1.4rem;
+	stroke-width: 1.2px;
+}
+.lucide * {
+	vector-effect: non-scaling-stroke;
+}  
+
+
 /*============preset for default designning===========*/
 ::-webkit-scrollbar {
 	width: 8px;

@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { PlusOutlined } from '@ant-design/icons'
-
 import { Form, type FormInstance } from 'antd'
+import { Plus } from 'lucide-react'
 
 import { useDispatch } from 'react-redux'
 
@@ -100,7 +99,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
                 </InfoTooltip>
                 <ButtonWrapper
                   onClick={() => addFunc(add)}
-                  icon={<PlusOutlined />}
+                  icon={<Plus />}
                   type="link"
                   className="p-0 primary-color"
                 >

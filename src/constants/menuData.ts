@@ -10,37 +10,37 @@ const menuData = [
         key: 'dashboard',
         path: '/',
         label: 'Dashboard',
-        icon: 'DashboardOutlined',
+        icon: 'gauge',
       },
       {
         key: 'products',
         path: '/products',
         label: 'Products',
-        icon: 'ProductOutlined',
+        icon: 'package-search',
       },
       {
         key: 'parties',
         path: '/parties',
         label: 'Parties',
-        icon: 'UsergroupAddOutlined',
+        icon: 'handshake',
       },
       {
         key: 'orders',
         path: '/orders/purchases',
         label: 'Orders',
-        icon: 'InboxOutlined',
+        icon: 'boxes',
         children: [
           {
             key: 'purchases',
             path: '/orders/purchases',
             label: 'Purchases',
-            icon: 'ImportOutlined',
+            icon: 'shopping-basket',
           },
           {
             key: 'sales',
             path: '/orders/sales',
             label: 'Sales',
-            icon: 'ExportOutlined',
+            icon: 'badge-indian-rupee',
           },
         ],
       },
@@ -48,19 +48,19 @@ const menuData = [
         key: 'employees',
         path: '/employees',
         label: 'Employees',
-        icon: 'ScheduleOutlined',
+        icon: 'id-card-lanyard',
       },
       {
         key: 'expenses',
         path: '/expenses',
         label: 'Expenses',
-        icon: 'FundProjectionScreenOutlined',
+        icon: 'coins',
       },
       {
         key: 'reports',
         path: '/reports',
         label: 'Reports',
-        icon: 'LineChartOutlined',
+        icon: 'book-open',
       },
     ],
   },
@@ -75,7 +75,7 @@ const menuData = [
         key: 'company',
         path: '/settings/company',
         label: 'Company',
-        icon: 'ShopOutlined',
+        icon: 'sliders-horizontal',
         pagemenu: [
           {
             key: 'company-brand',
@@ -102,7 +102,7 @@ const menuData = [
         key: 'product',
         path: '/settings/product',
         label: 'Product',
-        icon: 'ProfileOutlined',
+        icon: 'file-cog',
         pagemenu: [
           {
             key: 'product-brands',
@@ -135,7 +135,7 @@ const menuData = [
         key: 'permissions',
         path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}`,
         label: 'Permissions',
-        icon: 'PropertySafetyOutlined',
+        icon: 'user-round-cog',
         pagemenu: [
           {
             key: 'permissions-page',
@@ -161,7 +161,7 @@ const menuData = [
         key: 'account-settings',
         path: '/settings/account-settings',
         label: 'Account Settings',
-        icon: 'BarsOutlined',
+        icon: 'monitor-cog',
       },
     ],
   },

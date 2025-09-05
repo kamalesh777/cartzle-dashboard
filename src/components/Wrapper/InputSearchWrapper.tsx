@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons'
 import { Input, type InputProps } from 'antd'
+import { CircleX, Search } from 'lucide-react'
 
 interface PropTypes extends InputProps {
   loading?: boolean
@@ -25,7 +25,7 @@ const InputSearchWrapper = ({ onChange, debounceTime = 600, ...props }: PropType
 
   return (
     <Input
-      suffix={value ? <CloseCircleFilled onClick={() => setValue('')} /> : <SearchOutlined />}
+      suffix={value ? <CircleX onClick={() => setValue('')} /> : <Search />}
       placeholder={props?.placeholder || 'Search...'}
       value={value}
       onChange={e => setValue(e.target.value)}

@@ -2,10 +2,11 @@
 'use client'
 import React, { useState } from 'react'
 
-import { SyncOutlined } from '@ant-design/icons'
 import { Row, Tag, Typography, type TableProps } from 'antd'
 
 import { startCase, upperFirst } from 'lodash'
+
+import { RefreshCw } from 'lucide-react'
 
 import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
@@ -67,7 +68,7 @@ const EmployeesListComp = (): JSX.Element => {
     {
       label: (
         <SpaceWrapper>
-          <SyncOutlined />
+          <RefreshCw />
           Action
         </SpaceWrapper>
       ),
