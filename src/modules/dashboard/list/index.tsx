@@ -3,7 +3,10 @@ import React, { useEffect } from 'react'
 
 import { Col, Row } from 'antd'
 
+import type { IconProps } from '@/components/Wrapper/IconWrapper'
+
 import { CardWrapper } from '@/components/Wrapper'
+// eslint-disable-next-line no-duplicate-imports
 import IconWrapper from '@/components/Wrapper/IconWrapper'
 
 import { useGetRequestHandler } from '@/hook/requestHandler'
@@ -23,7 +26,7 @@ const DashboardComponent = (): JSX.Element => {
       {data?.map(item => (
         <Col span={12} md={6} key={item?.title} className="mb-3">
           <CardWrapper>
-            <IconWrapper icon={item.icon} style={{ fontSize: '32px' }} />
+            <IconWrapper name={item.icon as IconProps['name']} />
             <h2>{item?.title}</h2>
           </CardWrapper>
         </Col>

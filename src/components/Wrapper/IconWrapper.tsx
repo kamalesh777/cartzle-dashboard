@@ -10,7 +10,7 @@ import type { IconNode } from 'lucide-react'
 // eslint-disable-next-line no-duplicate-imports
 import type { dynamicIconImports } from 'lucide-react/dynamic'
 
-interface IconProps {
+export interface IconProps {
   name: keyof typeof dynamicIconImports
   size?: number
   className?: string
