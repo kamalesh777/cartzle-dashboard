@@ -71,38 +71,38 @@ const menuData = [
     key: 'admin',
     children: [
       {
-        key: 'workspace',
+        key: 'workspace-controls',
         // path: `${WORKSPACE_CONTROLS_ROUTE}/products`,
         label: 'Workspace Controls',
         icon: 'baggage-claim',
         children: [
           // Product Settings
           {
-            key: 'product',
-            path: `${WORKSPACE_CONTROLS_ROUTE}/products`,
+            key: 'workspace-controls',
+            path: `${WORKSPACE_CONTROLS_ROUTE}/products-catalog`,
             label: 'Products',
             icon: 'file-cog',
             pagemenu: [
               {
-                key: 'product-brands',
+                key: 'workspace-controls-brands',
                 href: '#brands',
                 label: 'Brands',
                 icon: '',
               },
               {
-                key: 'product-categories',
+                key: 'workspace-controls-categories',
                 href: '#categories',
                 label: 'Categories',
                 icon: '',
               },
               {
-                key: 'product-unit-groups',
+                key: 'workspace-controls-unit-groups',
                 href: '#unit-groups',
                 label: 'Unit Groups',
                 icon: '',
               },
               {
-                key: 'product-units',
+                key: 'workspace-controls-units',
                 href: '#units',
                 label: 'Units',
                 icon: '',
@@ -113,7 +113,7 @@ const menuData = [
           {
             key: 'users',
             path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}`,
-            label: 'Users',
+            label: 'Users Controls',
             icon: 'user-round-cog',
             pagemenu: [
               {
@@ -146,25 +146,25 @@ const menuData = [
         children: [
           // Store Info
           {
-            key: 'store-manage',
+            key: 'system-settings',
             path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
             label: 'Store Manage',
             icon: 'warehouse',
             pagemenu: [
               {
-                key: 'store-manage-brand',
+                key: 'system-settings',
                 href: '#brand',
                 label: 'Brand',
                 icon: '',
               },
               {
-                key: 'store-manage-domain',
+                key: 'system-settings-domain',
                 href: '#domain',
                 label: 'Domain',
                 icon: '',
               },
               {
-                key: 'store-manage-profile',
+                key: 'system-settings-profile',
                 href: '#store',
                 label: 'Profile',
                 icon: '',

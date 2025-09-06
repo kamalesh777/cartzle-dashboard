@@ -6,8 +6,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: `/settings/user-permissions`,
-        destination: `/settings/user-permissions/roles`,
+        source: `/workspace-controls/users`,
+        destination: `/workspace-controls/users/roles`,
         permanent: true,
       },
     ]

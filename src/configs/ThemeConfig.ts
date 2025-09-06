@@ -3,8 +3,8 @@ import { type ThemeConfig } from 'antd'
 const initialThemeConfig: ThemeConfig = {
   token: {
     fontSize: 16,
-    colorPrimary: '#fe2df1',
-    colorInfo: '#fe2df1',
+    colorPrimary: '#0eb7b7',
+    colorInfo: '#0eb7b7',
     borderRadius: 5,
     // colorBgSolidHover: '#32ff00',
   },

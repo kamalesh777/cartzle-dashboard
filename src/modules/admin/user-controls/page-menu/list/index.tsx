@@ -62,27 +62,25 @@ const PageMenuList = (): JSX.Element => {
     },
   ]
 
-  const MAIN_COMP = (
-    <TableWrapper
-      title={() => (
-        <Row justify={'space-between'}>
-          <ColWrapper md={12}>
-            <h4 className="ant-card-head-title">Pages</h4>
-          </ColWrapper>
-          <ColWrapper md={12} className="text-right">
-            <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
-              New
-            </ButtonWrapper>
-          </ColWrapper>
-        </Row>
-      )}
-      dataSource={listData}
-      columns={columns}
-    />
-  )
+
   return (
     <div id="page-menu">
-      <DynamicPageLayout MainComp={MAIN_COMP} />
+      <TableWrapper
+        title={() => (
+          <Row justify={'space-between'}>
+            <ColWrapper md={12}>
+              <h4 className="ant-card-head-title">Pages</h4>
+            </ColWrapper>
+            <ColWrapper md={12} className="text-right">
+              <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>
+                New
+              </ButtonWrapper>
+            </ColWrapper>
+          </Row>
+        )}
+        dataSource={listData}
+        columns={columns}
+      />
       {openManageModal && <PageMenuModal openModal={openManageModal} setOpenModal={setManageModal} />}
     </div>
   )

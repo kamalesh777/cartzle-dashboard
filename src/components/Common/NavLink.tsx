@@ -8,9 +8,12 @@ interface NavLinkProps {
 }
 
 export default function NavLink({ href, className, children }: NavLinkProps): JSX.Element {
+  console.log("===href", href)
   return (
-    <Link href={href} passHref legacyBehavior>
-      <a {...{ href, className }}>{children}</a>
+    <Link href={href} className={className}>
+      <>
+       {children}
+      </>
     </Link>
   )
 }

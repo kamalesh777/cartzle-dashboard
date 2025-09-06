@@ -87,7 +87,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
           className: 'lucide-icon-1-4 primary-color',
         }),
         key: obj.key,
-        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount - 1),
+        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
         children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
         onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
       }

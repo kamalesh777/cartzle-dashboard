@@ -5,7 +5,7 @@ import DynamicPageLayout from '@/components/DynamicPageLayout'
 import ProductSettingsComp from '@/modules/admin/product-settings'
 
 const ProductSettingsPage = (): JSX.Element => {
-  return <DynamicPageLayout MainComp={<ProductSettingsComp />} isScrollable customTitle="Product Config" />
+  return <DynamicPageLayout MainComp={<ProductSettingsComp />} isScrollable customTitle="Product Catalog" />
 }
 
 export default ProductSettingsPage

@@ -62,7 +62,7 @@ const DynamicPageLayout = ({
   const pathname = usePathname()
   const router = useRouter()
 
-  const firstPathKey = getCurrentPath(pathname, -1, 1)
+  const firstPathKey = getCurrentPath(pathname, 1, 1)
 
   console.log("===firstPathKey", firstPathKey)
 

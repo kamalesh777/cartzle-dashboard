@@ -18,7 +18,7 @@ import {
   TableWrapper,
 } from '@/components/Wrapper'
 
-import { SETTINGS_ROUTE, USER_PERMISSION_ROUTE } from '@/constants/AppConstant'
+import { SETTINGS_ROUTE, } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
 
@@ -64,36 +64,34 @@ const PermissionList = (): JSX.Element => {
   ]
 
   const redirectToUrlPath = (dynamicId: string): void => {
-    const MAIN_URL = `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/permissions/${dynamicId}`
+    const MAIN_URL = `${SETTINGS_ROUTE}/permissions/${dynamicId}`
     router.push(MAIN_URL)
   }
-  const MAIN_COMP = (
-    <TableWrapper
-      dataSource={listData}
-      columns={columns}
-      title={() => (
-        <Row justify={'space-between'}>
-          <ColWrapper md={8}>
-            <h4 className="ant-card-head-title">Permissions</h4>
-          </ColWrapper>
-          <ColWrapper md={16} className="text-right">
-            <SpaceWrapper>
-              <InputSearchWrapper
-                placeholder="Search by name or phone..."
-                onChange={e => setSearchValue(e.target.value)}
-              />
-              <ButtonWrapper type="primary" onClick={() => redirectToUrlPath('create')}>
-                New
-              </ButtonWrapper>
-            </SpaceWrapper>
-          </ColWrapper>
-        </Row>
-      )}
-    />
-  )
+
   return (
     <div id="permissions">
-      <DynamicPageLayout MainComp={MAIN_COMP} />
+      <TableWrapper
+        dataSource={listData}
+        columns={columns}
+        title={() => (
+          <Row justify={'space-between'}>
+            <ColWrapper md={8}>
+              <h4 className="ant-card-head-title">Permissions</h4>
+            </ColWrapper>
+            <ColWrapper md={16} className="text-right">
+              <SpaceWrapper>
+                <InputSearchWrapper
+                  placeholder="Search by name or phone..."
+                  onChange={e => setSearchValue(e.target.value)}
+                />
+                <ButtonWrapper type="primary" onClick={() => redirectToUrlPath('create')}>
+                  New
+                </ButtonWrapper>
+              </SpaceWrapper>
+            </ColWrapper>
+          </Row>
+        )}
+      />
     </div>
   )
 }
