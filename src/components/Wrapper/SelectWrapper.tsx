@@ -17,7 +17,7 @@ function SelectWrapper(props: customSelectProps): JSX.Element {
   return (
     <Select
       placement="bottomRight"
-      dropdownStyle={{ minWidth: '150px' }}
+      styles={{ popup: { root: { minWidth: '150px' } } }}
       showSearch
       optionFilterProp="label"
       {...props}

@@ -15,7 +15,7 @@ export interface EmptyWrapperProps extends EmptyProps {
  * @param entity - Entity name
  * @returns JSX.Element
  */
-const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps): JSX.Element => {
+const EmptyWrapper = ({ onClick, content, entity, bordered=true, ...props }: EmptyWrapperProps): JSX.Element => {
   return (
     <Empty
       description={
@@ -31,7 +31,7 @@ const EmptyWrapper = ({ onClick, content, entity, ...props }: EmptyWrapperProps)
           </p>
         )
       }
-      className={`${!props.bordered ? '' : 'ant-card-bordered'} p-3 text-center`}
+      className={`${bordered === false ? '' : 'ant-card-bordered'} p-3 text-center`}
       {...props}
     />
   )

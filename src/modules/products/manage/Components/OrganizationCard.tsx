@@ -62,7 +62,7 @@ const OrganizationCard = (): JSX.Element => {
             }
             className="mb-2"
           >
-            <SelectWrapper tokenSeparators={[',']} showArrow={false} mode="tags" />
+            <SelectWrapper tokenSeparators={[',']} suffixIcon={null} mode="tags" />
           </FormItemWrapper>
         </ColWrapper>
       </Row>

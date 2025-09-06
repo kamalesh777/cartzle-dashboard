@@ -78,8 +78,8 @@ const menuData = [
         children: [
           // Product Settings
           {
-            key: 'workspace-controls',
-            path: `${WORKSPACE_CONTROLS_ROUTE}/products-catalog`,
+            key: 'product-settings',
+            path: `${WORKSPACE_CONTROLS_ROUTE}/products`,
             label: 'Products',
             icon: 'file-cog',
             pagemenu: [
@@ -116,12 +116,7 @@ const menuData = [
             label: 'Users Controls',
             icon: 'user-round-cog',
             pagemenu: [
-              {
-                key: 'users-page-menu',
-                path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/page-menu`,
-                label: 'Page Menu',
-                icon: '',
-              },
+              
               {
                 key: 'users-roles',
                 path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/roles`,
@@ -132,6 +127,12 @@ const menuData = [
                 key: 'users-permissions',
                 path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/permissions`,
                 label: 'Permissions',
+                icon: '',
+              },
+              {
+                key: 'users-section-controls',
+                path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/section-controls`,
+                label: 'Section Controls',
                 icon: '',
               },
             ],

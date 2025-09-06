@@ -45,8 +45,8 @@ const PageMenuList = (): JSX.Element => {
 
   const columns: TableProps<ListDataTypes>['columns'] = [
     {
-      title: 'Page Name',
-      dataIndex: 'page_name',
+      title: 'Name',
+      dataIndex: 'section_name',
     },
     {
       title: 'Cards',
@@ -64,12 +64,12 @@ const PageMenuList = (): JSX.Element => {
 
 
   return (
-    <div id="page-menu">
+    <div id="section-controls">
       <TableWrapper
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={12}>
-              <h4 className="ant-card-head-title">Pages</h4>
+              <h4 className="ant-card-head-title">Section Controls</h4>
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <ButtonWrapper type="primary" className="ms-2" onClick={() => setManageModal(true)}>

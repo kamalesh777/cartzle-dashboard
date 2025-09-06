@@ -43,7 +43,7 @@ const reGenerateToken = async (): Promise<NewTokenTypes | null> => {
       headers: {
         'Content-Type': 'application/json',
         // get the refresh token from the cookies and send it to the server by x-refresh-token header
-        'x-refresh-token': cookies().get('refreshToken')?.value || '',
+        'x-refresh-token': (await cookies()).get('refreshToken')?.value || '',
       },
       method: 'GET',
     })

@@ -196,7 +196,7 @@ const VariantsGroupModal = ({ openModal, setOpenModal, selectedList, form }: Pro
                       </VerticalScrollWrapper>
                     ) : (
                       <EmptyWrapper
-                        imageStyle={{ width: 100, height: 100, margin: 'auto' }}
+                        styles={{ image: { width: 100, height: 100, margin: 'auto' } }}
                         entity="Media"
                         bordered={false}
                         style={{ borderRadius: '8px', marginInline: 0 }}

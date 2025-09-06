@@ -16,6 +16,7 @@ import {
 } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
+import { InfoTooltip } from '@/components/Common'
 
 const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
@@ -43,10 +44,10 @@ const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<n
       }
     >
       <FormWrapper onFinish={formSubmitHandler} form={form}>
-        <FormItemWrapper name="page_name" label="Page Name">
+        <FormItemWrapper name="name" label={<InfoTooltip title="Section Name">Name</InfoTooltip>}>
           <InputWrapper />
         </FormItemWrapper>
-        <Form.List name="cards_name">
+        <Form.List name="cardsName">
           {(fields, { add, remove }, {}) => (
             <>
               {fields.map((field, index) => (

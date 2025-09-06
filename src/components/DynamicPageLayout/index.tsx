@@ -144,6 +144,22 @@ const DynamicPageLayout = ({
     </Tooltip>
   ) : null
 
+  const menuItems = linkedMenuItems.map(item => {
+    return {
+      label: (
+        <NavLink href={item.path ?? '#' }>
+          <div className="d-flex justify-content-between align-items-center">{item.label}</div>
+        </NavLink>
+      ),
+      key: item.key,
+      path: item.path,
+      href: item.href,
+      breadcrumb: item.breadcrumb,
+      notification: item.notification,
+      className: item.path === getCurrentPath(pathname, 0, 4) ? 'ant-menu-item-selected' : '',
+    }
+  })
+
   const leftSideComponent = (
     <div className="settings-stepper title-row" style={isScrollable ? { position: 'fixed' } : {}}>
       <p className="page-title">
@@ -153,18 +169,7 @@ const DynamicPageLayout = ({
       {isScrollable ? (
         <Anchor affix={false} bounds={60} offsetTop={80} className="affix-menu mt-3" items={anchorItems} />
       ) : (
-        <Menu className="mt-3 page-menu-box">
-          {linkedMenuItems.map(item => (
-            <Menu.Item
-              key={item.key}
-              className={item.path === getCurrentPath(pathname, 0, 4) ? 'ant-menu-item-selected' : ''}
-            >
-              <NavLink href={item.path ?? '#'}>
-                <div className="d-flex justify-content-between align-items-center">{item.label}</div>
-              </NavLink>
-            </Menu.Item>
-          ))}
-        </Menu>
+        <Menu className="mt-3 page-menu-box" items={menuItems} />
       )}
     </div>
   )

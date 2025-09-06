@@ -6,14 +6,13 @@ import { Form, Row, type MenuProps, type TableProps } from 'antd'
 import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
-import DynamicPageLayout from '@/components/DynamicPageLayout'
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import PageMenuModal from '../manage'
 import { listData } from '../static/data'
 
 const RolesListComp = (): JSX.Element => {
-  const [form] = Form.useForm()
+  // const [form] = Form.useForm()
 
   const [openManageModal, setManageModal] = useState<boolean>(false)
 
@@ -24,7 +23,7 @@ const RolesListComp = (): JSX.Element => {
 
   useEffect(() => {
     if (supposeObject) {
-      form.setFieldsValue(supposeObject)
+      // form.setFieldsValue(supposeObject)
     }
   }, [supposeObject])
 

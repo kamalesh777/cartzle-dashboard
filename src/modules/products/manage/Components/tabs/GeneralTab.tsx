@@ -104,7 +104,7 @@ const GeneralTab = ({ form }: TabProps): JSX.Element => {
               ) : (
                 <EmptyWrapper
                   bordered={false}
-                  imageStyle={{ width: 70, height: 70, margin: 'auto' }}
+                  styles={{ image: { width: 70, height: 70, margin: 'auto' } }}
                   entity="Media"
                   style={{ borderRadius: '8px', marginInline: 0 }}
                   // onClick={() => setOpenGalleryModal(true)}

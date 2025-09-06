@@ -167,7 +167,7 @@ const VariantsTable = ({ form }: PropTypes): JSX.Element | null => {
       render: (_, record) => (
         <TableActionButton
           items={[]}
-          icon={<Settings2 onClick={() => editRowHandler(record)} />}
+          icon={<Settings2 className='cursor-pointer' onClick={() => editRowHandler(record)} />}
           tooltipTitle="Edit"
         />
       ),

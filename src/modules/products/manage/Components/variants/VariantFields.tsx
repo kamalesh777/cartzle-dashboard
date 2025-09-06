@@ -31,18 +31,18 @@ import { getSelectOption } from '@/utils/disableFunction'
 interface PropTypes {
   field: { name: number; key: React.Key }
   remove: (index: number) => void
-  key: number
+  rowKey: number
   form: FormInstance
   inputEdit: boolean | number
   setInputEdit: (value: boolean | number) => void
 }
-const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
+const VariantFields = ({ field, remove, rowKey, form, inputEdit, setInputEdit }: PropTypes): JSX.Element => {
   const isValueChanged = Cookies.get('isValueChanged')
   const { isMobileDevice } = useDevice()
 
   const variantOptions = useSelector((state: RootState) => state.variants?.options)
   const variantsPlaceHolder = variantOptions?.map((item: UnitGroupType) => item?.name)
-  const { key: vKey, name, ...restField } = field ?? { key: key, name: key }
+  const { key: vKey, name, ...restField } = field ?? { key: rowKey, name: rowKey }
 
   const variantsArr = Form.useWatch('variantOptions', form)
 
@@ -124,7 +124,7 @@ const VariantFields = ({ field, remove, key, form, inputEdit, setInputEdit }: Pr
 
   return (
     <CardWrapper
-      bodyStyle={{ padding: '8px 12px' }}
+      styles={{ body: { padding: '8px 12px' }}}
       key={vKey}
       className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${
         variantsArr?.length - 1 === name ? '' : 'mb-3'

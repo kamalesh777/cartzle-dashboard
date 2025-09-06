@@ -19,7 +19,7 @@ async function handleRequest(request: Request): Promise<Response> {
   const newUrl = nextRequest.pathname.replace('/api/', '')
   const urlParams = newUrl.split('/')
 
-  const Cookies = cookies()
+  const Cookies = await cookies()
   const debugValue = Cookies.get('debug')?.value
   // Set the hostname to the request from the environment variable or the cookie
   const hostname = process.env.NEXT_PUBLIC_LOCAL_HOSTNAME || Cookies.get('hostname')?.value

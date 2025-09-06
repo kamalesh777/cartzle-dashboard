@@ -42,7 +42,7 @@ const RoleManageModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
       }
     >
       <FormWrapper onFinish={formSubmitHandler} form={form}>
-        <FormItemWrapper name="page" label="Page Name">
+        <FormItemWrapper name="sectionName" label="Section Name">
           <InputWrapper />
         </FormItemWrapper>
         <Form.List name="cards">

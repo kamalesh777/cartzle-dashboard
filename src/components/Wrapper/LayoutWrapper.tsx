@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, type ReactNode } from 'react'
 
-import { Drawer } from 'antd'
+import { App, Drawer } from 'antd'
 
 import PageLoader from '@/components/Common/PageLoader'
 import HeaderNav from '@/components/Header/HeaderNav'
@@ -29,7 +29,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
     return <PageLoader />
   }
   return (
-    <>
+    <App>
       <HeaderNav {...{ collapsed, setCollapsed, marginWidth, setOpenDrawer }} />
       <main className="main-cont-wrap min-vh-100" style={{ marginLeft: marginWidth }}>
         {children}
@@ -47,7 +47,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
       ) : (
         <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth }} />
       )}
-    </>
+    </App>
   )
 }
 
