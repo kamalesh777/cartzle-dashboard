@@ -285,7 +285,7 @@ const GalleryModal = ({ form, openModal, setOpenModal, namePath }: PropTypes): J
               </Checkbox.Group>
             ) : uploadedMediaArr ? (
               <EmptyWrapper
-                styles={{image: { width: 100, height: 100, margin: 'auto' }}}
+                styles={{ image: { width: 100, height: 100, margin: 'auto' } }}
                 entity="Media"
                 className="ant-card-bordered p-4 text-center"
                 style={{ borderRadius: '8px', marginInline: 0 }}

@@ -8,7 +8,7 @@ import { startCase } from 'lodash'
 import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
-import DynamicPageLayout from '@/components/DynamicPageLayout'
+
 import { ButtonWrapper, ColWrapper, TableWrapper } from '@/components/Wrapper'
 
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
@@ -61,7 +61,6 @@ const PageMenuList = (): JSX.Element => {
       render: () => <TableActionButton items={items} />,
     },
   ]
-
 
   return (
     <div id="section-controls">

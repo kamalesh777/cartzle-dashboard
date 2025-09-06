@@ -15,7 +15,13 @@ export interface EmptyWrapperProps extends EmptyProps {
  * @param entity - Entity name
  * @returns JSX.Element
  */
-const EmptyWrapper = ({ onClick, content, entity, bordered=true, ...props }: EmptyWrapperProps): JSX.Element => {
+const EmptyWrapper = ({
+  onClick,
+  content,
+  entity,
+  bordered = true,
+  ...props
+}: EmptyWrapperProps): JSX.Element => {
   return (
     <Empty
       description={

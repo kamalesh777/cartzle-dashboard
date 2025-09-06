@@ -8,12 +8,9 @@ interface NavLinkProps {
 }
 
 export default function NavLink({ href, className, children }: NavLinkProps): JSX.Element {
-  console.log("===href", href)
   return (
     <Link href={href} className={className}>
-      <>
-       {children}
-      </>
+      <>{children}</>
     </Link>
   )
 }

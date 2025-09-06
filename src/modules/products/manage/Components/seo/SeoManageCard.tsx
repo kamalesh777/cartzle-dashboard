@@ -3,8 +3,6 @@ import React, { useEffect } from 'react'
 
 import { Form, Input } from 'antd'
 
-import { Redo } from 'lucide-react'
-
 import type { FormInstance } from 'antd'
 
 import type { ModalPropTypes } from 'src/types/common'
@@ -17,6 +15,7 @@ import {
   SpaceWrapper,
 } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
+import IconWrapper from '@/components/Wrapper/IconWrapper'
 import { requiredFieldRules } from '@/constants/AppConstant'
 import { modalCloseHandler } from '@/utils/commonFunctions'
 
@@ -49,7 +48,7 @@ const SeoManageCard = ({ openModal, setOpenModal, selectedList, form }: Props): 
   const FooterButton = (
     <div className="d-flex justify-content-between mt-3 w-100">
       <div>
-        <ButtonWrapper type="default" onClick={resetHandler} icon={<Redo />}>
+        <ButtonWrapper type="default" onClick={resetHandler} icon={<IconWrapper name={'rotate-ccw'} />}>
           Reset
         </ButtonWrapper>
       </div>

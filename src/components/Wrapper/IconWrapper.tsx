@@ -27,15 +27,10 @@ export const renderDynamicIcon = (iconObj: IconProps): JSX.Element => {
   return <DynamicIcon {...iconObj} />
 }
 
-
 /**
  * IconWrapper handles both dynamic (by name) and static (by iconNode) icons.
  */
-const IconWrapper: React.FC<IconProps> = ({
-  name,
-  iconNode,
-  ...rest
-}): JSX.Element | null => {
+const IconWrapper: React.FC<IconProps> = ({ name, iconNode, ...rest }): JSX.Element | null => {
   if (name) {
     // Dynamic usage
     return <DynamicIcon name={name} {...rest} />

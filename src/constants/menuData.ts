@@ -116,7 +116,6 @@ const menuData = [
             label: 'Users Controls',
             icon: 'user-round-cog',
             pagemenu: [
-              
               {
                 key: 'users-roles',
                 path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/roles`,

@@ -110,7 +110,11 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
           >
             {fields?.length > 0 ? (
               fields.map((field, index) => (
-                <VariantFields key={index} rowKey={index} {...{ field, form, remove, inputEdit, setInputEdit }} />
+                <VariantFields
+                  key={index}
+                  rowKey={index}
+                  {...{ field, form, remove, inputEdit, setInputEdit }}
+                />
               ))
             ) : (
               <EmptyWrapper onClick={() => addFunc(add)} entity="Variant Options" />
@@ -120,7 +124,7 @@ const VariantCardComp = ({ form }: PropTypes): JSX.Element => {
       </Form.List>
       {/* Group By variant */}
       {groupByOptions && groupByOptions?.length > 0 && (
-        <CardWrapper styles={{body: { padding: '15px 20px' }}} style={{ margin: '20px 0 0' }}>
+        <CardWrapper styles={{ body: { padding: '15px 20px' } }} style={{ margin: '20px 0 0' }}>
           <SpaceWrapper size={16} align="center">
             <span className="fw-bold">Group By: </span>
             <FormItemWrapper name="groupBy" className="mb-0">

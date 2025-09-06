@@ -7,6 +7,7 @@ import { MinusCircle, Plus } from 'lucide-react'
 import type { FormValues } from '../types'
 import type { ModalPropTypes } from 'src/types/common'
 
+import { InfoTooltip } from '@/components/Common'
 import {
   ModalWrapper,
   FormItemWrapper,
@@ -16,7 +17,6 @@ import {
 } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { getModalTitle, modalCloseHandler } from '@/utils/commonFunctions'
-import { InfoTooltip } from '@/components/Common'
 
 const PageMenuModal = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()

@@ -124,7 +124,7 @@ const VariantFields = ({ field, remove, rowKey, form, inputEdit, setInputEdit }:
 
   return (
     <CardWrapper
-      styles={{ body: { padding: '8px 12px' }}}
+      styles={{ body: { padding: '8px 12px' } }}
       key={vKey}
       className={`bg-gray-100 ${!inputEdit ? 'cursor-pointer' : ''} ${
         variantsArr?.length - 1 === name ? '' : 'mb-3'

@@ -9,7 +9,6 @@ import type { ListDataTypes } from '../types'
 
 import { TableActionButton } from '@/components/Common'
 
-import DynamicPageLayout from '@/components/DynamicPageLayout'
 import {
   ButtonWrapper,
   ColWrapper,
@@ -18,7 +17,7 @@ import {
   TableWrapper,
 } from '@/components/Wrapper'
 
-import { SETTINGS_ROUTE, } from '@/constants/AppConstant'
+import { SETTINGS_ROUTE } from '@/constants/AppConstant'
 
 import { listData } from '../static/data'
 

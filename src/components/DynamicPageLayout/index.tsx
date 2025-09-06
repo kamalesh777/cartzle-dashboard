@@ -64,8 +64,6 @@ const DynamicPageLayout = ({
 
   const firstPathKey = getCurrentPath(pathname, 1, 1)
 
-  console.log("===firstPathKey", firstPathKey)
-
   const [pageMenu, setPageMenu] = useState<pageMenuItems[]>([])
   const [title, setTitle] = useState<string>('')
 
@@ -82,14 +80,14 @@ const DynamicPageLayout = ({
   function findNestedItem(arr: menuItems[], key: string): menuItems | null {
     for (const obj of arr) {
       if (obj.key === key) {
-        return obj;
+        return obj
       }
       if (obj.children) {
-        const found = findNestedItem(obj.children, key);
-        if (found) return found;
+        const found = findNestedItem(obj.children, key)
+        if (found) return found
       }
     }
-    return null;
+    return null
   }
 
   const loadPageMenu = (mainKey: string): void => {
@@ -147,7 +145,7 @@ const DynamicPageLayout = ({
   const menuItems = linkedMenuItems.map(item => {
     return {
       label: (
-        <NavLink href={item.path ?? '#' }>
+        <NavLink href={item.path ?? '#'}>
           <div className="d-flex justify-content-between align-items-center">{item.label}</div>
         </NavLink>
       ),
