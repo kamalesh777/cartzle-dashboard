@@ -24,7 +24,7 @@ const OrderListComp = (): JSX.Element => {
 
   const [, setSearchValue] = useState<string>('')
 
-  if (!['sales', 'purchases'].includes((params as PageTypes)?.type)) {
+  if (!['sales', 'purchases'].includes((params as unknown as PageTypes)?.type)) {
     return <NotFoundPage height="80vh" message="Page not found" />
   }
 
