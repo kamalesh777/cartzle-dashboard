@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Avatar, Layout, type MenuProps, Row } from 'antd'
 import { capitalize } from 'lodash'
-import { PanelRightOpen, PanelRightClose, Power } from 'lucide-react'
+import { Power } from 'lucide-react'
 
 // import { useLogoutHandler } from 'src/hook/useAuth'
 
@@ -15,6 +15,7 @@ import type { RootState } from '@/store/index'
 import useDevice from 'src/hook/useDevice'
 
 import { ButtonWrapper, ColWrapper, DropdownWrapper, SpaceWrapper } from '../Wrapper'
+import IconWrapper from '../Wrapper/IconWrapper'
 
 const { Header } = Layout
 interface PropTypes {
@@ -64,9 +65,9 @@ const HeaderNav = ({ collapsed, setCollapsed, marginWidth, setOpenDrawer }: Prop
               type="link"
               icon={
                 collapsed ? (
-                  <PanelRightClose className="lucide-icon-1-6" />
+                  <IconWrapper name="panel-right-close" className="lucide-icon-1-7" />
                 ) : (
-                  <PanelRightOpen className="lucide-icon-1-6" />
+                  <IconWrapper name="panel-right-open" className="lucide-icon-1-7" />
                 )
               }
               onClick={() => (isMobileDevice ? showDrawer() : setCollapsed(!collapsed))}

@@ -24,7 +24,7 @@ export interface IconProps {
  */
 export const renderDynamicIcon = (iconObj: IconProps): JSX.Element => {
   // Dynamically access the icon component from IconObj
-  return <DynamicIcon {...iconObj} />
+  return <DynamicIcon strokeWidth={1} {...iconObj} />
 }
 
 /**
@@ -33,12 +33,12 @@ export const renderDynamicIcon = (iconObj: IconProps): JSX.Element => {
 const IconWrapper: React.FC<IconProps> = ({ name, iconNode, ...rest }): JSX.Element | null => {
   if (name) {
     // Dynamic usage
-    return <DynamicIcon name={name} {...rest} />
+    return <DynamicIcon name={name} strokeWidth={1} {...rest} />
   }
 
   if (iconNode) {
     // Static usage
-    return <Icon iconNode={iconNode} {...rest} />
+    return <Icon iconNode={iconNode} strokeWidth={1} {...rest} />
   }
 
   return null

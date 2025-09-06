@@ -26,8 +26,8 @@ const DashboardComponent = (): JSX.Element => {
       {data?.map(item => (
         <Col span={12} md={6} key={item?.title} className="mb-3">
           <CardWrapper>
-            <IconWrapper name={item.icon as IconProps['name']} />
-            <h2>{item?.title}</h2>
+            <IconWrapper name={item.icon as IconProps['name']} className="lucide-icon-3" strokeWidth={2} />
+            <p className="fw-bold">{item?.title}</p>
           </CardWrapper>
         </Col>
       ))}

@@ -2,18 +2,18 @@ export const data = [
   {
     title: 'Goods',
     href: '/goods',
+    icon: 'sprout',
+    background: '',
+  },
+  {
+    title: 'Orders',
+    href: '/orders',
     icon: 'shopping-basket',
     background: '',
   },
   {
-    title: 'Documents',
-    href: '/documents',
-    icon: 'file-text',
-    background: '',
-  },
-  {
-    title: 'Documents',
-    href: '/documents',
+    title: 'Invoices',
+    href: '/invoices',
     icon: 'file-text',
     background: '',
   },

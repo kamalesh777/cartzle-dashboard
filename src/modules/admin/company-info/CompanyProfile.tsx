@@ -32,7 +32,7 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
   }
 
   return (
-    <EditCardWrapper title="Store Details" id="store" {...{ editMode, setEditMode, form }}>
+    <EditCardWrapper title="Company Details" id="company" {...{ editMode, setEditMode, form }}>
       <FormWrapper
         form={form}
         onFinish={onFinish}

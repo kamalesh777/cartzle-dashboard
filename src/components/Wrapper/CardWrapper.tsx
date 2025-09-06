@@ -6,7 +6,7 @@ interface CardWrapperProps extends CardProps {
   bottomBorderNone?: boolean
 }
 
-const CardWrapper: React.FC<CardWrapperProps> = props => {
+const CardWrapper = (props: CardWrapperProps): JSX.Element => {
   return (
     <Card {...props} className={`${props.className} ${props.bottomBorderNone ? 'bottom-border-none' : ''}`}>
       {props.children}

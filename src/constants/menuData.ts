@@ -165,8 +165,8 @@ const menuData = [
               },
               {
                 key: 'system-settings-profile',
-                href: '#store',
-                label: 'Profile',
+                href: '#company',
+                label: 'Company',
                 icon: '',
               },
             ],
