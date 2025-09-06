@@ -72,7 +72,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
           obj.type === 'group' ? (
             obj.label
           ) : (
-            <NavLink href={obj?.path ?? 'javascript:void(0)'}>
+            <NavLink href={obj?.path ?? '#'}>
               {obj.label}
               {obj?.notification != null ? (
                 <Tag color="#B06AB3" className="m-0">
