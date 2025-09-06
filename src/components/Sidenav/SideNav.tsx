@@ -84,7 +84,7 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
 
         icon: renderDynamicIcon({
           name: obj.icon as keyof typeof dynamicIconImports,
-          className: 'lucide-icon-1-4',
+          className: 'lucide-icon-1-4 primary-color',
         }),
         key: obj.key,
         className: getMenuItemSelectedClass(obj, pathname, 0, loopCount - 1),

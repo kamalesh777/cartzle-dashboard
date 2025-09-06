@@ -83,7 +83,7 @@ const BrandConfigComp = ({ data }: PropTypes): JSX.Element => {
   }
 
   return (
-    <CardWrapper title="Brand Config" id="brand" className="mb-3">
+    <CardWrapper title="Brand" id="brand" className="mb-3">
       <FormWrapper form={form} onFinish={updateHandler} onValuesChange={() => setIsValueChanged(true)}>
         <ColWrapper span={16}>
           <FormItemWrapper

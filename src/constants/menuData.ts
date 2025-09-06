@@ -67,31 +67,31 @@ const menuData = [
   // Settings
   {
     type: 'group',
-    label: 'Settings',
-    key: 'settings',
+    label: 'Admin',
+    key: 'admin',
     children: [
       // Company Info
       {
-        key: 'company',
-        path: '/settings/company',
-        label: 'Company',
+        key: 'store',
+        path: '/settings/store-manage',
+        label: 'Store Manage',
         icon: 'sliders-horizontal',
         pagemenu: [
           {
-            key: 'company-brand',
+            key: 'store-brand',
             href: '#brand',
             label: 'Brand',
             icon: '',
           },
           {
-            key: 'company-domain',
+            key: 'store-domain',
             href: '#domain',
             label: 'Domain',
             icon: '',
           },
           {
-            key: 'company-profile',
-            href: '#company',
+            key: 'store-profile',
+            href: '#store',
             label: 'Profile',
             icon: '',
           },
@@ -100,8 +100,8 @@ const menuData = [
       // Product Settings
       {
         key: 'product',
-        path: '/settings/product',
-        label: 'Product',
+        path: '/settings/product-config',
+        label: 'Product Config',
         icon: 'file-cog',
         pagemenu: [
           {

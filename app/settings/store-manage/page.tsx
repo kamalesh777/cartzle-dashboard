@@ -3,10 +3,10 @@ import React from 'react'
 
 import DynamicPageLayout from '@/components/DynamicPageLayout'
 
-import CompanyInfoComp from '@/modules/settings/company-info'
+import StoreInfoComp from '@/modules/settings/company-info'
 
 const CompanyInfoPage = (): JSX.Element => {
-  return <DynamicPageLayout MainComp={<CompanyInfoComp />} isScrollable customTitle="Company Info" />
+  return <DynamicPageLayout MainComp={<StoreInfoComp />} isScrollable customTitle="Store Info" />
 }
 
 export default CompanyInfoPage

@@ -32,12 +32,13 @@ const CompanyProfileComp = ({ data, isLoading }: PropTypes): JSX.Element => {
   }
 
   return (
-    <EditCardWrapper title="Company Details" id="company" {...{ editMode, setEditMode, form }}>
+    <EditCardWrapper title="Store Details" id="store" {...{ editMode, setEditMode, form }}>
       <FormWrapper
         form={form}
         onFinish={onFinish}
         colon={false}
         labelAlign="left"
+        layout="horizontal"
         labelCol={{ span: 5, md: 9, lg: 5 }}
         wrapperCol={{ span: 13, md: 11, lg: 13 }}
       >

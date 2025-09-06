@@ -1,4 +1,4 @@
-import type { ThemeConfig } from 'antd'
+import { type ThemeConfig } from 'antd'
 
 const initialThemeConfig: ThemeConfig = {
   token: {
@@ -8,6 +8,7 @@ const initialThemeConfig: ThemeConfig = {
     borderRadius: 5,
     // colorBgSolidHover: '#32ff00',
   },
+  // algorithm: theme.darkAlgorithm,
   components: {
     Button: {
       colorLink: 'defaultColor',

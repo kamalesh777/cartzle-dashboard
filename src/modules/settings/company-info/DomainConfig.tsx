@@ -27,11 +27,12 @@ const DomainConfig = ({ isLoading, data }: PropTypes): JSX.Element => {
   }
 
   return (
-    <EditCardWrapper title="Domain Config" id="domain" {...{ editMode, setEditMode, form }}>
+    <EditCardWrapper title="Domain" id="domain" {...{ editMode, setEditMode, form }}>
       <FormWrapper
         form={form}
         onFinish={onFinish}
         labelAlign="left"
+        layout="horizontal"
         labelCol={{ span: 5, md: 9, lg: 5 }}
         wrapperCol={{ span: 13, md: 11, lg: 13 }}
       >
