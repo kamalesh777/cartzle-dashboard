@@ -1,4 +1,4 @@
-import { USER_PERMISSION_ROUTE, SETTINGS_ROUTE } from './AppConstant'
+import { WORKSPACE_CONTROLS_ROUTE, USER_CONTROLS_ROUTE, SYSTEM_SETTINGS_ROUTE } from './AppConstant'
 
 const menuData = [
   {
@@ -71,16 +71,16 @@ const menuData = [
     key: 'admin',
     children: [
       {
-        key: 'workspace-controls',
-        // path: '/settings/product',
+        key: 'workspace',
+        // path: `${WORKSPACE_CONTROLS_ROUTE}/products`,
         label: 'Workspace Controls',
         icon: 'baggage-claim',
         children: [
           // Product Settings
           {
             key: 'product',
-            path: '/settings/workforce-controls/product',
-            label: 'Product',
+            path: `${WORKSPACE_CONTROLS_ROUTE}/products`,
+            label: 'Products',
             icon: 'file-cog',
             pagemenu: [
               {
@@ -111,26 +111,26 @@ const menuData = [
           },
           // User Permissions
           {
-            key: 'permissions',
-            path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}`,
-            label: 'Permissions',
+            key: 'users',
+            path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}`,
+            label: 'Users',
             icon: 'user-round-cog',
             pagemenu: [
               {
-                key: 'permissions-page',
-                path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/page-menu`,
+                key: 'users-page-menu',
+                path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/page-menu`,
                 label: 'Page Menu',
                 icon: '',
               },
               {
-                key: 'roles-page',
-                path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/roles`,
+                key: 'users-roles',
+                path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/roles`,
                 label: 'Roles',
                 icon: '',
               },
               {
-                key: 'permissions-page',
-                path: `${SETTINGS_ROUTE}${USER_PERMISSION_ROUTE}/permissions`,
+                key: 'users-permissions',
+                path: `${WORKSPACE_CONTROLS_ROUTE}${USER_CONTROLS_ROUTE}/permissions`,
                 label: 'Permissions',
                 icon: '',
               },
@@ -139,15 +139,15 @@ const menuData = [
         ],
       },
       {
-        key: 'system-management',
-        path: '/settings/system-management/store-manage',
+        key: 'system',
+        // path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
         label: 'System Management',
         icon: 'sliders-horizontal',
         children: [
           // Store Info
           {
             key: 'store-manage',
-            path: '/settings/system-management/store-manage',
+            path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
             label: 'Store Manage',
             icon: 'warehouse',
             pagemenu: [
@@ -175,7 +175,7 @@ const menuData = [
           // Account Settings
           {
             key: 'account-settings',
-            path: '/settings/account-settings',
+            path: `${SYSTEM_SETTINGS_ROUTE}/account-settings`,
             label: 'Account Settings',
             icon: 'monitor-cog',
           },

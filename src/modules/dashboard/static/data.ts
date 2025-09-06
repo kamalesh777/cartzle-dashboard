@@ -23,10 +23,10 @@ export const data = [
     icon: 'shopping-bag',
     background: '',
   },
-  {
-    title: 'Sell',
-    href: '/sell',
-    icon: 'AppstoreAddOutlined',
-    background: '',
-  },
+  // {
+  //   title: 'Sell',
+  //   href: '/sell',
+  //   icon: 'AppstoreAddOutlined',
+  //   background: '',
+  // },
 ]

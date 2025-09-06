@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { CompanyFormValues, UserFormValues } from '@/modules/settings/account-settings/types'
+import type { CompanyFormValues, UserFormValues } from '@/modules/admin/account-settings/types'
 
 import initialThemeConfig from '@/configs/ThemeConfig'
 

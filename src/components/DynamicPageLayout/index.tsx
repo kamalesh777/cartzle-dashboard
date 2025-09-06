@@ -62,9 +62,9 @@ const DynamicPageLayout = ({
   const pathname = usePathname()
   const router = useRouter()
 
-  const firstPathKey = getCurrentPath(pathname, 1, 1)
+  const firstPathKey = getCurrentPath(pathname, -1, 1)
 
-  
+  console.log("===firstPathKey", firstPathKey)
 
   const [pageMenu, setPageMenu] = useState<pageMenuItems[]>([])
   const [title, setTitle] = useState<string>('')
