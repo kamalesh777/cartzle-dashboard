@@ -17,6 +17,7 @@ export interface IconProps {
   style?: React.CSSProperties
   fill?: string
   strokeWidth?: number
+  iconNode?: IconNode
 }
 /**
  * Utility function to render a dynamic icon.
@@ -26,13 +27,26 @@ export const renderDynamicIcon = (iconObj: IconProps): JSX.Element => {
   return <DynamicIcon {...iconObj} />
 }
 
+
 /**
- * Component wrapper for Ant Design icons, allowing full customization.
+ * IconWrapper handles both dynamic (by name) and static (by iconNode) icons.
  */
-const IconWrapper: React.FC<IconProps> = (props): JSX.Element => {
-  // Dynamically render the icon with additional props
-  const iconComp = renderDynamicIcon(props)
-  return <Icon {...props} iconNode={iconComp as unknown as IconNode} />
+const IconWrapper: React.FC<IconProps> = ({
+  name,
+  iconNode,
+  ...rest
+}): JSX.Element | null => {
+  if (name) {
+    // Dynamic usage
+    return <DynamicIcon name={name} {...rest} />
+  }
+
+  if (iconNode) {
+    // Static usage
+    return <Icon iconNode={iconNode} {...rest} />
+  }
+
+  return null
 }
 
 export default IconWrapper

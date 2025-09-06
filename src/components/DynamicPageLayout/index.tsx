@@ -64,6 +64,8 @@ const DynamicPageLayout = ({
 
   const firstPathKey = getCurrentPath(pathname, 1, 1)
 
+  
+
   const [pageMenu, setPageMenu] = useState<pageMenuItems[]>([])
   const [title, setTitle] = useState<string>('')
 
@@ -71,8 +73,27 @@ const DynamicPageLayout = ({
     loadPageMenu(firstPathKey)
   }, [firstPathKey, pathname])
 
+  /**
+   * Find a nested item in an array of objects
+   * @param arr - The array of objects to search through
+   * @param key - The key to search for
+   * @returns The found object or null if not found
+   */
+  function findNestedItem(arr: menuItems[], key: string): menuItems | null {
+    for (const obj of arr) {
+      if (obj.key === key) {
+        return obj;
+      }
+      if (obj.children) {
+        const found = findNestedItem(obj.children, key);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
   const loadPageMenu = (mainKey: string): void => {
-    const mainMenu = sidenavData.find(obj => obj.key === mainKey) as menuItems
+    const mainMenu = findNestedItem(sidenavData, mainKey)
     if (!mainMenu) return
 
     // First try to match a child route with current pathname
@@ -90,6 +111,7 @@ const DynamicPageLayout = ({
       return parentPath.startsWith(childPath)
     })
 
+    console.log("===matchedChild", matchedChild)
     if (matchedChild?.pagemenu?.length) {
       setPageMenu(matchedChild.pagemenu)
       setTitle(matchedChild.label ?? '')

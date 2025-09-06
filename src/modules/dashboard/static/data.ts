@@ -2,25 +2,25 @@ export const data = [
   {
     title: 'Goods',
     href: '/goods',
-    icon: 'DropboxOutlined',
+    icon: 'shopping-basket',
     background: '',
   },
   {
     title: 'Documents',
     href: '/documents',
-    icon: 'FileOutlined',
+    icon: 'file-text',
     background: '',
   },
   {
     title: 'Documents',
     href: '/documents',
-    icon: 'FileJpgOutlined',
+    icon: 'file-text',
     background: '',
   },
   {
     title: 'Purchase',
     href: '/purchase',
-    icon: 'AppstoreAddOutlined',
+    icon: 'shopping-bag',
     background: '',
   },
   {
