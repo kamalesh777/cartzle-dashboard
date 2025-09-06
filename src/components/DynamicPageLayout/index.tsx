@@ -111,7 +111,6 @@ const DynamicPageLayout = ({
       return parentPath.startsWith(childPath)
     })
 
-    console.log("===matchedChild", matchedChild)
     if (matchedChild?.pagemenu?.length) {
       setPageMenu(matchedChild.pagemenu)
       setTitle(matchedChild.label ?? '')
