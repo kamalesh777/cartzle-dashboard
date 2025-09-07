@@ -20,7 +20,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
     setOpenDrawer(false)
   }
 
-  const sidenavWidth = 260
+  const sidenavWidth = 280
   const collapseWidth = 80
   // if it is mobile device then margin width will be 0 otherwise it will check for collapsed value and return respective value
   const marginWidth = isMobileDevice ? 0 : collapsed ? collapseWidth : sidenavWidth

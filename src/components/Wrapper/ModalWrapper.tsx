@@ -18,13 +18,37 @@ const ModalWrapper = (props: PropTypes): JSX.Element | null => {
           .modal-scrollbar-adjust {
             max-height: ${maxheight};
             overflow-y: ${bodyScroll ? 'scroll' : 'auto'};
-            padding-right: 5px;
             scrollbar-width: thin;
+          }
+          .modal-scrollbar {
             position: relative;
+            scrollbar-color: transparent transparent;
+          }
+          .modal-scrollbar:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0px;
+            height: 100%;
+            width: 8px;
+            border-radius: 5px;
+            background-color: transparent;
+          }
+          .modal-scrollbar:hover {
+            padding-right: 12px;
+          }
+          .modal-scrollbar:hover:after {
+            background-color: #eee;
           }
         `}
       </style>
-      {bodyScroll ? <div className={'modal-scrollbar-adjust'}>{children}</div> : children}
+      {bodyScroll ? (
+        <div className={'modal-scrollbar-adjust'}>
+          <div className="modal-scrollbar">{children}</div>
+        </div>
+      ) : (
+        children
+      )}
     </Modal>
   )
 }

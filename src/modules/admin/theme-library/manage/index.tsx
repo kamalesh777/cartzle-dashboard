@@ -7,9 +7,10 @@ import type { ModalPropTypes } from 'src/types/common'
 import { InfoTooltip } from '@/components/Common'
 import { FormItemWrapper, ModalWrapper, SelectWrapper, InputWrapper } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
+import { requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { getModalTitle } from '@/utils/commonFunctions'
 
-const AddTemplateForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const AddThemeForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   return (
     <ModalWrapper
@@ -19,39 +20,19 @@ const AddTemplateForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
       title={getModalTitle(selectedId as string)}
     >
       <FormWrapper form={form} layout="vertical">
-        <FormItemWrapper
-          name="name"
-          label="Template Name"
-          rules={[{ required: true, message: 'Please enter the template name' }]}
-        >
-          <InputWrapper placeholder="Enter template name" />
+        <FormItemWrapper name="name" label="Theme Name" rules={requiredWithWhitspcFieldRules}>
+          <InputWrapper placeholder="Enter theme name" />
         </FormItemWrapper>
 
-        <FormItemWrapper
-          name="description"
-          label="Description"
-          rules={[{ required: true, message: 'Please enter a description' }]}
-        >
+        <FormItemWrapper name="description" label="Description">
           <Input.TextArea rows={3} placeholder="Enter description" />
         </FormItemWrapper>
 
-        <FormItemWrapper
-          name="repoUrl"
-          label="Git Repository URL"
-          rules={[
-            { required: true, message: 'Please enter the repository URL' },
-            { type: 'url', message: 'Please enter a valid URL' },
-          ]}
-        >
-          <Input placeholder="https://github.com/yourorg/repo.git" />
+        <FormItemWrapper name="repoUrl" label="Git Repository URL" rules={requiredWithWhitspcFieldRules}>
+          <InputWrapper placeholder="https://github.com/yourorg/repo.git" />
         </FormItemWrapper>
 
-        <FormItemWrapper
-          name="framework"
-          label="Framework"
-          rules={[{ required: true, message: 'Please select a framework' }]}
-          initialValue="Next.js"
-        >
+        <FormItemWrapper name="framework" label="Framework" rules={requiredFieldRules} initialValue="Next.js">
           <SelectWrapper
             options={[
               { label: 'Next.js', value: 'Next.js' },
@@ -66,13 +47,13 @@ const AddTemplateForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
           label="Preview URL"
           rules={[{ type: 'url', message: 'Please enter a valid URL' }]}
         >
-          <Input placeholder="https://template-preview.vercel.app" />
+          <InputWrapper placeholder="https://template-preview.vercel.app" />
         </FormItemWrapper>
 
         <FormItemWrapper
           name="envVariables"
           label={<InfoTooltip title="Separate with comma and space">Environment Variables</InfoTooltip>}
-          // getValueFromEvent={e => console.log("====val", e.target.value)}
+          getValueFromEvent={obj => obj?.map((item: string) => item.toUpperCase().trim())}
         >
           <SelectWrapper mode="tags" tokenSeparators={[',', ' ']} placeholder="VAR1, VAR2, VAR3" />
         </FormItemWrapper>
@@ -81,4 +62,4 @@ const AddTemplateForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes
   )
 }
 
-export default AddTemplateForm
+export default AddThemeForm

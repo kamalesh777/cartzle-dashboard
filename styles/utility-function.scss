@@ -17,4 +17,7 @@
 	  width: #{$size}rem !important;
 	  height: #{$size}rem !important;
 	}
+	.lucide-stroke-#{$class-name} {
+		stroke-width: #{$size}px !important;
+	  }
   }

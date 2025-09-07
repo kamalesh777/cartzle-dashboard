@@ -2,26 +2,19 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Row, Tag, Typography, type TableProps } from 'antd'
+import { Row, type TableProps } from 'antd'
 
 import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
 
-import InfoTooltip from '@/components/Common/InfoTooltip'
 import TableActionButton from '@/components/Common/TableActionButton'
 
-import {
-  ButtonWrapper,
-  ColWrapper,
-  InputSearchWrapper,
-  SpaceWrapper,
-  TableWrapper,
-} from '@/components/Wrapper'
+import { ButtonWrapper, ColWrapper, InputSearchWrapper, TableWrapper } from '@/components/Wrapper'
 
 import AddTemplateForm from '../manage'
 import { listData } from '../static/data'
 
-const TemplatesListComp = (): JSX.Element => {
+const ThemeLibraryListComp = (): JSX.Element => {
   const [, setSearchValue] = useState<string>('')
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState<string>('')
@@ -42,16 +35,6 @@ const TemplatesListComp = (): JSX.Element => {
     },
   ]
 
-  // render the party types with highlighted color
-  const partyTypes = (type: string): JSX.Element => {
-    if (type === 'supplier') {
-      return <Tag color="#2db7f5">{type}</Tag>
-    } else if (type === 'customer') {
-      return <Tag color="#626262">{type}</Tag>
-    }
-    return <Tag color="#87d068">{type}</Tag>
-  }
-
   // table columns parties list
   const columns: TableProps<ListDataTypes>['columns'] = [
     {
@@ -61,47 +44,21 @@ const TemplatesListComp = (): JSX.Element => {
       width: '18%',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      width: '18%',
+      title: 'Repo URL',
+      dataIndex: 'repoUrl',
+      key: 'repoUrl',
+      width: '30%',
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      width: '10%',
-      className: 'text-capitalize',
-      render: type => partyTypes(type),
-    },
-    {
-      title: 'Mobile',
-      dataIndex: 'mobile',
-      width: '14%',
-      render: (_, record) => (
-        <SpaceWrapper>
-          <Typography.Text copyable={{ icon: [record?.mobile, record?.mobile] }} />
-          {record?.alternateMobile ? (
-            <InfoTooltip
-              title={
-                <>
-                  <p>Alternate Number </p>
-                  <Typography.Text
-                    copyable={{ icon: [record?.alternateMobile, record?.alternateMobile] }}
-                  />{' '}
-                </>
-              }
-            />
-          ) : (
-            ''
-          )}
-        </SpaceWrapper>
-      ),
+      title: 'Framework',
+      dataIndex: 'framework',
+      width: '20%',
     },
 
     {
-      title: 'Due Amt.',
-      dataIndex: 'due_amount',
-      width: '10%',
+      title: 'Env Variables',
+      dataIndex: 'envVariables',
+      width: '25%',
     },
     {
       title: '',
@@ -119,7 +76,7 @@ const TemplatesListComp = (): JSX.Element => {
         title={() => (
           <Row justify={'space-between'}>
             <ColWrapper md={12}>
-              <h4 className="ant-card-head-title">Templates</h4>
+              <h4 className="ant-card-head-title">Themes</h4>
             </ColWrapper>
             <ColWrapper md={12} className="text-right">
               <div className="d-flex">
@@ -146,4 +103,4 @@ const TemplatesListComp = (): JSX.Element => {
   )
 }
 
-export default TemplatesListComp
+export default ThemeLibraryListComp

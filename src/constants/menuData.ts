@@ -171,6 +171,13 @@ const menuData = [
               },
             ],
           },
+          // Theme library
+          {
+            key: 'theme-library',
+            path: `${SYSTEM_SETTINGS_ROUTE}/theme-library`,
+            label: 'Theme Library',
+            icon: 'layout-template',
+          },
 
           // Account Settings
           {
@@ -178,13 +185,6 @@ const menuData = [
             path: `${SYSTEM_SETTINGS_ROUTE}/account-settings`,
             label: 'Account Settings',
             icon: 'monitor-cog',
-          },
-          // Template Settings
-          {
-            key: 'templates',
-            path: `${SYSTEM_SETTINGS_ROUTE}/templates`,
-            label: 'Templates',
-            icon: 'layout-template',
           },
         ],
       },
