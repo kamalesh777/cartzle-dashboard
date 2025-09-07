@@ -147,8 +147,8 @@ const menuData = [
           // Store Info
           {
             key: 'system-settings',
-            path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
-            label: 'Store Manage',
+            path: `${SYSTEM_SETTINGS_ROUTE}/company`,
+            label: 'Manage Company',
             icon: 'warehouse',
             pagemenu: [
               {
@@ -165,8 +165,8 @@ const menuData = [
               },
               {
                 key: 'system-settings-profile',
-                href: '#company',
-                label: 'Company',
+                href: '#profile',
+                label: 'Profile',
                 icon: '',
               },
             ],
@@ -178,6 +178,13 @@ const menuData = [
             path: `${SYSTEM_SETTINGS_ROUTE}/account-settings`,
             label: 'Account Settings',
             icon: 'monitor-cog',
+          },
+          // Template Settings
+          {
+            key: 'templates',
+            path: `${SYSTEM_SETTINGS_ROUTE}/templates`,
+            label: 'Templates',
+            icon: 'layout-template',
           },
         ],
       },
