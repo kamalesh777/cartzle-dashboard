@@ -1,23 +1,28 @@
+'use client'
 import React from 'react'
 
-import { Form, Input } from 'antd'
+import { Form, Input, Radio } from 'antd'
 
 import type { ModalPropTypes } from 'src/types/common'
 
 import { InfoTooltip } from '@/components/Common'
-import { FormItemWrapper, ModalWrapper, SelectWrapper, InputWrapper } from '@/components/Wrapper'
+import { FormItemWrapper, SelectWrapper, InputWrapper, ModalWrapper } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { requiredFieldRules, requiredWithWhitspcFieldRules } from '@/constants/AppConstant'
 import { getModalTitle } from '@/utils/commonFunctions'
 
-const AddThemeForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<never>): JSX.Element => {
+const ThemeLibraryManageComp = ({
+  openModal,
+  setOpenModal,
+  selectedId,
+}: ModalPropTypes<never>): JSX.Element => {
   const [form] = Form.useForm()
   return (
     <ModalWrapper
-      open={openModal}
-      bodyScroll
-      onCancel={() => setOpenModal(false)}
       title={getModalTitle(selectedId as string)}
+      open={openModal}
+      bodyScroll={'430px'}
+      onCancel={() => setOpenModal(false)}
     >
       <FormWrapper form={form} layout="vertical">
         <FormItemWrapper name="name" label="Theme Name" rules={requiredWithWhitspcFieldRules}>
@@ -57,9 +62,15 @@ const AddThemeForm = ({ openModal, setOpenModal, selectedId }: ModalPropTypes<ne
         >
           <SelectWrapper mode="tags" tokenSeparators={[',', ' ']} placeholder="VAR1, VAR2, VAR3" />
         </FormItemWrapper>
+        <FormItemWrapper label="Select Template">
+          <Radio.Group>
+            <Radio value={true}>Active</Radio>
+            <Radio value={false}>Inactive</Radio>
+          </Radio.Group>
+        </FormItemWrapper>
       </FormWrapper>
     </ModalWrapper>
   )
 }
 
-export default AddThemeForm
+export default ThemeLibraryManageComp

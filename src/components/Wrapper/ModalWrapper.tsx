@@ -23,6 +23,7 @@ const ModalWrapper = (props: PropTypes): JSX.Element | null => {
           .modal-scrollbar {
             position: relative;
             scrollbar-color: transparent transparent;
+            transition: all 0.3s ease-in-out;
           }
           .modal-scrollbar:after {
             content: '';

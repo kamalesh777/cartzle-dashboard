@@ -2,7 +2,9 @@
 'use client'
 import React, { useState } from 'react'
 
-import { Row, type TableProps } from 'antd'
+import { Row, Switch, type TableProps } from 'antd'
+
+import { useRouter } from 'next/navigation'
 
 import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
@@ -11,10 +13,11 @@ import TableActionButton from '@/components/Common/TableActionButton'
 
 import { ButtonWrapper, ColWrapper, InputSearchWrapper, TableWrapper } from '@/components/Wrapper'
 
-import AddTemplateForm from '../manage'
+import ThemeLibraryManageComp from '../manage/modal/updateTheme'
 import { listData } from '../static/data'
 
 const ThemeLibraryListComp = (): JSX.Element => {
+  const router = useRouter()
   const [, setSearchValue] = useState<string>('')
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState<string>('')
@@ -24,6 +27,11 @@ const ThemeLibraryListComp = (): JSX.Element => {
       label: 'Update',
       key: 'update',
       onClick: () => setOpenManageModal(true),
+    },
+    {
+      label: 'Edit Theme',
+      key: 'edit_theme',
+      onClick: () => router.push(`theme-library/${selectedId}`),
     },
     {
       type: 'divider',
@@ -55,10 +63,16 @@ const ThemeLibraryListComp = (): JSX.Element => {
       width: '20%',
     },
 
+    // {
+    //   title: 'Env Variables',
+    //   dataIndex: 'envVariables',
+    //   width: '20%',
+    // },
     {
-      title: 'Env Variables',
-      dataIndex: 'envVariables',
-      width: '25%',
+      title: 'Status',
+      dataIndex: 'active',
+      width: '10%',
+      render: active => <Switch checked={active} size="small" />,
     },
     {
       title: '',
@@ -84,6 +98,7 @@ const ThemeLibraryListComp = (): JSX.Element => {
                   placeholder="Search by name or phone..."
                   onChange={e => setSearchValue(e.target.value)}
                 />
+                {/* <SelectWrapper options={[]} placeholder="Select Status" /> */}
                 <ButtonWrapper type="primary" className="ms-2" onClick={() => setOpenManageModal(true)}>
                   Add
                 </ButtonWrapper>
@@ -93,10 +108,10 @@ const ThemeLibraryListComp = (): JSX.Element => {
         )}
       />
       {openManageModal && (
-        <AddTemplateForm
+        <ThemeLibraryManageComp
+          selectedId={selectedId}
           openModal={openManageModal}
           setOpenModal={setOpenManageModal}
-          selectedId={selectedId}
         />
       )}
     </>

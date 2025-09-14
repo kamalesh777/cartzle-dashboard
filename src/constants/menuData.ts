@@ -141,7 +141,7 @@ const menuData = [
       {
         key: 'system',
         // path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
-        label: 'System Management',
+        label: 'System Settings',
         icon: 'sliders-horizontal',
         children: [
           // Store Info
