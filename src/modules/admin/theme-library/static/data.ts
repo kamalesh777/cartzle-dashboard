@@ -39,6 +39,7 @@ export const listData: ListDataTypes[] = [
   },
 ]
 
+// tabs array
 export const tabsArray = [
   {
     key: '1',
@@ -56,6 +57,28 @@ export const tabsArray = [
     key: '3',
     label: 'Config JSON',
     children: 'Config JSON',
+    icon: 'settings',
+  },
+]
+
+// storefront pages array
+export const pagesArray = [
+  {
+    key: 'home',
+    label: 'Home',
+    children: 'Home',
+    icon: 'square-pen',
+  },
+  {
+    key: 'product_list',
+    label: 'Product List',
+    children: 'About',
+    icon: 'eye',
+  },
+  {
+    key: 'product_details',
+    label: 'Product Details',
+    children: 'Contact',
     icon: 'settings',
   },
 ]

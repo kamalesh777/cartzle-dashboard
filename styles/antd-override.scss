@@ -133,6 +133,14 @@ tr.ant-table-expanded-row .ant-table-wrapper {
 .notify-box .ant-notification-notice-message {
     display: none;
 }
+.ant-tabs-tab-btn {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+.ant-collapse-header-text {
+    line-height: 1;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;
