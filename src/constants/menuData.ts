@@ -139,20 +139,20 @@ const menuData = [
         ],
       },
       {
-        key: 'system',
+        key: 'system-settings',
         // path: `${SYSTEM_SETTINGS_ROUTE}/store-manage`,
         label: 'System Settings',
         icon: 'sliders-horizontal',
         children: [
           // Store Info
           {
-            key: 'system-settings',
+            key: 'system-settings-company',
             path: `${SYSTEM_SETTINGS_ROUTE}/company`,
             label: 'Manage Company',
             icon: 'warehouse',
             pagemenu: [
               {
-                key: 'system-settings',
+                key: 'system-settings-brand',
                 href: '#brand',
                 label: 'Brand',
                 icon: '',

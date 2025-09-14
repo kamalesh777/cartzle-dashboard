@@ -15,7 +15,6 @@ const ThemeBuilder = (): JSX.Element => {
     <Row>
       <ColWrapper span={12}>
         <CardWrapper>
-          <h2>Layout</h2>
           <p />
         </CardWrapper>
       </ColWrapper>
