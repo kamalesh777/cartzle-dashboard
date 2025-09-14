@@ -10,7 +10,9 @@ import { CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
 // eslint-disable-next-line no-duplicate-imports
 import IconWrapper, { type IconProps } from '@/components/Wrapper/IconWrapper'
 
-import { pagesArray, tabsArray } from '../static/data'
+import LayoutCardComp from '../components/LayoutCard'
+import { tabsArray } from '../static/data'
+import { pagesArray } from '../static/layout-card'
 
 const ThemeBuilder = (): JSX.Element => {
   return (
@@ -29,13 +31,13 @@ const ThemeBuilder = (): JSX.Element => {
                 label: (
                   <SpaceWrapper>
                     <PanelsTopLeft className="lucide-icon-1-3" />
-                    {obj.label}
+                    <span className="fw-semibold">{obj.label}</span>
                   </SpaceWrapper>
                 ),
                 classNames: {
                   header: 'bg-white w-100 rounded-2',
                 },
-                children: <p>{obj.children}</p>,
+                children: <LayoutCardComp />,
               },
             ]}
           />

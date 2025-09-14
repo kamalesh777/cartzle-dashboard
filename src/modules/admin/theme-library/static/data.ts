@@ -60,25 +60,3 @@ export const tabsArray = [
     icon: 'settings',
   },
 ]
-
-// storefront pages array
-export const pagesArray = [
-  {
-    key: 'home',
-    label: 'Home',
-    children: 'Home',
-    icon: 'square-pen',
-  },
-  {
-    key: 'product_list',
-    label: 'Product List',
-    children: 'About',
-    icon: 'eye',
-  },
-  {
-    key: 'product_details',
-    label: 'Product Details',
-    children: 'Contact',
-    icon: 'settings',
-  },
-]

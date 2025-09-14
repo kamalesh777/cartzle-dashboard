@@ -7,3 +7,10 @@ export interface ListDataTypes {
   createdAt: string
   active: boolean
 }
+
+export interface LayoutCardTypes {
+  key: string
+  label: string
+  icon?: string
+  children?: LayoutCardTypes[]
+}
