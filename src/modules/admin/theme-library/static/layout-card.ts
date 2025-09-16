@@ -3,19 +3,19 @@ import type { LayoutCardTypes } from '../types'
 // storefront pages array
 export const pagesArray = [
   {
-    key: 'home',
+    id: 'home',
     label: 'Home',
     children: 'Home',
     icon: 'square-pen',
   },
   {
-    key: 'product_list',
+    id: 'product_list',
     label: 'Product List',
     children: 'About',
     icon: 'eye',
   },
   {
-    key: 'product_details',
+    id: 'product_details',
     label: 'Product Details',
     children: 'Contact',
     icon: 'settings',
@@ -24,28 +24,28 @@ export const pagesArray = [
 
 // navbar array
 const navBarArray = {
-  key: 'navbar',
+  id: 'navbar',
   label: 'Navbar',
   icon: 'menu',
   children: [
     {
-      key: 'modern',
+      id: 'modern',
       label: 'Modern',
     },
     {
-      key: 'minimal',
+      id: 'minimal',
       label: 'Minimal',
     },
     {
-      key: 'sticky',
+      id: 'sticky',
       label: 'Sticky',
     },
     {
-      key: 'classic',
+      id: 'classic',
       label: 'Classic',
     },
     {
-      key: 'mega-menu',
+      id: 'mega-menu',
       label: 'Mega Menu',
     },
   ],
@@ -53,36 +53,36 @@ const navBarArray = {
 
 // slider array
 const sliderArray = {
-  key: 'slider',
+  id: 'slider',
   label: 'Slider',
   icon: 'layers',
   children: [
     {
-      key: 'image-slider',
+      id: 'image-slider',
       label: 'Image Slider',
     },
     {
-      key: 'video-slider',
+      id: 'video-slider',
       label: 'Video Slider',
     },
     {
-      key: 'testimonial',
+      id: 'testimonial',
       label: 'Testimonial',
     },
     {
-      key: 'hero-banner',
+      id: 'hero-banner',
       label: 'Hero Banner',
     },
     {
-      key: 'product-slider',
-      label: 'Product Slider',
+      id: 'product--list-slider',
+      label: 'Product List',
     },
     {
-      key: 'brand-slider',
-      label: 'Brand Slider',
+      id: 'brand-slider',
+      label: 'Brand / Logo',
     },
     {
-      key: 'blog-post',
+      id: 'blog-post',
       label: 'Blog Post',
     },
   ],

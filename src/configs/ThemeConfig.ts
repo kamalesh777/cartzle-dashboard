@@ -6,6 +6,7 @@ const initialThemeConfig: ThemeConfig = {
     colorPrimary: '#0eb7b7',
     colorInfo: '#0eb7b7',
     borderRadius: 5,
+    colorText: 'rgba(0,0,0,0.75)',
     // colorBgSolidHover: '#32ff00',
   },
   // algorithm: theme.darkAlgorithm,

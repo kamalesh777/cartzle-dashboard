@@ -9,7 +9,7 @@ export interface ListDataTypes {
 }
 
 export interface LayoutCardTypes {
-  key: string
+  id: string
   label: string
   icon?: string
   children?: LayoutCardTypes[]

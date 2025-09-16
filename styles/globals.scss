@@ -398,6 +398,12 @@ label[for=media]:after {
 .builder-tabs .ant-tabs-tab {
 	padding-block: 1.5rem !important;
 }
+.hover-card-border {
+	border: 1px solid transparent;
+}
+.hover-card-border:hover {
+	border-color: var(--primary-color);
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;

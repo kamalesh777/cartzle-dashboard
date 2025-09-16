@@ -19,16 +19,16 @@ const ThemeBuilder = (): JSX.Element => {
     <Row>
       {/* panel for config layout */}
       <ColWrapper>
-        {pagesArray.map(obj => (
+        {pagesArray.map((obj, idx) => (
           <Collapse
-            key={obj.key}
+            key={idx}
             // collapsible="header"
             className="mb-3"
             expandIconPosition="end"
             defaultActiveKey={['home']}
             items={[
               {
-                key: obj.key,
+                key: obj.id,
                 label: (
                   <SpaceWrapper>
                     <PanelsTopLeft className="lucide-icon-1-3" />
