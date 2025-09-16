@@ -25,9 +25,10 @@ const ThemeBuilder = (): JSX.Element => {
             // collapsible="header"
             className="mb-3"
             expandIconPosition="end"
+            defaultActiveKey={['home']}
             items={[
               {
-                key: '1',
+                key: obj.key,
                 label: (
                   <SpaceWrapper>
                     <PanelsTopLeft className="lucide-icon-1-3" />
@@ -49,6 +50,7 @@ const ThemeBuilder = (): JSX.Element => {
         <CardWrapper bottomBorderNone classNames={{ body: 'px-0' }}>
           <Tabs
             centered
+            className="builder-tabs"
             defaultActiveKey="2"
             items={tabsArray.map(obj => {
               return {

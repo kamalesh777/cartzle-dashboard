@@ -395,6 +395,9 @@ label[for=media]:after {
 .ellipsis-vertical:hover {
   background-color: var(--bs-gray-200);
 }
+.builder-tabs .ant-tabs-tab {
+	padding-block: 1.5rem !important;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;
