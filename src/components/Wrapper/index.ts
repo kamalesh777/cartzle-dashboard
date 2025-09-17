@@ -2,6 +2,7 @@ import ButtonWrapper from './ButtonWrapper'
 import CardWrapper from './CardWrapper'
 import CheckBoxWrapper from './CheckBoxWrapper'
 import ColWrapper from './ColWrapper'
+import CommonSortWrapper from './CommonSortWrapper'
 import DropdownWrapper from './DropdownWrapper'
 import EmailWrapper from './EmailWrapper'
 import EmptyWrapper from './EmptyWrapper'
@@ -42,4 +43,5 @@ export {
   InputSearchWrapper,
   SpaceWrapper,
   EmptyWrapper,
+  CommonSortWrapper,
 }
