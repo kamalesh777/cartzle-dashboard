@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import { Row, Switch, type TableProps } from 'antd'
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import type { ListDataTypes } from '../types'
 import type { MenuProps } from 'antd'
@@ -18,6 +18,8 @@ import { listData } from '../static/data'
 
 const ThemeLibraryListComp = (): JSX.Element => {
   const router = useRouter()
+  const pathName = usePathname()
+
   const [, setSearchValue] = useState<string>('')
   const [openManageModal, setOpenManageModal] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState<string>('')
@@ -31,7 +33,7 @@ const ThemeLibraryListComp = (): JSX.Element => {
     {
       label: 'Edit Theme',
       key: 'edit_theme',
-      onClick: () => router.push(`theme-library/${selectedId}`),
+      onClick: () => router.push(`${pathName}/${selectedId}`),
     },
     {
       type: 'divider',

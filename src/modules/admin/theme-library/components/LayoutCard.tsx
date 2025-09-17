@@ -4,6 +4,7 @@ import { Collapse, Row, theme } from 'antd'
 
 import { CircleMinus, GripVertical } from 'lucide-react'
 import { ReactSortable } from 'react-sortablejs'
+import { v4 as uuidv4 } from 'uuid'
 
 import type { LayoutCardTypes } from '../types'
 
@@ -31,7 +32,7 @@ const LayoutCardComp = (): JSX.Element => {
                 setComponentsState([
                   ...componentsState,
                   // id need unique
-                  { ...item, id: `${item.id}=${componentsState?.length}` },
+                  { ...item, id: uuidv4() },
                 ])
               }
               key={item.id}
