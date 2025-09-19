@@ -30,7 +30,7 @@ const TableActionButton: React.FC<PropTypes> = (props): JSX.Element => {
   }
 
   return (
-    <DropdownWrapper menu={{ items, onClick }} trigger={['click']} {...restProps}>
+    <DropdownWrapper onOpenChange={() => onClick?.()} menu={{ items }} trigger={['click']} {...restProps}>
       <span className={!icon ? 'ellipsis-vertical' : ''}>
         <TooltipWrapper title={tooltipTitle ?? ''}>{icon || <MoreVertical />}</TooltipWrapper>
       </span>
