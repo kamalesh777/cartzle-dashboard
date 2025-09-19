@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { API_BASE_URL } from './src/constants/ApiConstant'
+import { API_BASE_URL, API_ROUTES } from './src/constants/ApiConstant'
 import { LOGIN_ROUTE } from './src/constants/AppConstant'
 import { fetchServerSide } from './src/utils/fetchServerSide'
 
@@ -28,7 +28,7 @@ interface ValidateTokenResponse extends CommonTypes {
 // validate the token from the server from the cookies access token
 const validateAuthToken = async (): Promise<ValidateTokenResponse> => {
   try {
-    const resp = await fetchServerSide('/user/validate-token')
+    const resp = await fetchServerSide(API_ROUTES['validate'])
     return resp
   } catch (error) {
     // Token validation error

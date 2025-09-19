@@ -3,6 +3,8 @@ import React from 'react'
 import { Input, Checkbox, Row, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
+import { useRouter } from 'next/navigation'
+
 import type { DataResponse } from 'src/types/common'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
@@ -20,6 +22,7 @@ interface ResultTypes {
 }
 
 const LoginComp = (): JSX.Element => {
+  const router = useRouter()
   const { submit, buttonLoading, isSuccess, data } = usePostRequestHandler<
     DataResponse<ResultTypes>,
     FormValueTypes
@@ -44,8 +47,7 @@ const LoginComp = (): JSX.Element => {
       })
 
       // Force a full page reload to ensure all data is properly loaded
-      window.location.href = '/'
-      // router.push('/')
+      router.push('/')
     }
   }
 

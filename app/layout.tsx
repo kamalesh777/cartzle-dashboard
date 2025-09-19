@@ -29,7 +29,7 @@ type Props = {
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
   const resp = await fetchServerSide(`${API_ROUTES['company-details']}`)
-  const result = (await resp?.result) || null
+  const result = resp?.result
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
@@ -48,7 +48,7 @@ const DashboardLayout = async ({ children }: PropsWithChildren): Promise<JSX.Ele
   // fetch company details on server side
   const resp = await fetchServerSide(`${API_ROUTES['company-details']}`)
 
-  const companyDetails = await resp?.result
+  const companyDetails = resp?.result
 
   return (
     <html lang="en" suppressHydrationWarning={true}>

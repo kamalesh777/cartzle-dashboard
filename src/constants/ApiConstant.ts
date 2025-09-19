@@ -41,6 +41,7 @@ export const API_ROUTES = {
 
   // USER LOGIN
   login: `${API_BASE_URL}/user/login`,
+  validate: `${API_BASE_URL}/user/validate-token`,
 
   // CREATE BRAND
   'brand-create': `${API_BASE_URL}/brand/create`,
