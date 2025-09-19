@@ -3,6 +3,14 @@ import { cookies } from 'next/headers'
 
 type Methods = 'get' | 'post' | 'put' | 'delete'
 
+/**
+ *
+ * @param endpoint - API endpoint | API_ROUTES
+ * @param method - HTTP method
+ * @param body - Request body
+ * @returns
+ */
+
 export const requestServerSide = async (
   endpoint: string,
   method: Methods = 'get',
