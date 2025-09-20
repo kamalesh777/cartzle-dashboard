@@ -6,7 +6,7 @@ import { Check, CircleMinus, GripVertical, X } from 'lucide-react'
 import { ReactSortable } from 'react-sortablejs'
 import { v4 as uuidv4 } from 'uuid'
 
-import type { LayoutCardTypes } from '../types'
+import type { ComponentStateTypes, LayoutCardTypes } from '../types'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper, TagWrapper } from '@/components/Wrapper'
 import IconWrapper, { type IconProps } from '@/components/Wrapper/IconWrapper'
@@ -15,26 +15,30 @@ import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
 import { layoutConfigArray } from '../static/layout-card'
 
-const LayoutCardComp = (): JSX.Element => {
+interface PropTypes {
+  page: string
+}
+
+const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
   // theme color
   const { token } = theme.useToken()
 
-  const [componentsState, setComponentsState] = React.useState<LayoutCardTypes[]>([])
+  const [componentsState, setComponentsState] = React.useState<ComponentStateTypes[]>([])
+
+  // component state handler
+  const componentStateHandler = (item: LayoutCardTypes, type: string): void => {
+    const { id: variant, label } = item
+    setComponentsState([...componentsState, { id: uuidv4(), variant, label, page, type }])
+  }
 
   // render children function
-  const renderChildren = (children: LayoutCardTypes[]): JSX.Element => {
+  const renderChildren = (children: LayoutCardTypes[], type: string): JSX.Element => {
     return (
       <Row gutter={8}>
         {children?.map((item, index) => (
           <ColWrapper span={6} key={index}>
             <CardWrapper
-              onClick={() =>
-                setComponentsState([
-                  ...componentsState,
-                  // id need unique
-                  { ...item, id: uuidv4() },
-                ])
-              }
+              onClick={() => componentStateHandler(item, type)}
               key={item.id}
               size="small"
               className="mb-2 cursor-pointer hover-card-border show"
@@ -111,7 +115,7 @@ const LayoutCardComp = (): JSX.Element => {
                     )}
                   </div>
                 ),
-                children: renderChildren(obj?.children || []),
+                children: renderChildren(obj?.children || [], obj?.id),
               },
             ]}
           />

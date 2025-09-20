@@ -41,7 +41,7 @@ const ThemeBuilder = (): JSX.Element => {
                   classNames: {
                     header: 'bg-white w-100 rounded-2',
                   },
-                  children: <LayoutCardComp />,
+                  children: <LayoutCardComp page={obj.id} />,
                   // extra: (
                   //   <SpaceWrapper size={8}>
                   //     <ButtonWrapper noStyle icon={<X className="error-color-on-hover" />} />
