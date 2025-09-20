@@ -404,6 +404,13 @@ label[for=media]:after {
 .hover-card-border:hover {
 	border-color: var(--primary-color);
 }
+.no-style {
+	padding: 0 !important;
+	height: auto !important;
+	margin: 0 !important;
+	border: none !important;
+	width: auto !important;
+}
 @media (max-width: 768px) {
 	header.ant-layout-header.fix-header {
 		width: 100%;

@@ -1,10 +1,16 @@
 .primary-color {
     color: var(--primary-color) !important;
 }
+.primary-color-on-hover:hover {
+    color: var(--primary-color) !important;
+}
 .primary-border-color {
     border-color: var(--primary-border-color) !important;
 }
 .primary-bg-color {
+    background-color: var(--primary-bg-color) !important;
+}
+.primary-bg-color-on-hover:hover {
     background-color: var(--primary-bg-color) !important;
 }
 
@@ -12,24 +18,42 @@
 .error-color {
     color: var(--error-color) !important;
 }
+.error-color-on-hover:hover {
+    color: var(--error-color) !important;
+}
 .error-color-bg {
     background-color: var(--error-color-bg) !important;
+}
+.error-bg-color-on-hover:hover {
+    background-color: var(--error-bg-color) !important;
 }
 
 // success color class
 .success-color {
     color: var(--success-color) !important;
 }
+.success-color-on-hover:hover {
+    color: var(--success-color) !important;
+}
 .success-color-bg {
     background-color: var(--success-color-bg) !important;
+}
+.success-bg-color-on-hover:hover {
+    background-color: var(--success-bg-color) !important;
 }
 
 // warning color class
 .warning-color {
     color: var(--warning-color) !important;
 }
+.warning-color-on-hover:hover {
+    color: var(--warning-color) !important;
+}
 .warning-color-bg {
     background-color: var(--warning-color-bg) !important;
+}
+.warning-bg-color-on-hover:hover {
+    background-color: var(--warning-bg-color) !important;
 }
 
 .bg-gray-100 {
