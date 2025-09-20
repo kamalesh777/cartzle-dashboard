@@ -141,6 +141,10 @@ tr.ant-table-expanded-row .ant-table-wrapper {
 .ant-collapse-header-text {
     line-height: 1;
 }
+.ant-btn {
+    gap: 4px !important;
+    padding-inline: 12px !important;
+}
 @media (max-width: 768px) {
     .ant-menu {
         font-size: 14px;

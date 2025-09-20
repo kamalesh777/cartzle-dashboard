@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Collapse, Form, Row, Tabs } from 'antd'
 
-import { PanelsTopLeft, Save, X } from 'lucide-react'
+import { PanelsTopLeft } from 'lucide-react'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
 
@@ -42,12 +42,12 @@ const ThemeBuilder = (): JSX.Element => {
                     header: 'bg-white w-100 rounded-2',
                   },
                   children: <LayoutCardComp />,
-                  extra: (
-                    <SpaceWrapper size={8}>
-                      <ButtonWrapper noStyle icon={<X className="error-color-on-hover" />} />
-                      <ButtonWrapper noStyle icon={<Save className="primary-color" />} />
-                    </SpaceWrapper>
-                  ),
+                  // extra: (
+                  //   <SpaceWrapper size={8}>
+                  //     <ButtonWrapper noStyle icon={<X className="error-color-on-hover" />} />
+                  //     <ButtonWrapper noStyle icon={<Save className="primary-color" />} />
+                  //   </SpaceWrapper>
+                  // ),
                 },
               ]}
             />
@@ -66,6 +66,7 @@ const ThemeBuilder = (): JSX.Element => {
                   <SelectWrapper
                     placeholder="Select Page"
                     placement="bottomLeft"
+                    style={{ width: '180px' }}
                     options={pagesArray.map(obj => ({ label: obj.label, value: obj.id }))}
                   />
                 ),

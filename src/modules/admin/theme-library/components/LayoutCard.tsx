@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Collapse, Row, theme } from 'antd'
 
-import { CircleMinus, GripVertical } from 'lucide-react'
+import { Check, CircleMinus, GripVertical, X } from 'lucide-react'
 import { ReactSortable } from 'react-sortablejs'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -49,9 +49,11 @@ const LayoutCardComp = (): JSX.Element => {
       </Row>
     )
   }
+  // sortable part
   return (
     <Row gutter={COMMON_ROW_GUTTER}>
       <ColWrapper span={10}>
+        {/* sortable start */}
         <ReactSortable list={componentsState} setList={setComponentsState}>
           {componentsState.map(item => (
             <CardWrapper
@@ -74,6 +76,19 @@ const LayoutCardComp = (): JSX.Element => {
             </CardWrapper>
           ))}
         </ReactSortable>
+        {/* sortable end */}
+        {componentsState.length > 0 && (
+          <SpaceWrapper size={12} className="position-absolute bottom-0">
+            <ButtonWrapper type="primary">
+              <Check />
+              Accept
+            </ButtonWrapper>
+            <ButtonWrapper danger>
+              <X />
+              Reject
+            </ButtonWrapper>
+          </SpaceWrapper>
+        )}
       </ColWrapper>
       <ColWrapper span={14}>
         {layoutConfigArray.map((obj, idx) => (
