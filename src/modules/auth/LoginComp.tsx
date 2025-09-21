@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { Input, Checkbox, Row, Alert } from 'antd'
+import { Input, Checkbox, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
 import { useRouter } from 'next/navigation'
 
 import type { DataResponse } from 'src/types/common'
 
-import { ButtonWrapper, CardWrapper, ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 import { usePostRequestHandler } from '@/hook/requestHandler'
 
@@ -52,45 +52,39 @@ const LoginComp = (): JSX.Element => {
   }
 
   return (
-    <div className="login-bg auth-container">
-      <Row justify="center" align="middle" className="h-100">
-        <ColWrapper md={7}>
-          <CardWrapper>
-            <h2 className="mb-3">Login Now!</h2>
+    <div className="login-form">
+      <h2 className="mb-3">Login Now!</h2>
 
-            <FormWrapper onFinish={formSubmitHandler}>
-              {!isSuccess && data?.message ? (
-                <Alert message={data?.message} type="error" showIcon className="my-3" />
-              ) : null}
+      <FormWrapper onFinish={formSubmitHandler}>
+        {!isSuccess && data?.message ? (
+          <Alert message={data?.message} type="error" showIcon className="my-3" />
+        ) : null}
 
-              <FormItemWrapper
-                label="Email / Mobile"
-                name="email"
-                rules={[{ required: true, message: 'Please input your username!' }]}
-              >
-                <InputWrapper />
-              </FormItemWrapper>
+        <FormItemWrapper
+          label="Email / Mobile"
+          name="email"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <InputWrapper />
+        </FormItemWrapper>
 
-              <FormItemWrapper
-                label="Password"
-                name="password"
-                rules={[{ required: true, message: 'Please input your password!' }]}
-              >
-                <Input.Password />
-              </FormItemWrapper>
+        <FormItemWrapper
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password />
+        </FormItemWrapper>
 
-              <FormItemWrapper name="remember" valuePropName="checked" label={null}>
-                <Checkbox>Remember me</Checkbox>
-              </FormItemWrapper>
-              <FormItemWrapper label={null}>
-                <ButtonWrapper type="primary" htmlType="submit" loading={buttonLoading}>
-                  Submit
-                </ButtonWrapper>
-              </FormItemWrapper>
-            </FormWrapper>
-          </CardWrapper>
-        </ColWrapper>
-      </Row>
+        <FormItemWrapper name="remember" valuePropName="checked" label={null}>
+          <Checkbox>Remember me</Checkbox>
+        </FormItemWrapper>
+        <FormItemWrapper label={null}>
+          <ButtonWrapper type="primary" htmlType="submit" loading={buttonLoading}>
+            Submit
+          </ButtonWrapper>
+        </FormItemWrapper>
+      </FormWrapper>
     </div>
   )
 }
