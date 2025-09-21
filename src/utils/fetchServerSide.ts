@@ -15,6 +15,7 @@ export const requestServerSide = async (
   endpoint: string,
   method: Methods = 'get',
   body?: any,
+  token?: string,
 ): Promise<any> => {
   try {
     const Cookies = await cookies()
@@ -30,18 +31,27 @@ export const requestServerSide = async (
 
     // check if searchQuery are present
     const paramsString = searchQuery.toString() ? `?${searchQuery.toString()}` : ''
+    const accessToken = token || Cookies.get('accessToken')?.value
+
+    if (!accessToken) {
+      return {
+        status: 401,
+        ok: false,
+        error: 'No token provided',
+      }
+    }
 
     const response = await fetch(`${endpoint}${paramsString}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Cookies.get('accessToken')?.value || ''}`,
+        Authorization: `Bearer ${accessToken || ''}`,
       },
       method,
       body: body ? JSON.stringify(body) : undefined,
+      cache: 'no-store',
     })
 
-    const data = await response.json().catch(() => ({}))
-
+    const data = await response.json()
     return {
       ...data,
       status: response.status,
@@ -56,4 +66,4 @@ export const requestServerSide = async (
   }
 }
 
-export const fetchServerSide = requestServerSide
+export const fetchServerSide = await requestServerSide

@@ -28,6 +28,7 @@ const ThemeWrapper = ({ children, companyDetails }: PropTypes): JSX.Element => {
   const pathname = usePathname()
   const isAuth = pathname.startsWith('/auth')
   const themeColor = companyDetails?.company?.themeColor ?? initialThemeConfig?.token?.colorPrimary
+
   useEffect(() => {
     if (companyDetails) {
       dispatch(applyCompanyData(companyDetails))

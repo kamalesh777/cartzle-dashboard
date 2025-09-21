@@ -24,7 +24,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-// export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({}: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // fetch data
@@ -43,11 +43,10 @@ export async function generateMetadata({}: Props, parent: ResolvingMetadata): Pr
     },
   }
 }
-export const dynamic = 'force-dynamic'
+
 const DashboardLayout = async ({ children }: PropsWithChildren): Promise<JSX.Element> => {
   // fetch company details on server side
   const resp = await fetchServerSide(`${API_ROUTES['company-details']}`)
-
   const companyDetails = resp?.result
 
   return (

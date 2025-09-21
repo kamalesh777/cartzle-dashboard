@@ -68,7 +68,6 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   // If token is invalid, try to refresh
   if ((response?.status === 401 || response?.status === 403) && pathname !== '/api/generate-token') {
     const data = await reGenerateToken()
-
     if (data?.success) {
       // Build the response with new cookies
       const newResponse = NextResponse.next()
