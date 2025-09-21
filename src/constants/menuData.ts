@@ -178,6 +178,12 @@ const menuData = [
             label: 'Theme Library',
             icon: 'layout-template',
           },
+          {
+            key: 'theme-library-edit',
+            path: `${SYSTEM_SETTINGS_ROUTE}/theme-library/:id`,
+            label: 'Theme Library',
+            isCollapse: true,
+          },
 
           // Account Settings
           {

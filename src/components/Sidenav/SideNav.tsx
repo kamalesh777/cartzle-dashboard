@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 
 import { Layout, Menu, Tag } from 'antd'
 
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { MenuProps } from 'antd'
 import type { dynamicIconImports } from 'lucide-react/dynamic'
 
+import type { MenuObject } from 'src/types/common'
+
 import { renderDynamicIcon } from '@/components/Wrapper/IconWrapper'
 import { type AppThunkDispatch, type RootState } from '@/store/index'
 
@@ -16,7 +18,8 @@ import { fetchSideNav } from '@/store/slices/navMenuSlice'
 import { getCurrentPath } from '@/utils/commonFunctions'
 
 import { NavLink } from '../Common'
-import { CircleRect } from '../Common/SkeletonLoader/ContentLoader'
+import { findMenuByPath } from './utils'
+import { TableContentLoaderWithProps } from '../Common/SkeletonLoader/ContentLoader'
 import LogoWrapper from '../Wrapper/LogoWrapper'
 
 const { Sider } = Layout
@@ -26,33 +29,39 @@ interface PropTypes {
   collapsed: boolean
   sidenavWidth?: number
   collapseWidth?: number
+  setCollapsed?: (param: boolean) => void
   setOpenDrawer?: (param: boolean) => void
 }
 
 type MenuItem = Required<MenuProps>['items'][number]
 type ObjType = 'group'
 
-const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: PropTypes): JSX.Element => {
+const SideNav = ({
+  collapsed,
+  sidenavWidth,
+  collapseWidth,
+  setOpenDrawer,
+  setCollapsed,
+}: PropTypes): JSX.Element => {
   const pathname = usePathname()
 
   const dispatch = useDispatch<AppThunkDispatch>()
   const menuState = useSelector((state: RootState) => state.menu)
+  const currentMenuObj = findMenuByPath(menuState.data as MenuObject[], pathname)
 
   useEffect(() => {
     void dispatch(fetchSideNav())
   }, [dispatch])
 
-  // console.log("menu==", menuState)
+  useLayoutEffect(() => {
+    if (currentMenuObj?.isCollapse) {
+      setCollapsed?.(true)
+    } else {
+      setCollapsed?.(false)
+    }
+  }, [currentMenuObj])
 
-  interface MenuObject {
-    label?: string
-    type?: string
-    path: string
-    notification: string
-    key: string
-    icon: string
-    children?: MenuObject[]
-  }
+  // console.log("menu==", menuState)
 
   function getMenuItemSelectedClass(obj: MenuObject, route: string, start: number, end: number): string {
     const isCurrentPath = getCurrentPath(route, start, end) === obj.path
@@ -111,7 +120,12 @@ const SideNav = ({ collapsed, sidenavWidth, collapseWidth, setOpenDrawer }: Prop
       </div>
       {menuState.loading ? (
         <div className="mx-3">
-          <CircleRect rowCounts={10} rectHeight={110} circleR={130} viewBox="-50 0 1400 350" />
+          <TableContentLoaderWithProps
+            rowHeight={200}
+            verticalGap={80}
+            rowCounts={15}
+            columnWidth={[20, '3', 75]}
+          />
         </div>
       ) : (
         <Menu

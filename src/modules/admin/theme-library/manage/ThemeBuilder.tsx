@@ -1,18 +1,18 @@
 'use client'
 import React from 'react'
 
-import { Collapse, Form, Row, Tabs } from 'antd'
+import { Collapse, Form, Row } from 'antd'
 
 import { PanelsTopLeft } from 'lucide-react'
 
-import { ButtonWrapper, CardWrapper, ColWrapper, SelectWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 // eslint-disable-next-line no-duplicate-imports
 import FormWrapper from '@/components/Wrapper/FormWrapper'
-import IconWrapper, { type IconProps } from '@/components/Wrapper/IconWrapper'
 
+import LayoutBuilder from '../components/LayoutBuilder'
 import LayoutCardComp from '../components/LayoutCard'
-import { tabsArray } from '../static/data'
+
 import { pagesArray } from '../static/layout-card'
 
 const ThemeBuilder = (): JSX.Element => {
@@ -57,28 +57,7 @@ const ThemeBuilder = (): JSX.Element => {
         {/* Page Builder */}
         <ColWrapper span={24}>
           <CardWrapper bottomBorderNone>
-            <Tabs
-              centered
-              className="builder-tabs"
-              defaultActiveKey="2"
-              tabBarExtraContent={{
-                left: (
-                  <SelectWrapper
-                    placeholder="Select Page"
-                    placement="bottomLeft"
-                    style={{ width: '180px' }}
-                    options={pagesArray.map(obj => ({ label: obj.label, value: obj.id }))}
-                  />
-                ),
-                right: <ButtonWrapper type="primary">Save</ButtonWrapper>,
-              }}
-              items={tabsArray.map(obj => {
-                return {
-                  ...obj,
-                  icon: <IconWrapper name={obj.icon as IconProps['name']} />,
-                }
-              })}
-            />
+            <LayoutBuilder />
           </CardWrapper>
         </ColWrapper>
       </Row>

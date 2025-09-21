@@ -42,10 +42,14 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
           placement="left"
           open={openDrawer}
         >
-          <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth, setOpenDrawer }} />
+          <SideNav
+            trigger={null}
+            collapsed={collapsed}
+            {...{ setCollapsed, sidenavWidth, collapseWidth, setOpenDrawer }}
+          />
         </Drawer>
       ) : (
-        <SideNav trigger={null} collapsed={collapsed} {...{ sidenavWidth, collapseWidth }} />
+        <SideNav trigger={null} collapsed={collapsed} {...{ setCollapsed, sidenavWidth, collapseWidth }} />
       )}
     </App>
   )

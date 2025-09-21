@@ -42,21 +42,18 @@ export const listData: ListDataTypes[] = [
 // tabs array
 export const tabsArray = [
   {
-    key: '1',
+    key: 'builder',
     label: 'Builder',
-    children: 'Builder',
     icon: 'square-pen',
   },
   {
-    key: '2',
+    key: 'preview',
     label: 'Preview',
-    children: 'Preview',
     icon: 'eye',
   },
   {
-    key: '3',
+    key: 'config',
     label: 'Config JSON',
-    children: 'Config JSON',
     icon: 'settings',
   },
 ]

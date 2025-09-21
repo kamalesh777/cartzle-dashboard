@@ -7,6 +7,7 @@ import DropdownWrapper from './DropdownWrapper'
 import EmailWrapper from './EmailWrapper'
 import EmptyWrapper from './EmptyWrapper'
 import FormItemWrapper from './FormItemWrapper'
+import IconWrapper from './IconWrapper'
 import InputNumberWrapper from './InputNumberWrapper'
 import InputSearchWrapper from './InputSearchWrapper'
 import InputWrapper from './InputWrapper'
@@ -44,4 +45,5 @@ export {
   SpaceWrapper,
   EmptyWrapper,
   CommonSortWrapper,
+  IconWrapper,
 }

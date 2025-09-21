@@ -14,3 +14,14 @@ export interface DataResponse<T = null> extends AxiosResponse {
   message?: string
   success: number
 }
+
+export interface MenuObject {
+  label?: string
+  type?: string
+  path: string
+  notification: string
+  key: string
+  icon: string
+  isCollapse?: boolean
+  children?: MenuObject[]
+}
