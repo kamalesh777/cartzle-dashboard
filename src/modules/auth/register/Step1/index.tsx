@@ -2,6 +2,8 @@ import React from 'react'
 
 import { type FormInstance, Input } from 'antd'
 
+import { MoveRight } from 'lucide-react'
+
 import {
   FormItemWrapper,
   InputWrapper,
@@ -52,7 +54,13 @@ const Step1Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
       </ColWrapper>
       <SubmitButtonWrapper
         okText="Next"
-        okButtonProps={{ loading: false, htmlType: 'button', onClick: () => formHandler() }}
+        okButtonProps={{
+          loading: false,
+          htmlType: 'button',
+          onClick: () => formHandler(),
+          icon: <MoveRight />,
+          iconPosition: 'end',
+        }}
         cancelButtonProps={{ onClick: () => closeModal?.() }}
         spaceClassName="justify-content-end w-100"
       />

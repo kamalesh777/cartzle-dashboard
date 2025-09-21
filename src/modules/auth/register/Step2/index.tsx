@@ -4,6 +4,8 @@ import { Form, type FormInstance, Input, Row } from 'antd'
 
 import { lowerCase } from 'lodash'
 
+import { MoveLeft, Save } from 'lucide-react'
+
 import {
   FormItemWrapper,
   InputWrapper,
@@ -90,10 +92,16 @@ const Step2Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
       </ColWrapper>
       <ColWrapper>
         <div className="w-100 d-flex justify-content-between">
-          <ButtonWrapper onClick={() => setCurrentStep(0)}>Back</ButtonWrapper>
+          <ButtonWrapper icon={<MoveLeft />} onClick={() => setCurrentStep(0)}>
+            Back
+          </ButtonWrapper>
           <SubmitButtonWrapper
             okText="Save"
-            okButtonProps={{ loading: buttonLoading, onClick: formSubmitHandler }}
+            okButtonProps={{
+              loading: buttonLoading,
+              onClick: formSubmitHandler,
+              icon: <Save />,
+            }}
             cancelButtonProps={{ onClick: () => closeModal() }}
           />
         </div>
