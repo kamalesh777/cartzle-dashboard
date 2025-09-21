@@ -9,7 +9,7 @@ const BuilderLayoutForm = (): JSX.Element => {
   return (
     <div className="builder-layout-form">
       <Row>
-        <ColWrapper span={6}>
+        <ColWrapper span={4}>
           <FormWrapper>
             <FormItemWrapper name="title">
               <InputWrapper />

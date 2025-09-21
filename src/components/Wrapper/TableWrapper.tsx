@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Button, Table, type TableColumnsType, type TableProps } from 'antd'
 
-import { MinusSquare, PlusSquare } from 'lucide-react'
+import { SquareMinus, SquarePlus } from 'lucide-react'
 
 import type { AnyObject } from 'antd/es/_util/type'
 
@@ -40,11 +40,11 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
           record?.parent ? (
             expanded ? (
               <Button onClick={e => onExpand(record, e)} type="text">
-                <MinusSquare className="fs-5 me-2 primary-color" />
+                <SquareMinus className="fs-5 me-2 primary-color" />
               </Button>
             ) : (
               <Button onClick={e => onExpand(record, e)} type="text">
-                <PlusSquare className="fs-5 me-2 primary-color" />
+                <SquarePlus className="fs-5 me-2 primary-color" />
               </Button>
             )
           ) : null,

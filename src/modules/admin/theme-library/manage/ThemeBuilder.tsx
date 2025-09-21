@@ -42,12 +42,6 @@ const ThemeBuilder = (): JSX.Element => {
                     header: 'bg-white w-100 rounded-2',
                   },
                   children: <LayoutCardComp page={obj.id} />,
-                  // extra: (
-                  //   <SpaceWrapper size={8}>
-                  //     <ButtonWrapper noStyle icon={<X className="error-color-on-hover" />} />
-                  //     <ButtonWrapper noStyle icon={<Save className="primary-color" />} />
-                  //   </SpaceWrapper>
-                  // ),
                 },
               ]}
             />

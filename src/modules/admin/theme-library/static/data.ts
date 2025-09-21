@@ -57,3 +57,48 @@ export const tabsArray = [
     icon: 'settings',
   },
 ]
+
+export const layoutJson = {
+  home: {
+    sections: [
+      {
+        type: 'category',
+        variant: 'grid',
+        props: {
+          title: 'Shop by Category',
+          categories: [
+            { id: 1, name: 'Furniture', image: '/cat-furniture.jpg', link: '/category/furniture' },
+            { id: 2, name: 'Lighting', image: '/cat-lighting.jpg', link: '/category/lighting' },
+            { id: 3, name: 'Decor', image: '/cat-decor.jpg', link: '/category/decor' },
+          ],
+          columns: 3,
+        },
+      },
+      {
+        type: 'category',
+        variant: 'circle-icons',
+        props: {
+          title: 'Popular Categories',
+          categories: [
+            { id: 1, name: 'Men', image: '/cat-men.png', link: '/category/men' },
+            { id: 2, name: 'Women', image: '/cat-women.png', link: '/category/women' },
+            { id: 3, name: 'Kids', image: '/cat-kids.png', link: '/category/kids' },
+          ],
+        },
+      },
+      {
+        type: 'category',
+        variant: 'slider',
+        props: {
+          title: 'Browse Categories',
+          categories: [
+            { id: 1, name: 'Shoes', image: '/cat-shoes.jpg', link: '/category/shoes' },
+            { id: 2, name: 'Bags', image: '/cat-bags.jpg', link: '/category/bags' },
+            { id: 3, name: 'Accessories', image: '/cat-accessories.jpg', link: '/category/accessories' },
+          ],
+          slidesPerView: 4,
+        },
+      },
+    ],
+  },
+}

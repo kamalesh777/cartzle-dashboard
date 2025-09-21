@@ -2,27 +2,29 @@ import React from 'react'
 
 import { Tabs } from 'antd'
 
+import { Save } from 'lucide-react'
+
 import type { IconProps } from '@/components/Wrapper/IconWrapper'
 
 import { SelectWrapper, ButtonWrapper, IconWrapper } from '@/components/Wrapper'
 
 import BuilderConfig from './BuilderConfig'
-import BuilderComp from './BuilderLayoutForm'
+import BuilderLayoutForm from './BuilderLayoutForm'
 import BuilderPreview from './BuilderPreview'
 import { tabsArray } from '../static/data'
 import { pagesArray } from '../static/layout-card'
 
 const LayoutBuilder = (): JSX.Element => {
-  const renderChildren = (key: string): JSX.Element => {
+  const renderChildren = (key: string): JSX.Element | null => {
     switch (key) {
       case 'builder':
-        return <BuilderComp />
+        return <BuilderLayoutForm />
       case 'preview':
         return <BuilderPreview />
       case 'config':
         return <BuilderConfig />
       default:
-        return <BuilderComp />
+        return null
     }
   }
   return (
@@ -39,7 +41,11 @@ const LayoutBuilder = (): JSX.Element => {
             options={pagesArray.map(obj => ({ label: obj.label, value: obj.id }))}
           />
         ),
-        right: <ButtonWrapper type="primary">Save</ButtonWrapper>,
+        right: (
+          <ButtonWrapper icon={<Save />} type="primary">
+            Save
+          </ButtonWrapper>
+        ),
       }}
       items={tabsArray.map(obj => {
         return {
