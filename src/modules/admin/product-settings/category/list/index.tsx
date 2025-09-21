@@ -100,7 +100,10 @@ const CategoryCard = (): JSX.Element => {
         <TableWrapper
           title={() => ACTION_COMP}
           columns={columns}
-          dataSource={data || []}
+          dataSource={data?.map(obj => ({
+            ...obj,
+            parent: obj?.unitGroups?.length,
+          }))}
           locale={{
             emptyText: (
               <EmptyContentWithLoading entity="Categories" isLoading={isLoading} columns={[30, 40, 30]} />

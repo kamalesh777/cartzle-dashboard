@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Table, type TableColumnsType, type TableProps } from 'antd'
+import { Table, type TableColumnsType, type TableProps } from 'antd'
 
 import { SquareMinus, SquarePlus } from 'lucide-react'
 
@@ -8,6 +8,8 @@ import type { AnyObject } from 'antd/es/_util/type'
 
 import { EMPTY_PLACEHOLDER } from '@/constants/AppConstant'
 import useDevice from '@/hook/useDevice'
+
+import ButtonWrapper from './ButtonWrapper'
 
 // type AnyObject = Record<string, unknown>
 
@@ -39,13 +41,13 @@ const TableWrapper = <T extends AnyObject>(props: CustomTableProps<T>): JSX.Elem
         expandIcon: ({ expanded, onExpand, record }) =>
           record?.parent ? (
             expanded ? (
-              <Button onClick={e => onExpand(record, e)} type="text">
-                <SquareMinus className="fs-5 me-2 primary-color" />
-              </Button>
+              <ButtonWrapper onClick={e => onExpand(record, e)} noStyle>
+                <SquareMinus className="primary-color mt-2 lucide-icon-1-3" />
+              </ButtonWrapper>
             ) : (
-              <Button onClick={e => onExpand(record, e)} type="text">
-                <SquarePlus className="fs-5 me-2 primary-color" />
-              </Button>
+              <ButtonWrapper onClick={e => onExpand(record, e)} noStyle>
+                <SquarePlus className="primary-color mt-2 lucide-icon-1-3" />
+              </ButtonWrapper>
             )
           ) : null,
       }}
