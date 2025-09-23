@@ -30,7 +30,7 @@ const SubmitButtonWrapper = ({
       >
         {okText || 'Save'}
       </ButtonWrapper>
-      <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>
+      {cancelText !== null && <ButtonWrapper {...cancelButtonProps}>{cancelText || 'Cancel'}</ButtonWrapper>}
     </SpaceWrapper>
   )
 }

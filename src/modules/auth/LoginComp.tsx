@@ -3,6 +3,8 @@ import React from 'react'
 import { Input, Checkbox, Alert } from 'antd'
 import Cookies from 'js-cookie'
 
+import { MoveRight } from 'lucide-react'
+
 import type { DataResponse } from 'src/types/common'
 
 import { ButtonWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
@@ -77,8 +79,14 @@ const LoginComp = (): JSX.Element => {
           <Checkbox>Remember me</Checkbox>
         </FormItemWrapper>
         <FormItemWrapper label={null}>
-          <ButtonWrapper type="primary" htmlType="submit" loading={buttonLoading}>
-            Submit
+          <ButtonWrapper
+            type="primary"
+            htmlType="submit"
+            loading={buttonLoading}
+            icon={<MoveRight />}
+            iconPosition="end"
+          >
+            Login
           </ButtonWrapper>
         </FormItemWrapper>
       </FormWrapper>

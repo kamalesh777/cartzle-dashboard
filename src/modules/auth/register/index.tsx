@@ -35,7 +35,7 @@ const RegisterComp = ({ setOpenModal }: ModalPropTypes<never>): JSX.Element => {
       content: <Step2Content {...{ setCurrentStep, form, closeModal }} />,
     },
     {
-      title: 'Ready!',
+      title: 'Ready',
       description: <p className="fs-7">Almost there!</p>,
       key: 'step_3',
       content: <Step3Content {...{ form, currentStep }} />,

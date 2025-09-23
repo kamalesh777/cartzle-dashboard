@@ -4,6 +4,8 @@ import { type FormInstance, Input } from 'antd'
 
 import { MoveRight } from 'lucide-react'
 
+import { usePathname } from 'next/navigation'
+
 import {
   FormItemWrapper,
   InputWrapper,
@@ -16,10 +18,11 @@ import { requiredWithWhitspcFieldRules, requiredFieldRules } from '@/constants/A
 interface PropTypes {
   form?: FormInstance
   setCurrentStep: (param: number) => void
-  closeModal: () => void
+  closeModal?: () => void
 }
 
 const Step1Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Element => {
+  const pathName = usePathname()
   const formHandler = (): void => {
     form
       ?.validateFields([
@@ -61,6 +64,7 @@ const Step1Content = ({ form, setCurrentStep, closeModal }: PropTypes): JSX.Elem
           icon: <MoveRight />,
           iconPosition: 'end',
         }}
+        cancelText={pathName === '/auth/register-company' ? null : 'Cancel'}
         cancelButtonProps={{ onClick: () => closeModal?.() }}
         spaceClassName="justify-content-end w-100"
       />
