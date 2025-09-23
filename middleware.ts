@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { API_BASE_URL, API_ROUTES } from './src/constants/ApiConstant'
-import { AUTH_PATHS, LOGIN_ROUTE } from './src/constants/AppConstant'
+import { AUTH_PATHS } from './src/constants/AppConstant'
 import { fetchServerSide } from './src/utils/fetchServerSide'
 
 interface CommonTypes {
@@ -92,12 +92,16 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   // If token is invalid after refresh attempt
   if (!isSuccess && !AUTH_PATHS.includes(pathname)) {
-    return NextResponse.redirect(new URL(LOGIN_ROUTE, request.url))
+    // eslint-disable-next-line no-console
+    console.log('==token is invalid after refresh attempt')
+    // return NextResponse.redirect(new URL(LOGIN_ROUTE, request.url))
   }
 
   // If already logged in but on login page, redirect to home
   if (isSuccess && AUTH_PATHS.includes(pathname)) {
-    return NextResponse.redirect(new URL('/', request.url))
+    // eslint-disable-next-line no-console
+    console.log('==already logged in but on login page')
+    // return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()
