@@ -2,11 +2,11 @@ import React from 'react'
 
 import { Tabs } from 'antd'
 
-import { Save } from 'lucide-react'
+import { MenuIcon, Save } from 'lucide-react'
 
 import type { IconProps } from '@/components/Wrapper/IconWrapper'
 
-import { SelectWrapper, ButtonWrapper, IconWrapper } from '@/components/Wrapper'
+import { ButtonWrapper, IconWrapper, DropdownWrapper } from '@/components/Wrapper'
 
 import BuilderConfig from './BuilderConfig'
 import BuilderLayoutForm from './BuilderLayoutForm'
@@ -34,15 +34,16 @@ const LayoutBuilder = (): JSX.Element => {
       defaultActiveKey="2"
       tabBarExtraContent={{
         left: (
-          <SelectWrapper
-            placeholder="Select Page"
-            placement="bottomLeft"
-            style={{ width: '180px' }}
-            options={pagesArray.map(obj => ({ label: obj.label, value: obj.id }))}
-          />
+          <DropdownWrapper
+            menu={{ items: pagesArray.map(obj => ({ label: obj.label, key: obj.id })) }}
+            trigger={['click']}
+            overlayStyle={{ minWidth: '180px' }}
+          >
+            <MenuIcon className="me-3 lucide-icon-1-3" />
+          </DropdownWrapper>
         ),
         right: (
-          <ButtonWrapper icon={<Save />} type="primary">
+          <ButtonWrapper size="small" icon={<Save />} type="primary">
             Save
           </ButtonWrapper>
         ),

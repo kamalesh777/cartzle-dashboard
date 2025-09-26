@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from 'react'
 
 import { Layout, Menu, Tag } from 'antd'
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
 // eslint-disable-next-line no-duplicate-imports
@@ -44,6 +44,7 @@ const SideNav = ({
   setCollapsed,
 }: PropTypes): JSX.Element => {
   const pathname = usePathname()
+  const router = useRouter()
 
   const dispatch = useDispatch<AppThunkDispatch>()
   const menuState = useSelector((state: RootState) => state.menu)
@@ -73,34 +74,43 @@ const SideNav = ({
     return ''
   }
 
-  const mapMenuItems = (menuArray: MenuObject[], loopCount = 2): MenuItem[] => {
-    return menuArray.map(obj => {
-      return {
-        type: obj.type as ObjType,
-        label:
-          obj.type === 'group' ? (
-            obj.label
-          ) : (
-            <NavLink href={obj?.path ?? '#'}>
-              {obj.label}
-              {obj?.notification != null ? (
-                <Tag color="#B06AB3" className="m-0">
-                  {obj.notification}
-                </Tag>
-              ) : null}
-            </NavLink>
-          ),
+  const linkHandler = (obj: MenuObject): void => {
+    setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600)
+    if (obj?.path) {
+      router.push(obj.path)
+    }
+  }
 
-        icon: renderDynamicIcon({
-          name: obj.icon as keyof typeof dynamicIconImports,
-          className: 'lucide-icon-1-4 primary-color',
-        }),
-        key: obj.key,
-        className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
-        children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
-        onClick: () => setOpenDrawer && setTimeout(() => setOpenDrawer(false), 600),
-      }
-    })
+  const mapMenuItems = (menuArray: MenuObject[], loopCount = 2): MenuItem[] => {
+    return menuArray
+      ?.filter(item => item.label)
+      .map(obj => {
+        return {
+          type: obj.type as ObjType,
+          label:
+            obj.type === 'group' ? (
+              obj.label
+            ) : (
+              <NavLink href={obj?.path ?? '#'}>
+                {obj.label}
+                {obj?.notification != null ? (
+                  <Tag color="#B06AB3" className="m-0">
+                    {obj.notification}
+                  </Tag>
+                ) : null}
+              </NavLink>
+            ),
+
+          icon: renderDynamicIcon({
+            name: obj.icon as keyof typeof dynamicIconImports,
+            className: 'lucide-icon-1-4 primary-color',
+          }),
+          key: obj.key,
+          className: getMenuItemSelectedClass(obj, pathname, 0, loopCount),
+          children: obj.children ? mapMenuItems(obj.children, 3) : undefined,
+          onClick: () => linkHandler(obj),
+        }
+      })
   }
 
   const menuItems = mapMenuItems(menuState.data as MenuObject[])

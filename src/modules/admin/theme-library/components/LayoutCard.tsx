@@ -13,6 +13,8 @@ import IconWrapper, { type IconProps } from '@/components/Wrapper/IconWrapper'
 
 import { COMMON_ROW_GUTTER } from '@/constants/AppConstant'
 
+import useDevice from '@/hook/useDevice'
+
 import { layoutConfigArray } from '../static/layout-card'
 
 interface PropTypes {
@@ -22,6 +24,7 @@ interface PropTypes {
 const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
   // theme color
   const { token } = theme.useToken()
+  const { isMobileDevice } = useDevice()
 
   const [componentsState, setComponentsState] = React.useState<ComponentStateTypes[]>([])
 
@@ -36,7 +39,7 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
     return (
       <Row gutter={8}>
         {children?.map((item, index) => (
-          <ColWrapper span={6} key={index}>
+          <ColWrapper md={6} key={index}>
             <CardWrapper
               onClick={() => componentStateHandler(item, type)}
               key={item.id}
@@ -56,7 +59,7 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
   // sortable part
   return (
     <Row gutter={COMMON_ROW_GUTTER}>
-      <ColWrapper span={10}>
+      <ColWrapper md={10} order={isMobileDevice ? 2 : 1}>
         {/* sortable start */}
         <ReactSortable list={componentsState} setList={setComponentsState}>
           {componentsState.map(item => (
@@ -64,6 +67,7 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
               key={item.id}
               size="small"
               className="mb-2 hover-card-border bg-gray-100 show cursor-move"
+              styles={{ body: { padding: '8px' } }}
             >
               <div className="w-100 d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
@@ -80,21 +84,24 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
             </CardWrapper>
           ))}
         </ReactSortable>
+
         {/* sortable end */}
         {componentsState.length > 0 && (
-          <SpaceWrapper size={12} className="position-absolute bottom-0">
-            <ButtonWrapper type="primary">
-              <Check />
-              Accept
-            </ButtonWrapper>
-            <ButtonWrapper danger>
-              <X />
-              Reject
-            </ButtonWrapper>
-          </SpaceWrapper>
+          <div className="mt-5">
+            <SpaceWrapper size={12} className="position-absolute bottom-0">
+              <ButtonWrapper type="primary" size="small">
+                <Check />
+                Accept
+              </ButtonWrapper>
+              <ButtonWrapper danger size="small">
+                <X />
+                Reject
+              </ButtonWrapper>
+            </SpaceWrapper>
+          </div>
         )}
       </ColWrapper>
-      <ColWrapper span={14}>
+      <ColWrapper md={14} order={isMobileDevice ? 1 : 2}>
         {layoutConfigArray.map((obj, idx) => (
           <Collapse
             key={idx}
