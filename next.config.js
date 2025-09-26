@@ -2,7 +2,6 @@
 
 const nextConfig = {
   reactStrictMode: false,
-  swcMinify: true,
   devIndicators: false,
   async redirects() {
     return [
