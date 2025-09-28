@@ -2,15 +2,22 @@ import React from 'react'
 
 import { Row } from 'antd'
 
+// eslint-disable-next-line no-duplicate-imports
+import type { FormInstance } from 'antd'
+
 import { ColWrapper, FormItemWrapper, InputWrapper } from '@/components/Wrapper'
 import FormWrapper from '@/components/Wrapper/FormWrapper'
 
-const BuilderLayoutForm = (): JSX.Element => {
+interface PropTypes {
+  form: FormInstance
+}
+
+const BuilderLayoutForm = ({ form }: PropTypes): JSX.Element => {
   return (
     <div className="builder-layout-form">
       <Row>
         <ColWrapper span={4}>
-          <FormWrapper>
+          <FormWrapper form={form}>
             <FormItemWrapper name="title">
               <InputWrapper />
             </FormItemWrapper>

@@ -89,7 +89,11 @@ const SideNav = ({
           type: obj.type as ObjType,
           label:
             obj.type === 'group' ? (
-              obj.label
+              !collapsed ? (
+                obj.label
+              ) : (
+                ''
+              )
             ) : (
               <NavLink href={obj?.path ?? '#'}>
                 {obj.label}

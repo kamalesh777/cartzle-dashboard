@@ -434,7 +434,12 @@ label[for=media]:after {
   .bg-transition-3 {
 	animation-duration:5s;
   }
-  
+  .component-footer {
+	position: absolute;
+	bottom: 0;
+	width: calc(100% - 20px);
+	justify-content: space-between;
+  }
   @keyframes slide {
 	0% {
 	  transform:translateX(-25%);

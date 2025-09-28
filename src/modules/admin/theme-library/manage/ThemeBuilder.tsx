@@ -5,7 +5,7 @@ import { Collapse, Form, Row } from 'antd'
 
 import { PanelsTopLeft } from 'lucide-react'
 
-import { CardWrapper, ColWrapper, SpaceWrapper } from '@/components/Wrapper'
+import { CardWrapper, ColWrapper, FormItemWrapper, SpaceWrapper } from '@/components/Wrapper'
 
 // eslint-disable-next-line no-duplicate-imports
 import FormWrapper from '@/components/Wrapper/FormWrapper'
@@ -41,7 +41,11 @@ const ThemeBuilder = (): JSX.Element => {
                   classNames: {
                     header: 'bg-white w-100 rounded-2',
                   },
-                  children: <LayoutCardComp page={obj.id} />,
+                  children: (
+                    <FormItemWrapper name="components" noStyle>
+                      <LayoutCardComp page={obj.id} form={form} />
+                    </FormItemWrapper>
+                  ),
                 },
               ]}
             />
@@ -51,7 +55,7 @@ const ThemeBuilder = (): JSX.Element => {
         {/* Page Builder */}
         <ColWrapper span={24}>
           <CardWrapper bottomBorderNone>
-            <LayoutBuilder />
+            <LayoutBuilder form={form} />
           </CardWrapper>
         </ColWrapper>
       </Row>

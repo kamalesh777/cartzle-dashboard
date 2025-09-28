@@ -21,7 +21,7 @@ const LayoutWrapper = ({ children }: LayoutProps): JSX.Element => {
   }
 
   const sidenavWidth = 280
-  const collapseWidth = 80
+  const collapseWidth = 60
   // if it is mobile device then margin width will be 0 otherwise it will check for collapsed value and return respective value
   const marginWidth = isMobileDevice ? 0 : collapsed ? collapseWidth : sidenavWidth
 

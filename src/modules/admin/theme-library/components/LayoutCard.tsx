@@ -2,11 +2,13 @@ import React from 'react'
 
 import { Collapse, Row, theme } from 'antd'
 
-import { Check, CircleMinus, GripVertical, X } from 'lucide-react'
+import { Check, CircleMinus, GripVertical } from 'lucide-react'
 import { ReactSortable } from 'react-sortablejs'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { ComponentStateTypes, LayoutCardTypes } from '../types'
+// eslint-disable-next-line no-duplicate-imports
+import type { FormInstance } from 'antd'
 
 import { ButtonWrapper, CardWrapper, ColWrapper, SpaceWrapper, TagWrapper } from '@/components/Wrapper'
 import IconWrapper, { type IconProps } from '@/components/Wrapper/IconWrapper'
@@ -19,9 +21,10 @@ import { layoutConfigArray } from '../static/layout-card'
 
 interface PropTypes {
   page: string
+  form: FormInstance
 }
 
-const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
+const LayoutCardComp = ({ page, form }: PropTypes): JSX.Element => {
   // theme color
   const { token } = theme.useToken()
   const { isMobileDevice } = useDevice()
@@ -32,6 +35,11 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
   const componentStateHandler = (item: LayoutCardTypes, type: string): void => {
     const { id: variant, label } = item
     setComponentsState([...componentsState, { id: uuidv4(), variant, label, page, type }])
+  }
+
+  // accept handler
+  const acceptHandler = (): void => {
+    form.setFieldsValue({ components: componentsState })
   }
 
   // render children function
@@ -88,14 +96,11 @@ const LayoutCardComp = ({ page }: PropTypes): JSX.Element => {
         {/* sortable end */}
         {componentsState.length > 0 && (
           <div className="mt-5">
-            <SpaceWrapper size={12} className="position-absolute bottom-0">
-              <ButtonWrapper type="primary" size="small">
+            <SpaceWrapper size={12} className="component-footer">
+              <ButtonWrapper size="small">Cancel</ButtonWrapper>
+              <ButtonWrapper type="primary" size="small" onClick={acceptHandler}>
                 <Check />
                 Accept
-              </ButtonWrapper>
-              <ButtonWrapper danger size="small">
-                <X />
-                Reject
               </ButtonWrapper>
             </SpaceWrapper>
           </div>
