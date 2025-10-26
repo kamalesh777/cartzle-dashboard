@@ -83,7 +83,7 @@ async function handleRequest(request: Request): Promise<Response> {
     // Catch any other errors (e.g., 500 or network-related)
     return responseHandler(
       {
-        message: ERROR_MSG,
+        message: (error as Error)?.message || ERROR_MSG,
         ...(axiosResponse?.data || {}),
       },
       axiosResponse?.status || 500,
